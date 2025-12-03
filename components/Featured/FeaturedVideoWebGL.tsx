@@ -21,21 +21,24 @@ import HomeReelVideoWatchButton from "../ui/HomeReelVideoWatchButton";
  */
 
 interface FeaturedVideoWebGLProps {
+  /** @deprecated - kept for API compatibility */
   topkeyframe?: string;
   className?: string;
   playerClassName?: string;
   playerId?: string;
+  /** @deprecated - kept for API compatibility */
   scrollToOverrideId?: string;
+  /** @deprecated - kept for API compatibility */
   refForward?: React.RefObject<HTMLElement | null>;
 }
 
 const FeaturedVideoWebGL = ({
-  topkeyframe,
+  topkeyframe: _topkeyframe,
   className,
   playerClassName,
   playerId,
-  scrollToOverrideId,
-  refForward,
+  scrollToOverrideId: _scrollToOverrideId,
+  refForward: _refForward,
 }: FeaturedVideoWebGLProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
@@ -49,7 +52,7 @@ const FeaturedVideoWebGL = ({
   // Framer Motion scroll tracking
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 80%", "end 20%"],
+    offset: ["start 80%", "end 80%"],
   });
 
   // Smooth the progress for buttery animation
@@ -122,6 +125,20 @@ const FeaturedVideoWebGL = ({
     [0.15, 0.15, 0.4, 0.3, 0.2]
   );
 
+  // Box shadow derived from shadow opacity - MUST be at top level, not inside JSX
+  const boxShadow = useTransform(
+    shadowOpacity,
+    (opacity) => `0 40px 80px rgba(0, 0, 0, ${opacity}), 0 20px 40px rgba(0, 0, 0, ${opacity * 0.6})`
+  );
+
+  // Horizontal position: animate from left-aligned to centered as video expands
+  // This prevents video from cutting off screen during expansion
+  const x = useTransform(
+    smoothProgress,
+    [0, 0.15, 0.5, 0.75],
+    ["0vw", "0vw", "5vw", "0vw"]
+  );
+
   // Track scroll progress for PLAY REEL visibility
   useMotionValueEvent(scrollYProgress, "change", (value) => {
     setShowPlayReel(value > 0.65);
@@ -179,15 +196,16 @@ const FeaturedVideoWebGL = ({
     <div 
       ref={containerRef} 
       className="relative w-full"
-      style={{ height: "280vh" }}
+      style={{ height: "200vh" }}
     >
       {/* Sticky container - keeps video in viewport during scroll */}
       <div
-        className="sticky w-full flex justify-start"
+        className="sticky w-full flex items-start"
         style={{
           top: "8vh",
           height: "85vh",
           paddingLeft: "5vw",
+          paddingRight: "5vw",
           perspective: "1200px",
           perspectiveOrigin: "center center",
         }}
@@ -197,13 +215,14 @@ const FeaturedVideoWebGL = ({
           className={`relative ${className ?? ""}`}
           style={{
             width,
+            x,
             y,
             rotateX,
             rotateY,
             skewY,
             scale,
             transformStyle: "preserve-3d",
-            transformOrigin: "left center",
+            transformOrigin: "center center",
             zIndex: 20,
             willChange: "transform, width",
           }}
@@ -241,10 +260,7 @@ const FeaturedVideoWebGL = ({
               style={{ 
                 aspectRatio: "2.1 / 1", // Wider to crop black bars from video
                 borderRadius,
-                boxShadow: useTransform(
-                  shadowOpacity,
-                  (opacity) => `0 40px 80px rgba(0, 0, 0, ${opacity}), 0 20px 40px rgba(0, 0, 0, ${opacity * 0.6})`
-                ),
+                boxShadow,
               }}
             >
               {/* Native HTML5 video element - scaled to crop letterboxing */}

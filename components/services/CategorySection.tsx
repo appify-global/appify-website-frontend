@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, ReactElement } from "react";
+import Image from "next/image";
 import { Category, ServiceCategory } from "@/lib/data/services";
 import ServiceLink from "./ServiceLink";
 
@@ -39,7 +40,7 @@ const ProgressBar = ({ progress = 0.8 }: { progress?: number }) => (
 
 // Category icon shapes from Figma
 const CategoryIcon = ({ categoryId }: { categoryId: ServiceCategory }) => {
-  const iconPaths: Record<ServiceCategory, JSX.Element> = {
+  const iconPaths: Record<ServiceCategory, ReactElement> = {
     strategy: (
       <svg viewBox="0 0 132 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
         <path d="M0 0H132V35H66V70H132V105H66V140H132V175H0V140H66V105H0V70H66V35H0V0Z" fill="#2B2E3A"/>
@@ -146,10 +147,11 @@ const CategorySection = ({ category, index }: CategorySectionProps) => {
 
           {/* Image placeholder */}
           <div className="relative w-full aspect-video lg:aspect-[16/9] rounded-xl lg:rounded-2xl overflow-hidden bg-[#E4E6EF]">
-            <img
+            <Image
               src={categoryImages[category.id]}
               alt={`${category.label} services`}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
             />
           </div>
 

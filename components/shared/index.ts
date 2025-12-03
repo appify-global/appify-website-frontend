@@ -16,4 +16,7 @@ export { default as Footer } from "../Footer/Footer";
 export { default as DotButton } from "../ui/DotButton";
 export { default as Button } from "../ui/Button";
 
+// Re-export shared icons
+export { PlusIcon, PlusIconRow } from "../Icons/PlusIcon";
+
 

@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useEffect } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "@/hooks/useLenis";
@@ -33,8 +34,23 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
     if (!card) return;
     const s = state.current;
 
+    // Define loop inside the effect to avoid variable hoisting issues
+    function loop() {
+      const result = compute_hover(s.targetX, s.targetY, s.currentX, s.currentY, s.hovered);
+      s.currentX = result.tx;
+      s.currentY = result.ty;
+
+      if (imgRef.current) {
+        imgRef.current.style.transform = `translate3d(${result.tx}px, ${result.ty}px, 0) rotateX(${result.rx}deg) rotateY(${result.ry}deg) scale(${result.scale})`;
+      }
+
+      const atRest = Math.abs(s.currentX - s.targetX) < 0.05 && Math.abs(s.currentY - s.targetY) < 0.05;
+      if (!atRest || s.hovered) s.raf = requestAnimationFrame(loop);
+      else s.raf = 0;
+    }
+
     function onMove(e: MouseEvent) {
-      //@ts-ignore
+      // @ts-expect-error - card is checked above but TS doesn't narrow inside nested function
       const rect = card.getBoundingClientRect();
       const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
       const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
@@ -75,21 +91,6 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
     };
   }, []);
 
-  function loop() {
-    const s = state.current;
-    const result = compute_hover(s.targetX, s.targetY, s.currentX, s.currentY, s.hovered);
-    s.currentX = result.tx;
-    s.currentY = result.ty;
-
-    if (imgRef.current) {
-      imgRef.current.style.transform = `translate3d(${result.tx}px, ${result.ty}px, 0) rotateX(${result.rx}deg) rotateY(${result.ry}deg) scale(${result.scale})`;
-    }
-
-    const atRest = Math.abs(s.currentX - s.targetX) < 0.05 && Math.abs(s.currentY - s.targetY) < 0.05;
-    if (!atRest || s.hovered) s.raf = requestAnimationFrame(loop);
-    else s.raf = 0;
-  }
-
   useEffect(() => {
     const card = cardRef.current;
     if (!card || !lenis) return;
@@ -129,7 +130,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
       <div className="h-full overflow-hidden transform-gpu transition-shadow duration-300">
         <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden">
           <div ref={imgRef} className="absolute inset-0" style={{ transformOrigin: "center" }}>
-            <img src={imageUrl} alt={title} className="w-full h-full object-cover" draggable={false} />
+            <Image src={imageUrl} alt={title} fill className="object-cover" draggable={false} />
           </div>
         </div>
         <div className="py-4 sm:py-5 md:py-6">

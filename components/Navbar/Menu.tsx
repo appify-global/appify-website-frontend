@@ -1,7 +1,8 @@
 import { useSpring, a } from "@react-spring/web";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
 
 interface MenuProps {
   open: boolean;
@@ -10,18 +11,20 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const handleChildClick = (event: MouseEvent | TouchEvent) => {
+  const pathname = usePathname();
+  
+  const handleChildClick = useCallback((event: MouseEvent | TouchEvent) => {
     if (ref.current && !ref.current?.contains(event.target as Node)) {
       onOutsideClick(event);
     }
-  };
+  }, [onOutsideClick]);
 
   useEffect(() => {
     document.addEventListener("click", handleChildClick);
     return () => {
       document.removeEventListener("click", handleChildClick);
     };
-  }, []);
+  }, [handleChildClick]);
 
   const [contents, contentsApi] = useSpring(() => ({
     from: { y: 100, opacity: 0, transform: "rotate(20deg)" },
@@ -30,18 +33,30 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
   const [news, newsApi] = useSpring(() => ({
     from: { y: 100, opacity: 0, transform: "rotate(-20deg)" },
   }));
-  const [hidden, setHidden] = useState(true);
+  // Track whether we're in a closing animation (delayed hide)
+  const [isClosing, setIsClosing] = useState(false);
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const prevOpenRef = useRef(open);
+  
   useEffect(() => {
-
-    if (open == false) {
-      setTimeout(() => {
-        setHidden(false);
-      }
-        , 500);
-    } else {
-      setHidden(true)
+    // Clear any existing timeout
+    if (hideTimeoutRef.current) {
+      clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = null;
     }
 
+    // Only handle closing transition - no setState when opening
+    // because `open` prop already controls visibility
+    if (!open && prevOpenRef.current) {
+      // Start closing: use setTimeout to avoid synchronous setState
+      setTimeout(() => setIsClosing(true), 0);
+      hideTimeoutRef.current = setTimeout(() => {
+        setIsClosing(false);
+      }, 500);
+    }
+    
+    prevOpenRef.current = open;
+    
     contentsApi.start({
       y: open ? 0 : 100,
       opacity: open ? 1 : 0,
@@ -54,7 +69,15 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
       transform: open ? `rotate(0deg)` : `rotate(-20deg)`,
     });
 
-  }, [open]);
+    return () => {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+      }
+    };
+  }, [open, contentsApi, newsApi]);
+  
+  // Show menu if open OR during closing animation
+  const hidden = open || isClosing;
 
   return (
     <>
@@ -69,17 +92,20 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
             style={contents}
           >
             <div className="flex justify-between pb-3">
-              <div>HOME</div>
-              <div>•</div>
+              <Link href="/">HOME</Link>
+              {pathname === "/" && <div>•</div>}
             </div>
-            <div className="py-3">
+            <div className="flex justify-between py-3">
               <Link href={"/about"}>ABOUT US</Link>
+              {pathname === "/about" && <div>•</div>}
             </div>
-            <div className="py-3">
+            <div className="flex justify-between py-3">
               <Link href="/projects">PROJECTS</Link>
+              {pathname?.startsWith("/projects") && <div>•</div>}
             </div>
-            <div className="pt-3">
-              <Link href="/contact">CONTACT</Link>
+            <div className="flex justify-between pt-3">
+              <Link href="/services">SERVICES</Link>
+              {pathname?.startsWith("/services") && <div>•</div>}
             </div>
           </a.div>
 

@@ -109,7 +109,7 @@ const HeaderExpert = () => {
               key={icon}
               className="w-10 h-16 border border-black flex items-center justify-center text-xs rounded-lg mt-5"
             >
-              <img src={icon} className="w-5 h-5" />
+              <img src={icon} className="w-5 h-5" alt="" aria-hidden="true" />
             </div>
           ))}
         </div>
@@ -131,7 +131,7 @@ const HeaderExpert = () => {
               key={icon}
               className="w-8 h-10 border border-black flex items-center justify-center text-[0.65rem] rounded-lg"
             >
-              <img src={icon} className="w-5 h-5" />
+              <img src={icon} className="w-5 h-5" alt="" aria-hidden="true" />
             </div>
           ))}
         </div>

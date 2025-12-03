@@ -2,17 +2,6 @@ import { useEffect } from "react";
 
 const SmoothScroll = () => {
     useEffect(() => {
-        const body = document.body;
-        const html = document.documentElement;
-
-        const scrollHeight = Math.max(
-            body.scrollHeight,
-            body.offsetHeight,
-            html.clientHeight,
-            html.scrollHeight,
-            html.offsetHeight
-        );
-
         // Virtual scroll setup
         let targetScroll = window.scrollY;
         let currentScroll = window.scrollY;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import DotButton from "@/components/ui/DotButton";
 
 interface PlusIconProps {
@@ -120,11 +121,12 @@ const ServicesHero = () => {
                 zIndex: i === 1 || i === 2 ? 10 : 5,
               }}
             >
-              <div className="w-full h-full rounded-xl lg:rounded-2xl overflow-hidden shadow-lg">
-                <img
+              <div className="w-full h-full rounded-xl lg:rounded-2xl overflow-hidden shadow-lg relative">
+                <Image
                   src="/bg-card.png"
                   alt="Appify Card"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
             </div>

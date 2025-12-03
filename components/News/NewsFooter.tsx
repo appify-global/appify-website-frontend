@@ -10,6 +10,24 @@ const cities = [
   { name: "Dubai", flag: "🇦🇪", tz: "Asia/Dubai" },
 ];
 
+// Helper to compute times outside of component for initial state
+const computeTimes = () => {
+  const updated: Record<string, string> = {};
+  cities.forEach((c) => {
+    const now = new Date();
+    const opts: Intl.DateTimeFormatOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    };
+    updated[c.name] = new Intl.DateTimeFormat("en-US", {
+      ...opts,
+      timeZone: c.tz,
+    }).format(now);
+  });
+  return updated;
+};
+
 function ScrollToTopButton() {
   const handleScrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   return (
@@ -24,28 +42,14 @@ function ScrollToTopButton() {
 }
 
 export default function NewsFooter() {
-  const [times, setTimes] = useState<Record<string, string>>({});
-
-  const updateTimes = () => {
-    const updated: Record<string, string> = {};
-    cities.forEach((c) => {
-      const now = new Date();
-      const opts: Intl.DateTimeFormatOptions = {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      };
-      updated[c.name] = new Intl.DateTimeFormat("en-US", {
-        ...opts,
-        timeZone: c.tz,
-      }).format(now);
-    });
-    setTimes(updated);
-  };
+  // Initialize with computed times to avoid setState in effect
+  const [times, setTimes] = useState<Record<string, string>>(computeTimes);
 
   useEffect(() => {
-    updateTimes();
-    const t = setInterval(updateTimes, 60_000);
+    // Set up interval for updates only
+    const t = setInterval(() => {
+      setTimes(computeTimes());
+    }, 60_000);
     return () => clearInterval(t);
   }, []);
 

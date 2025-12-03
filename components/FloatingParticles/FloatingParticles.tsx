@@ -24,7 +24,7 @@ const ParticleWaterfall: React.FC = () => {
 
             let spacing = 1;
             let deltaTime = 1 / 60;
-            let mousePrev = s.createVector(0, 0);
+            const mousePrev = s.createVector(0, 0);
             const mouseVel = s.createVector(0, 0);
 
             class Particle {

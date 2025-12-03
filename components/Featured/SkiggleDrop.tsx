@@ -9,7 +9,7 @@ const SkiggleDrop = () => {
   const pathRef = useRef<SVGPathElement | null>(null);
 
   const { scrollYProgress } = useScroll({
-    //@ts-ignore
+    // @ts-expect-error - svgRef type mismatch with framer-motion expected type
     target: svgRef,
     offset: ["start 30%", "end 70%"],
   });

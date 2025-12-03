@@ -9,7 +9,7 @@ export function initLenis(): Lenis | null {
   lenis = new Lenis({
     duration: 1.2, // controls smoothness
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // ease out expo
-    // @ts-ignore
+    // @ts-expect-error - smooth is a valid Lenis option but not in type definitions
     smooth: true,
     smoothTouch: false,
   });

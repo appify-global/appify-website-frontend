@@ -1,15 +1,13 @@
 "use client";
-import { useState, useLayoutEffect, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Navbar from "@/components/Navbar/Navbar";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Lenis from "lenis";
 import { getProjectBySlug, projectsData } from "@/data/projects";
 import initWasmModule from "../../../rust/pkg/skiggle_wasm";
 import Image from "next/image";
-
-gsap.registerPlugin(ScrollTrigger);
+import Navbar from "@/components/Navbar/Navbar";
 
 /**
  * Project Detail Page
@@ -22,7 +20,7 @@ export default function ProjectDetailPage() {
   const router = useRouter();
   const slug = params.slug as string;
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [wasmReady, setWasmReady] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
@@ -35,22 +33,27 @@ export default function ProjectDetailPage() {
   const currentIndex = projectsData.findIndex(p => p.slug === slug);
   const nextProject = projectsData[(currentIndex + 1) % projectsData.length];
 
-  // Init WASM
+  // Track mount state and init WASM
   useEffect(() => {
+    setIsMounted(true);
+    
+    // Register GSAP plugin after mount
+    gsap.registerPlugin(ScrollTrigger);
+    
     const initWasm = async () => {
       try {
         await initWasmModule();
-        setWasmReady(true);
       } catch (error) {
         console.error("Failed to initialize WASM:", error);
-        setWasmReady(true); // Continue without WASM features
       }
     };
     initWasm();
   }, []);
 
-  // Initialize Lenis smooth scroll (custom setup for horizontal scrolling)
-  useLayoutEffect(() => {
+  // Initialize Lenis smooth scroll (only after mount)
+  useEffect(() => {
+    if (!isMounted) return;
+    
     const lenisInstance = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -69,11 +72,11 @@ export default function ProjectDetailPage() {
     return () => {
       lenisInstance.destroy();
     };
-  }, []);
+  }, [isMounted]);
 
-  // Setup horizontal scroll with GSAP ScrollTrigger
-  useLayoutEffect(() => {
-    if (!horizontalRef.current || !wrapperRef.current) return;
+  // Setup horizontal scroll with GSAP ScrollTrigger (only after mount)
+  useEffect(() => {
+    if (!isMounted || !horizontalRef.current || !wrapperRef.current) return;
 
     const horizontal = horizontalRef.current;
     const wrapper = wrapperRef.current;
@@ -119,7 +122,7 @@ export default function ProjectDetailPage() {
       ctx.revert();
       window.removeEventListener("resize", handleResize);
     };
-  }, [slug, isTransitioning]);
+  }, [isMounted, slug, isTransitioning]);
 
   // Handle next project navigation
   const handleNextProject = useCallback(() => {
@@ -144,9 +147,18 @@ export default function ProjectDetailPage() {
     );
   }
 
+  // Render loading state until client is mounted to avoid hydration issues
+  if (!isMounted) {
+    return (
+      <div className="h-screen w-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="text-white text-xl font-Aeonik">Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div ref={containerRef} className="bg-[#0a0a0a] overflow-hidden">
-      {wasmReady && <Navbar />}
+      <Navbar />
       
       {/* Horizontal Scroll Container */}
       <section ref={horizontalRef} className="relative h-screen overflow-hidden">

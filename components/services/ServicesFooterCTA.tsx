@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import DotButton from "@/components/ui/DotButton";
 
 // Plus icon separator row
@@ -27,10 +27,25 @@ const PlusIconRow = () => (
   </div>
 );
 
+// Deterministic pseudo-random function based on index
+const seededRandom = (seed: number): number => {
+  const x = Math.sin(seed * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
+};
+
 // Company logo placeholders - representing various tech/partner companies
 const CompanyLogos = () => {
   // Using generic circle placeholders as logos
   const logoCount = 42; // Grid of logos as shown in Figma
+  
+  // Pre-compute random-like values using deterministic seeding (pure during render)
+  const logoStyles = useMemo(() => 
+    Array.from({ length: logoCount }).map((_, i) => ({
+      opacity: 0.4 + seededRandom(i) * 0.6,
+      scale: 0.8 + seededRandom(i + 100) * 0.4,
+    })),
+    []
+  );
   
   return (
     <div className="relative w-full h-[300px] lg:h-[400px] overflow-hidden">
@@ -39,13 +54,13 @@ const CompanyLogos = () => {
       
       {/* Logo grid */}
       <div className="grid grid-cols-7 lg:grid-cols-14 gap-2 lg:gap-3 p-4">
-        {Array.from({ length: logoCount }).map((_, i) => (
+        {logoStyles.map((style, i) => (
           <div
             key={i}
             className="w-10 h-10 lg:w-14 lg:h-14 rounded-full bg-[#E4E6EF] flex items-center justify-center overflow-hidden"
             style={{
-              opacity: 0.4 + Math.random() * 0.6,
-              transform: `scale(${0.8 + Math.random() * 0.4})`,
+              opacity: style.opacity,
+              transform: `scale(${style.scale})`,
             }}
           >
             <div className="w-6 h-6 lg:w-8 lg:h-8 rounded-full bg-[#D1D3DC]" />

@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Trail } from "./TrailText";
 
 const Description = () => {
-  const [open, set] = useState(false);
-  useEffect(() => {
-    set(true);
-  }, []);
+  // Initialize as true for immediate animation - animation effect handled by Trail component
+  const [open] = useState(true);
 
   return (
     <>
@@ -15,7 +13,7 @@ const Description = () => {
           <Trail open={open}>
             <span>We build epic realtime</span>
             <span>interactive experience to</span>
-            <span>blow people's minds</span>
+            <span>blow people&apos;s minds</span>
           </Trail>
         </div>
       </div>
@@ -26,7 +24,7 @@ const Description = () => {
           <Trail open={open}>
             <span>We build epic realtime</span>
             <span>interactive experience to</span>
-            <span>blow people's minds</span>
+            <span>blow people&apos;s minds</span>
           </Trail>
         </div>
       </div>

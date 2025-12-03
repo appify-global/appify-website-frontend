@@ -1,7 +1,12 @@
+import { RefObject } from "react";
 import Button from "../ui/Button";
 import FeaturedVideo from "./FeaturedVideo";
 
-const SubVideoText = ({ ref }: any) => {
+interface SubVideoTextProps {
+  ref?: RefObject<HTMLElement | null>;
+}
+
+const SubVideoText = ({ ref }: SubVideoTextProps) => {
   return (
     <div className="relative z-20 w-full flex flex-col-reverse lg:flex-row items-start justify-between px-6 lg:px-20 mt-16 gap-8 lg:gap-16">
       <div className="lg:w-1/2 w-full z-30 mt-[10rem]">

@@ -108,7 +108,7 @@ const ClientsSection = () => {
           {/* Subtitle - positioned right on desktop */}
           <div className="mt-6 lg:mt-0 lg:max-w-[219px] lg:text-right">
             <p className="font-Aeonik text-[14px] lg:text-[14px] leading-[1.3] text-white/80 uppercase">
-              WE CAN'T WAIT TO SHOW YOU WHAT WE CAN DO FOR YOU AND YOUR BRAND.
+              WE CAN&apos;T WAIT TO SHOW YOU WHAT WE CAN DO FOR YOU AND YOUR BRAND.
             </p>
           </div>
         </div>

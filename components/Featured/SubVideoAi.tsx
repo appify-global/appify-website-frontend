@@ -25,7 +25,7 @@ const SubVideoTextAi = ({ ref }: SubVideoTextAiProps) => {
         </div>
 
         <div className="text-[1.5em] mt-10">
-          We don't just deliver code and disappear. Our approach centres on deep partnership with your team, transparent collaboration,
+          We don&apos;t just deliver code and disappear. Our approach centres on deep partnership with your team, transparent collaboration,
           and empowering you with knowledge throughout the development journey.
         </div>
       </div>

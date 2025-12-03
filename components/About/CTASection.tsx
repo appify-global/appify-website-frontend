@@ -187,7 +187,7 @@ const CTASection = () => {
           ref={titleRef}
           className="font-Aeonik text-[12vw] lg:text-[72px] xl:text-[90px] leading-[1.1] text-black text-center mb-[40px]"
         >
-          Let's work
+          Let&apos;s work
           <br />
           together!
         </h2>

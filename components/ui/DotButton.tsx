@@ -10,7 +10,7 @@ interface ButtonProps {
     href?: string;
 }
 
-const DotButton = ({ text, animate = true, variant = "black", className = "", onClick, href }: ButtonProps) => {
+const DotButton = ({ text, variant = "black", className = "", onClick, href }: ButtonProps) => {
   const buttonClasses = variant === "black" ? "black-btn " : "white-btn " + className;
   const content = (
     <>

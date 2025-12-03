@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useTrail, a } from '@react-spring/web'
 
-export const Trail = ({ open, children, ...props }: any) => {
+interface TrailProps {
+  open: boolean;
+  children: ReactNode;
+  className?: string;
+  [key: string]: unknown;
+}
+
+export const Trail = ({ open, children, ...props }: TrailProps) => {
   const items = React.Children.toArray(children)
   const trail = useTrail(items.length, {
     // config: { mass: 1, tension: 2000, friction: 200 },

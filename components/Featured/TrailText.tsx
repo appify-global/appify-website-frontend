@@ -1,8 +1,15 @@
-import React, { useEffect } from "react";
-import { useTrail, a, useSpring } from "@react-spring/web";
+import React, { ReactNode } from "react";
+import { useTrail, a } from "@react-spring/web";
 import { useInView } from "react-intersection-observer";
 
-export const Trail = ({ children, callback, ...props }: any) => {
+interface TrailProps {
+  children: ReactNode;
+  callback?: (isOpen: boolean) => void;
+  className?: string;
+  [key: string]: unknown;
+}
+
+export const Trail = ({ children, callback, ...props }: TrailProps) => {
   const items = React.Children.toArray(children);
   const [ref, open] = useInView({ rootMargin: "-50px 0px" });
   const trail = useTrail(items.length, {

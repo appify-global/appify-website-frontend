@@ -16,10 +16,8 @@ function Navbar() {
     config: { tension: 300, friction: 20, mass: 1 },
   }));
 
-  const [open, set] = useState(false);
-  useEffect(() => {
-    set(true);
-  }, []);
+  // Initialize as true for immediate animation
+  const [open] = useState(true);
 
   return (
     <>

@@ -32,15 +32,25 @@ gsap.registerPlugin(ScrollTrigger);
  */
 
 interface FeaturedVideoProps {
+  /** @deprecated - kept for API compatibility */
   topkeyframe?: string;
   className?: string;
   playerClassName?: string;
   playerId?: string;
+  /** @deprecated - kept for API compatibility */
   scrollToOverrideId?: string;
+  /** @deprecated - kept for API compatibility */
   refForward?: React.RefObject<HTMLElement | null>;
 }
 
-const FeaturedVideo = ({ topkeyframe, className, playerClassName, playerId, scrollToOverrideId, refForward }: FeaturedVideoProps) => {
+const FeaturedVideo = ({ 
+  topkeyframe: _topkeyframe, 
+  className, 
+  playerClassName, 
+  playerId, 
+  scrollToOverrideId: _scrollToOverrideId, 
+  refForward: _refForward 
+}: FeaturedVideoProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);

@@ -1630,9 +1630,454 @@ export const servicePageContent: Record<string, ServicePageContent> = {
     ],
     
     nextService: {
+      category: 'creative',
+      slug: 'ui-ux-design',
+      name: 'UI/UX DESIGN'
+    }
+  },
+
+  'ui-ux-design': {
+    heroSubtitle: 'A TEAM OF EXPERIENCED INVENTORS & DREAMERS WITH A WIDE RANGE OF SKILLS AND KNOWLEDGE',
+    heroImage: '/services/ui-ux-design/hero.jpg',
+    
+    experienceTagline: 'CREATING THE EXPERIENCE',
+    experienceDescription: 'At Appify, we take on custom UI/UX design projects that others find too complex, too challenging, or simply impossible. From crafting intuitive interfaces and seamless user journeys to designing scalable design systems for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in designs that drive engagement and deliver measurable business results.',
+    
+    whatWeDoSubtitle: 'DELIVERED FOR FORWARD-THINKING ENTERPRISES AND STARTUPS ACROSS AUSTRALIA, UAE, AND QATAR OVER THE YEARS.',
+    offerings: [
+      {
+        title: 'Custom Website Design & Development',
+        description: 'We design custom websites that capture your brand and drive conversions - from landing pages and marketing sites to complex web applications. Unique designs built for your specific goals and audience.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Mobile-First & Cross-Browser Compatibility',
+        description: 'We design responsive interfaces that work beautifully across all devices and browsers - ensuring consistent experiences from mobile phones to desktop monitors. Modern, adaptive design that reaches every user.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'E-Commerce Website Design',
+        description: 'We design e-commerce experiences that convert browsers into buyers - intuitive product discovery, streamlined checkouts, and trust-building interfaces. UX designed to maximise revenue and customer satisfaction.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Website Maintenance & Optimisation',
+        description: 'We provide ongoing design support and optimisation - A/B testing, performance improvements, and iterative refinements based on user data. Continuous improvement that keeps your digital experience competitive.',
+        category: 'CREATIVE'
+      }
+    ],
+    
+    processSubtitle: 'Delivered for forward-thinking enterprises and startups across Australia, UAE, and Qatar over the years.',
+    processSteps: [
+      {
+        stepNumber: '01',
+        title: 'DISCOVERY AND WEBSITE PLANNING',
+        description: 'We begin with deep discovery sessions to understand your business, users, and goals. Through stakeholder interviews and competitive analysis, we define the strategy that will guide every design decision.',
+        image: '/services/ui-ux-design/process-1.png'
+      },
+      {
+        stepNumber: '02',
+        title: 'UX DESIGN & WIREFRAMING',
+        description: 'We map user journeys and create wireframes that structure content and functionality. Low-fidelity prototypes let us test and refine the experience before investing in visual design.',
+        image: '/services/ui-ux-design/process-2.png'
+      },
+      {
+        stepNumber: '03',
+        title: 'VISUAL DESIGN & UI DEVELOPMENT',
+        description: 'We craft pixel-perfect visual designs that bring your brand to life - typography, colour, imagery, and interaction patterns that create memorable, on-brand experiences.',
+        image: '/services/ui-ux-design/process-1.png'
+      },
+      {
+        stepNumber: '04',
+        title: 'TESTING, LAUNCH & ITERATION',
+        description: 'We test with real users, refine based on feedback, and support you through launch. Post-launch analytics and ongoing optimisation ensure your design continues to perform.',
+        image: '/services/ui-ux-design/process-2.png'
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'How much does a custom website design cost?',
+        answer: 'Website design costs vary based on complexity, functionality, and scope. Simple marketing sites may start from $15,000-$30,000, while complex web applications can range from $50,000-$150,000+. We provide detailed quotes after understanding your specific requirements.'
+      },
+      {
+        question: 'How long does the website design process take?',
+        answer: 'Typical website design projects take 8-16 weeks depending on complexity. Simple sites can be completed in 6-8 weeks, while complex applications may take 4-6 months. We establish realistic timelines during discovery and keep you informed throughout.'
+      },
+      {
+        question: 'What platforms do you design for?',
+        answer: 'We design for all major platforms and technologies - custom development, WordPress, Shopify, Webflow, and enterprise CMS platforms. We recommend platforms based on your specific needs, budget, and internal capabilities.'
+      },
+      {
+        question: 'Do you design mobile-friendly websites?',
+        answer: 'Absolutely. All our designs are mobile-first and fully responsive. We design and test across devices to ensure your site works beautifully on phones, tablets, and desktops - adapting to however your users access your site.'
+      },
+      {
+        question: 'Can you redesign our existing website?',
+        answer: 'Yes. We frequently redesign existing websites - improving UX, updating visual design, and optimising for current best practices. We can work with your existing platform or recommend migration if appropriate for your goals.'
+      }
+    ],
+    
+    nextService: {
+      category: 'creative',
+      slug: 'product-design',
+      name: 'PRODUCT DESIGN'
+    }
+  },
+
+  'product-design': {
+    heroSubtitle: 'END-TO-END PRODUCT DESIGN FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
+    heroImage: '/services/product-design/hero.jpg',
+    
+    experienceTagline: 'DESIGNING PRODUCTS',
+    experienceDescription: 'At Appify, we design digital products from concept to launch that others find too ambitious - from MVP definition and product strategy to full-scale product design for forward-thinking startups and enterprises across Australia, UAE, and Qatar. We specialise in product design that balances user needs, business goals, and technical feasibility.',
+    
+    whatWeDoSubtitle: 'DELIVERED FOR FORWARD-THINKING ENTERPRISES AND STARTUPS ACROSS AUSTRALIA, UAE, AND QATAR OVER THE YEARS.',
+    offerings: [
+      {
+        title: 'Product Strategy & Definition',
+        description: 'We help define your product vision, identify market opportunities, and create strategic roadmaps that guide development. From initial concept validation to go-to-market planning - strategy that sets products up for success.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'MVP Design & Rapid Prototyping',
+        description: 'We design minimum viable products that test assumptions quickly and efficiently - focusing on core value propositions and essential features. Fast iteration that validates ideas before major investment.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Full Product Design & UX',
+        description: 'We design complete product experiences from onboarding to advanced features - information architecture, interaction design, and visual design that creates cohesive, delightful user experiences.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Product Evolution & Scaling',
+        description: 'We help established products evolve - redesigning for scale, adding new features, and optimising based on user feedback. Design that grows with your product and user base.',
+        category: 'CREATIVE'
+      }
+    ],
+    
+    processSubtitle: 'Delivered for forward-thinking enterprises and startups across Australia, UAE, and Qatar over the years.',
+    processSteps: [
+      {
+        stepNumber: '01',
+        title: 'PRODUCT DISCOVERY & STRATEGY',
+        description: 'We immerse ourselves in your market, users, and business objectives to define product strategy. Research, workshops, and analysis that establish the foundation for successful product design.',
+        image: '/services/product-design/process-1.png'
+      },
+      {
+        stepNumber: '02',
+        title: 'CONCEPT DEVELOPMENT & VALIDATION',
+        description: 'We explore concepts, create prototypes, and test with users to validate direction. Rapid iteration that refines ideas and reduces risk before committing to full design.',
+        image: '/services/product-design/process-2.png'
+      },
+      {
+        stepNumber: '03',
+        title: 'DETAILED DESIGN & SPECIFICATION',
+        description: 'We create comprehensive design deliverables - detailed UI designs, interaction specifications, and design systems that enable efficient development and consistent implementation.',
+        image: '/services/product-design/process-1.png'
+      },
+      {
+        stepNumber: '04',
+        title: 'DESIGN SUPPORT & ITERATION',
+        description: 'We support development with design QA and iteration - ensuring designs are implemented correctly and evolving based on user feedback and analytics.',
+        image: '/services/product-design/process-2.png'
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'What is the difference between product design and UI/UX design?',
+        answer: 'Product design encompasses the entire product lifecycle - from strategy and concept through to launch and evolution. UI/UX design typically focuses on interface and experience design. Product designers consider business strategy, market positioning, and product-market fit alongside user experience.'
+      },
+      {
+        question: 'How do you approach MVP design?',
+        answer: 'We focus on identifying the core value proposition and designing the minimum set of features needed to test it. We prioritise ruthlessly, design for learning, and create products that can evolve based on real user feedback.'
+      },
+      {
+        question: 'Can you work with our existing development team?',
+        answer: 'Yes. We frequently collaborate with in-house development teams - providing design deliverables, participating in agile ceremonies, and supporting implementation. We adapt our process to complement your team structure.'
+      },
+      {
+        question: 'How do you handle product design for complex B2B products?',
+        answer: 'B2B products require deep understanding of workflows, user roles, and integration requirements. We conduct extensive user research, design for efficiency and expert users, and create experiences that support complex business processes.'
+      },
+      {
+        question: 'What deliverables do you provide for product design projects?',
+        answer: 'Deliverables vary by project but typically include user research findings, journey maps, wireframes, high-fidelity designs, interactive prototypes, design systems, and implementation specifications. We tailor deliverables to your needs.'
+      }
+    ],
+    
+    nextService: {
+      category: 'creative',
+      slug: 'user-research',
+      name: 'USER RESEARCH'
+    }
+  },
+
+  'user-research': {
+    heroSubtitle: 'USER RESEARCH & TESTING FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
+    heroImage: '/services/user-research/hero.jpg',
+    
+    experienceTagline: 'UNDERSTANDING YOUR USERS',
+    experienceDescription: 'At Appify, we conduct user research that uncovers insights others miss - from discovery research and usability testing to analytics analysis and continuous feedback loops for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in research that drives design decisions and improves business outcomes.',
+    
+    whatWeDoSubtitle: 'DELIVERED FOR FORWARD-THINKING ENTERPRISES AND STARTUPS ACROSS AUSTRALIA, UAE, AND QATAR OVER THE YEARS.',
+    offerings: [
+      {
+        title: 'Discovery Research & User Interviews',
+        description: 'We conduct foundational research to understand your users - their needs, behaviours, pain points, and motivations. In-depth interviews and contextual inquiry that reveal opportunities for design innovation.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Usability Testing & Evaluation',
+        description: 'We test designs with real users to identify issues and validate solutions - moderated sessions, unmoderated testing, and expert reviews that ensure your product is intuitive and effective.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Quantitative Research & Analytics',
+        description: 'We analyse behavioural data and conduct surveys to understand patterns at scale - combining quantitative insights with qualitative research for comprehensive user understanding.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Continuous Research Programmes',
+        description: 'We establish ongoing research practices that keep you connected to users - regular testing cadences, feedback systems, and research operations that support product evolution.',
+        category: 'CREATIVE'
+      }
+    ],
+    
+    processSubtitle: 'Delivered for forward-thinking enterprises and startups across Australia, UAE, and Qatar over the years.',
+    processSteps: [
+      {
+        stepNumber: '01',
+        title: 'RESEARCH PLANNING & OBJECTIVES',
+        description: 'We define research objectives, identify target users, and plan methodologies that will answer your questions. Strategic research design that ensures insights are actionable and relevant.',
+        image: '/services/user-research/process-1.png'
+      },
+      {
+        stepNumber: '02',
+        title: 'PARTICIPANT RECRUITMENT & FIELDWORK',
+        description: 'We recruit representative participants and conduct research sessions - interviews, tests, and observations that gather rich qualitative and quantitative data.',
+        image: '/services/user-research/process-2.png'
+      },
+      {
+        stepNumber: '03',
+        title: 'ANALYSIS & SYNTHESIS',
+        description: 'We analyse research data to identify patterns, insights, and opportunities - synthesising findings into clear themes and actionable recommendations.',
+        image: '/services/user-research/process-1.png'
+      },
+      {
+        stepNumber: '04',
+        title: 'REPORTING & ACTIVATION',
+        description: 'We present findings in compelling formats that drive action - reports, workshops, and artefacts that ensure insights influence design and business decisions.',
+        image: '/services/user-research/process-2.png'
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'How many users do we need to test with?',
+        answer: 'For qualitative research like usability testing, 5-8 users typically reveal 80% of issues. For quantitative research, sample sizes depend on statistical requirements. We recommend approaches based on your research questions and budget.'
+      },
+      {
+        question: 'Can you conduct research remotely?',
+        answer: 'Yes. We conduct both in-person and remote research - video interviews, unmoderated testing, and remote usability sessions. Remote research often provides access to broader, more diverse participant pools.'
+      },
+      {
+        question: 'How do you recruit research participants?',
+        answer: 'We use multiple recruitment methods - panels, social media, customer databases, and professional recruiters. We screen carefully to ensure participants match your target user profiles.'
+      },
+      {
+        question: 'How long does a typical research project take?',
+        answer: 'Timeline depends on scope - quick usability tests can be completed in 2-3 weeks, while comprehensive discovery research may take 6-8 weeks. We design research programmes that fit your timeline and decision points.'
+      },
+      {
+        question: 'How do you ensure research findings are acted upon?',
+        answer: 'We involve stakeholders throughout the research process, present findings in actionable formats, and facilitate workshops that translate insights into design decisions. Good research drives action - we design for impact.'
+      }
+    ],
+    
+    nextService: {
+      category: 'creative',
+      slug: 'design-systems',
+      name: 'DESIGN SYSTEMS'
+    }
+  },
+
+  'design-systems': {
+    heroSubtitle: 'SCALABLE DESIGN SYSTEMS FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
+    heroImage: '/services/design-systems/hero.jpg',
+    
+    experienceTagline: 'SYSTEMATISING DESIGN',
+    experienceDescription: 'At Appify, we build design systems that scale with your organisation - from component libraries and design tokens to documentation and governance frameworks for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in design systems that improve consistency, speed, and design quality.',
+    
+    whatWeDoSubtitle: 'DELIVERED FOR FORWARD-THINKING ENTERPRISES AND STARTUPS ACROSS AUSTRALIA, UAE, AND QATAR OVER THE YEARS.',
+    offerings: [
+      {
+        title: 'Design System Strategy & Architecture',
+        description: 'We define design system strategy, scope, and architecture - establishing foundations that support your organisation\'s needs and scale. Strategic planning that ensures design systems deliver lasting value.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Component Library Development',
+        description: 'We design and build component libraries - reusable UI components with variants, states, and documentation. Figma libraries and coded components that accelerate design and development.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Design Tokens & Theming',
+        description: 'We establish design tokens that capture design decisions - colours, typography, spacing, and more. Token systems that enable theming, maintain consistency, and simplify design updates.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Documentation & Governance',
+        description: 'We create comprehensive documentation and governance processes - usage guidelines, contribution models, and maintenance practices that ensure design systems remain useful and current.',
+        category: 'CREATIVE'
+      }
+    ],
+    
+    processSubtitle: 'Delivered for forward-thinking enterprises and startups across Australia, UAE, and Qatar over the years.',
+    processSteps: [
+      {
+        stepNumber: '01',
+        title: 'AUDIT & STRATEGY DEVELOPMENT',
+        description: 'We audit existing design assets and patterns, understand organisational needs, and develop design system strategy - defining scope, priorities, and success metrics.',
+        image: '/services/design-systems/process-1.png'
+      },
+      {
+        stepNumber: '02',
+        title: 'FOUNDATION & TOKEN DEFINITION',
+        description: 'We establish design foundations - colour systems, typography scales, spacing systems, and design tokens that form the building blocks of your component library.',
+        image: '/services/design-systems/process-2.png'
+      },
+      {
+        stepNumber: '03',
+        title: 'COMPONENT DESIGN & DEVELOPMENT',
+        description: 'We design and build components - from simple atoms to complex organisms. Each component is designed for flexibility, documented thoroughly, and tested for accessibility.',
+        image: '/services/design-systems/process-1.png'
+      },
+      {
+        stepNumber: '04',
+        title: 'DOCUMENTATION & ROLLOUT',
+        description: 'We create comprehensive documentation, establish governance processes, and support rollout across teams - ensuring adoption and ongoing success of your design system.',
+        image: '/services/design-systems/process-2.png'
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'When should we invest in a design system?',
+        answer: 'Design systems become valuable when you have multiple products, teams, or designers working on related experiences. If you\'re experiencing inconsistency, duplicated effort, or scaling challenges, a design system can help.'
+      },
+      {
+        question: 'How long does it take to build a design system?',
+        answer: 'Initial design systems can be established in 3-6 months, but design systems are never truly "done" - they evolve with your products. We help establish foundations and processes for ongoing development.'
+      },
+      {
+        question: 'Do you build design systems in Figma?',
+        answer: 'Yes. We build design systems in Figma with components, variants, auto-layout, and design tokens. We can also help establish connections between Figma and code through tools like Storybook.'
+      },
+      {
+        question: 'How do you ensure design systems are adopted by teams?',
+        answer: 'Adoption requires good design, clear documentation, and organisational support. We involve stakeholders throughout development, create compelling documentation, and establish governance that encourages contribution.'
+      },
+      {
+        question: 'Can you help maintain an existing design system?',
+        answer: 'Yes. We help organisations maintain and evolve design systems - adding components, updating patterns, improving documentation, and establishing better processes. Design systems require ongoing investment.'
+      }
+    ],
+    
+    nextService: {
+      category: 'creative',
+      slug: 'prototyping',
+      name: 'PROTOTYPING'
+    }
+  },
+
+  'prototyping': {
+    heroSubtitle: 'INTERACTIVE PROTOTYPING FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
+    heroImage: '/services/prototyping/hero.jpg',
+    
+    experienceTagline: 'BRINGING IDEAS TO LIFE',
+    experienceDescription: 'At Appify, we create interactive prototypes that bring concepts to life before development - from quick concept validation and user testing prototypes to high-fidelity demos for stakeholder buy-in across Australia, UAE, and Qatar. We specialise in prototypes that reduce risk and accelerate decision-making.',
+    
+    whatWeDoSubtitle: 'DELIVERED FOR FORWARD-THINKING ENTERPRISES AND STARTUPS ACROSS AUSTRALIA, UAE, AND QATAR OVER THE YEARS.',
+    offerings: [
+      {
+        title: 'Concept Prototyping & Validation',
+        description: 'We create rapid prototypes that test concepts quickly - exploring ideas, validating assumptions, and gathering feedback before committing to full design. Fast iteration that reduces risk and speeds learning.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Interactive User Testing Prototypes',
+        description: 'We build prototypes specifically for user research - realistic enough to test interactions and flows while flexible enough to iterate based on findings. Research-ready prototypes that generate actionable insights.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'High-Fidelity Demos & Presentations',
+        description: 'We create polished, high-fidelity prototypes for stakeholder presentations, investor pitches, and sales demonstrations. Impressive demos that communicate vision and build buy-in.',
+        category: 'CREATIVE'
+      },
+      {
+        title: 'Coded Prototypes & POCs',
+        description: 'We develop coded prototypes that test technical feasibility and complex interactions - proof of concepts that validate approaches before full development investment.',
+        category: 'CREATIVE'
+      }
+    ],
+    
+    processSubtitle: 'Delivered for forward-thinking enterprises and startups across Australia, UAE, and Qatar over the years.',
+    processSteps: [
+      {
+        stepNumber: '01',
+        title: 'OBJECTIVE DEFINITION & SCOPING',
+        description: 'We clarify prototype objectives - what questions need answering, who will use it, and what fidelity is needed. Clear scoping that ensures prototypes serve their purpose efficiently.',
+        image: '/services/prototyping/process-1.png'
+      },
+      {
+        stepNumber: '02',
+        title: 'RAPID DESIGN & DEVELOPMENT',
+        description: 'We create prototypes quickly using appropriate tools - Figma, Framer, code, or combinations. Fast development that gets ideas into testable form without unnecessary polish.',
+        image: '/services/prototyping/process-2.png'
+      },
+      {
+        stepNumber: '03',
+        title: 'TESTING & FEEDBACK GATHERING',
+        description: 'We test prototypes with users or stakeholders, gathering feedback and insights. Structured testing that generates clear findings for iteration.',
+        image: '/services/prototyping/process-1.png'
+      },
+      {
+        stepNumber: '04',
+        title: 'ITERATION & DOCUMENTATION',
+        description: 'We iterate based on findings and document learnings - refining prototypes and capturing insights that inform subsequent design and development.',
+        image: '/services/prototyping/process-2.png'
+      }
+    ],
+    
+    faqs: [
+      {
+        question: 'What tools do you use for prototyping?',
+        answer: 'We use the right tool for each situation - Figma for most interactive prototypes, Framer for complex animations, and code (React, etc.) for technical proof of concepts. Tool choice depends on fidelity needs and testing objectives.'
+      },
+      {
+        question: 'How long does it take to create a prototype?',
+        answer: 'Simple concept prototypes can be created in days. Complex, high-fidelity prototypes may take 2-4 weeks. We scope prototyping efforts based on objectives and timeline requirements.'
+      },
+      {
+        question: 'Can prototypes be used for user testing?',
+        answer: 'Absolutely - that\'s often their primary purpose. We design prototypes specifically for testing, balancing realism with flexibility. Well-designed prototypes generate reliable user feedback.'
+      },
+      {
+        question: 'What\'s the difference between a prototype and an MVP?',
+        answer: 'Prototypes are designed for testing and learning - they simulate experiences without full functionality. MVPs are real products with limited features. Prototypes inform what to build; MVPs test if people will use what you\'ve built.'
+      },
+      {
+        question: 'Can prototype code be used in the final product?',
+        answer: 'Sometimes. Coded prototypes built with production technologies can evolve into product code. However, prototype code is often written for speed rather than maintainability - we\'ll advise on what can be reused.'
+      }
+    ],
+    
+    nextService: {
       category: 'strategy',
-      slug: 'digital-transformation',
-      name: 'DIGITAL TRANSFORMATION'
+      slug: 'technology-consulting',
+      name: 'TECHNOLOGY CONSULTING'
     }
   }
 };

@@ -118,8 +118,8 @@ const FloatingCards: React.FC = () => {
           const state = compute_card_state(
             p,
             index,
-            rotations as any,
-            positions as any
+            rotations,
+            positions
           );
 
           // Use smooth animations instead of immediate set

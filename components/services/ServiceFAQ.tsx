@@ -20,22 +20,13 @@ const AccordionIcon: React.FC<{ isOpen: boolean }> = ({ isOpen }) => (
   </div>
 );
 
-// Single FAQ item
+// Single FAQ item - uses CSS grid for height animation (no JS measurement needed)
 const FAQItemComponent: React.FC<{
   item: FAQItem;
   index: number;
   isOpen: boolean;
   onToggle: () => void;
 }> = ({ item, index, isOpen, onToggle }) => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setHeight(isOpen ? contentRef.current.scrollHeight : 0);
-    }
-  }, [isOpen]);
-
   return (
     <div className="border-b border-white/10">
       <button
@@ -54,15 +45,17 @@ const FAQItemComponent: React.FC<{
         <AccordionIcon isOpen={isOpen} />
       </button>
 
-      {/* Answer content with animated height */}
+      {/* Answer content with CSS grid animation (avoids JS height measurement) */}
       <div
-        style={{ height: `${height}px` }}
-        className="overflow-hidden transition-[height] duration-300 ease-out"
+        className="grid transition-[grid-template-rows] duration-300 ease-out"
+        style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
       >
-        <div ref={contentRef} className="pb-5 lg:pb-6">
-          <p className="font-Aeonik text-sm lg:text-sm text-white/60 leading-[1.7] ml-12 lg:ml-[88px] max-w-[700px]">
-            {item.answer}
-          </p>
+        <div className="overflow-hidden">
+          <div className="pb-5 lg:pb-6">
+            <p className="font-Aeonik text-sm lg:text-sm text-white/60 leading-[1.7] ml-12 lg:ml-[88px] max-w-[700px]">
+              {item.answer}
+            </p>
+          </div>
         </div>
       </div>
     </div>
