@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { RollerText } from "../RollerText";
@@ -23,17 +23,15 @@ import HomeReelVideoWatchButton from "../ui/HomeReelVideoWatchButton";
 interface FeaturedVideoWebGLProps {
   topkeyframe?: string;
   className?: string;
-  lenis?: any;
   playerClassName?: string;
   playerId?: string;
   scrollToOverrideId?: string;
-  refForward?: React.RefObject<HTMLElement>;
+  refForward?: React.RefObject<HTMLElement | null>;
 }
 
 const FeaturedVideoWebGL = ({
   topkeyframe,
   className,
-  lenis,
   playerClassName,
   playerId,
   scrollToOverrideId,

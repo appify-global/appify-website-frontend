@@ -2,15 +2,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { compute_card_state } from "@/rust/pkg/skiggle_wasm";
+import { useLenis } from "@/hooks/useLenis";
 
 gsap.registerPlugin(ScrollTrigger);
-
-interface FloatingCardsProps {
-  lenis?: Lenis;
-}
 
 const expertsIn = [
   {
@@ -62,11 +58,12 @@ const expertsIn = [
 const rotations = [-15, -7.5, 7.5, 15];
 const positions = [14, 38, 62, 86];
 
-const FloatingCards: React.FC<FloatingCardsProps> = ({ lenis }) => {
+const FloatingCards: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<HTMLDivElement[]>([]);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
   const [scrollLocked, setScrollLocked] = useState(false);
+  const lenis = useLenis();
 
   useEffect(() => {
     if (isMobile) return;

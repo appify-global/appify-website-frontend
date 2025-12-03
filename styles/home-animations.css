@@ -1,0 +1,360 @@
+/**
+ * Home Page Animations
+ * 
+ * Contains animation styles specific to the home page components.
+ * These styles use CSS classes and IDs that are only used on the homepage.
+ */
+
+/* ===== Home Reel Title Animation ===== */
+
+#home-reel-title {
+  position: relative;
+  font-size: 10vw;
+  left: -0.03em;
+  letter-spacing: -0.02em;
+  grid-column: 1 / span 12;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  line-height: 1;
+  will-change: transform;
+  width: 100%;
+}
+
+@media (min-aspect-ratio: 21/9) {
+  #home-reel-title {
+    font-size: 6.7vw;
+  }
+}
+
+@media (max-width: 812px) {
+  #home-reel-title {
+    grid-column: 1 / span 6;
+    font-size: 13.8vw;
+    margin-bottom: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  #home-reel-title {
+    font-size: 20vw;
+  }
+}
+
+#home-reel-title .word {
+  position: relative;
+  bottom: 0.1em;
+}
+
+#home-reel-title-inner {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+}
+
+#home-reel-title-inner > div {
+  overflow: hidden;
+}
+
+@media (max-width: 812px) {
+  #home-reel-title-inner > div {
+    overflow: visible;
+  }
+}
+
+#home-reel-title-line-1 {
+  padding-left: calc(var(--grid-space) * 2 + var(--grid-gap) * 2);
+}
+
+@media (max-width: 812px) {
+  #home-reel-title-line-1 {
+    padding-left: 0;
+  }
+}
+
+/* Container */
+.home-reel-title-line-wrapper {
+  width: 100%;
+}
+
+.home-reel-title {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.home-reel-title-inner {
+  position: relative;
+  display: inline-block;
+}
+
+.home-reel-title-line {
+  display: block;
+  position: relative;
+  will-change: transform, opacity;
+}
+
+/* Initial state (no visible class) */
+.home-reel-title-line-1 {
+  opacity: 0;
+  transform: translate3d(0, 100%, 0);
+  backface-visibility: hidden;
+}
+
+.home-reel-title-line-2 {
+  opacity: 0;
+  transform: translate3d(0, -100%, 0);
+  backface-visibility: hidden;
+}
+
+/* Only when visible → run animations */
+.home-reel-title--visible .home-reel-title-line-1 {
+  animation: home-line1-enter-and-slide 1.4s ease forwards;
+}
+
+.home-reel-title--visible .home-reel-title-line-2 {
+  animation: home-line2-enter 0.8s ease forwards;
+}
+
+/* Keyframes for home reel title */
+@keyframes home-line1-enter-and-slide {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 120%, 0);
+  }
+  40% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  60% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(16%, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes home-line2-enter {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -120%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ===== Home Goal/AI Section ===== */
+
+#home-goal-title {
+  position: relative;
+  line-height: 1;
+  grid-column: 1 / span 12;
+  font-size: 8vw;
+  letter-spacing: -0.01em;
+  left: -0.068em;
+  width: 11em;
+  will-change: transform;
+}
+
+@media (min-aspect-ratio: 21/9) {
+  #home-goal-title {
+    font-size: 5.3vw;
+  }
+}
+
+@media (max-width: 812px) {
+  #home-goal-title {
+    grid-column: 1 / span 6;
+    font-size: 10vw;
+    width: inherit;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  #home-goal-title {
+    width: 100%;
+    font-size: 16vw;
+    margin-top: 0.2em;
+  }
+}
+
+#home-goal-title .line {
+  position: relative;
+  bottom: 0.135em;
+}
+
+#home-goal-texts {
+  position: absolute;
+  left: 0;
+  top: 0;
+  grid-column: 8 / 12;
+  line-height: 1.4;
+  font-size: 1.5em;
+}
+
+@media (min-aspect-ratio: 21/9) {
+  #home-goal-texts {
+    grid-column: 8 / 11;
+  }
+}
+
+@media (max-width: 812px) {
+  #home-goal-texts {
+    position: relative;
+    grid-column: 1 / 7;
+    grid-column: 1 / span 6;
+    margin-top: 3em;
+    margin-bottom: 4em;
+    font-size: 1.125em;
+  }
+}
+
+.home-goal-texts-paragraph:not(:first-child) {
+  margin-top: 1em;
+}
+
+#home-goal-image-in-outer {
+  grid-column: 1 / 7;
+  position: relative;
+}
+
+@media (max-width: 812px) {
+  #home-goal-image-in-outer {
+    grid-column: 1 / span 6;
+    top: 0;
+  }
+}
+
+#home-goal-image-in-inner {
+  position: relative;
+  height: 0;
+  width: calc(100% + var(--grid-gap));
+  padding-top: calc((100% + var(--grid-gap)) * 1080 / 1496);
+}
+
+@media (max-width: 812px) {
+  #home-goal-image-in-inner {
+    width: 100%;
+  }
+}
+
+#home-goal-image-in {
+  position: absolute;
+  left: 3.9%;
+  top: 5.4%;
+  width: 92.5%;
+  height: 89.5%;
+}
+
+#home-goal-image-out-outer {
+  position: relative;
+  grid-column: 2 / 12;
+}
+
+@media (max-width: 812px) {
+  #home-goal-image-out-outer {
+    grid-column: 1 / span 6;
+    top: 0;
+  }
+}
+
+#home-goal-image-out-inner {
+  position: relative;
+  width: calc(100% + var(--grid-gap) * 2);
+  left: calc(var(--grid-gap) * -1);
+  padding-top: calc((100% + var(--grid-gap) * 2) * 1537 / 2000);
+}
+
+@media (max-width: 812px) {
+  #home-goal-image-out-inner {
+    width: 100%;
+    left: 0;
+  }
+}
+
+#home-goal-image-out {
+  position: absolute;
+  left: 2.2%;
+  top: 2.8%;
+  width: 95.7%;
+  height: 70.2%;
+}
+
+#home-goal-tunnel-title {
+  position: relative;
+  left: 0;
+  width: 100%;
+  grid-column: 1 / span 12;
+  height: 0;
+  text-align: center;
+  font-size: 6vw;
+  color: var(--color-white);
+  text-transform: uppercase;
+}
+
+@media (max-width: 812px) {
+  #home-goal-tunnel-title {
+    top: 0;
+    grid-column: 1 / span 6;
+  }
+}
+
+.home-goal-tunnel-title-line span {
+  display: inline-block;
+  position: relative;
+  margin: 0 0.25ch;
+}
+
+/* Initial state: offscreen to the right */
+.home-goal-title-line-1,
+.home-goal-title-line-2,
+.home-goal-title-line-3 {
+  opacity: 0;
+  transform: translateX(10%);
+}
+
+/* When visible → slide in */
+.home-goal-title--visible .home-goal-title-line-1 {
+  animation: home-goal-line1-enter 1.2s ease forwards;
+}
+
+.home-goal-title--visible .home-goal-title-line-2 {
+  animation: home-goal-line2-enter 0.8s ease 0.4s forwards;
+}
+
+.home-goal-title--visible .home-goal-title-line-3 {
+  animation: home-goal-line3-enter 0.8s ease 0.8s forwards;
+}
+
+@keyframes home-goal-line1-enter {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes home-goal-line2-enter {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes home-goal-line3-enter {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ===== Home Section Performance Optimizations ===== */
+
+/* Contain layout for animated sections */
+#service-cards,
+#feature-work,
+#beoynd-visions {
+  contain: layout style paint;
+}
+

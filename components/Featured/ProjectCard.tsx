@@ -2,7 +2,7 @@
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
+import { useLenis } from "@/hooks/useLenis";
 import { compute_hover, calculate_image_ref_transform, calc_image_ref_on_leave } from "@/rust/pkg/skiggle_wasm";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,12 +12,12 @@ interface ProjectCardProps {
   metadata: string[];
   imageUrl: string;
   linkUrl?: string;
-  lenis?: Lenis | null;
 }
 
-export default function ProjectCard({ title, metadata, imageUrl, linkUrl, lenis }: ProjectCardProps) {
+export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: ProjectCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
 
   const state = useRef({
     targetX: 0,
@@ -94,17 +94,8 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl, lenis 
     const card = cardRef.current;
     if (!card || !lenis) return;
 
-    ScrollTrigger.scrollerProxy(document.body, {
-      scrollTop(value) {
-        //@ts-ignore
-        return arguments.length ? lenis.scrollTo(value, { immediate: true }) : lenis.scroll;
-      },
-      getBoundingClientRect() {
-        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-      },
-    });
-
-    ScrollTrigger.defaults({ scroller: document.body });
+    // Note: ScrollTrigger proxy is now handled by LenisProvider
+    // We only need to set up the scroll animation for this card
 
     const ctx = gsap.context(() => {
       gsap.fromTo(card,
@@ -123,7 +114,6 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl, lenis 
       );
     }, card);
 
-    // Remove unnecessary refresh - handled by main page.tsx
     return () => ctx.revert();
   }, [lenis]);
 

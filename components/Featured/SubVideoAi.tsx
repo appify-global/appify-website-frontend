@@ -1,13 +1,18 @@
 import FeaturedVideo from "./FeaturedVideo";
 
-const SubVideoTextAi = ({ ref, lenis }: any) => {
+interface SubVideoTextAiProps {
+  ref?: React.RefObject<HTMLElement | null>;
+}
+
+const SubVideoTextAi = ({ ref }: SubVideoTextAiProps) => {
   return (
     <div className="relative z-20 w-full flex flex-col-reverse lg:flex-row items-center justify-between px-2 lg:px-6 lg:px-20 mt-20 gap-10">
       {/* Video on the left (below text on mobile) */}
       <div className="w-full lg:w-1/2 z-30">
-        <FeaturedVideo refForward={ref} className="mt-[-10rem]"
+        <FeaturedVideo 
+          refForward={ref} 
+          className="mt-[-10rem]"
           topkeyframe={"80vh"}
-          lenis={lenis}
           playerId="appify-ai-systems-video-player"
         />
       </div>

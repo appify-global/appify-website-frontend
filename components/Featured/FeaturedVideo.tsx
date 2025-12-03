@@ -31,7 +31,16 @@ gsap.registerPlugin(ScrollTrigger);
  * SECTION HEIGHT: ~2152px (2.9x viewport) for the scroll space
  */
 
-const FeaturedVideo = ({ topkeyframe, className, lenis, playerClassName, playerId, scrollToOverrideId }: any) => {
+interface FeaturedVideoProps {
+  topkeyframe?: string;
+  className?: string;
+  playerClassName?: string;
+  playerId?: string;
+  scrollToOverrideId?: string;
+  refForward?: React.RefObject<HTMLElement | null>;
+}
+
+const FeaturedVideo = ({ topkeyframe, className, playerClassName, playerId, scrollToOverrideId, refForward }: FeaturedVideoProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);

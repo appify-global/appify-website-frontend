@@ -1,0 +1,94 @@
+/**
+ * Services Page Animations
+ * 
+ * Contains animation styles specific to services pages.
+ */
+
+/* ===== Services Hero Animation ===== */
+
+.services-title-line {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.services-hero--visible .services-title-line-1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.services-hero--visible .services-title-line-2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+/* ===== Category Section Animation ===== */
+
+.category-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.category-section--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Footer CTA Animation ===== */
+
+.footer-cta {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.footer-cta--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Service Link Hover ===== */
+
+.group:hover .service-link-arrow {
+  transform: translateX(4px);
+}
+
+.service-link-arrow {
+  transition: transform 0.3s ease;
+}
+
+/* ===== Service Page Template Animations ===== */
+
+/* Scroll-triggered visibility animations */
+.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Offering cards animation */
+.offering-card.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Process step animation */
+.process-step.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* FAQ section title animation */
+.faq-title.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* CTA section animations */
+.cta-title.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+

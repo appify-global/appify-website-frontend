@@ -26,7 +26,11 @@ gsap.registerPlugin(ScrollTrigger);
  * - Spacing: ~9% gap between video and text
  */
 
-const SubVideoText = ({ ref, lenis }: any) => {
+interface SubVideoTextProps {
+  ref?: React.RefObject<HTMLElement | null>;
+}
+
+const SubVideoText = ({ ref }: SubVideoTextProps) => {
   const textContainerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -91,7 +95,6 @@ const SubVideoText = ({ ref, lenis }: any) => {
           <FeaturedVideoWebGL 
             refForward={ref}
             topkeyframe={"70vh"}
-            lenis={lenis}
             playerId="about-us-video-player"
           />
         </div>
@@ -141,7 +144,6 @@ const SubVideoText = ({ ref, lenis }: any) => {
         <FeaturedVideoWebGL 
           refForward={ref}
           topkeyframe={"70vh"}
-          lenis={lenis}
           playerId="about-us-video-player-mobile"
         />
         

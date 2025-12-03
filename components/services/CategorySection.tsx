@@ -1,0 +1,208 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import { Category, ServiceCategory } from "@/lib/data/services";
+import ServiceLink from "./ServiceLink";
+
+interface CategorySectionProps {
+  category: Category;
+  index: number;
+}
+
+// Decorative ruler component
+const Ruler = ({ position = "top" }: { position?: "top" | "bottom" }) => (
+  <div className="flex items-center gap-[2vw] w-full max-w-[260px]">
+    {/* Main marks */}
+    <div className="w-[3px] h-4 bg-[#2B2E3A]" />
+    <div className={`w-[2px] h-2 bg-[#2B2E3A]/50 ${position === 'bottom' ? 'mt-2' : ''}`} />
+    <div className={`w-[2px] h-2 bg-[#2B2E3A]/50 ${position === 'bottom' ? 'mt-2' : ''}`} />
+    <div className={`w-[2px] h-2 bg-[#2B2E3A]/50 ${position === 'bottom' ? 'mt-2' : ''}`} />
+    <div className={`w-[2px] h-2 bg-[#2B2E3A]/50 ${position === 'bottom' ? 'mt-2' : ''}`} />
+    <div className="w-[3px] h-4 bg-[#2B2E3A]" />
+    <div className={`w-[2px] h-2 bg-[#2B2E3A]/50 ${position === 'bottom' ? 'mt-2' : ''}`} />
+    <div className={`w-[2px] h-2 bg-[#2B2E3A]/50 ${position === 'bottom' ? 'mt-2' : ''}`} />
+    <div className={`w-[2px] h-2 bg-[#2B2E3A]/50 ${position === 'bottom' ? 'mt-2' : ''}`} />
+    <div className={`w-[2px] h-2 bg-[#2B2E3A]/50 ${position === 'bottom' ? 'mt-2' : ''}`} />
+    <div className="w-[3px] h-4 bg-[#2B2E3A]" />
+  </div>
+);
+
+// Progress bar component
+const ProgressBar = ({ progress = 0.8 }: { progress?: number }) => (
+  <div className="w-full max-w-[263px] h-[3px] bg-[#E4E6EF] relative">
+    <div 
+      className="absolute top-0 left-0 h-full bg-[#2B2E3A] transition-all duration-300"
+      style={{ width: `${progress * 100}%` }}
+    />
+  </div>
+);
+
+// Category icon shapes from Figma
+const CategoryIcon = ({ categoryId }: { categoryId: ServiceCategory }) => {
+  const iconPaths: Record<ServiceCategory, JSX.Element> = {
+    strategy: (
+      <svg viewBox="0 0 132 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <path d="M0 0H132V35H66V70H132V105H66V140H132V175H0V140H66V105H0V70H66V35H0V0Z" fill="#2B2E3A"/>
+      </svg>
+    ),
+    creative: (
+      <svg viewBox="0 0 136 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <path d="M136 0H0V35H102V70H0V105H102V140H0V175H136V140H34V105H136V70H34V35H136V0Z" fill="#2B2E3A"/>
+      </svg>
+    ),
+    development: (
+      <svg viewBox="0 0 136 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <path d="M0 0H102C120.778 0 136 15.2223 136 34V141C136 159.778 120.778 175 102 175H0V140H102V35H0V0Z" fill="#2B2E3A"/>
+      </svg>
+    ),
+    intelligence: (
+      <svg viewBox="0 0 43 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <rect y="35" width="43" height="140" fill="#2B2E3A"/>
+        <rect width="43" height="21" fill="#2B2E3A"/>
+      </svg>
+    ),
+  };
+
+  return (
+    <div className="w-[60px] h-[80px] lg:w-[100px] lg:h-[130px]">
+      {iconPaths[categoryId]}
+    </div>
+  );
+};
+
+// Plus icon separator row
+const PlusIconRow = () => (
+  <div className="flex items-center justify-between w-full py-4">
+    {[0, 1, 2, 3, 4].map((i) => (
+      <svg
+        key={i}
+        width="21"
+        height="21"
+        viewBox="0 0 22 22"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={`w-4 h-4 lg:w-5 lg:h-5 ${i > 0 && i < 4 ? 'hidden lg:block' : ''}`}
+      >
+        <path
+          d="M11.7581 0.149597V9.84198H21.4504V11.758H11.7581V21.4504H9.84204V11.758H0.149658V9.84198H9.84204V0.149597H11.7581Z"
+          fill="#1B1B1B"
+          stroke="black"
+          strokeWidth="0.3"
+        />
+      </svg>
+    ))}
+  </div>
+);
+
+const CategorySection = ({ category, index }: CategorySectionProps) => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("category-section--visible");
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Placeholder images for each category
+  const categoryImages: Record<ServiceCategory, string> = {
+    strategy: "/projects/prelo.png",
+    creative: "/projects/booked-ai.png",
+    development: "/projects/guardian.png",
+    intelligence: "/projects/entoda.png",
+  };
+
+  return (
+    <section 
+      ref={sectionRef}
+      className="category-section w-full py-8 lg:py-16"
+    >
+      {/* Plus icon separator at top */}
+      <PlusIconRow />
+
+      {/* Main content grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mt-8">
+        {/* Left column - Image and title */}
+        <div className="flex flex-col">
+          {/* Ruler (top) */}
+          <div className="mb-4 hidden lg:block">
+            <Ruler position="top" />
+          </div>
+
+          {/* Category title */}
+          <h2 className="font-Aeonik text-[clamp(2.5rem,8vw,10rem)] leading-[0.95] tracking-[-0.02em] mb-6 lg:mb-8">
+            {category.label.toUpperCase()}
+          </h2>
+
+          {/* Image placeholder */}
+          <div className="relative w-full aspect-video lg:aspect-[16/9] rounded-xl lg:rounded-2xl overflow-hidden bg-[#E4E6EF]">
+            <img
+              src={categoryImages[category.id]}
+              alt={`${category.label} services`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Ruler (bottom) - mobile only */}
+          <div className="mt-4 lg:hidden">
+            <Ruler position="bottom" />
+          </div>
+        </div>
+
+        {/* Right column - Description and services */}
+        <div className="flex flex-col justify-between">
+          {/* Top section with ruler and description */}
+          <div>
+            {/* Ruler (desktop) */}
+            <div className="mb-4 hidden lg:block">
+              <Ruler position="top" />
+            </div>
+
+            {/* Description */}
+            <p className="font-Aeonik text-[clamp(0.9rem,1.2vw,1rem)] leading-[1.6] text-[#444] mb-8 lg:mb-12">
+              {category.description}
+            </p>
+
+            {/* Service links */}
+            <div className="flex flex-col gap-2 lg:gap-3">
+              {category.services.map((service) => (
+                <ServiceLink key={service.id} service={service} />
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom section with icon and progress */}
+          <div className="flex items-end justify-between mt-8 lg:mt-12">
+            {/* Progress bar */}
+            <div className="hidden lg:block">
+              <ProgressBar progress={0.8} />
+            </div>
+
+            {/* Category icon */}
+            <div className="ml-auto">
+              <CategoryIcon categoryId={category.id} />
+            </div>
+          </div>
+
+          {/* Ruler (bottom) - desktop only */}
+          <div className="mt-4 hidden lg:block">
+            <Ruler position="bottom" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CategorySection;
+

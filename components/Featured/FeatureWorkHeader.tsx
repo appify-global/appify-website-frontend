@@ -1,19 +1,16 @@
 "use client";
 import { a, useSpring } from "@react-spring/web";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { SplitText } from "gsap/SplitText";
 import gsap from "gsap";
-import Lenis from "lenis";
+import { useLenis } from "@/hooks/useLenis";
 
 gsap.registerPlugin(SplitText);
 
-interface FeatureWorkHeaderProps {
-  lenis?: Lenis;
-}
-
-const FeatureWorkHeader = ({ lenis }: FeatureWorkHeaderProps) => {
+const FeatureWorkHeader = () => {
   const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
   const ref = useRef<HTMLDivElement>(null);
+  const lenis = useLenis();
 
   useEffect(() => {
     if (!lenis) return;

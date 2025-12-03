@@ -5,19 +5,24 @@ import Navbar from "@/components/Navbar/Navbar";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Lenis from "lenis";
-import { getProjectBySlug, projectsData, Project } from "@/data/projects";
+import { getProjectBySlug, projectsData } from "@/data/projects";
 import initWasmModule from "../../../rust/pkg/skiggle_wasm";
 import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
+/**
+ * Project Detail Page
+ * 
+ * This page uses a custom horizontal scroll setup that differs from the standard
+ * PageLayout. It has its own Lenis instance for horizontal scrolling behavior.
+ */
 export default function ProjectDetailPage() {
   const params = useParams();
   const router = useRouter();
   const slug = params.slug as string;
-  const [lenis, setLenis] = useState<Lenis | null>(null);
-  const [initwasm, setInitWasm] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [wasmReady, setWasmReady] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
@@ -30,7 +35,21 @@ export default function ProjectDetailPage() {
   const currentIndex = projectsData.findIndex(p => p.slug === slug);
   const nextProject = projectsData[(currentIndex + 1) % projectsData.length];
 
-  // Initialize Lenis smooth scroll
+  // Init WASM
+  useEffect(() => {
+    const initWasm = async () => {
+      try {
+        await initWasmModule();
+        setWasmReady(true);
+      } catch (error) {
+        console.error("Failed to initialize WASM:", error);
+        setWasmReady(true); // Continue without WASM features
+      }
+    };
+    initWasm();
+  }, []);
+
+  // Initialize Lenis smooth scroll (custom setup for horizontal scrolling)
   useLayoutEffect(() => {
     const lenisInstance = new Lenis({
       duration: 1.2,
@@ -46,20 +65,10 @@ export default function ProjectDetailPage() {
     }
 
     requestAnimationFrame(raf);
-    setLenis(lenisInstance);
 
     return () => {
       lenisInstance.destroy();
     };
-  }, []);
-
-  // Init WASM
-  useEffect(() => {
-    const initWasm = async () => {
-      await initWasmModule();
-      setInitWasm(true);
-    };
-    initWasm();
   }, []);
 
   // Setup horizontal scroll with GSAP ScrollTrigger
@@ -93,12 +102,6 @@ export default function ProjectDetailPage() {
           scrub: 1,
           invalidateOnRefresh: true,
           anticipatePin: 1,
-          onUpdate: (self) => {
-            // When scroll reaches the end, enable next project transition
-            if (self.progress >= 0.98 && !isTransitioning) {
-              // Add a visual cue that next project is ready
-            }
-          },
         },
       });
 
@@ -143,7 +146,7 @@ export default function ProjectDetailPage() {
 
   return (
     <div ref={containerRef} className="bg-[#0a0a0a] overflow-hidden">
-      <Navbar lenis={lenis} initwasm={initwasm} />
+      {wasmReady && <Navbar />}
       
       {/* Horizontal Scroll Container */}
       <section ref={horizontalRef} className="relative h-screen overflow-hidden">

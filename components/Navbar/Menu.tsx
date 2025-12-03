@@ -113,11 +113,11 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
             </form>
           </a.div>
 
-          {/* Labs */}
+          {/* News Room */}
           <a.div className="bg-black text-white p-8 rounded-xl" style={contents}>
-            <Link href="/labs">
+            <Link href="/news">
               <div className="flex justify-between text-3xl">
-                <div>LABS</div>
+                <div>NEWS ROOM</div>
                 <svg
                   width="30px"
                   height="30px"

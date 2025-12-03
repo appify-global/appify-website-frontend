@@ -1,0 +1,291 @@
+/**
+ * Shared Component Styles
+ * 
+ * Contains styles for reusable components across the application.
+ */
+
+/* ===== DotButton / CTA Button ===== */
+
+#home-reel-cta {
+  display: flex;
+  position: relative;
+  float: left;
+  overflow: hidden;
+  padding: 1em 1.5em 1em 1.625em;
+  align-items: center;
+  gap: 1em;
+  border-radius: 5.3125em;
+  font-size: clamp(0.875rem, 1vw, 1.75rem);
+  background: #fff;
+  font-family: "Aeonik";
+  text-transform: uppercase;
+  width: fit-content;
+  height: 3.375em;
+  font-weight: 500;
+  color: #000;
+  grid-column: 7 / span 6;
+  box-shadow: 0 6px 10px #0000000a, 0 2px 4px #0000000a;
+  transition: background cubic-bezier(0.35, 0, 0, 1) 0.2s;
+  will-change: transform;
+  cursor: pointer;
+}
+
+.black-btn {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.black-btn #home-reel-cta-dot {
+  background: #fff;
+  box-shadow: none;
+}
+
+@media (max-width: 812px) {
+  #home-reel-cta {
+    opacity: 1;
+    margin-bottom: 6em;
+    margin-top: 3em;
+  }
+}
+
+@media (hover: hover) {
+  #home-reel-cta:hover {
+    color: #fff;
+    background: var(--color-accent, rgb(242, 48, 132));
+    transition: background cubic-bezier(0.35, 0, 0, 1) 0.5s 0.3s;
+  }
+  #home-reel-cta:hover #home-reel-cta-text {
+    transform: translate3d(-1.5em, 0, 0);
+  }
+  #home-reel-cta:hover #home-reel-cta-dot {
+    transform: translate3d(3em, 0, 0) scale(20);
+    background: var(--color-accent, rgb(242, 48, 132));
+  }
+
+  #home-reel-cta:hover.black-btn #home-reel-cta-dot {
+    transform: translate3d(3em, 0, 0) scale(80);
+    background: var(--color-accent, rgb(242, 48, 132));
+  }
+
+  #home-reel-cta:hover.free-discovery-call-btn #home-reel-cta-dot {
+    transform: translate3d(3em, 0, 0) scale(40);
+    background: var(--color-accent, rgb(242, 48, 132));
+  }
+  
+  #home-reel-cta:hover.see-all-projects-btn #home-reel-cta-dot {
+    transform: translate3d(3em, 0, 0) scale(40);
+    background: var(--color-accent, rgb(242, 48, 132));
+  }
+
+  #home-reel-cta:hover #home-reel-cta-arrow {
+    transform: translateZ(0);
+  }
+  #home-reel-cta:hover #home-reel-cta-arrow svg {
+    color: #fff;
+  }
+}
+
+#home-reel-cta-dot {
+  display: inline-block;
+  position: relative;
+  width: 0.5em;
+  height: 0.5em;
+  background: #000;
+  border-radius: 100px;
+  z-index: 1;
+  transition: background cubic-bezier(0.35, 0, 0, 1) 0.5s,
+    transform cubic-bezier(0.35, 0, 0, 1) 0.4s;
+}
+
+#home-reel-cta-text {
+  position: relative;
+  z-index: 1;
+  transition: color cubic-bezier(0.35, 0, 0, 1) 0.5s,
+    transform cubic-bezier(0.35, 0, 0, 1) 0.4s;
+}
+
+#home-reel-cta-arrow {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 1em;
+  height: 1.2em;
+  width: 1.2em;
+  color: #fff;
+  border-radius: 100%;
+  transform: translate3d(3em, 0, 0);
+  transition: transform cubic-bezier(0.4, 0, 0, 1) 0.4s;
+  z-index: 1;
+}
+
+#home-reel-cta-arrow svg {
+  transition: color 0.5s;
+  width: 100%;
+  height: 100%;
+}
+
+/* ===== Flip Card Component ===== */
+
+.card-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  animation: floating 3s infinite ease-in-out;
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+@keyframes floating {
+  0% {
+    transform: translate3d(-50%, -50%, 0);
+  }
+  50% {
+    transform: translate3d(-50%, -60%, 0);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0);
+  }
+}
+
+.animate-floating {
+  animation: floating 3s infinite ease-in-out;
+}
+
+/* ===== Card Performance ===== */
+
+.card,
+.flip-card-inner {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.project-card,
+.project-card img {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* ===== Card Logo Hover ===== */
+
+.card-logo:hover {
+  filter: invert();
+}
+
+/* ===== Scroll Indicator ===== */
+
+#scroll-indicator {
+  position: fixed;
+  width: 6px;
+  height: calc(var(--vh, 1vh) * 20);
+  top: calc(var(--vh, 1vh) * 40);
+  right: 16px;
+  background-color: #0000001a;
+  border-radius: 999px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+  overflow: hidden;
+  contain: layout style;
+}
+
+@media (max-width: 812px) {
+  #scroll-indicator {
+    width: 2px;
+    right: 6px;
+  }
+}
+
+#scroll-indicator-bar {
+  position: absolute;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 4);
+  background-color: var(--color-black, #000);
+  border-radius: 999px;
+  top: 0;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+
+/* ===== Carousel Component ===== */
+
+.container {
+  margin: 0 auto;
+  width: 250px;
+  height: 200px;
+  position: relative;
+  perspective: 1000px;
+}
+
+.carousel {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.item {
+  display: block;
+  position: absolute;
+  background: #000;
+  width: 400px;
+  height: 100px;
+  line-height: 200px;
+  font-size: 5em;
+  text-align: center;
+  color: #fff;
+  opacity: 0.95;
+  border-radius: 10px;
+}
+
+.a {
+  transform: rotateX(0deg) translateZ(250px);
+  background: #ed1c24;
+}
+.b {
+  transform: rotateX(60deg) translateZ(250px);
+  background: #0072bc;
+}
+.c {
+  transform: rotateX(120deg) translateZ(250px);
+  background: #39b54a;
+}
+.d {
+  transform: rotateX(180deg) translateZ(250px);
+  background: #f26522;
+}
+.e {
+  transform: rotateX(240deg) translateZ(250px);
+  background: #630460;
+}
+.f {
+  transform: rotateX(300deg) translateZ(250px);
+  background: #8c6239;
+}
+
+/* ===== Squiggle Animation Performance ===== */
+
+.squigggle,
+.squigggle path {
+  will-change: stroke-dashoffset;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
