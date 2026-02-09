@@ -21,13 +21,13 @@ function ActiveIndicator() {
 
 function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
   return (
-    <div className="mt-10 lg:mt-16 space-y-8">
+    <div className="mt-10 md:mt-12 lg:mt-16 space-y-8">
       {blocks.map((block, i) => {
         if (block.type === "heading") {
           return (
             <h2
               key={i}
-              className="font-Aeonik text-[13px] lg:text-[15px] tracking-[0.15em] uppercase text-black mt-12"
+              className="font-Aeonik text-[13px] md:text-[14px] lg:text-[15px] tracking-[0.15em] uppercase text-black mt-12"
             >
               {block.text}
             </h2>
@@ -37,7 +37,7 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
           return (
             <div
               key={i}
-              className="relative w-full max-w-[720px] h-[200px] sm:h-[280px] lg:h-[350px] rounded-[8px] lg:rounded-[16px] overflow-hidden"
+              className="relative w-full max-w-[720px] h-[200px] sm:h-[280px] md:h-[320px] lg:h-[350px] rounded-[8px] md:rounded-[12px] lg:rounded-[16px] overflow-hidden"
             >
               <Image
                 src={block.src!}
@@ -51,7 +51,7 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
         return (
           <p
             key={i}
-            className="font-Aeonik text-[15px] lg:text-[18px] leading-[1.6] text-black max-w-[720px]"
+            className="font-Aeonik text-[15px] md:text-[16px] lg:text-[18px] leading-[1.6] text-black max-w-[720px]"
           >
             {block.text}
           </p>
@@ -79,7 +79,7 @@ function NewsArticleContent() {
   return (
     <PageLayout showFooter={false} navbarPadding="pb-[4vw]">
       <main className="flex-1">
-        <section className="px-4 lg:px-[4vw] pt-[25vw] lg:pt-[12vw]">
+        <section className="px-4 md:px-[4vw] lg:px-[4vw] pt-[25vw] md:pt-[15vw] lg:pt-[12vw]">
           {/* Desktop Sidebar - Fixed */}
           <aside className="hidden lg:block fixed left-[4vw] top-[12vw] w-[140px] z-30 max-h-[calc(100vh-12vw-2rem)] overflow-y-auto scrollbar-hide">
             <div className="flex flex-col gap-4 min-w-[140px]">
@@ -119,14 +119,14 @@ function NewsArticleContent() {
               <div className="flex items-center justify-between mb-4 lg:mb-6">
                 <Link
                   href="/news"
-                  className="inline-flex items-center gap-3 font-Aeonik text-[13px] lg:text-[15px] tracking-[0.1em] uppercase text-black hover:opacity-70 transition-opacity"
+                  className="inline-flex items-center gap-3 font-Aeonik text-[13px] md:text-[14px] lg:text-[15px] tracking-[0.1em] uppercase text-black hover:opacity-70 transition-opacity"
                 >
                   <FaArrowLeft size={12} />
                   <span>BACK</span>
                 </Link>
 
-                {/* Search Bar - Desktop Only */}
-                <div className="hidden lg:flex w-full max-w-[350px] flex-shrink-0">
+                {/* Search Bar - Tablet & Desktop */}
+                <div className="hidden md:flex w-full max-w-[280px] lg:max-w-[350px] flex-shrink-0">
                   <div className="relative w-full">
                     <div className="backdrop-blur-[9px] bg-[rgba(226,227,234,0.05)] border border-white/20 rounded-full px-5 py-4 flex items-center justify-between w-full shadow-[0px_4px_56px_0px_rgba(0,0,0,0.05),0px_15px_134px_-9px_rgba(0,0,0,0.1)]">
                       <input
@@ -140,20 +140,49 @@ function NewsArticleContent() {
                 </div>
               </div>
 
+              {/* Tablet Topic Pills - Horizontal scroll */}
+              <div className="lg:hidden overflow-x-auto scrollbar-hide -mx-4 px-4 mb-6">
+                <div className="flex gap-4 items-center pb-4 w-max">
+                  {newsCategories.map((category) => {
+                    const isActive =
+                      category.toUpperCase() === article.category.toUpperCase();
+                    return (
+                      <Link
+                        key={category}
+                        href="/news"
+                        className={`flex items-center gap-2 px-3 py-1 rounded-full font-Aeonik text-lg whitespace-nowrap transition-all ${
+                          isActive
+                            ? "bg-[#e4e6ef]"
+                            : "bg-transparent hover:bg-[#e4e6ef]/50"
+                        }`}
+                      >
+                        {isActive && (
+                          <div className="flex gap-[2px]">
+                            <div className="w-[4px] h-[4px] bg-black rounded-full" />
+                            <div className="w-[4px] h-[4px] bg-black rounded-full" />
+                          </div>
+                        )}
+                        <span>{category}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+
               {/* Article Header */}
               <div className="max-w-[850px]">
-                <h1 className="font-Aeonik text-[28px] sm:text-[36px] lg:text-[48px] leading-[1.05] text-black mb-4">
+                <h1 className="font-Aeonik text-[28px] sm:text-[36px] md:text-[40px] lg:text-[48px] leading-[1.05] text-black mb-4">
                   {article.title}
                 </h1>
 
                 {/* Date + Author */}
-                <p className="font-Aeonik text-[14px] lg:text-[16px] leading-[1.5] text-[rgba(0,0,0,0.6)]">
+                <p className="font-Aeonik text-[14px] md:text-[15px] lg:text-[16px] leading-[1.5] text-[rgba(0,0,0,0.6)]">
                   {article.date} — Porsche, Wallpaper* and Lucien presents short film inspired by Ferry Porsche&apos;s dream of a &apos;modern sports car.&apos;
                 </p>
               </div>
 
               {/* Hero Image */}
-              <div className="relative w-full max-w-[850px] h-[250px] sm:h-[350px] lg:h-[450px] rounded-[8px] lg:rounded-[16px] overflow-hidden mt-4">
+              <div className="relative w-full max-w-[850px] h-[250px] sm:h-[350px] md:h-[400px] lg:h-[450px] rounded-[8px] md:rounded-[12px] lg:rounded-[16px] overflow-hidden mt-4">
                 <Image
                   src={article.imageUrl}
                   alt={article.title}
@@ -168,8 +197,8 @@ function NewsArticleContent() {
                   <ArticleContent blocks={article.content} />
                 </div>
               ) : (
-                <div className="max-w-[850px] mt-8 lg:mt-12">
-                  <p className="font-Aeonik text-[15px] lg:text-[18px] leading-[1.6] text-black">
+                <div className="max-w-[850px] mt-8 md:mt-10 lg:mt-12">
+                  <p className="font-Aeonik text-[15px] md:text-[16px] lg:text-[18px] leading-[1.6] text-black">
                     {article.excerpt}
                   </p>
                 </div>

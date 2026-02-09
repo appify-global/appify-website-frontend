@@ -113,14 +113,14 @@ export default function NewsFilterButton() {
       {isOpen && (
         <div
           ref={dropdownRef}
-          className="absolute right-0 top-[calc(100%+1.25rem)] z-50 flex items-start gap-3"
+          className="absolute right-0 top-[calc(100%+1.25rem)] z-50 flex flex-col md:flex-row items-stretch gap-3 w-[calc(100vw-3rem)] md:w-[calc(100vw-3rem)] lg:w-[calc(100vw-185px-8vw)]"
         >
           {/* Topics Section */}
-          <div className="bg-white rounded-[20px] px-10 py-8 shadow-[0_8px_40px_rgba(0,0,0,0.08)]" style={{ width: "520px" }}>
-            <span className="font-Aeonik text-[13px] uppercase tracking-[0.2em] text-[rgba(0,0,0,0.35)] mb-6 block">
-              Topics
+          <div className="order-2 md:order-1 bg-white rounded-[16px] md:rounded-[20px] px-6 py-6 md:pl-10 md:pr-8 md:py-8 lg:pl-[70px] lg:pr-10 lg:py-10 shadow-[0_8px_40px_rgba(0,0,0,0.08)] flex-[2]">
+            <span className="ml-[24px] md:ml-0 font-Aeonik text-[18px] md:text-[22px] lg:text-[28px] uppercase tracking-[0.25em] text-[rgba(0,0,0,0.35)] mb-4 md:mb-6 lg:mb-8 block">
+              TOPICS
             </span>
-            <div className="grid grid-cols-2 gap-x-16 gap-y-5">
+            <div className="grid grid-cols-2 md:grid-cols-[max-content_max-content] gap-x-4 md:gap-x-12 lg:gap-x-[112px] gap-y-4 md:gap-y-5 lg:gap-y-7 ml-[24px] md:ml-0">
               {topics.map((topic) => {
                 const active = isTopicActive(topic);
                 return (
@@ -131,12 +131,12 @@ export default function NewsFilterButton() {
                   >
                     {active && (
                       <span className="flex gap-[3px] flex-shrink-0">
-                        <span className="w-[6px] h-[6px] bg-black rounded-full inline-block" />
-                        <span className="w-[6px] h-[6px] bg-black rounded-full inline-block" />
+                        <span className="w-[5px] h-[5px] md:w-[6px] md:h-[6px] bg-black rounded-full inline-block" />
+                        <span className="w-[5px] h-[5px] md:w-[6px] md:h-[6px] bg-black rounded-full inline-block" />
                       </span>
                     )}
                     <span
-                      className={`font-Aeonik text-[22px] transition-opacity ${
+                      className={`font-Aeonik text-[16px] md:text-[18px] lg:text-[22px] transition-opacity ${
                         active ? "opacity-100" : "opacity-40 group-hover:opacity-70"
                       }`}
                     >
@@ -149,24 +149,24 @@ export default function NewsFilterButton() {
           </div>
 
           {/* Sort By Section */}
-          <div className="bg-[#1B1B1B] rounded-[20px] px-10 py-8 shadow-[0_8px_40px_rgba(0,0,0,0.15)]" style={{ width: "280px" }}>
-            <span className="font-Aeonik text-[13px] uppercase tracking-[0.2em] text-[rgba(255,255,255,0.35)] mb-6 block">
-              Sort by
+          <div className="order-1 md:order-2 bg-[#1B1B1B] rounded-[16px] md:rounded-[45px] px-6 py-6 md:px-8 md:py-8 lg:px-10 lg:py-10 shadow-[0_8px_40px_rgba(0,0,0,0.15)] flex flex-col flex-[1] items-start pl-[45px] md:items-center md:pl-0">
+            <span className="font-Aeonik text-[18px] md:text-[22px] lg:text-[28px] uppercase tracking-[0.25em] text-white mb-4 md:mb-6 lg:mb-8 block">
+              SORT BY
             </span>
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-4 md:gap-5 lg:gap-7">
               {sortOptions.map((option) => {
                 const active = sortBy === option;
                 return (
                   <button
                     key={option}
                     onClick={() => setSortBy(option)}
-                    className="flex items-center gap-3 text-left group"
+                    className="flex items-center gap-3 md:gap-4 text-left group"
                   >
                     {active && (
-                      <span className="w-[6px] h-[6px] bg-white rounded-full inline-block flex-shrink-0" />
+                      <span className="w-[6px] h-[6px] md:w-[8px] md:h-[8px] bg-white rounded-full inline-block flex-shrink-0" />
                     )}
                     <span
-                      className={`font-Aeonik text-[22px] text-white transition-opacity ${
+                      className={`font-Aeonik text-[16px] md:text-[18px] lg:text-[22px] text-white transition-opacity ${
                         active ? "opacity-100" : "opacity-40 group-hover:opacity-70"
                       }`}
                     >

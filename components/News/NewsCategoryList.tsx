@@ -46,28 +46,30 @@ export default function NewsCategoryList({
         })}
       </div>
 
-      {/* Mobile Horizontal Pills */}
+      {/* Mobile Horizontal Categories */}
       <div className="lg:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
-        <div className="flex gap-4 items-center pb-4 w-max">
+        <div className="flex gap-5 items-center pb-4 w-max">
           {newsCategories.map((category) => {
             const isActive = activeCategories.includes(category);
             return (
               <button
                 key={category}
                 onClick={() => onCategoryToggle(category)}
-                className={`flex items-center gap-2 px-3 py-1 rounded-full font-Aeonik text-lg whitespace-nowrap transition-all ${
-                  isActive
-                    ? "bg-[#e4e6ef]"
-                    : "bg-transparent hover:bg-[#e4e6ef]/50"
-                }`}
+                className="flex items-center gap-2 whitespace-nowrap transition-all"
               >
                 {isActive && (
-                  <div className="flex gap-[2px]">
-                    <div className="w-[4px] h-[4px] bg-black rounded-full" />
-                    <div className="w-[4px] h-[4px] bg-black rounded-full" />
+                  <div className="flex gap-[3px] flex-shrink-0">
+                    <div className="w-[5px] h-[5px] bg-black rounded-full" />
+                    <div className="w-[5px] h-[5px] bg-black rounded-full" />
                   </div>
                 )}
-                <span>{category}</span>
+                <span
+                  className={`font-Aeonik text-[16px] transition-opacity ${
+                    isActive ? "opacity-100 font-medium" : "opacity-60"
+                  }`}
+                >
+                  {category}
+                </span>
               </button>
             );
           })}

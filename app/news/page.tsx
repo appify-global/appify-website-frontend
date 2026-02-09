@@ -49,7 +49,7 @@ function NewsPageContent() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section with Sidebar */}
-        <section className="px-4 lg:px-[4vw] pt-[25vw] lg:pt-[8vw]">
+        <section className="px-4 md:px-[4vw] lg:px-[4vw] pt-[25vw] md:pt-[15vw] lg:pt-[8vw]">
           {/* Desktop Sidebar - Fixed */}
           <aside className="hidden lg:block fixed left-[4vw] top-[14vw] w-[140px] z-30 max-h-[calc(100vh-14vw-2rem)] overflow-y-auto scrollbar-hide">
             <NewsCategoryList
@@ -80,16 +80,16 @@ function NewsPageContent() {
               <FeaturedNewsCarousel articles={featuredArticles} />
 
               {/* Scroll Divider */}
-              <div className="flex items-center justify-center gap-6 lg:gap-0 lg:justify-between py-8 lg:py-12">
+              <div className="flex items-center justify-center gap-4 md:gap-0 md:justify-between py-6 md:py-10 lg:py-12">
                 <PlusIcon />
-                <div className="hidden lg:flex items-center gap-44">
+                <div className="hidden md:flex items-center gap-12 lg:gap-44">
                   <PlusIcon />
-                  <span className="font-Aeonik text-[20px] tracking-wide text-black">
+                  <span className="font-Aeonik text-[16px] md:text-[18px] lg:text-[20px] tracking-[0.15em] uppercase text-black">
                     SCROLL TO EXPLORE
                   </span>
                   <PlusIcon />
                 </div>
-                <span className="lg:hidden font-Aeonik text-[13px] tracking-wide text-black">
+                <span className="md:hidden font-Aeonik text-[12px] tracking-[0.15em] uppercase text-black">
                   SCROLL TO EXPLORE
                 </span>
                 <PlusIcon />
@@ -97,40 +97,15 @@ function NewsPageContent() {
 
               {/* Latest News Section */}
               <div>
-                <div className="flex items-start justify-between mb-6 lg:mb-12">
+                <div className="mb-4 md:mb-6 lg:mb-12">
                   <h2 className="font-Aeonik text-[clamp(2.5rem,5vw,5rem)] leading-tight text-black">
                     Latest News
                   </h2>
-
-                  {/* Search Icon - Mobile */}
-                  <button className="lg:hidden p-2 mt-2">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="7"
-                        stroke="black"
-                        strokeWidth="2"
-                      />
-                      <path
-                        d="M16 16L20 20"
-                        stroke="black"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </button>
                 </div>
 
-                {/* Category Filter Pills - Mobile */}
-                <div className="lg:hidden mb-6">
-                  <span className="font-Aeonik text-sm text-[rgba(0,0,0,0.6)] tracking-wide uppercase">
+                {/* Active Category Label - Mobile & Tablet */}
+                <div className="lg:hidden mb-4">
+                  <span className="font-Aeonik text-[13px] tracking-[0.08em] uppercase text-[rgba(0,0,0,0.5)]">
                     {activeCategories.length > 0
                       ? activeCategories.join(", ")
                       : "ALL CATEGORIES"}
@@ -138,7 +113,7 @@ function NewsPageContent() {
                 </div>
 
                 {/* News List */}
-                <div className="divide-y divide-[rgba(0,0,0,0.1)] lg:divide-y-0">
+                <div className="md:divide-y md:divide-[rgba(0,0,0,0.1)] lg:divide-y-0">
                   {filteredLatestArticles.map((article) => (
                     <NewsCard key={article.id} article={article} />
                   ))}
