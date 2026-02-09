@@ -40,8 +40,8 @@ const clientLogos = [
 
 // Placeholder logo component when image isn't available
 const PlaceholderLogo = ({ name }: { name: string }) => (
-  <div className="w-[136px] h-[115px] flex items-center justify-center bg-white/5 rounded-lg">
-    <span className="font-Aeonik text-[12px] text-white/40 text-center px-2">
+  <div className="w-full h-full flex items-center justify-center bg-white/5 rounded-lg">
+    <span className="font-Aeonik text-[11px] sm:text-[12px] text-white/40 text-center px-2">
       {name}
     </span>
   </div>
@@ -91,12 +91,12 @@ const ClientsSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[80vh] lg:min-h-[1189px] bg-black overflow-hidden py-[10vh] lg:py-[160px]"
+      className="relative w-full lg:min-h-[1189px] bg-black overflow-hidden py-[8vh] sm:py-[10vh] lg:py-[160px]"
     >
       {/* Main content */}
-      <div className="relative z-10 px-[6vw] lg:px-[5vw]">
+      <div className="relative z-10 px-[4vw] sm:px-[6vw] lg:px-[5vw]">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-[60px] lg:mb-[80px]">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-[30px] sm:mb-[50px] lg:mb-[80px]">
           {/* Title */}
           <h2
             ref={titleRef}
@@ -114,16 +114,16 @@ const ClientsSection = () => {
         </div>
 
         {/* Client logos grid */}
-        <div ref={logosRef} className="space-y-[40px] lg:space-y-[60px]">
+        <div ref={logosRef} className="space-y-[20px] sm:space-y-[40px] lg:space-y-[60px]">
           {clientLogos.map((row, rowIndex) => (
             <div
               key={rowIndex}
-              className="flex flex-wrap justify-center lg:justify-start gap-[20px] lg:gap-[40px] xl:gap-[80px]"
+              className="flex flex-wrap justify-center lg:justify-start gap-[10px] sm:gap-[20px] lg:gap-[40px] xl:gap-[80px]"
             >
               {row.map((client, index) => (
                 <div
                   key={index}
-                  className="w-[100px] lg:w-[136px] h-[80px] lg:h-[115px] flex items-center justify-center group"
+                  className="w-[calc(33%-10px)] sm:w-[100px] lg:w-[136px] h-[60px] sm:h-[80px] lg:h-[115px] flex items-center justify-center group"
                 >
                   {/* Using placeholder - replace with actual images when available */}
                   <PlaceholderLogo name={client.name} />

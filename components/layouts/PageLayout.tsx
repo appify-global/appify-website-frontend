@@ -92,7 +92,7 @@ export function PageLayout({
   }, []);
 
   const defaultLoadingFallback = (
-    <div className="w-screen h-screen bg-[var(--color-background,#F0F1FA)] text-black flex items-center justify-center">
+    <div className="w-full h-screen bg-[var(--color-background,#F0F1FA)] text-black flex items-center justify-center">
       <span className="font-Aeonik text-[8vw]">Loading...</span>
     </div>
   );

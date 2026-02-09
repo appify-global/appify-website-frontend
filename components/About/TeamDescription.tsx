@@ -63,12 +63,12 @@ const TeamDescription = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[80vh] lg:min-h-[877px] bg-black overflow-hidden"
+      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:min-h-[877px] bg-black overflow-hidden"
     >
       {/* Main content */}
-      <div className="relative z-10 h-full px-[6vw] lg:px-[5vw] py-[10vh] lg:py-[194px]">
+      <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[8vh] sm:py-[10vh] lg:py-[194px]">
         {/* Plus icon row */}
-        <div className="flex items-center justify-between w-full mb-[60px] lg:mb-0 lg:absolute lg:top-[418px] lg:left-[5vw] lg:right-[5vw] lg:w-auto lg:pr-[10vw]">
+        <div className="flex items-center justify-between w-full mb-[30px] sm:mb-[60px] lg:mb-0 lg:absolute lg:top-[418px] lg:left-[5vw] lg:right-[5vw] lg:w-auto lg:pr-[10vw]">
           {[0, 1, 2, 3, 4].map((i) => (
             <PlusIcon
               key={i}
@@ -93,7 +93,7 @@ const TeamDescription = () => {
           {/* Right text - positioned bottom right on desktop */}
           <div
             ref={rightTextRef}
-            className="mt-[25vh] lg:mt-0 lg:absolute lg:right-[5vw] lg:bottom-[270px] text-left lg:text-right max-w-full lg:max-w-[947px]"
+            className="mt-[15vh] sm:mt-[20vh] lg:mt-0 lg:absolute lg:right-[5vw] lg:bottom-[270px] text-left lg:text-right max-w-full lg:max-w-[947px]"
           >
             <p className="font-Aeonik text-[7vw] lg:text-[31px] leading-[1.15] text-white">
               <span>who bring a </span>

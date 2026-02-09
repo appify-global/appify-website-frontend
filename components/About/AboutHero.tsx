@@ -43,7 +43,7 @@ const AboutHero = () => {
   return (
     <div
       ref={heroRef}
-      className="relative w-full min-h-[85vh] lg:min-h-[877px] bg-black overflow-hidden"
+      className="relative w-full min-h-[70vh] sm:min-h-[80vh] lg:min-h-[877px] bg-black overflow-hidden"
     >
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80 z-10" />
@@ -65,7 +65,7 @@ const AboutHero = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-20 h-full flex flex-col justify-between px-[4vw] lg:px-[5vw] pt-[25vh] lg:pt-[140px] pb-[4vh] lg:pb-[80px]">
+      <div className="relative z-20 h-full flex flex-col justify-between px-[4vw] lg:px-[5vw] pt-[15vh] sm:pt-[20vh] lg:pt-[140px] pb-[4vh] lg:pb-[80px]">
         {/* Plus icon row */}
         <div className="hidden lg:flex items-center justify-between w-full mt-[280px]">
           {[0, 1, 2, 3, 4].map((i) => (

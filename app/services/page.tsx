@@ -13,7 +13,7 @@ export default function ServicesPage() {
   return (
     <PageLayout navbarPadding="pb-[2vw]">
       {/* Hero Section */}
-      <section id="services-hero" className="h-full flex flex-col w-screen">
+      <section id="services-hero" className="h-full flex flex-col w-full">
         <ServicesHero />
       </section>
 

@@ -152,7 +152,7 @@ const CTASection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[70vh] lg:min-h-[879px] bg-[#F0F1FA] overflow-hidden py-[80px] lg:py-[133px]"
+      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[879px] bg-[#F0F1FA] overflow-hidden py-[40px] sm:py-[60px] lg:py-[133px]"
     >
       {/* Floating avatars background */}
       <div
@@ -193,7 +193,7 @@ const CTASection = () => {
         </h2>
 
         {/* Plus icon row */}
-        <div className="flex items-center justify-center gap-[80px] lg:gap-[200px] mb-[30px]">
+        <div className="flex items-center justify-center gap-[40px] sm:gap-[80px] lg:gap-[200px] mb-[30px]">
           <PlusIcon className="w-4 h-4 lg:w-5 lg:h-5 text-black/40" />
           <PlusIcon className="w-4 h-4 lg:w-5 lg:h-5 text-black/40 hidden lg:block" />
           <PlusIcon className="w-4 h-4 lg:w-5 lg:h-5 text-black/40" />

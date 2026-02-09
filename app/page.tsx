@@ -31,10 +31,10 @@ export default function Home() {
     <PageLayout showParticles={true} navbarPadding="pb-[4vw]">
       <section
         id="hero-section"
-        className="h-full flex flex-col w-screen p-[4vw]"
+        className="h-full flex flex-col w-full p-[4vw]"
       >
         <Hero />
-        <div className="mt-10" />
+        <div className="mt-6 sm:mt-10" />
         <ScrollText />
       </section>
 
@@ -45,7 +45,7 @@ export default function Home() {
         style={{ overflow: 'visible' }}
       >
         <Skiggle ref={ref} />
-        <div className="w-screen" style={{ paddingLeft: '5vw', paddingRight: '5vw', overflow: 'visible' }}>
+        <div className="w-full" style={{ paddingLeft: '5vw', paddingRight: '5vw', overflow: 'visible' }}>
           <Header />
           <SubVideoText ref={ref} />
         </div>
@@ -57,7 +57,7 @@ export default function Home() {
       >
         <SkiggleDrop />
 
-        <div className="w-screen px-[4vw]">
+        <div className="w-full px-[4vw]">
           <HeaderExpert />
         </div>
 
@@ -71,11 +71,11 @@ export default function Home() {
         className="h-auto relative z-40 lg:mt-0"
         id="feature-work"
       >
-        <div className="w-screen px-[4vw]">
+        <div className="w-full px-[4vw]">
           <FeatureWorkHeader />
         </div>
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 relative z-40 w-screen px-6 lg:px-20 mt-2 lg:mt-24"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 relative z-40 w-full px-4 sm:px-6 lg:px-20 mt-2 lg:mt-24"
         >
           {projectsData.map((project, index) => (
             <ProjectCard
@@ -99,11 +99,11 @@ export default function Home() {
       </section>
 
       <section
-        className="h-auto lg:h-[180vh] relative mt-[5rem] lg:mt-[15rem] z-40 w-full"
+        className="h-auto lg:h-[180vh] relative mt-[3rem] sm:mt-[5rem] lg:mt-[15rem] z-40 w-full"
         ref={aiRef}
       >
         <SkiggleAi />
-        <div className="w-screen px-[4vw]">
+        <div className="w-full px-[4vw]">
           <HeaderAi />
           <SubVideoTextAi ref={aiRef} />
         </div>

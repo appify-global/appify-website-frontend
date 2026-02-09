@@ -49,14 +49,14 @@ const Footer = () => {
         <footer className="w-full font-Aeonik">
             {/* MAIN AREA */}
             <div
-                className="bg-white text-black px-[4vw] pt-20 lg:pt-48
-               grid grid-cols-1 md:grid-cols-[320px_1fr] gap-8"
+                className="bg-white text-black px-[4vw] pt-12 sm:pt-16 lg:pt-48
+               grid grid-cols-1 md:grid-cols-[280px_1fr] lg:grid-cols-[320px_1fr] gap-6 sm:gap-8"
                 aria-label="Footer main area"
             >
 
                 {/* LEFT: address */}
                 <div className="order-2 md:order-1 md:mb-20">
-                    <div className="max-w-[220px] font-Aeonik text-xl">
+                    <div className="max-w-[220px] font-Aeonik text-base sm:text-lg lg:text-xl">
                         <p className="font-medium mb-1">Level 2</p>
                         <p>696 Bourke Street,</p>
                         <p>Melbourne VIC,</p>
@@ -66,24 +66,24 @@ const Footer = () => {
 
                 {/* RIGHT SIDE — now aligned correctly */}
                 <div className="order-1 md:order-2 md:pl-12">
-                    <div className="grid grid-cols-1 md:grid-cols-[0.35fr_0.65fr] gap-11 items-start">
+                    <div className="grid grid-cols-1 md:grid-cols-[0.35fr_0.65fr] gap-6 sm:gap-8 lg:gap-11 items-start">
 
                         {/* LINKS + EMAILS */}
                         <div className="order-2 md:order-1">
-                            <ul className="space-y-2 text-xl mb-6 lg:mb-12">
+                            <ul className="space-y-2 text-base sm:text-lg lg:text-xl mb-6 lg:mb-12">
                                 <li className="cursor-pointer">Youtube</li>
                                 <li className="cursor-pointer">Instagram</li>
                                 <li className="cursor-pointer">Linkedin</li>
                             </ul>
 
                             <div className="mb-4 lg:mb-12   ">
-                                <p className="text-xl font-medium mb-1">General enquiries</p>
-                                <p className="text-xl">hello@appify.global</p>
+                                <p className="text-base sm:text-lg lg:text-xl font-medium mb-1">General enquiries</p>
+                                <p className="text-base sm:text-lg lg:text-xl break-all sm:break-normal">hello@appify.global</p>
                             </div>
 
-                            <div className="lg:mb-12   ">
-                                <p className="text-xl font-medium mb-1">Support enquiries</p>
-                                <p className="text-xl">support@appify.global</p>
+                            <div className="lg:mb-12">
+                                <p className="text-base sm:text-lg lg:text-xl font-medium mb-1">Support enquiries</p>
+                                <p className="text-base sm:text-lg lg:text-xl break-all sm:break-normal">support@appify.global</p>
                             </div>
                         </div>
 
@@ -148,19 +148,19 @@ const Footer = () => {
             </div>
 
             {/* BLACK ABOUT US SECTION */}
-            <div className="bg-black text-white px-6 md:px-16 lg:px-24 py-20 relative">
-                <div className="text-xl text-gray-400 mb-6">KEEP SCROLLING TO LEARN MORE</div>
+            <div className="bg-black text-white px-4 sm:px-6 md:px-16 lg:px-24 py-12 sm:py-16 lg:py-20 relative">
+                <div className="text-sm sm:text-base lg:text-xl text-gray-400 mb-4 sm:mb-6">KEEP SCROLLING TO LEARN MORE</div>
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
-                    <h2 className="text-3xl md:text-4xl font-light mb-6 md:mb-0">ABOUT US</h2>
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-4 sm:mb-6 md:mb-0">ABOUT US</h2>
 
                     <div className="flex items-center gap-3">
-                        <p className="text-xl">NEXT PAGE</p>
+                        <p className="text-base sm:text-lg lg:text-xl">NEXT PAGE</p>
                         <div className="w-12 h-[2px] bg-pink-500" />
                         <FaArrowRight size={14} />
                     </div>
                 </div>
 
-                <div className="grid grid-cols-4 gap-8 mt-12 text-center text-lg opacity-90">
+                <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 text-center text-sm sm:text-base lg:text-lg opacity-90">
                     <span>+</span>
                     <span>+</span>
                     <span>+</span>

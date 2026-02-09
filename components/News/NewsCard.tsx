@@ -40,7 +40,7 @@ export default function NewsCard({ article }: NewsCardProps) {
         </div>
 
         {/* Content */}
-        <div className="flex flex-col justify-between flex-1 py-2">
+        <div className="flex flex-col justify-between flex-1 -mt-6">
           {/* Top Content */}
           <div>
             {/* Category */}

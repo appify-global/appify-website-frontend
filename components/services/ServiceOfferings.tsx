@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import { ServiceOffering } from "@/lib/data/services";
+import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 
 interface ServiceOfferingsProps {
   subtitle: string;
@@ -48,7 +49,8 @@ const UpArrowIcon: React.FC = () => (
 const OfferingCard: React.FC<{
   offering: ServiceOffering;
   index: number;
-}> = ({ offering, index }) => {
+  isMobile: boolean;
+}> = ({ offering, index, isMobile }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -69,8 +71,8 @@ const OfferingCard: React.FC<{
     };
   }, []);
 
-  // Diagonal offset for desktop - staggered cascade effect
-  const marginTop = index * 80;
+  // Diagonal offset for desktop only - staggered cascade effect
+  const marginTop = isMobile ? 0 : index * 80;
 
   return (
     <div
@@ -80,7 +82,7 @@ const OfferingCard: React.FC<{
         transitionDelay: `${index * 100}ms`,
       }}
     >
-      <div 
+      <div
         className="bg-[rgba(197,196,207,0.25)] rounded-[20px] lg:rounded-[24px] p-6 lg:p-8 relative overflow-hidden w-full lg:w-[340px] h-auto lg:h-[480px] flex flex-col"
         style={{ marginTop: `${marginTop}px` }}
       >
@@ -122,6 +124,7 @@ const OfferingCard: React.FC<{
 export default function ServiceOfferings({ subtitle, offerings }: ServiceOfferingsProps) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const isMobile = useIsMobile(TAB_BRAKEPOINT);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -184,7 +187,7 @@ export default function ServiceOfferings({ subtitle, offerings }: ServiceOfferin
       {/* Offerings cards - diagonal layout on desktop */}
       <div className="flex flex-col lg:flex-row gap-4 lg:gap-5 lg:pl-4 overflow-x-auto lg:overflow-visible pb-4">
         {offerings.map((offering, index) => (
-          <OfferingCard key={index} offering={offering} index={index} />
+          <OfferingCard key={index} offering={offering} index={index} isMobile={isMobile} />
         ))}
       </div>
 

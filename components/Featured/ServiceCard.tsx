@@ -231,10 +231,9 @@ const FloatingCards: React.FC = () => {
           className="
             card absolute
             top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-            w-1/4
-            max-w-[400px]
-            sm:w-[calc(25%-3vw)]
-            h-[550px]
+            w-[22%]
+            max-w-[380px]
+            h-[clamp(400px,30vw,550px)]
             [perspective:1000px]
             transform-gpu
           "
@@ -258,13 +257,13 @@ const FloatingCards: React.FC = () => {
             >
               {/* Top Section */}
               <div className="w-full flex justify-between items-start">
-                <h2 className="text-4xl font-Aeonik">{expert.name}</h2>
+                <h2 className="text-2xl xl:text-4xl font-Aeonik">{expert.name}</h2>
                 <div className="w-6 h-6 flex items-center justify-center">
                   <img src={expert.icon} className="w-full" alt={expert.name} />
                 </div>
               </div>
 
-              <div className="w-full flex flex-col gap-4 text-2xl font-Aeonik">
+              <div className="w-full flex flex-col gap-2 xl:gap-4 text-lg xl:text-2xl font-Aeonik">
                 {expert.skills.map((item, index) => (
                   <div key={index}>
                     <p>{item}</p>
@@ -278,7 +277,7 @@ const FloatingCards: React.FC = () => {
                 <div className="w-6 h-6 flex items-center justify-center">
                   <img src={expert.icon} className="w-full" alt={expert.name} />
                 </div>
-                <h2 className="text-4xl font-Aeonik">{expert.name}</h2>
+                <h2 className="text-2xl xl:text-4xl font-Aeonik">{expert.name}</h2>
               </div>
             </div>
           </div>

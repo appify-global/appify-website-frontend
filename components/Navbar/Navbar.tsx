@@ -6,6 +6,7 @@ import { Trail } from "./TrailText";
 
 import LetsTalk from "./LetsTalk";
 import MenuButton from "./MenuButton";
+import NewsFilterButton from "./NewsFilterButton";
 import Link from "next/link";
 import MusicButton from "./MusicButton";
 import Image from "next/image";
@@ -27,14 +28,17 @@ function Navbar() {
           <div className="tracking-wider font-extrabold text-3xl cursor-pointer">
             <Link href="/"><Image src={'/appify_black.png'} width={'100'} height={'100'} alt="Appify" /></Link>
           </div>
-          <div
-            className="nav_btn_sm flex items-center justify-center cursor-pointer"
-            onMouseEnter={() => setRotate({ transform: "rotate(90deg)" })}
-            onMouseLeave={() => setRotate({ transform: "rotate(0deg)" })}
-          >
-            <animated.div className="text-[0.5rem] " style={rotate}>
-              ⬤ ⬤
-            </animated.div>
+          <div className="flex items-center gap-2">
+            <div
+              className="nav_btn_sm flex items-center justify-center cursor-pointer"
+              onMouseEnter={() => setRotate({ transform: "rotate(90deg)" })}
+              onMouseLeave={() => setRotate({ transform: "rotate(0deg)" })}
+            >
+              <animated.div className="text-[0.5rem] " style={rotate}>
+                ⬤ ⬤
+              </animated.div>
+            </div>
+            <NewsFilterButton />
           </div>
         </div>
       </div>
@@ -46,10 +50,11 @@ function Navbar() {
             <Link href="/"><Image src={'/appify_black.png'} width={'130'} height={'45'} alt="Appify" /></Link>
           </div>
           <div className="hidden lg:flex items-center justify-around font-AeonikMedium">
-            <Trail open={open} className="flex">
+            <Trail open={open} className="flex items-center">
               {/* <MusicButton /> */}
               <LetsTalk />
               <MenuButton />
+              <NewsFilterButton />
             </Trail>
           </div>
         </div>

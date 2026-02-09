@@ -144,7 +144,7 @@ const AwardsSection = () => {
   return (
     <div ref={sectionRef} className="relative w-full bg-black overflow-hidden">
       {/* Large background text - AWARD WINNING */}
-      <div className="relative min-h-[60vh] lg:min-h-[740px] overflow-hidden py-[10vh] lg:py-[112px]">
+      <div className="relative min-h-[40vh] sm:min-h-[50vh] lg:min-h-[740px] overflow-hidden py-[6vh] sm:py-[8vh] lg:py-[112px]">
         {/* Background animated text */}
         <div className="absolute inset-0 flex flex-col justify-center items-start overflow-hidden pointer-events-none">
           <div className="whitespace-nowrap">
@@ -196,7 +196,7 @@ const AwardsSection = () => {
       {/* Awards table */}
       <div
         ref={tableRef}
-        className="relative z-10 px-[4vw] lg:px-[10px] pb-[60px] lg:pb-[100px]"
+        className="relative z-10 px-[4vw] lg:px-[10px] pb-[30px] sm:pb-[50px] lg:pb-[100px]"
       >
         {awardsData.map((category, idx) => (
           <div
@@ -272,7 +272,7 @@ const AwardsSection = () => {
                 key={idx}
                 className="flex justify-between items-center gap-4"
               >
-                <span className="font-Aeonik text-[14px] lg:text-[16px] text-white w-[200px] lg:w-[305px]">
+                <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
                   {talk.event}
                 </span>
                 <span className="font-Aeonik text-[14px] lg:text-[16px] text-white/60">

@@ -40,7 +40,7 @@
   box-shadow: none;
 }
 
-@media (max-width: 812px) {
+@media (max-width: 1023px) {
   #home-reel-cta {
     opacity: 1;
     margin-bottom: 6em;
@@ -204,7 +204,7 @@
   contain: layout style;
 }
 
-@media (max-width: 812px) {
+@media (max-width: 1023px) {
   #scroll-indicator {
     width: 2px;
     right: 6px;

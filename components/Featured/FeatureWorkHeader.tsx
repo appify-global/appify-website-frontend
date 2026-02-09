@@ -62,11 +62,11 @@ const FeatureWorkHeader = () => {
         </div>
       </div>
 
-      <div id="feature-work-header-description" className="float-end w-[20%] mt-20">
+      <div id="feature-work-header-description" className="float-end w-[35%] lg:w-[20%] mt-10 lg:mt-20">
         <p
           className="
-            hidden md:block 
-            text-md uppercase max-w-[500px] mb-4 font-Aeonik
+            hidden md:block
+            text-xs lg:text-md uppercase max-w-[500px] mb-4 font-Aeonik leading-snug
           "
         >
           A SELECTION OF OUR MOST PASSIONATELY CRAFTED WORKS WITH
@@ -74,7 +74,7 @@ const FeatureWorkHeader = () => {
         </p>
       </div>
 
-      <div className="md:hidden py-8 text-sm uppercase font-Aeonik content-start">
+      <div className="md:hidden py-4 sm:py-8 text-xs sm:text-sm uppercase font-Aeonik content-start">
         <p className="leading-snug text-left">
           A SELECTION OF OUR MOST PASSIONATELY CRAFTED WORKS WITH
           FORWARD-THINKING CLIENTS AND FRIENDS OVER THE YEARS.

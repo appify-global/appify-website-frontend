@@ -110,7 +110,7 @@ const ExpertiseCard = ({
   return (
     <div
       ref={cardRef}
-      className="w-full lg:w-[400px] bg-[rgba(197,196,207,0.2)] rounded-[22px] p-[40px] lg:p-[45px]"
+      className="w-full lg:w-[400px] bg-[rgba(197,196,207,0.2)] rounded-[22px] p-[20px] sm:p-[30px] lg:p-[45px]"
     >
       {/* Header with title and icon */}
       <div className="flex items-center justify-between mb-[35px]">
@@ -128,7 +128,7 @@ const ExpertiseCard = ({
               {service}
             </p>
             {idx < data.services.length - 1 && (
-              <p className="font-Aeonik text-[20px] lg:text-[30px] text-black/30 tracking-[3.6px] leading-none py-[4px]">
+              <p className="font-Aeonik text-[16px] sm:text-[20px] lg:text-[30px] text-black/30 tracking-[3.6px] leading-none py-[4px] overflow-hidden">
                 ..............................
               </p>
             )}
@@ -174,7 +174,7 @@ const ExpertiseSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-screen bg-[#F0F1FA] overflow-hidden py-[80px] lg:py-[120px]"
+      className="relative w-full bg-[#F0F1FA] overflow-hidden py-[40px] sm:py-[60px] lg:py-[120px]"
     >
       {/* Background decorative vector */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -193,9 +193,9 @@ const ExpertiseSection = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 px-[6vw] lg:px-[5vw]">
+      <div className="relative z-10 px-[4vw] sm:px-[6vw] lg:px-[5vw]">
         {/* Header */}
-        <div ref={titleRef} className="mb-[60px] lg:mb-[100px]">
+        <div ref={titleRef} className="mb-[30px] sm:mb-[50px] lg:mb-[100px]">
           {/* Main title */}
           <h2 className="font-Aeonik text-[14vw] lg:text-[75px] xl:text-[90px] leading-[1] text-black tracking-tight mb-[30px]">
             <span className="block">AREA OF</span>

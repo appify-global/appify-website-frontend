@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import NewsFooter from "@/components/News/NewsFooter";
 import NewsHero from "@/components/News/NewsHero";
 import NewsCategoryList from "@/components/News/NewsCategoryList";
 import FeaturedNewsCarousel from "@/components/News/FeaturedNewsCarousel";
 import NewsCard from "@/components/News/NewsCard";
+import ScrollProgress from "@/components/News/ScrollProgress";
 import { featuredArticles, latestArticles } from "@/data/news";
 import { PageLayout } from "@/components/layouts";
+import { NewsFilterProvider, useNewsFilter } from "@/contexts/NewsFilterContext";
 
 // Plus icon component for scroll divider
 function PlusIcon() {
@@ -29,8 +30,10 @@ function PlusIcon() {
   );
 }
 
-export default function NewsPage() {
-  const [activeCategories, setActiveCategories] = useState<string[]>(["AI", "Startups"]);
+function NewsPageContent() {
+  const filter = useNewsFilter();
+  const activeCategories = filter?.activeCategories ?? [];
+  const toggleCategory = filter?.toggleCategory ?? (() => {});
 
   // Filter articles based on active categories
   const filteredLatestArticles = activeCategories.length > 0
@@ -41,29 +44,23 @@ export default function NewsPage() {
       )
     : latestArticles;
 
-  const handleCategoryToggle = (category: string) => {
-    setActiveCategories((prev) => {
-      if (prev.includes(category)) {
-        return prev.filter((c) => c !== category);
-      }
-      return [...prev, category];
-    });
-  };
-
   return (
     <PageLayout showFooter={false} navbarPadding="pb-[4vw]">
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section with Sidebar */}
-        <section className="px-4 lg:px-[4vw] pt-[25vw] lg:pt-[8vw]">
+        <section className="px-4 lg:px-[4vw] pt-[25vw] lg:pt-[12vw]">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             {/* Desktop Sidebar - Sticky */}
             <aside className="hidden lg:block lg:w-[140px] flex-shrink-0 self-start sticky top-[140px]">
               <NewsCategoryList
                 activeCategories={activeCategories}
-                onCategoryToggle={handleCategoryToggle}
+                onCategoryToggle={toggleCategory}
               />
             </aside>
+
+            {/* Scroll Progress Indicator */}
+            <ScrollProgress />
 
             {/* Main Column */}
             <div className="flex-1 min-w-0">
@@ -74,7 +71,7 @@ export default function NewsPage() {
               <div className="lg:hidden pt-6">
                 <NewsCategoryList
                   activeCategories={activeCategories}
-                  onCategoryToggle={handleCategoryToggle}
+                  onCategoryToggle={toggleCategory}
                 />
               </div>
 
@@ -133,8 +130,8 @@ export default function NewsPage() {
                 {/* Category Filter Pills - Mobile */}
                 <div className="lg:hidden mb-6">
                   <span className="font-Aeonik text-sm text-[rgba(0,0,0,0.6)] tracking-wide uppercase">
-                    {activeCategories.length > 0 
-                      ? activeCategories.join(", ") 
+                    {activeCategories.length > 0
+                      ? activeCategories.join(", ")
                       : "ALL CATEGORIES"}
                   </span>
                 </div>
@@ -156,5 +153,13 @@ export default function NewsPage() {
         <NewsFooter />
       </section>
     </PageLayout>
+  );
+}
+
+export default function NewsPage() {
+  return (
+    <NewsFilterProvider>
+      <NewsPageContent />
+    </NewsFilterProvider>
   );
 }

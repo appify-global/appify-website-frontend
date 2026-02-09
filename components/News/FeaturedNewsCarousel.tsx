@@ -25,7 +25,7 @@ function FeaturedCard({ article }: { article: NewsArticle }) {
   return (
     <Link
       href={`/news/${article.slug}`}
-      className="relative flex-shrink-0 w-[280px] lg:w-[340px] xl:w-[380px] 2xl:w-[420px] h-[350px] lg:h-[420px] xl:h-[450px] 2xl:h-[480px] rounded-[20px] overflow-hidden group"
+      className="relative w-full h-[350px] lg:h-[420px] xl:h-[450px] rounded-[20px] overflow-hidden group"
     >
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -69,7 +69,7 @@ function FeaturedCard({ article }: { article: NewsArticle }) {
             </div>
 
             {/* More Link */}
-            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="flex items-center gap-2">
               <FaArrowRight size={12} />
               <span className="font-Aeonik text-sm lg:text-base tracking-[-0.01em]">
                 more
@@ -92,16 +92,23 @@ export default function FeaturedNewsCarousel({
         MOST POPULAR
       </p>
 
-      {/* Carousel Container */}
-      <div className="relative -mx-4 lg:mx-0">
-        {/* Horizontally scrollable on both mobile and desktop */}
-        <div className="flex gap-4 lg:gap-5 overflow-x-auto scrollbar-hide pb-4 px-4 lg:px-0">
-          {articles.map((article) => (
-            <FeaturedCard key={article.id} article={article} />
+      {/* Mobile: Horizontal scroll */}
+      <div className="lg:hidden relative -mx-4">
+        <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 px-4">
+          {articles.map((article, i) => (
+            <div key={article.id} className="flex-shrink-0 w-[280px]">
+              <FeaturedCard article={article} />
+            </div>
           ))}
         </div>
+      </div>
+
+      {/* Desktop: Grid - all cards visible */}
+      <div className="hidden lg:grid lg:grid-cols-3 gap-5">
+        {articles.slice(0, 3).map((article, i) => (
+          <FeaturedCard key={article.id} article={article} />
+        ))}
       </div>
     </div>
   );
 }
-

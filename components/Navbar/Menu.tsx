@@ -83,12 +83,12 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
     <>
       {hidden && (
         <div
-          className="absolute top-[4rem] right-0 w-[20rem] "
+          className="absolute top-[4rem] right-0 w-[calc(100vw-3rem)] sm:w-[20rem] max-w-[20rem]"
           ref={ref}
         >
           {/* Contents */}
           <a.div
-            className="rounded-xl bg-white flex flex-col font-Aeonik text-3xl p-8 "
+            className="rounded-xl bg-white flex flex-col font-Aeonik text-2xl sm:text-3xl p-5 sm:p-8"
             style={contents}
           >
             <div className="flex justify-between pb-3">
@@ -111,21 +111,21 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
 
           {/* Newsletter */}
           <a.div
-            className="rounded-xl bg-white flex flex-col p-8 my-2"
+            className="rounded-xl bg-white flex flex-col p-5 sm:p-8 my-2"
             style={news}
           >
-            <div className="font-Aeonik text-4xl ">
+            <div className="font-Aeonik text-2xl sm:text-4xl">
               Subscribe to our newsletter
             </div>
             <form
               onSubmit={() => console.log("submitted thank you")}
-              className="flex justify-between bg-[#F0F1FA] p-4 rounded-xl mt-6 text-[#BEBFC7] text-xl"
+              className="flex justify-between bg-[#F0F1FA] p-3 sm:p-4 rounded-xl mt-4 sm:mt-6 text-[#BEBFC7] text-base sm:text-xl"
             >
-              <label className="">
+              <label>
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="bg-[#F0F1FA] w-1/2"
+                  className="bg-[#F0F1FA] w-full"
                 ></input>
               </label>
               <button type="submit">
@@ -140,9 +140,9 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
           </a.div>
 
           {/* News Room */}
-          <a.div className="bg-black text-white p-8 rounded-xl" style={contents}>
+          <a.div className="bg-black text-white p-5 sm:p-8 rounded-xl" style={contents}>
             <Link href="/news">
-              <div className="flex justify-between text-3xl">
+              <div className="flex justify-between text-2xl sm:text-3xl">
                 <div>NEWS ROOM</div>
                 <svg
                   width="30px"

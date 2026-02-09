@@ -99,7 +99,7 @@ const TeamMember = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[80vh] lg:min-h-[874px] bg-black overflow-hidden"
+      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[874px] bg-black overflow-hidden"
     >
       {/* Background image */}
       <div
@@ -120,7 +120,7 @@ const TeamMember = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 h-full px-[6vw] lg:px-[5vw] py-[10vh] lg:py-[53px]">
+      <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[6vh] sm:py-[8vh] lg:py-[53px]">
         {/* Section number indicator */}
         <div className="flex items-center gap-7 text-white/60 mb-4 lg:mb-0">
           <span className="font-mono text-[10px] lg:text-xs">[[</span>
@@ -141,7 +141,7 @@ const TeamMember = () => {
         {/* TEAM title */}
         <h2
           ref={titleRef}
-          className="font-Aeonik text-[20vw] lg:text-[94px] xl:text-[135px] leading-[1] tracking-[0.4em] text-white mt-[20vh] lg:mt-[118px] lg:ml-auto lg:text-right lg:mr-[5vw]"
+          className="font-Aeonik text-[16vw] sm:text-[18vw] lg:text-[94px] xl:text-[135px] leading-[1] tracking-[0.2em] sm:tracking-[0.4em] text-white mt-[10vh] sm:mt-[15vh] lg:mt-[118px] lg:ml-auto lg:text-right lg:mr-[5vw]"
         >
           TEAM
         </h2>
@@ -158,7 +158,7 @@ const TeamMember = () => {
         </div>
 
         {/* Member card - bottom left */}
-        <div className="absolute bottom-[100px] lg:bottom-[75px] left-[6vw] lg:left-[5vw]">
+        <div className="absolute bottom-[40px] sm:bottom-[60px] lg:bottom-[75px] left-[4vw] sm:left-[6vw] lg:left-[5vw]">
           {/* Member info */}
           <div className="flex items-center gap-2 mb-2">
             <DotGrid className="w-[13px]" />

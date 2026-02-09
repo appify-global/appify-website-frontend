@@ -53,7 +53,7 @@ const AboutIntro = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[80vh] lg:min-h-[899px] bg-black overflow-hidden"
+      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:min-h-[899px] bg-black overflow-hidden"
     >
       {/* Background masked "ABOUT" text effect - positioned behind */}
       <div className="absolute left-[-20%] lg:left-[-312px] top-[-10%] lg:top-[-78px] opacity-10 pointer-events-none">
@@ -63,7 +63,7 @@ const AboutIntro = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 h-full px-[6vw] lg:px-[5vw] py-[15vh] lg:py-[131px]">
+      <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[10vh] sm:py-[12vh] lg:py-[131px]">
         {/* Plus icon row */}
         <div className="flex items-center justify-between w-full mb-[40px] lg:mb-0 lg:absolute lg:top-[416px] lg:left-[5vw] lg:right-[5vw] lg:w-auto lg:px-0">
           {[0, 1, 2, 3, 4].map((i) => (

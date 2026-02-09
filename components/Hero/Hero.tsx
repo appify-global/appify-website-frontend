@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
       )}
 
       {isMobile && (
-        <p className="text-[5vw] leading-relaxed  text-black margin-auto mb-6 -mt-10 px-[14px] font-medium ">
+        <p className="text-[4.2vw] sm:text-[3.5vw] leading-relaxed text-black mb-4 sm:mb-6 mt-0 px-[14px] font-medium">
           Enterprise software, AI-powered apps, and custom solutions built by a
           global team that turns ambitious visions into reality.
         </p>
@@ -41,20 +41,20 @@ const Hero: React.FC = () => {
           backdrop-blur-[90px]
           rounded-[28px]
           border-2 border-white/50
-          py-4 px-[14px] lg:py-8 lg:px-8
+          py-4 px-[14px] sm:py-6 lg:py-8 sm:px-5 lg:px-8
           bg-clip-padding backdrop-filter bg-opacity-20 border border-gray-300
           relative z-10
           w-full
           lg:h-[calc(100vh-12vw-80px)]
-          min-h-[600px]
+          min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]
         "
       >
         {/* Glass overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-40 pointer-events-none rounded-[28px]" />
 
         {/* Left Section */}
-        <div className="lg:w-[60%] p-4 lg:p-8 flex flex-col justify-center space-y-6 lg:space-y-8">
-          <h1 className="leading-tight text-[12vw] md:text-[8vw] lg:text-[4.5vw] tracking-normal">
+        <div className="lg:w-[60%] p-2 sm:p-4 lg:p-8 flex flex-col justify-center space-y-4 sm:space-y-6 lg:space-y-8">
+          <h1 className="leading-tight text-[10vw] sm:text-[9vw] md:text-[8vw] lg:text-[4.5vw] tracking-normal">
             We Transform <br /> Ideas Into Successful <br /> Tech Products
           </h1>
 
