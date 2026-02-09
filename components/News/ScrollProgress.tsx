@@ -20,7 +20,7 @@ export default function ScrollProgress() {
   }, []);
 
   return (
-    <div className="hidden lg:flex w-[6px] flex-shrink-0 self-start sticky top-[220px] h-[200px] items-start">
+    <div className="w-[6px] h-[200px]">
       <div className="w-full h-full rounded-full bg-[rgba(0,0,0,0.08)] relative overflow-hidden">
         <div
           className="absolute top-0 left-0 w-full rounded-full bg-black transition-[height] duration-100 ease-out"

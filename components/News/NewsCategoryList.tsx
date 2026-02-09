@@ -24,7 +24,7 @@ export default function NewsCategoryList({
   return (
     <>
       {/* Desktop Sidebar */}
-      <div className="hidden lg:flex flex-col gap-6 min-w-[140px]">
+      <div className="hidden lg:flex flex-col gap-4 min-w-[140px]">
         {newsCategories.map((category) => {
           const isActive = activeCategories.includes(category);
           return (
@@ -35,7 +35,7 @@ export default function NewsCategoryList({
             >
               {isActive && <ActiveIndicator />}
               <span
-                className={`font-Aeonik text-[1.5rem] leading-normal transition-opacity ${
+                className={`font-Aeonik text-[1.3rem] leading-normal transition-opacity ${
                   isActive ? "opacity-100" : "opacity-70 hover:opacity-100"
                 }`}
               >

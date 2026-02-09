@@ -79,40 +79,41 @@ function NewsArticleContent() {
   return (
     <PageLayout showFooter={false} navbarPadding="pb-[4vw]">
       <main className="flex-1">
-        <section className="px-4 lg:px-[4vw] pt-[25vw] lg:pt-[8vw]">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            {/* Desktop Sidebar */}
-            <aside className="hidden lg:block lg:w-[140px] flex-shrink-0 self-start sticky top-[140px]">
-              <div className="flex flex-col gap-6 min-w-[140px]">
-                {newsCategories.map((category) => {
-                  const isActive =
-                    category.toUpperCase() === article.category.toUpperCase();
-                  return (
-                    <Link
-                      key={category}
-                      href="/news"
-                      className="flex items-center gap-3 text-left group"
+        <section className="px-4 lg:px-[4vw] pt-[25vw] lg:pt-[12vw]">
+          {/* Desktop Sidebar - Fixed */}
+          <aside className="hidden lg:block fixed left-[4vw] top-[12vw] w-[140px] z-30 max-h-[calc(100vh-12vw-2rem)] overflow-y-auto scrollbar-hide">
+            <div className="flex flex-col gap-4 min-w-[140px]">
+              {newsCategories.map((category) => {
+                const isActive =
+                  category.toUpperCase() === article.category.toUpperCase();
+                return (
+                  <Link
+                    key={category}
+                    href="/news"
+                    className="flex items-center gap-3 text-left group"
+                  >
+                    {isActive && <ActiveIndicator />}
+                    <span
+                      className={`font-Aeonik text-[1.3rem] leading-normal transition-opacity ${
+                        isActive
+                          ? "opacity-100"
+                          : "opacity-70 hover:opacity-100"
+                      }`}
                     >
-                      {isActive && <ActiveIndicator />}
-                      <span
-                        className={`font-Aeonik text-[1.5rem] leading-normal transition-opacity ${
-                          isActive
-                            ? "opacity-100"
-                            : "opacity-70 hover:opacity-100"
-                        }`}
-                      >
-                        {category}
-                      </span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </aside>
+                      {category}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </aside>
 
-            {/* Scroll Progress Indicator - Left */}
+          {/* Scroll Progress Indicator - Fixed */}
+          <div className="hidden lg:block fixed left-[calc(4vw+155px)] top-[12vw] z-30">
             <ScrollProgress />
+          </div>
 
-            {/* Main Content */}
+          <div className="lg:ml-[185px]">
             <div className="flex-1 min-w-0">
               {/* Back Button + Search Bar Row */}
               <div className="flex items-center justify-between mb-4 lg:mb-6">
@@ -177,15 +178,12 @@ function NewsArticleContent() {
               {/* Bottom spacing */}
               <div className="h-20 lg:h-32" />
             </div>
-
-            {/* Scroll Progress Indicator - Right */}
-            <ScrollProgress />
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <section className="relative z-20">
+      <section className="relative z-40">
         <NewsFooter />
       </section>
     </PageLayout>

@@ -49,20 +49,21 @@ function NewsPageContent() {
       {/* Main Content */}
       <main className="flex-1">
         {/* Hero Section with Sidebar */}
-        <section className="px-4 lg:px-[4vw] pt-[25vw] lg:pt-[12vw]">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            {/* Desktop Sidebar - Sticky */}
-            <aside className="hidden lg:block lg:w-[140px] flex-shrink-0 self-start sticky top-[140px]">
-              <NewsCategoryList
-                activeCategories={activeCategories}
-                onCategoryToggle={toggleCategory}
-              />
-            </aside>
+        <section className="px-4 lg:px-[4vw] pt-[25vw] lg:pt-[8vw]">
+          {/* Desktop Sidebar - Fixed */}
+          <aside className="hidden lg:block fixed left-[4vw] top-[14vw] w-[140px] z-30 max-h-[calc(100vh-14vw-2rem)] overflow-y-auto scrollbar-hide">
+            <NewsCategoryList
+              activeCategories={activeCategories}
+              onCategoryToggle={toggleCategory}
+            />
+          </aside>
 
-            {/* Scroll Progress Indicator */}
+          {/* Scroll Progress Indicator - Fixed */}
+          <div className="hidden lg:block fixed left-[calc(4vw+155px)] top-[14vw] z-30">
             <ScrollProgress />
+          </div>
 
-            {/* Main Column */}
+          <div className="lg:ml-[185px]">
             <div className="flex-1 min-w-0">
               {/* Newsroom Title + Ask Anything - Same Row */}
               <NewsHero />
@@ -149,7 +150,7 @@ function NewsPageContent() {
       </main>
 
       {/* News Footer (custom footer for news page) */}
-      <section className="relative z-20 mt-12">
+      <section className="relative z-40 mt-12">
         <NewsFooter />
       </section>
     </PageLayout>
