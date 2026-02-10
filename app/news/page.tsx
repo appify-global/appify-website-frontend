@@ -77,14 +77,15 @@ function NewsPageContent() {
     fetchArticles();
   }, []);
 
-  // Filter articles based on active categories
-  const filteredLatestArticles = activeCategories.length > 0
-    ? latest.filter((article) =>
+  // Filter featured articles based on active categories (if needed)
+  // Latest News shows ALL articles regardless of category filter
+  const filteredFeaturedArticles = activeCategories.length > 0
+    ? featured.filter((article) =>
         activeCategories.some(
           (cat) => cat.toUpperCase() === (article.category || article.topics || "").toUpperCase()
         )
       )
-    : latest;
+    : featured;
 
   return (
     <PageLayout showFooter={false} navbarPadding="pb-[4vw]">
@@ -115,7 +116,7 @@ function NewsPageContent() {
               </div>
 
               {/* Featured Carousel */}
-              <FeaturedNewsCarousel articles={featured} />
+              <FeaturedNewsCarousel articles={filteredFeaturedArticles} />
 
               {/* Scroll Divider */}
               <div className="flex items-center justify-center gap-4 md:gap-0 md:justify-between py-6 md:py-10 lg:py-12">
@@ -141,18 +142,9 @@ function NewsPageContent() {
                   </h2>
                 </div>
 
-                {/* Active Category Label - Mobile & Tablet */}
-                <div className="lg:hidden mb-4">
-                  <span className="font-Aeonik text-[13px] tracking-[0.08em] uppercase text-[rgba(0,0,0,0.5)]">
-                    {activeCategories.length > 0
-                      ? activeCategories.join(", ")
-                      : "ALL CATEGORIES"}
-                  </span>
-                </div>
-
-                {/* News List */}
+                {/* News List - Show ALL articles (no category filter) */}
                 <div className="md:divide-y md:divide-[rgba(0,0,0,0.1)] lg:divide-y-0">
-                  {filteredLatestArticles.map((article) => (
+                  {latest.map((article) => (
                     <NewsCard key={article.id} article={article} />
                   ))}
                 </div>
