@@ -19,7 +19,8 @@ export function useNewsFilter() {
 }
 
 export function NewsFilterProvider({ children }: { children: ReactNode }) {
-  const [activeCategories, setActiveCategories] = useState<string[]>(["AI", "Startups"]);
+  // Default to empty array - show all articles when no filter is selected
+  const [activeCategories, setActiveCategories] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>("Latest");
 
   const toggleCategory = (category: string) => {
