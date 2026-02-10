@@ -77,15 +77,31 @@ function NewsPageContent() {
     fetchArticles();
   }, []);
 
-  // Filter featured articles based on active categories (if needed)
-  // Latest News shows ALL articles regardless of category filter
+  // Helper function to check if article matches any active category
+  // Handles comma-separated topics (e.g., "AI, Automation, Web")
+  const articleMatchesCategory = (article: NewsArticle, categories: string[]): boolean => {
+    if (categories.length === 0) return true; // No filter = show all
+    
+    const articleTopics = (article.topics || article.category || "")
+      .split(",")
+      .map((t) => t.trim().toUpperCase())
+      .filter((t) => t.length > 0);
+    
+    return categories.some((cat) => 
+      articleTopics.includes(cat.toUpperCase())
+    );
+  };
+
+  // Filter featured articles based on active categories
   const filteredFeaturedArticles = activeCategories.length > 0
-    ? featured.filter((article) =>
-        activeCategories.some(
-          (cat) => cat.toUpperCase() === (article.category || article.topics || "").toUpperCase()
-        )
-      )
+    ? featured.filter((article) => articleMatchesCategory(article, activeCategories))
     : featured;
+
+  // Filter latest articles based on active categories
+  // If no categories selected, show ALL articles
+  const filteredLatestArticles = activeCategories.length > 0
+    ? latest.filter((article) => articleMatchesCategory(article, activeCategories))
+    : latest;
 
   return (
     <PageLayout showFooter={false} navbarPadding="pb-[4vw]">
@@ -142,9 +158,18 @@ function NewsPageContent() {
                   </h2>
                 </div>
 
-                {/* News List - Show ALL articles (no category filter) */}
+                {/* Active Category Label - Mobile & Tablet */}
+                <div className="lg:hidden mb-4">
+                  <span className="font-Aeonik text-[13px] tracking-[0.08em] uppercase text-[rgba(0,0,0,0.5)]">
+                    {activeCategories.length > 0
+                      ? activeCategories.join(", ")
+                      : "ALL CATEGORIES"}
+                  </span>
+                </div>
+
+                {/* News List - Filtered by active categories */}
                 <div className="md:divide-y md:divide-[rgba(0,0,0,0.1)] lg:divide-y-0">
-                  {latest.map((article) => (
+                  {filteredLatestArticles.map((article) => (
                     <NewsCard key={article.id} article={article} />
                   ))}
                 </div>
