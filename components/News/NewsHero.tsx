@@ -1,12 +1,29 @@
 "use client";
 
 import { FaArrowRight } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 interface NewsHeroProps {
   title?: string;
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
+  onSearchSubmit?: () => void;
+  onSearchClear?: () => void;
 }
 
-export default function NewsHero({ title = "Newsroom" }: NewsHeroProps) {
+export default function NewsHero({
+  title = "Newsroom",
+  searchQuery = "",
+  onSearchChange,
+  onSearchSubmit,
+  onSearchClear,
+}: NewsHeroProps) {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      onSearchSubmit?.();
+    }
+  };
+
   return (
     <div className="w-full flex flex-col md:flex-row md:items-center md:justify-between gap-4 md:gap-8 lg:gap-12">
       {/* Title */}
@@ -21,9 +38,20 @@ export default function NewsHero({ title = "Newsroom" }: NewsHeroProps) {
             <input
               type="text"
               placeholder="ASK ANYTHING"
-              className="bg-transparent outline-none text-[rgba(0,0,0,0.47)] text-sm tracking-wide uppercase font-Aeonik w-full"
+              value={searchQuery}
+              onChange={(e) => onSearchChange?.(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="bg-transparent outline-none text-black text-sm tracking-wide uppercase font-Aeonik w-full placeholder:text-[rgba(0,0,0,0.47)]"
             />
-            <FaArrowRight className="text-black/50" size={12} />
+            {searchQuery ? (
+              <button onClick={onSearchClear} className="text-black/50 hover:text-black transition-colors">
+                <IoClose size={16} />
+              </button>
+            ) : (
+              <button onClick={onSearchSubmit} className="text-black/50 hover:text-black transition-colors">
+                <FaArrowRight size={12} />
+              </button>
+            )}
           </div>
         </div>
       </div>

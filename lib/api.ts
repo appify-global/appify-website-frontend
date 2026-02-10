@@ -140,6 +140,62 @@ export async function getLatestArticles(): Promise<NewsArticle[]> {
 }
 
 /**
+ * Search articles by query string
+ */
+export async function searchArticles(query: string): Promise<NewsArticle[]> {
+  if (USE_STATIC_DATA || !query.trim()) {
+    // Client-side search fallback for static data
+    const allArticles = [...featuredArticles, ...latestArticles];
+    const q = query.toLowerCase();
+    return allArticles.filter(
+      (a) =>
+        a.title.toLowerCase().includes(q) ||
+        a.excerpt.toLowerCase().includes(q) ||
+        (a.category || "").toLowerCase().includes(q) ||
+        (a.topics || "").toLowerCase().includes(q)
+    );
+  }
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/news/search?q=${encodeURIComponent(query)}`,
+      {
+        cache: "no-store",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.map((article: any) => ({
+      id: article.id,
+      slug: article.slug,
+      title: article.title,
+      excerpt: article.excerpt,
+      category: article.topics || article.category || "AI",
+      author: article.author,
+      imageUrl: article.imageUrl,
+      timestamp: article.timestamp,
+      date: article.date,
+      isFeatured: article.isFeatured || false,
+      content: article.content || [],
+    }));
+  } catch (error) {
+    console.error("Search API failed, searching static data:", error);
+    const allArticles = [...featuredArticles, ...latestArticles];
+    const q = query.toLowerCase();
+    return allArticles.filter(
+      (a) =>
+        a.title.toLowerCase().includes(q) ||
+        a.excerpt.toLowerCase().includes(q)
+    );
+  }
+}
+
+/**
  * Get article by slug - uses API or static data based on config
  */
 export async function getArticleBySlug(slug: string): Promise<NewsArticle | null> {

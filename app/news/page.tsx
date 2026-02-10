@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import NewsFooter from "@/components/News/NewsFooter";
 import NewsHero from "@/components/News/NewsHero";
 import NewsCategoryList from "@/components/News/NewsCategoryList";
 import FeaturedNewsCarousel from "@/components/News/FeaturedNewsCarousel";
 import NewsCard from "@/components/News/NewsCard";
 import { featuredArticles, latestArticles, NewsArticle } from "@/data/news";
-import { getFeaturedArticles, getLatestArticles } from "@/lib/api";
+import { getFeaturedArticles, getLatestArticles, searchArticles } from "@/lib/api";
 import { PageLayout } from "@/components/layouts";
 import { NewsFilterProvider, useNewsFilter } from "@/contexts/NewsFilterContext";
 
@@ -35,11 +36,66 @@ function NewsPageContent() {
   const filter = useNewsFilter();
   const activeCategories = filter?.activeCategories ?? [];
   const toggleCategory = filter?.toggleCategory ?? (() => {});
+  const searchParams = useSearchParams();
 
   // State for articles (with fallback to static data)
   const [featured, setFeatured] = useState<NewsArticle[]>(featuredArticles);
   const [latest, setLatest] = useState<NewsArticle[]>(latestArticles);
   const [loading, setLoading] = useState(false);
+
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<NewsArticle[] | null>(null);
+  const [searching, setSearching] = useState(false);
+
+  // Client-side search through loaded articles
+  const searchLocally = useCallback((q: string, articles: NewsArticle[]): NewsArticle[] => {
+    const term = q.toLowerCase();
+    return articles.filter(
+      (a) =>
+        a.title.toLowerCase().includes(term) ||
+        a.excerpt.toLowerCase().includes(term) ||
+        (a.category || "").toLowerCase().includes(term) ||
+        (a.topics || "").toLowerCase().includes(term) ||
+        a.content?.some((block) => block.text?.toLowerCase().includes(term))
+    );
+  }, []);
+
+  // Handle ?q= query param from article page search
+  const runSearch = useCallback(async (q: string) => {
+    setSearchQuery(q);
+    if (!q.trim()) {
+      setSearchResults(null);
+      return;
+    }
+    setSearching(true);
+    try {
+      const results = await searchArticles(q);
+      // If API returned results, use them
+      if (results.length > 0) {
+        setSearchResults(results);
+      } else {
+        // Fallback: search through currently loaded articles
+        const allLoaded = [...featured, ...latest];
+        const unique = allLoaded.filter((a, i, arr) => arr.findIndex((b) => b.id === a.id) === i);
+        setSearchResults(searchLocally(q, unique));
+      }
+    } catch {
+      // API failed: search through currently loaded articles
+      const allLoaded = [...featured, ...latest];
+      const unique = allLoaded.filter((a, i, arr) => arr.findIndex((b) => b.id === a.id) === i);
+      setSearchResults(searchLocally(q, unique));
+    } finally {
+      setSearching(false);
+    }
+  }, [featured, latest, searchLocally]);
+
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q) {
+      runSearch(q);
+    }
+  }, [searchParams, runSearch]);
 
   // Fetch articles from API (with automatic fallback to static data)
   useEffect(() => {
@@ -92,6 +148,14 @@ function NewsPageContent() {
     );
   };
 
+  // Search handler
+  const handleSearch = () => runSearch(searchQuery);
+
+  const handleSearchClear = () => {
+    setSearchQuery("");
+    setSearchResults(null);
+  };
+
   // Filter featured articles based on active categories
   const filteredFeaturedArticles = activeCategories.length > 0
     ? featured.filter((article) => articleMatchesCategory(article, activeCategories))
@@ -121,7 +185,12 @@ function NewsPageContent() {
           <div className="lg:ml-[185px]">
             <div className="flex-1 min-w-0">
               {/* Newsroom Title + Ask Anything - Same Row */}
-              <NewsHero />
+              <NewsHero
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                onSearchSubmit={handleSearch}
+                onSearchClear={handleSearchClear}
+              />
 
               {/* Mobile Categories - Horizontal scroll */}
               <div className="lg:hidden pt-6">
@@ -150,26 +219,41 @@ function NewsPageContent() {
                 <PlusIcon />
               </div>
 
-              {/* Latest News Section */}
+              {/* Latest News / Search Results Section */}
               <div>
                 <div className="mb-4 md:mb-6 lg:mb-12">
                   <h2 className="font-Aeonik text-[clamp(2.5rem,5vw,5rem)] leading-tight text-black">
-                    Latest News
+                    {searchResults !== null ? "Search Results" : "Latest News"}
                   </h2>
                 </div>
 
                 {/* Active Category Label - Mobile & Tablet */}
-                <div className="lg:hidden mb-4">
-                  <span className="font-Aeonik text-[13px] tracking-[0.08em] uppercase text-[rgba(0,0,0,0.5)]">
-                    {activeCategories.length > 0
-                      ? activeCategories.join(", ")
-                      : "ALL CATEGORIES"}
-                  </span>
-                </div>
+                {searchResults === null && (
+                  <div className="lg:hidden mb-4">
+                    <span className="font-Aeonik text-[13px] tracking-[0.08em] uppercase text-[rgba(0,0,0,0.5)]">
+                      {activeCategories.length > 0
+                        ? activeCategories.join(", ")
+                        : "ALL CATEGORIES"}
+                    </span>
+                  </div>
+                )}
 
-                {/* News List - Filtered by active categories */}
+                {/* Search status */}
+                {searching && (
+                  <p className="font-Aeonik text-[15px] text-[rgba(0,0,0,0.5)] mb-6">
+                    Searching...
+                  </p>
+                )}
+
+                {searchResults !== null && !searching && searchResults.length === 0 && (
+                  <p className="font-Aeonik text-[15px] text-[rgba(0,0,0,0.5)] mb-6">
+                    No articles found for &ldquo;{searchQuery}&rdquo;
+                  </p>
+                )}
+
+                {/* News List */}
                 <div className="md:divide-y md:divide-[rgba(0,0,0,0.1)] lg:divide-y-0">
-                  {filteredLatestArticles.map((article) => (
+                  {(searchResults !== null ? searchResults : filteredLatestArticles).map((article) => (
                     <NewsCard key={article.id} article={article} />
                   ))}
                 </div>

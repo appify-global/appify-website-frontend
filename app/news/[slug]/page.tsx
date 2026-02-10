@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { newsArticles, newsCategories, ArticleContentBlock, NewsArticle } from "@/data/news";
@@ -10,6 +10,7 @@ import { PageLayout } from "@/components/layouts";
 import NewsFooter from "@/components/News/NewsFooter";
 import { NewsFilterProvider } from "@/contexts/NewsFilterContext";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
 
 function ActiveIndicator() {
   return (
@@ -73,8 +74,17 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
 
 function NewsArticleContent() {
   const params = useParams();
+  const router = useRouter();
   const slug = params.slug as string;
-  
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchSubmit = () => {
+    const q = searchQuery.trim();
+    if (q) {
+      router.push(`/news?q=${encodeURIComponent(q)}`);
+    }
+  };
+
   // State with fallback to static data
   const [article, setArticle] = useState<NewsArticle | null>(
     newsArticles.find((a) => a.slug === slug) || null
@@ -170,9 +180,20 @@ function NewsArticleContent() {
                       <input
                         type="text"
                         placeholder="ASK ANYTHING"
-                        className="bg-transparent outline-none text-[rgba(0,0,0,0.47)] text-sm tracking-wide uppercase font-Aeonik w-full"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleSearchSubmit()}
+                        className="bg-transparent outline-none text-black text-sm tracking-wide uppercase font-Aeonik w-full placeholder:text-[rgba(0,0,0,0.47)]"
                       />
-                      <FaArrowRight className="text-black/50" size={12} />
+                      {searchQuery ? (
+                        <button onClick={() => setSearchQuery("")} className="text-black/50 hover:text-black transition-colors">
+                          <IoClose size={16} />
+                        </button>
+                      ) : (
+                        <button onClick={handleSearchSubmit} className="text-black/50 hover:text-black transition-colors">
+                          <FaArrowRight size={12} />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
