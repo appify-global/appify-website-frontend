@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import NewsFooter from "@/components/News/NewsFooter";
 import NewsHero from "@/components/News/NewsHero";
 import NewsCategoryList from "@/components/News/NewsCategoryList";
 import FeaturedNewsCarousel from "@/components/News/FeaturedNewsCarousel";
 import NewsCard from "@/components/News/NewsCard";
-import { featuredArticles, latestArticles } from "@/data/news";
+import { featuredArticles, latestArticles, NewsArticle } from "@/data/news";
+import { getFeaturedArticles, getLatestArticles } from "@/lib/api";
 import { PageLayout } from "@/components/layouts";
 import { NewsFilterProvider, useNewsFilter } from "@/contexts/NewsFilterContext";
 
@@ -34,14 +36,46 @@ function NewsPageContent() {
   const activeCategories = filter?.activeCategories ?? [];
   const toggleCategory = filter?.toggleCategory ?? (() => {});
 
+  // State for articles (with fallback to static data)
+  const [featured, setFeatured] = useState<NewsArticle[]>(featuredArticles);
+  const [latest, setLatest] = useState<NewsArticle[]>(latestArticles);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch articles from API (with automatic fallback to static data)
+  useEffect(() => {
+    const fetchArticles = async () => {
+      // Check if we should use static data
+      if (process.env.NEXT_PUBLIC_USE_STATIC_DATA === "true") {
+        return; // Use static data (already set as initial state)
+      }
+
+      setLoading(true);
+      try {
+        const [fetchedFeatured, fetchedLatest] = await Promise.all([
+          getFeaturedArticles(),
+          getLatestArticles(),
+        ]);
+        setFeatured(fetchedFeatured);
+        setLatest(fetchedLatest);
+      } catch (error) {
+        console.error("Failed to fetch articles, using static data:", error);
+        // Already using static data as fallback (initial state)
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, []);
+
   // Filter articles based on active categories
   const filteredLatestArticles = activeCategories.length > 0
-    ? latestArticles.filter((article) =>
+    ? latest.filter((article) =>
         activeCategories.some(
-          (cat) => cat.toUpperCase() === article.category.toUpperCase()
+          (cat) => cat.toUpperCase() === (article.category || article.topics || "").toUpperCase()
         )
       )
-    : latestArticles;
+    : latest;
 
   return (
     <PageLayout showFooter={false} navbarPadding="pb-[4vw]">
@@ -72,7 +106,7 @@ function NewsPageContent() {
               </div>
 
               {/* Featured Carousel */}
-              <FeaturedNewsCarousel articles={featuredArticles} />
+              <FeaturedNewsCarousel articles={featured} />
 
               {/* Scroll Divider */}
               <div className="flex items-center justify-center gap-4 md:gap-0 md:justify-between py-6 md:py-10 lg:py-12">

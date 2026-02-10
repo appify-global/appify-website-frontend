@@ -8,6 +8,7 @@ export interface ArticleContentBlock {
 export interface NewsArticle {
   id: string;
   category: string;
+  topics?: string; // Support both category and topics for API compatibility
   title: string;
   excerpt: string;
   author: string;
@@ -17,6 +18,9 @@ export interface NewsArticle {
   slug: string;
   isFeatured?: boolean;
   content?: ArticleContentBlock[];
+  metaTitle?: string;
+  metaDescription?: string;
+  status?: string;
 }
 
 export const newsCategories = [

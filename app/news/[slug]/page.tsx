@@ -1,9 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { newsArticles, newsCategories, ArticleContentBlock } from "@/data/news";
+import { newsArticles, newsCategories, ArticleContentBlock, NewsArticle } from "@/data/news";
+import { getArticleBySlug } from "@/lib/api";
 import { PageLayout } from "@/components/layouts";
 import NewsFooter from "@/components/News/NewsFooter";
 import { NewsFilterProvider } from "@/contexts/NewsFilterContext";
@@ -26,9 +28,9 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
           return (
             <h2
               key={i}
-              className="font-Aeonik text-[13px] md:text-[14px] lg:text-[15px] tracking-[0.15em] uppercase text-black mt-12"
+              className="font-Aeonik text-[clamp(1.5rem,3vw,2.5rem)] md:text-[clamp(2rem,4vw,3rem)] font-bold uppercase tracking-wide text-black mt-12 md:mt-16 mb-6 md:mb-8"
             >
-              {block.text}
+              {block.text?.toUpperCase()}
             </h2>
           );
         }
@@ -36,7 +38,7 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
           return (
             <div
               key={i}
-              className="relative w-full max-w-[720px] h-[200px] sm:h-[280px] md:h-[320px] lg:h-[350px] rounded-[8px] md:rounded-[12px] lg:rounded-[16px] overflow-hidden"
+              className="relative w-full max-w-[850px] h-[250px] sm:h-[350px] md:h-[400px] lg:h-[450px] rounded-[8px] md:rounded-[12px] lg:rounded-[16px] overflow-hidden my-8 md:my-12"
             >
               <Image
                 src={block.src!}
@@ -50,10 +52,9 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
         return (
           <p
             key={i}
-            className="font-Aeonik text-[15px] md:text-[16px] lg:text-[18px] leading-[1.6] text-black max-w-[720px]"
-          >
-            {block.text}
-          </p>
+            className="font-Aeonik text-[16px] md:text-[18px] lg:text-[20px] leading-relaxed text-black max-w-[850px] mb-6 md:mb-8"
+            dangerouslySetInnerHTML={{ __html: block.text || "" }}
+          />
         );
       })}
     </div>
@@ -63,13 +64,45 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
 function NewsArticleContent() {
   const params = useParams();
   const slug = params.slug as string;
-  const article = newsArticles.find((a) => a.slug === slug);
+  
+  // State with fallback to static data
+  const [article, setArticle] = useState<NewsArticle | null>(
+    newsArticles.find((a) => a.slug === slug) || null
+  );
+  const [loading, setLoading] = useState(false);
+
+  // Fetch article from API (with automatic fallback to static data)
+  useEffect(() => {
+    const fetchArticle = async () => {
+      // Check if we should use static data
+      if (process.env.NEXT_PUBLIC_USE_STATIC_DATA === "true") {
+        return; // Use static data (already set as initial state)
+      }
+
+      setLoading(true);
+      try {
+        const fetchedArticle = await getArticleBySlug(slug);
+        if (fetchedArticle) {
+          setArticle(fetchedArticle);
+        }
+      } catch (error) {
+        console.error("Failed to fetch article, using static data:", error);
+        // Already using static data as fallback (initial state)
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticle();
+  }, [slug]);
 
   if (!article) {
     return (
       <PageLayout showFooter={false}>
         <div className="flex items-center justify-center min-h-screen">
-          <p className="font-Aeonik text-2xl text-black">Article not found.</p>
+          <p className="font-Aeonik text-2xl text-black">
+            {loading ? "Loading..." : "Article not found."}
+          </p>
         </div>
       </PageLayout>
     );
@@ -139,8 +172,9 @@ function NewsArticleContent() {
               <div className="lg:hidden overflow-x-auto scrollbar-hide -mx-4 px-4 mb-6">
                 <div className="flex gap-4 items-center pb-4 w-max">
                   {newsCategories.map((category) => {
+                    const articleCategory = article.category || (article as any).topics || "";
                     const isActive =
-                      category.toUpperCase() === article.category.toUpperCase();
+                      category.toUpperCase() === articleCategory.toUpperCase();
                     return (
                       <Link
                         key={category}
@@ -166,14 +200,21 @@ function NewsArticleContent() {
 
               {/* Article Header */}
               <div className="max-w-[850px]">
-                <h1 className="font-Aeonik text-[28px] sm:text-[36px] md:text-[40px] lg:text-[48px] leading-[1.05] text-black mb-4">
+                <h1 className="font-Aeonik text-[clamp(2.5rem,5vw,5rem)] md:text-[clamp(3rem,6vw,6rem)] leading-tight text-black font-bold mb-4 md:mb-6">
                   {article.title}
                 </h1>
 
                 {/* Date + Author */}
-                <p className="font-Aeonik text-[14px] md:text-[15px] lg:text-[16px] leading-[1.5] text-[rgba(0,0,0,0.6)]">
-                  {article.date} — Porsche, Wallpaper* and Lucien presents short film inspired by Ferry Porsche&apos;s dream of a &apos;modern sports car.&apos;
-                </p>
+                <div className="flex items-center gap-4 text-[rgba(0,0,0,0.5)] mb-6 md:mb-8">
+                  <span className="font-Aeonik text-[14px] md:text-[16px]">
+                    {article.date}
+                  </span>
+                  {article.author && (
+                    <span className="font-Aeonik text-[14px] md:text-[16px]">
+                      — {article.author}
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* Hero Image */}
