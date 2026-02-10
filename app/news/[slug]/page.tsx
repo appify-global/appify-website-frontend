@@ -28,7 +28,7 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
           return (
             <h2
               key={i}
-              className="font-Aeonik text-[clamp(1.5rem,3vw,2.5rem)] md:text-[clamp(2rem,4vw,3rem)] font-bold uppercase tracking-wide text-black mt-12 md:mt-16 mb-6 md:mb-8"
+              className="font-Aeonik text-[20px] md:text-[24px] lg:text-[28px] font-bold uppercase tracking-wide text-black mt-12 md:mt-16 mb-6 md:mb-8"
             >
               {block.text?.toUpperCase()}
             </h2>
@@ -200,7 +200,7 @@ function NewsArticleContent() {
 
               {/* Article Header */}
               <div className="max-w-[850px]">
-                <h1 className="font-Aeonik text-[clamp(2.5rem,5vw,5rem)] md:text-[clamp(3rem,6vw,6rem)] leading-tight text-black font-bold mb-4 md:mb-6">
+                <h1 className="font-Aeonik text-[28px] sm:text-[32px] md:text-[38px] lg:text-[44px] leading-tight text-black font-bold mb-4 md:mb-6">
                   {article.title}
                 </h1>
 
