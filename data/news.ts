@@ -1,5 +1,5 @@
 export interface ArticleContentBlock {
-  type: "paragraph" | "heading" | "image";
+  type: "paragraph" | "heading" | "subheading" | "image";
   text?: string;
   src?: string;
   alt?: string;

@@ -34,6 +34,16 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
             </h2>
           );
         }
+        if (block.type === "subheading") {
+          return (
+            <h3
+              key={i}
+              className="font-Aeonik text-[17px] md:text-[19px] lg:text-[22px] font-bold uppercase tracking-wide text-black mt-8 md:mt-10 mb-4 md:mb-6"
+            >
+              {block.text?.toUpperCase()}
+            </h3>
+          );
+        }
         if (block.type === "image") {
           return (
             <div
