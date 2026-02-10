@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { Suspense, useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import NewsFooter from "@/components/News/NewsFooter";
 import NewsHero from "@/components/News/NewsHero";
@@ -274,7 +274,9 @@ function NewsPageContent() {
 export default function NewsPage() {
   return (
     <NewsFilterProvider>
-      <NewsPageContent />
+      <Suspense>
+        <NewsPageContent />
+      </Suspense>
     </NewsFilterProvider>
   );
 }
