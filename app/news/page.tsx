@@ -45,16 +45,25 @@ function NewsPageContent() {
   useEffect(() => {
     const fetchArticles = async () => {
       // Check if we should use static data
-      if (process.env.NEXT_PUBLIC_USE_STATIC_DATA === "true") {
+      const useStatic = process.env.NEXT_PUBLIC_USE_STATIC_DATA === "true";
+      
+      // Debug logging
+      console.log("Fetching articles - Use Static:", useStatic);
+      console.log("API URL:", process.env.NEXT_PUBLIC_API_URL);
+      
+      if (useStatic) {
+        console.log("Using static data (NEXT_PUBLIC_USE_STATIC_DATA=true)");
         return; // Use static data (already set as initial state)
       }
 
       setLoading(true);
       try {
+        console.log("Fetching from API...");
         const [fetchedFeatured, fetchedLatest] = await Promise.all([
           getFeaturedArticles(),
           getLatestArticles(),
         ]);
+        console.log("API Response - Featured:", fetchedFeatured.length, "Latest:", fetchedLatest.length);
         setFeatured(fetchedFeatured);
         setLatest(fetchedLatest);
       } catch (error) {

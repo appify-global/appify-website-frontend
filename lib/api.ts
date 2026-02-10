@@ -9,6 +9,16 @@ import { featuredArticles, latestArticles } from "@/data/news";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000";
 const USE_STATIC_DATA = process.env.NEXT_PUBLIC_USE_STATIC_DATA === "true";
 
+// Debug logging (only in development)
+if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
+  console.log("API Configuration:", {
+    API_BASE_URL,
+    USE_STATIC_DATA,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_USE_STATIC_DATA: process.env.NEXT_PUBLIC_USE_STATIC_DATA,
+  });
+}
+
 /**
  * Fetch all articles from API
  */
