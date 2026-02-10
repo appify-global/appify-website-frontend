@@ -107,7 +107,12 @@ export async function getFeaturedArticles(): Promise<NewsArticle[]> {
 
   try {
     const articles = await fetchArticlesFromAPI();
-    return articles.filter((article) => article.isFeatured);
+    const featured = articles.filter((article) => article.isFeatured);
+    // If no featured articles, show first 3 latest articles as featured
+    if (featured.length === 0 && articles.length > 0) {
+      return articles.slice(0, 3);
+    }
+    return featured;
   } catch (error) {
     console.warn("Falling back to static data for featured articles");
     return featuredArticles;

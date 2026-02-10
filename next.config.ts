@@ -8,6 +8,21 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "ph-files.imgix.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.nextmedia.com.au",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "**.imgix.net",
+        pathname: "/**",
+      },
     ],
   },
 };
