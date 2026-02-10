@@ -121,6 +121,7 @@ export async function getFeaturedArticles(): Promise<NewsArticle[]> {
 
 /**
  * Get latest articles - uses API or static data based on config
+ * Returns ALL articles (not filtered by featured status)
  */
 export async function getLatestArticles(): Promise<NewsArticle[]> {
   if (USE_STATIC_DATA) {
@@ -128,7 +129,10 @@ export async function getLatestArticles(): Promise<NewsArticle[]> {
   }
 
   try {
-    return await fetchArticlesFromAPI();
+    // Fetch all published articles (no featured filter)
+    const articles = await fetchArticlesFromAPI();
+    console.log(`[API] Fetched ${articles.length} articles for latest news`);
+    return articles;
   } catch (error) {
     console.warn("Falling back to static data for latest articles");
     return latestArticles;
