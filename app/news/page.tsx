@@ -5,7 +5,6 @@ import NewsHero from "@/components/News/NewsHero";
 import NewsCategoryList from "@/components/News/NewsCategoryList";
 import FeaturedNewsCarousel from "@/components/News/FeaturedNewsCarousel";
 import NewsCard from "@/components/News/NewsCard";
-import ScrollProgress from "@/components/News/ScrollProgress";
 import { featuredArticles, latestArticles } from "@/data/news";
 import { PageLayout } from "@/components/layouts";
 import { NewsFilterProvider, useNewsFilter } from "@/contexts/NewsFilterContext";
@@ -58,10 +57,6 @@ function NewsPageContent() {
             />
           </aside>
 
-          {/* Scroll Progress Indicator - Fixed */}
-          <div className="hidden lg:block fixed left-[calc(4vw+155px)] top-[14vw] z-30">
-            <ScrollProgress />
-          </div>
 
           <div className="lg:ml-[185px]">
             <div className="flex-1 min-w-0">

@@ -7,7 +7,6 @@ import { newsArticles, newsCategories, ArticleContentBlock } from "@/data/news";
 import { PageLayout } from "@/components/layouts";
 import NewsFooter from "@/components/News/NewsFooter";
 import { NewsFilterProvider } from "@/contexts/NewsFilterContext";
-import ScrollProgress from "@/components/News/ScrollProgress";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 function ActiveIndicator() {
@@ -108,10 +107,6 @@ function NewsArticleContent() {
             </div>
           </aside>
 
-          {/* Scroll Progress Indicator - Fixed */}
-          <div className="hidden lg:block fixed left-[calc(4vw+155px)] top-[12vw] z-30">
-            <ScrollProgress />
-          </div>
 
           <div className="lg:ml-[185px]">
             <div className="flex-1 min-w-0">
