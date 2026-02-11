@@ -23,6 +23,16 @@ const nextConfig: NextConfig = {
         hostname: "**.imgix.net",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "*.railway.app",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "t3.storageapi.dev",
+        pathname: "/**",
+      },
     ],
   },
 };
