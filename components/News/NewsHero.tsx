@@ -31,7 +31,7 @@ export default function NewsHero({
         {title}
       </h1>
 
-      {/* Search Bar - Tablet & Desktop */}
+      {/* Search Bar - Tablet & Desktop (non-sticky instance, hidden when sticky bar is visible) */}
       <div className="hidden md:flex w-full max-w-[280px] lg:max-w-[350px] flex-shrink-0">
         <div className="relative w-full">
           <div className="backdrop-blur-[9px] bg-[rgba(226,227,234,0.05)] border border-white/20 rounded-full px-5 py-4 flex items-center justify-between w-full shadow-[0px_4px_56px_0px_rgba(0,0,0,0.05),0px_15px_134px_-9px_rgba(0,0,0,0.1)]">
