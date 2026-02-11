@@ -13,6 +13,7 @@ import { PageLayout } from "@/components/layouts";
 import { NewsFilterProvider, useNewsFilter } from "@/contexts/NewsFilterContext";
 import { FaArrowRight } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import { FeaturedCarouselSkeleton, NewsListSkeleton } from "@/components/News/Skeletons";
 
 // Plus icon component for scroll divider
 function PlusIcon() {
@@ -255,7 +256,11 @@ function NewsPageContent() {
               </div>
 
               {/* Featured Carousel */}
-              <FeaturedNewsCarousel articles={filteredFeaturedArticles} />
+              {loading ? (
+                <FeaturedCarouselSkeleton />
+              ) : (
+                <FeaturedNewsCarousel articles={filteredFeaturedArticles} />
+              )}
 
               {/* Scroll Divider */}
               <div className="flex items-center justify-center gap-4 md:gap-0 md:justify-between py-6 md:py-10 lg:py-12">
@@ -294,9 +299,7 @@ function NewsPageContent() {
 
                 {/* Search status */}
                 {searching && (
-                  <p className="font-Aeonik text-[15px] text-[rgba(0,0,0,0.5)] mb-6">
-                    Searching...
-                  </p>
+                  <NewsListSkeleton count={3} />
                 )}
 
                 {searchResults !== null && !searching && searchResults.length === 0 && (
@@ -306,11 +309,15 @@ function NewsPageContent() {
                 )}
 
                 {/* News List */}
-                <div className="md:divide-y md:divide-[rgba(0,0,0,0.1)] lg:divide-y-0">
-                  {(searchResults !== null ? searchResults : filteredLatestArticles).map((article) => (
-                    <NewsCard key={article.id} article={article} />
-                  ))}
-                </div>
+                {loading ? (
+                  <NewsListSkeleton count={4} />
+                ) : (
+                  <div className="md:divide-y md:divide-[rgba(0,0,0,0.1)] lg:divide-y-0">
+                    {(searchResults !== null ? searchResults : filteredLatestArticles).map((article) => (
+                      <NewsCard key={article.id} article={article} />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -55,6 +55,7 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
                 src={block.src!}
                 alt={block.alt || ""}
                 fill
+                loading="lazy"
                 className="object-cover"
               />
             </div>
@@ -254,6 +255,7 @@ function NewsArticleContent() {
                   src={article.imageUrl}
                   alt={article.title}
                   fill
+                  priority
                   className="object-cover"
                 />
               </div>

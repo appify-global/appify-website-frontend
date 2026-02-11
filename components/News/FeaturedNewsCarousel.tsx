@@ -21,7 +21,7 @@ function DotGrid({ className = "" }: { className?: string }) {
   );
 }
 
-function FeaturedCard({ article }: { article: NewsArticle }) {
+function FeaturedCard({ article, priority = false }: { article: NewsArticle; priority?: boolean }) {
   return (
     <Link
       href={`/news/${article.slug}`}
@@ -34,6 +34,8 @@ function FeaturedCard({ article }: { article: NewsArticle }) {
           alt={article.title}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
+          priority={priority}
+          loading={priority ? undefined : "lazy"}
         />
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-[rgba(50,50,50,0.35)]" />
@@ -97,7 +99,7 @@ export default function FeaturedNewsCarousel({
         <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 px-4">
           {articles.map((article, i) => (
             <div key={article.id} className="flex-shrink-0 w-[85vw]">
-              <FeaturedCard article={article} />
+              <FeaturedCard article={article} priority={i === 0} />
             </div>
           ))}
         </div>
@@ -106,7 +108,7 @@ export default function FeaturedNewsCarousel({
       {/* Tablet: 2-col grid */}
       <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {articles.slice(0, 3).map((article, i) => (
-          <FeaturedCard key={article.id} article={article} />
+          <FeaturedCard key={article.id} article={article} priority={i < 3} />
         ))}
       </div>
     </div>

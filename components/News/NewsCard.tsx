@@ -35,6 +35,7 @@ export default function NewsCard({ article }: NewsCardProps) {
             src={article.imageUrl}
             alt={article.title}
             fill
+            loading="lazy"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
@@ -93,6 +94,7 @@ export default function NewsCard({ article }: NewsCardProps) {
             src={article.imageUrl}
             alt={article.title}
             fill
+            loading="lazy"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
@@ -151,6 +153,7 @@ export default function NewsCard({ article }: NewsCardProps) {
             src={article.imageUrl}
             alt={article.title}
             fill
+            loading="lazy"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
