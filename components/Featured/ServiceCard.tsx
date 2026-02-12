@@ -171,39 +171,41 @@ const FloatingCards: React.FC = () => {
 
   if (isMobile) {
     return (
-      <section className="cards relative w-auto overflow-hidden mt-[-5rem]">
-        {expertsIn.map((expert) => (
-          <div
-            key={expert.name}
-            className="
-              w-full rounded-2xl overflow-hidden border
-              bg-gray-300 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm
-              bg-opacity-20 border border-gray-300
-              rounded-3xl overflow-hidden mt-10
-            "
-          >
-            <div className="p-6 flex flex-col gap-4">
-              <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-Aeonik">{expert.name}</h2>
-                <img src={expert.icon} className="w-6 h-6" alt={expert.name} />
-              </div>
+      <section className="cards relative w-auto overflow-hidden mt-[-5rem] md:mt-[-2rem]">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6">
+          {expertsIn.map((expert) => (
+            <div
+              key={expert.name}
+              className="
+                w-full rounded-2xl overflow-hidden border
+                bg-gray-300 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm
+                bg-opacity-20 border border-gray-300
+                rounded-3xl overflow-hidden mt-6 md:mt-0
+              "
+            >
+              <div className="p-6 flex flex-col gap-4">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-2xl font-Aeonik">{expert.name}</h2>
+                  <img src={expert.icon} className="w-6 h-6" alt={expert.name} />
+                </div>
 
-              <div className="flex flex-col gap-2">
-                {expert.skills.map((skill, index) => (
-                  <div key={index}>
-                    <p className="text-lg">{skill}</p>
-                    <div className="border-t-2 border-dotted border-black mt-1 w-full" />
-                  </div>
-                ))}
-              </div>
+                <div className="flex flex-col gap-2">
+                  {expert.skills.map((skill, index) => (
+                    <div key={index}>
+                      <p className="text-lg">{skill}</p>
+                      <div className="border-t-2 border-dotted border-black mt-1 w-full" />
+                    </div>
+                  ))}
+                </div>
 
-              <div className="flex justify-between items-end rotate-180 mt-5">
-                <h2 className="text-2xl font-Aeonik">{expert.name}</h2>
-                <img src={expert.icon} className="w-6 h-6" alt={expert.name} />
+                <div className="flex justify-between items-end rotate-180 mt-5">
+                  <h2 className="text-2xl font-Aeonik">{expert.name}</h2>
+                  <img src={expert.icon} className="w-6 h-6" alt={expert.name} />
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
     );
   }
@@ -257,16 +259,16 @@ const FloatingCards: React.FC = () => {
             >
               {/* Top Section */}
               <div className="w-full flex justify-between items-start">
-                <h2 className="text-2xl xl:text-4xl font-Aeonik">{expert.name}</h2>
+                <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{expert.name}</h2>
                 <div className="w-6 h-6 flex items-center justify-center">
                   <img src={expert.icon} className="w-full" alt={expert.name} />
                 </div>
               </div>
 
-              <div className="w-full flex flex-col gap-2 xl:gap-4 text-lg xl:text-2xl font-Aeonik">
+              <div className="w-full flex flex-col gap-2 xl:gap-3 text-base xl:text-xl font-Aeonik">
                 {expert.skills.map((item, index) => (
                   <div key={index}>
-                    <p>{item}</p>
+                    <p className="whitespace-nowrap">{item}</p>
                     <div className="border-t-2 border-dotted border-black mt-2 w-full" />
                   </div>
                 ))}
@@ -277,7 +279,7 @@ const FloatingCards: React.FC = () => {
                 <div className="w-6 h-6 flex items-center justify-center">
                   <img src={expert.icon} className="w-full" alt={expert.name} />
                 </div>
-                <h2 className="text-2xl xl:text-4xl font-Aeonik">{expert.name}</h2>
+                <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{expert.name}</h2>
               </div>
             </div>
           </div>

@@ -62,7 +62,7 @@ const FeatureWorkHeader = () => {
         </div>
       </div>
 
-      <div id="feature-work-header-description" className="float-end w-[35%] lg:w-[20%] mt-10 lg:mt-20">
+      <div id="feature-work-header-description" className="float-end w-[35%] md:w-[25%] lg:w-[20%] mt-6 lg:mt-14">
         <p
           className="
             hidden md:block

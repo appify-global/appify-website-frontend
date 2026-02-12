@@ -31,7 +31,7 @@ export default function Home() {
     <PageLayout showParticles={true} navbarPadding="pb-[4vw]">
       <section
         id="hero-section"
-        className="h-full flex flex-col w-full p-[4vw]"
+        className="h-full flex flex-col w-full p-[4vw] md:pt-[6vw]"
       >
         <Hero />
         <div className="mt-6 sm:mt-10" />
@@ -52,7 +52,7 @@ export default function Home() {
       </section>
 
       <section
-        className="h-auto lg:h-[200vh] relative z-40 py-[4vw]"
+        className="h-auto md:h-[150vh] lg:h-[200vh] relative z-40 py-[4vw]"
         id="experts-section"
       >
         <SkiggleDrop />
@@ -68,7 +68,7 @@ export default function Home() {
 
       <section
         ref={gridRef}
-        className="h-auto relative z-40 lg:mt-0"
+        className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-48 lg:mt-96"
         id="feature-work"
       >
         <div className="w-full px-[4vw]">
@@ -99,7 +99,7 @@ export default function Home() {
       </section>
 
       <section
-        className="h-auto lg:h-[180vh] relative mt-[3rem] sm:mt-[5rem] lg:mt-[15rem] z-40 w-full"
+        className="h-auto md:h-[120vh] lg:h-[180vh] relative mt-[3rem] sm:mt-[5rem] lg:mt-[15rem] z-40 w-full"
         ref={aiRef}
       >
         <SkiggleAi />

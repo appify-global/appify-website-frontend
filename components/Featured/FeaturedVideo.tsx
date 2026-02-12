@@ -41,15 +41,18 @@ interface FeaturedVideoProps {
   scrollToOverrideId?: string;
   /** @deprecated - kept for API compatibility */
   refForward?: React.RefObject<HTMLElement | null>;
+  /** Skip the 3D tilt animation */
+  disableTilt?: boolean;
 }
 
-const FeaturedVideo = ({ 
-  topkeyframe: _topkeyframe, 
-  className, 
-  playerClassName, 
-  playerId, 
-  scrollToOverrideId: _scrollToOverrideId, 
-  refForward: _refForward 
+const FeaturedVideo = ({
+  topkeyframe: _topkeyframe,
+  className,
+  playerClassName,
+  playerId,
+  scrollToOverrideId: _scrollToOverrideId,
+  refForward: _refForward,
+  disableTilt = false,
 }: FeaturedVideoProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
@@ -60,31 +63,33 @@ const FeaturedVideo = ({
   
   useEffect(() => {
     if (isMobile || !containerRef.current || !videoWrapperRef.current) return;
-    
+
+    if (disableTilt) {
+      setShowPlayReel(true);
+      return;
+    }
+
     // Set initial 3D rotation (inline style handles initial width)
     gsap.set(videoWrapperRef.current, {
       rotateX: 8,
       rotateY: -2,
     });
-    
+
     const ctx = gsap.context(() => {
-      // Main animation: Video expands from 40.3vw to 90vw
-      // Animation starts AFTER text has scrolled up (delayed start)
+      // Animation: Video stays at initial width, just flattens the 3D rotation
       gsap.to(
         videoWrapperRef.current,
         {
-          width: "90vw",
           rotateX: 0,
           rotateY: 0,
           ease: "power2.out",
           scrollTrigger: {
             trigger: containerRef.current,
             scroller: document.body,
-            start: "top 50%",    // Start when section is 50% visible
-            end: "top -30%",     // End well after top
+            start: "top 50%",
+            end: "top -30%",
             scrub: 1.5,
             onUpdate: (self) => {
-              // Show PLAY REEL when animation is 65%+ complete
               setShowPlayReel(self.progress > 0.65);
             },
           },
@@ -93,7 +98,7 @@ const FeaturedVideo = ({
     });
 
     return () => ctx.revert();
-  }, [isMobile]);
+  }, [isMobile, disableTilt]);
 
   // Mobile layout
   if (isMobile) {
@@ -146,31 +151,23 @@ const FeaturedVideo = ({
       ref={containerRef} 
       className="relative w-full"
       style={{
-        // Reference: Section height ~2152px (2.9x viewport)
-        height: '220vh',
+        height: 'auto',
       }}
     >
-      {/* Sticky wrapper - keeps video visible during scroll animation */}
-      {/* Note: Parent container already has 5vw padding, so no additional padding needed here */}
-      <div 
-        className="sticky"
-        style={{
-          top: '10vh',
-          height: '80vh',
+      <div
+        style={disableTilt ? undefined : {
           perspective: '1200px',
           perspectiveOrigin: 'left center',
         }}
       >
-        {/* Video wrapper - animated from 40.3vw → 90vw width, positioned at left edge (5vw) */}
         <div
           ref={videoWrapperRef}
           className={`relative z-30 ${className ?? ""}`}
           style={{
-            width: '40.3vw',     // Initial width (matches reference 484px / 1200px)
-            marginLeft: '0',     // Already at left edge from parent padding
+            width: '100%',
             transformOrigin: 'left top',
             transformStyle: 'preserve-3d',
-            willChange: 'transform, width',
+            willChange: 'transform',
           }}
         >
           <div

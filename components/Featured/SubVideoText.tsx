@@ -109,14 +109,14 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
           style={{
             top: '18vh',          // FIX #3: Lower start position relative to title
             left: '54%',          // FIX #1: Moved right (was 51%)
-            width: '36%',         // FIX #1: Narrower width (was 44%)
+            width: '40%',         // FIX #1: Narrower width (was 44%)
             maxWidth: '480px',    // FIX #1: Smaller max width (was 540px)
             paddingRight: '5vw',
             zIndex: 40,           // FIX #6: Higher than video z-index
           }}
         >
           {/* Text paragraph */}
-          <div 
+          <div
             ref={textRef}
             className="text-[1.1rem] xl:text-[1.15rem] leading-[1.6] font-Aeonik text-[#2B2E3A]"
             style={{ willChange: "transform" }}
@@ -139,16 +139,18 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
         </div>
       </div>
 
-      {/* Mobile layout - video above, text below */}
-      <div className="lg:hidden">
-        <FeaturedVideoWebGL 
-          refForward={ref}
-          topkeyframe={"70vh"}
-          playerId="about-us-video-player-mobile"
-        />
-        
-        <div className="mt-8 flex flex-col items-start text-left font-Aeonik px-1">
-          <div className="text-base leading-[1.55] font-Aeonik text-[#2B2E3A]">
+      {/* Mobile & Tablet layout - stacked on phone, side-by-side on tablet */}
+      <div className="lg:hidden flex flex-col md:flex-row md:items-start md:gap-6">
+        <div className="w-full md:w-[60%]">
+          <FeaturedVideoWebGL
+            refForward={ref}
+            topkeyframe={"70vh"}
+            playerId="about-us-video-player-mobile"
+          />
+        </div>
+
+        <div className="mt-8 md:mt-0 md:w-[40%] md:pt-4 flex flex-col items-start text-left font-Aeonik px-1">
+          <div className="text-base md:text-lg leading-[1.55] font-Aeonik text-[#2B2E3A]">
             Appify partners with enterprises and startups across Australia, UAE,
             and Qatar to build custom software. From AI-powered automation and
             machine learning solutions to enterprise ERP systems and mobile

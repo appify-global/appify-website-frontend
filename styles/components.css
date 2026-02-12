@@ -204,7 +204,14 @@
   contain: layout style;
 }
 
-@media (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
+  #scroll-indicator {
+    width: 4px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 767px) {
   #scroll-indicator {
     width: 2px;
     right: 6px;

@@ -80,7 +80,7 @@ const FeaturedVideoWebGL = ({
   const y = useTransform(
     smoothProgress,
     [0, 0.5, 0.65, 0.75, 1],
-    ["5vh", "35vh", "80vh", "35vh", "40vh"]
+    ["5vh", "35vh", "90vh", "35vh", "40vh"]
   );
 
   // 3D Perspective transforms for liquid glass effect

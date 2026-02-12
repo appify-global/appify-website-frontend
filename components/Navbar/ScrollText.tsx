@@ -31,9 +31,9 @@ const ScrollText: React.FC<ScrollTextProps> = (props) => {
       {...props}
     >
       <PlusIcon className="font-light" />
-      <PlusIcon className="hidden lg:inline-block" />
+      <PlusIcon className="hidden md:inline-block" />
       <div className="mx-2 lg:mx-4">Scroll to Explore</div>
-      <PlusIcon className="hidden lg:inline-block" />
+      <PlusIcon className="hidden md:inline-block" />
       <PlusIcon />
     </div>
   );

@@ -57,48 +57,23 @@ const HeaderExpert = () => {
         </div>
       </h4>
 
+      {/* Desktop only - absolute positioned beside title */}
       <div
         className="
-          absolute 
-          top-0 right-0 
-          flex flex-col items-end text-right
-          max-w-[300px]
-          text-sm uppercase font-Aeonik
-          md:text-base lg:text-lg xl:text-xl
-          md:static md:items-start md:text-left md:max-w-none
-          sm:max-w-[250px]
-          md:absolute md:top-0 md:right-0
-          md:flex md:flex-col md:items-end md:text-right
-          md:max-w-[300px]
-          md:uppercase
-          md:font-Aeonik
-          md:text-[0.9rem]
-          sm:text-[0.85rem]
-          md:text-[1rem]
-          lg:text-[1.1rem]
-          xl:text-[1.2rem]
-          text-black
-          md:block
-          md:mb-0
-          mt-4
-          md:mt-0
-          bottom-0
-          md:bottom-auto
-          font-medium
+          hidden lg:flex
+          absolute top-0 right-0
+          flex-col items-start text-left
+          max-w-[350px]
+          text-[17.4px]
+          uppercase font-Aeonik font-medium text-black
         "
       >
-        <p
-          className="
-            hidden md:block 
-            text-md uppercase max-w-[400px] mb-4 font-Aeonik
-          "
-        >
+        <p className="text-md uppercase max-w-[350px] mb-4 font-Aeonik">
           A TEAM OF EXPERIENCED INVENTORS & DREAMERS WITH A WIDE RANGE OF SKILLS
           AND KNOWLEDGE
         </p>
 
-        {/* Desktop icon boxes */}
-        <div className="hidden md:flex space-x-2 justify-end">
+        <div className="flex space-x-2 justify-start">
           {[
             "/eight-bit-icons/s.svg",
             "/eight-bit-icons/c.svg",
@@ -115,7 +90,8 @@ const HeaderExpert = () => {
         </div>
       </div>
 
-      <div className="md:hidden py-8 text-sm uppercase font-Aeonik content-start">
+      {/* Mobile & Tablet - flows below title */}
+      <div className="lg:hidden py-8 text-sm md:text-[15px] uppercase font-Aeonik content-start">
         <p className="leading-snug text-left">
           A TEAM OF EXPERIENCED INVENTORS & DREAMERS WITH A WIDE RANGE OF SKILLS
           AND KNOWLEDGE
@@ -129,7 +105,7 @@ const HeaderExpert = () => {
           ].map((icon) => (
             <div
               key={icon}
-              className="w-8 h-10 border border-black flex items-center justify-center text-[0.65rem] rounded-lg"
+              className="w-8 h-10 md:w-10 md:h-14 border border-black flex items-center justify-center text-[0.65rem] rounded-lg"
             >
               <img src={icon} className="w-5 h-5" alt="" aria-hidden="true" />
             </div>

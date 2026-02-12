@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { Tags } from "./Tags";
-import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import Button from "../ui/Button";
 import DotButton from "../ui/DotButton";
 
@@ -14,7 +13,6 @@ const tags = [
 
 const Hero: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isMobile = useIsMobile(TAB_BRAKEPOINT);
 
   return (
     <div className="font-[Aeonik] relative">
@@ -26,12 +24,10 @@ const Hero: React.FC = () => {
         />
       )}
 
-      {isMobile && (
-        <p className="text-[4.2vw] sm:text-[3.5vw] leading-relaxed text-black mb-4 sm:mb-6 mt-0 px-[14px] font-medium">
-          Enterprise software, AI-powered apps, and custom solutions built by a
-          global team that turns ambitious visions into reality.
-        </p>
-      )}
+      <p className="md:hidden text-[4.2vw] sm:text-[3.5vw] leading-relaxed text-black mb-4 sm:mb-6 mt-0 px-[14px] font-medium">
+        Enterprise software, AI-powered apps, and custom solutions built by a
+        global team that turns ambitious visions into reality.
+      </p>
 
       {/* Main Hero Card */}
       <div
@@ -46,7 +42,7 @@ const Hero: React.FC = () => {
           relative z-10
           w-full
           lg:h-[calc(100vh-12vw-80px)]
-          min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]
+          min-h-[400px] sm:min-h-[500px] md:min-h-[550px] lg:min-h-[600px]
         "
       >
         {/* Glass overlay */}
@@ -58,28 +54,25 @@ const Hero: React.FC = () => {
             We Transform <br /> Ideas Into Successful <br /> Tech Products
           </h1>
 
-          {isMobile ? (
-            <p className="text-[3vw] tracking-normal mb-2 font-Aeonik">
-              {tags.join(" • ").toUpperCase()}
-            </p>
-          ) : (
-            <div className="flex flex-wrap gap-3 max-w-[700px]">
-              {tags.map((tag, index) => (
-                <Tags key={index} label={tag} />
-              ))}
-            </div>
-          )}
+          {/* Tags - text string on phone, pills on tablet+ */}
+          <p className="md:hidden text-[3vw] tracking-normal mb-2 font-Aeonik">
+            {tags.join(" • ").toUpperCase()}
+          </p>
+          <div className="hidden md:flex flex-wrap gap-3 max-w-[700px]">
+            {tags.map((tag, index) => (
+              <Tags key={index} label={tag} />
+            ))}
+          </div>
 
-          {!isMobile && (
-            <p className="leading-relaxed max-w-[420px] text-[1vw]">
-              Enterprise software, AI-powered apps, and custom solutions built
-              by a global team that turns ambitious visions into reality.
-            </p>
-          )}
+          {/* Description - visible on tablet+ */}
+          <p className="hidden md:block leading-relaxed max-w-[420px] text-[2vw] lg:text-[1vw]">
+            Enterprise software, AI-powered apps, and custom solutions built
+            by a global team that turns ambitious visions into reality.
+          </p>
 
-          <div >
+          <div>
             <div
-              className="lg:hidden w-full"
+              className="md:hidden w-full"
               onClick={() => setIsModalOpen(true)}
             >
               <Button
@@ -88,7 +81,7 @@ const Hero: React.FC = () => {
               />
             </div>
             <div
-              className="lg:hidden w-full uppercase mt-4"
+              className="md:hidden w-full uppercase mt-4"
               onClick={() => setIsModalOpen(true)}
             >
               <Button
@@ -99,7 +92,7 @@ const Hero: React.FC = () => {
           </div>
 
           <div className="flex justify-left w-full -mt-1 lg:-mt-2">
-            <div className="hidden lg:flex w-full">
+            <div className="hidden md:flex w-full">
               <DotButton text="FREE DISCOVERY CALL" variant="white" className="free-discovery-call-btn" />
             </div>
           </div>

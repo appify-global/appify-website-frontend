@@ -134,10 +134,10 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
           </div>
         </div>
         <div className="py-4 sm:py-5 md:py-6">
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl tracking-normal mb-2 font-Aeonik leading-snug">
+          <p className="text-[10px] sm:text-xs md:text-xs lg:text-[13px] tracking-wide mb-1 font-Aeonik leading-snug text-black/70">
             {metadataString}
           </p>
-          <h3 className="flex items-center relative font-Aeonik text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight">
+          <h3 className="flex items-center relative font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
             {title}
           </h3>
         </div>
