@@ -151,8 +151,20 @@ function NewsPageContent() {
     );
   };
 
-  // Ref for hero section (no longer needed for sticky logic, but keeping for potential future use)
+  // Sticky search bar visibility
   const heroSearchRef = useRef<HTMLDivElement>(null);
+  const [showStickySearch, setShowStickySearch] = useState(false);
+
+  useEffect(() => {
+    const el = heroSearchRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickySearch(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   // Search handler
   const handleSearch = () => runSearch(searchQuery);
@@ -188,6 +200,41 @@ function NewsPageContent() {
           </aside>
 
 
+          {/* Sticky Search Bar */}
+          <div
+            className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+              showStickySearch
+                ? "translate-y-0 opacity-100"
+                : "-translate-y-full opacity-0 pointer-events-none"
+            }`}
+          >
+            <div className="bg-[#ECEDF3]/80 backdrop-blur-md border-b border-black/5 px-4 md:px-[4vw] lg:px-[4vw] py-3">
+              <div className="lg:ml-[185px] flex justify-end">
+                <div className="w-full max-w-[280px] lg:max-w-[350px]">
+                  <div className="backdrop-blur-[9px] bg-white/60 border border-white/40 rounded-full px-5 py-3 flex items-center justify-between w-full shadow-[0px_4px_56px_0px_rgba(0,0,0,0.05),0px_15px_134px_-9px_rgba(0,0,0,0.1)]">
+                    <input
+                      type="text"
+                      placeholder="ASK ANYTHING"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                      className="bg-transparent outline-none text-black text-sm tracking-wide uppercase font-Aeonik w-full placeholder:text-[rgba(0,0,0,0.47)]"
+                    />
+                    {searchQuery ? (
+                      <button onClick={handleSearchClear} className="text-black/50 hover:text-black transition-colors">
+                        <IoClose size={16} />
+                      </button>
+                    ) : (
+                      <button onClick={handleSearch} className="text-black/50 hover:text-black transition-colors">
+                        <FaArrowRight size={12} />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="lg:ml-[185px]">
             <div className="flex-1 min-w-0">
               {/* Newsroom Title + Ask Anything - Same Row */}
@@ -198,33 +245,6 @@ function NewsPageContent() {
                   onSearchSubmit={handleSearch}
                   onSearchClear={handleSearchClear}
                 />
-              </div>
-
-              {/* Sticky Search Bar - Always visible when scrolling, positioned right after Newsroom title */}
-              <div className="hidden md:block sticky top-0 z-40 -mx-4 md:-mx-[4vw] lg:-mx-[4vw] px-4 md:px-[4vw] lg:px-[4vw] py-3 bg-[#ECEDF3]/80 backdrop-blur-md border-b border-black/5 mb-6">
-                <div className="flex justify-end">
-                  <div className="w-full max-w-[280px] lg:max-w-[350px]">
-                    <div className="backdrop-blur-[9px] bg-white/60 border border-white/40 rounded-full px-5 py-3 flex items-center justify-between w-full shadow-[0px_4px_56px_0px_rgba(0,0,0,0.05),0px_15px_134px_-9px_rgba(0,0,0,0.1)]">
-                      <input
-                        type="text"
-                        placeholder="ASK ANYTHING"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                        className="bg-transparent outline-none text-black text-sm tracking-wide uppercase font-Aeonik w-full placeholder:text-[rgba(0,0,0,0.47)]"
-                      />
-                      {searchQuery ? (
-                        <button onClick={handleSearchClear} className="text-black/50 hover:text-black transition-colors">
-                          <IoClose size={16} />
-                        </button>
-                      ) : (
-                        <button onClick={handleSearch} className="text-black/50 hover:text-black transition-colors">
-                          <FaArrowRight size={12} />
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
               </div>
 
               {/* Mobile Categories - Horizontal scroll */}
