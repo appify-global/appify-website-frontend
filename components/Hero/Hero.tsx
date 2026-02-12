@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
           backdrop-blur-[90px]
           rounded-[28px]
           border-2 border-white/50
-          py-4 px-[14px] sm:py-6 lg:py-8 sm:px-5 lg:px-8
+          py-4 px-[14px] sm:py-6 lg:py-10 sm:px-5 lg:px-10
           bg-clip-padding backdrop-filter bg-opacity-20 border border-gray-300
           relative z-10
           w-full
@@ -53,8 +53,8 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-40 pointer-events-none rounded-[28px]" />
 
         {/* Left Section */}
-        <div className="lg:w-[60%] p-2 sm:p-4 lg:p-8 flex flex-col justify-center space-y-4 sm:space-y-6 lg:space-y-8">
-          <h1 className="leading-tight text-[10vw] sm:text-[9vw] md:text-[8vw] lg:text-[4.5vw] tracking-normal">
+        <div className="lg:w-[60%] p-2 sm:p-4 lg:p-6 flex flex-col justify-center space-y-3 sm:space-y-4 lg:space-y-5">
+          <h1 className="leading-[1.1] text-[10vw] sm:text-[9vw] md:text-[8vw] lg:text-[4.2vw] tracking-normal">
             We Transform <br /> Ideas Into Successful <br /> Tech Products
           </h1>
 
@@ -71,7 +71,7 @@ const Hero: React.FC = () => {
           )}
 
           {!isMobile && (
-            <p className="leading-relaxed max-w-[700px] text-[1vw]">
+            <p className="leading-relaxed max-w-[420px] text-[1vw]">
               Enterprise software, AI-powered apps, and custom solutions built
               by a global team that turns ambitious visions into reality.
             </p>
@@ -98,7 +98,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-left w-full mt-2 lg:mt-0">
+          <div className="flex justify-left w-full -mt-1 lg:-mt-2">
             <div className="hidden lg:flex w-full">
               <DotButton text="FREE DISCOVERY CALL" variant="white" className="free-discovery-call-btn" />
             </div>
@@ -106,9 +106,9 @@ const Hero: React.FC = () => {
         </div>
 
         {/* Right Section - Form visible only on large screens */}
-        <div className="hidden lg:flex lg:w-[40%] p-6 lg:p-8 flex-col justify-start space-y-6 overflow-y-auto max-h-full">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Apply for a Free Development Strategy!
+        <div className="hidden lg:flex lg:w-[40%] p-4 lg:p-6 flex-col justify-center space-y-4 overflow-y-auto max-h-full">
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">
+            Apply for a free Development Strategy!
           </h2>
           <Form submitBtnVariant="black" />
         </div>
@@ -146,10 +146,10 @@ const Form = ({
 }: {
   submitBtnVariant: "black" | "white";
 }) => (
-  <form className="space-y-4">
+  <form className="space-y-3">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="flex flex-col">
-        <label htmlFor="firstName" className="mb-2 font-medium">
+        <label htmlFor="firstName" className="mb-1 font-medium">
           First Name *
         </label>
         <input
@@ -161,7 +161,7 @@ const Form = ({
       </div>
 
       <div className="flex flex-col">
-        <label htmlFor="lastName" className="mb-2 font-medium">
+        <label htmlFor="lastName" className="mb-1 font-medium">
           Last Name *
         </label>
         <input
@@ -174,7 +174,7 @@ const Form = ({
     </div>
 
     <div className="flex flex-col">
-      <label htmlFor="email" className="mb-2 font-medium">
+      <label htmlFor="email" className="mb-1 font-medium">
         Email *
       </label>
       <input
@@ -186,7 +186,7 @@ const Form = ({
     </div>
 
     <div className="flex flex-col">
-      <label htmlFor="company" className="mb-2 font-medium">
+      <label htmlFor="company" className="mb-1 font-medium">
         Company (Optional)
       </label>
       <input
@@ -197,8 +197,8 @@ const Form = ({
       />
     </div>
 
-    <div className="flex flex-col mb-5">
-      <label htmlFor="nda" className="mb-2 font-medium">
+    <div className="flex flex-col mb-3">
+      <label htmlFor="nda" className="mb-1 font-medium">
         Would you like an NDA?
       </label>
       <select

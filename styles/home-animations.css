@@ -52,7 +52,7 @@
 }
 
 #home-reel-title-inner > div {
-  overflow: hidden;
+  overflow: visible;
 }
 
 @media (max-width: 1023px) {
@@ -77,7 +77,7 @@
 }
 
 .home-reel-title {
-  overflow: hidden;
+  overflow: visible;
   display: inline-block;
 }
 

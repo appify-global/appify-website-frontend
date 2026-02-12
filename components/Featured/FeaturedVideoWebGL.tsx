@@ -75,11 +75,12 @@ const FeaturedVideoWebGL = ({
     ["40.3vw", "40.3vw", "70vw", "90vw"]
   );
   
-  // Vertical position: Start lower, move up slightly
+  // Vertical position: Start lower, push down more as video expands
+  // After 0.65, push down further for play reel reveal
   const y = useTransform(
     smoothProgress,
-    [0, 0.5, 0.75],
-    ["5vh", "2vh", "0vh"]
+    [0, 0.5, 0.65, 0.75, 1],
+    ["5vh", "35vh", "80vh", "35vh", "40vh"]
   );
 
   // 3D Perspective transforms for liquid glass effect
@@ -202,8 +203,8 @@ const FeaturedVideoWebGL = ({
       <div
         className="sticky w-full flex items-start"
         style={{
-          top: "8vh",
-          height: "85vh",
+          top: "12vh",
+          height: "80vh",
           paddingLeft: "5vw",
           paddingRight: "5vw",
           perspective: "1200px",
