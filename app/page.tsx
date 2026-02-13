@@ -40,19 +40,18 @@ export default function Home() {
 
       <section
         id="beoynd-visions"
-        className="h-auto relative z-20 pt-[4vw] pb-[2vw]"
+        className="h-auto relative z-20 pt-[4vw] pb-[2vw] overflow-hidden lg:overflow-visible"
         ref={ref}
-        style={{ overflow: 'visible' }}
       >
         <Skiggle ref={ref} />
-        <div className="w-full" style={{ paddingLeft: '5vw', paddingRight: '5vw', overflow: 'visible' }}>
+        <div className="w-full px-[5vw]">
           <Header />
           <SubVideoText ref={ref} />
         </div>
       </section>
 
       <section
-        className="h-auto md:h-[150vh] lg:h-[200vh] relative z-40 py-[4vw]"
+        className="h-auto lg:h-[200vh] relative z-40 py-[4vw]"
         id="experts-section"
       >
         <SkiggleDrop />
@@ -68,14 +67,14 @@ export default function Home() {
 
       <section
         ref={gridRef}
-        className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-48 lg:mt-96"
+        className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-16 lg:mt-96"
         id="feature-work"
       >
         <div className="w-full px-[4vw]">
           <FeatureWorkHeader />
         </div>
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 relative z-40 w-full px-4 sm:px-6 lg:px-20 mt-2 lg:mt-24"
+          className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 relative z-40 w-full px-4 sm:px-6 lg:px-20 mt-4 md:mt-8 lg:mt-24"
         >
           {projectsData.map((project, index) => (
             <ProjectCard
@@ -99,7 +98,7 @@ export default function Home() {
       </section>
 
       <section
-        className="h-auto md:h-[120vh] lg:h-[180vh] relative mt-[3rem] sm:mt-[5rem] lg:mt-[15rem] z-40 w-full"
+        className="h-auto lg:h-[130vh] relative mt-[3rem] sm:mt-[5rem] md:mt-[3rem] lg:mt-[15rem] pb-[4rem] sm:pb-[4rem] lg:pb-0 z-40 w-full"
         ref={aiRef}
       >
         <SkiggleAi />

@@ -100,7 +100,7 @@ export function PageLayout({
   return (
     <Suspense fallback={loadingFallback || defaultLoadingFallback}>
       <LenisProvider footerRef={footerRef}>
-        <div className="bg-[var(--color-background,#F0F1FA)] h-auto w-full flex flex-col overflow-hidden min-h-screen">
+        <div className="bg-[var(--color-background,#F0F1FA)] h-auto w-full flex flex-col overflow-hidden min-h-screen relative z-10">
           <ScrollIndicator />
 
           {wasmReady && (
@@ -121,7 +121,7 @@ export function PageLayout({
         {/* Particle section - only on pages that need it */}
         {showParticles && wasmReady && (
           <section
-            className="h-[100vh] w-full relative z-10"
+            className="h-[100vh] md:h-[calc(100vh+50px)] lg:h-[calc(100vh+200px)] w-full relative z-20"
             id="particle-section"
           >
             <ParticleWaterfall />
@@ -130,7 +130,7 @@ export function PageLayout({
 
         {/* Footer with parallax effect */}
         {showFooter && wasmReady && (
-          <section id="footer" ref={footerRef} className="relative z-20">
+          <section id="footer" ref={footerRef} className={`relative z-[15] ${showParticles ? 'lg:pt-24' : ''}`}>
             <Footer />
           </section>
         )}

@@ -10,11 +10,11 @@ const PlusIcon = (
 );
 
 const ParticleWaterfall: React.FC = () => {
-    const containerRef = useRef<HTMLDivElement>(null);
+    const canvasRef = useRef<HTMLDivElement>(null);
     const sketchRef = useRef<p5 | null>(null);
 
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!canvasRef.current) return;
 
         const sketch = (s: p5) => {
             let particles: Particle[] = [];
@@ -261,32 +261,35 @@ const ParticleWaterfall: React.FC = () => {
             };
         };
 
-        sketchRef.current = new p5(sketch, containerRef.current);
-        return () => sketchRef.current?.remove();
+        // Clean up any leftover canvases from StrictMode double-mount
+        canvasRef.current.querySelectorAll('canvas').forEach(c => c.remove());
+
+        const instance = new p5(sketch, canvasRef.current);
+        sketchRef.current = instance;
+
+        return () => {
+            instance.remove();
+        };
     }, []);
 
     return (
 
         <div
-            ref={containerRef}
             className="relative w-full h-screen overflow-hidden bg-gradient-to-b from-[#040506] via-[#02121a] to-black"
         >
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-10 px-4">
+            {/* Canvas background */}
+            <div ref={canvasRef} className="absolute inset-0 z-0" />
 
-                <div className="relative inline-block px-10 py-12">
+            {/* Content overlay */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 px-4 py-6 md:py-8 lg:pb-17 lg:pt-0">
 
-                    <span className="absolute -top-8 -left-8 select-none">{PlusIcon}</span>
-                    <span className="absolute -top-8 -right-8 select-none">{PlusIcon}</span>
-                    <span className="absolute -bottom-8 -left-8 select-none">{PlusIcon}</span>
-                    <span className="absolute -bottom-8 -right-8 select-none">{PlusIcon}</span>
+                <div className="relative inline-block px-8 sm:px-20 lg:px-20 py-6 sm:py-8 lg:py-12">
 
-                    <span className="absolute -bottom-12 left-1/2 -translate-x-1/2 select-none">
-                        {PlusIcon}
-                    </span>
-
+                    <span className="absolute -top-6 -left-6 sm:-top-8 sm:-left-8 select-none">{PlusIcon}</span>
+                    <span className="absolute -top-6 -right-6 sm:-top-8 sm:-right-8 select-none">{PlusIcon}</span>
                     <p
-                        className="absolute -top-8  left-1/2    -translate-x-1/2   text-white font-Aeonik uppercase
-                text-[clamp(0.9rem,3vw,1.25rem)] tracking-wide
+                        className="absolute -top-6 sm:-top-8 left-1/2 -translate-x-1/2 text-white font-Aeonik uppercase
+                text-[clamp(0.65rem,2.5vw,1.25rem)] tracking-wide whitespace-nowrap
                 flex items-center justify-center gap-4"
                     >
                         IS YOUR BIG IDEA READY TO GO WILD?
@@ -294,12 +297,35 @@ const ParticleWaterfall: React.FC = () => {
 
                     <a
                         href="#contact"
-                        className="relative inline-block text-white font-Aeonik leading-none 
-                text-[clamp(3rem,12vw,10rem)] after:absolute after:bottom-0 after:left-0 after:h-1 
+                        className="relative inline-block text-white font-Aeonik leading-none
+                text-[clamp(2.5rem,10vw,10rem)] sm:text-[clamp(3rem,12vw,10rem)] after:absolute after:bottom-0 after:left-0 after:h-1
                 after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full"
                     >
-                        <div>Let’s work</div>
+                        <div>Let&#39;s work</div>
                         <div>together!</div>
+                    </a>
+                </div>
+
+                {/* Plus icons row */}
+                <div className="flex items-center justify-between w-full max-w-[900px] mt-4 sm:mt-6 lg:mt-12 px-4">
+                    <span className="select-none">{PlusIcon}</span>
+                    <span className="select-none">{PlusIcon}</span>
+                    <span className="select-none">{PlusIcon}</span>
+                </div>
+
+                {/* Continue to scroll button */}
+                <div className="mt-3 sm:mt-4 lg:mt-8">
+                    <a
+                        href="#footer"
+                        className="inline-flex items-center gap-3 bg-white text-black rounded-full px-6 py-3 font-Aeonik text-sm tracking-widest uppercase hover:bg-transparent hover:text-white border border-white transition-colors duration-300"
+                    >
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 1V13M7 13L1 7M7 13L13 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                        CONTINUE TO SCROLL
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 1V13M7 13L1 7M7 13L13 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
                     </a>
                 </div>
             </div>

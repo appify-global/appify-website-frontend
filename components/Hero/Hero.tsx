@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
           relative z-10
           w-full
           lg:h-[calc(100vh-12vw-80px)]
-          min-h-[400px] sm:min-h-[500px] md:min-h-[550px] lg:min-h-[600px]
+          min-h-[400px] sm:min-h-[500px] md:min-h-[450px] lg:min-h-[600px]
         "
       >
         {/* Glass overlay */}

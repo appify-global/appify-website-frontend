@@ -112,9 +112,10 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
         bar.style.transform = `translateY(${y}px)`;
       }
 
-      // Footer parallax effect
+      // Footer parallax effect - reduce on smaller screens
       if (footerRef?.current) {
-        const totalFooterMovement = progress * -300;
+        const parallaxAmount = window.innerWidth < 1024 ? -100 : -200;
+        const totalFooterMovement = progress * parallaxAmount;
         gsap.set(footerRef.current, { y: totalFooterMovement });
       }
 

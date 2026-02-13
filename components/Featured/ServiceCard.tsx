@@ -171,8 +171,8 @@ const FloatingCards: React.FC = () => {
 
   if (isMobile) {
     return (
-      <section className="cards relative w-auto overflow-hidden mt-[-5rem] md:mt-[-2rem]">
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-6">
+      <section className="cards relative w-auto overflow-hidden mt-[-5rem] md:mt-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
           {expertsIn.map((expert) => (
             <div
               key={expert.name}
@@ -183,24 +183,24 @@ const FloatingCards: React.FC = () => {
                 rounded-3xl overflow-hidden mt-6 md:mt-0
               "
             >
-              <div className="p-6 flex flex-col gap-4">
+              <div className="p-6 md:p-8 flex flex-col justify-between gap-5 md:gap-6 md:min-h-[350px]">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-Aeonik">{expert.name}</h2>
-                  <img src={expert.icon} className="w-6 h-6" alt={expert.name} />
+                  <h2 className="text-2xl md:text-3xl font-Aeonik">{expert.name}</h2>
+                  <img src={expert.icon} className="w-6 h-6 md:w-7 md:h-7" alt={expert.name} />
                 </div>
 
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1.5 md:gap-2">
                   {expert.skills.map((skill, index) => (
                     <div key={index}>
-                      <p className="text-lg">{skill}</p>
-                      <div className="border-t-2 border-dotted border-black mt-1 w-full" />
+                      <p className="text-lg md:text-xl py-0.5">{skill}</p>
+                      <div className="border-t-2 border-dotted border-black w-full" />
                     </div>
                   ))}
                 </div>
 
-                <div className="flex justify-between items-end rotate-180 mt-5">
-                  <h2 className="text-2xl font-Aeonik">{expert.name}</h2>
-                  <img src={expert.icon} className="w-6 h-6" alt={expert.name} />
+                <div className="flex justify-between items-center rotate-180">
+                  <h2 className="text-2xl md:text-3xl font-Aeonik">{expert.name}</h2>
+                  <img src={expert.icon} className="w-6 h-6 md:w-7 md:h-7" alt={expert.name} />
                 </div>
               </div>
             </div>
@@ -254,29 +254,29 @@ const FloatingCards: React.FC = () => {
                 bg-gray-300 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-300
                 h-full rounded-3xl overflow-hidden
                 flex flex-col items-center justify-between text-black text-base font-normal [transform:rotateY(180deg)]
-                px-8 py-8
+                px-6 xl:px-8 py-6 xl:py-8
               "
             >
               {/* Top Section */}
-              <div className="w-full flex justify-between items-start">
+              <div className="w-full flex justify-between items-center">
                 <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{expert.name}</h2>
-                <div className="w-6 h-6 flex items-center justify-center">
+                <div className="w-5 h-5 xl:w-7 xl:h-7 flex items-center justify-center">
                   <img src={expert.icon} className="w-full" alt={expert.name} />
                 </div>
               </div>
 
-              <div className="w-full flex flex-col gap-2 xl:gap-3 text-base xl:text-xl font-Aeonik">
+              <div className="w-full flex flex-col gap-1.5 xl:gap-2.5 text-sm xl:text-lg font-Aeonik">
                 {expert.skills.map((item, index) => (
                   <div key={index}>
-                    <p className="whitespace-nowrap">{item}</p>
-                    <div className="border-t-2 border-dotted border-black mt-2 w-full" />
+                    <p className="whitespace-nowrap py-0.5">{item}</p>
+                    <div className="border-t-2 border-dotted border-black w-full" />
                   </div>
                 ))}
               </div>
 
               {/* Bottom Section */}
-              <div className="w-full flex justify-between items-end rotate-180">
-                <div className="w-6 h-6 flex items-center justify-center">
+              <div className="w-full flex justify-between items-center rotate-180">
+                <div className="w-5 h-5 xl:w-7 xl:h-7 flex items-center justify-center">
                   <img src={expert.icon} className="w-full" alt={expert.name} />
                 </div>
                 <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{expert.name}</h2>

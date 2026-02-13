@@ -35,7 +35,7 @@ const HeaderExpert = () => {
       <h4
         id="home-reel-title"
         ref={titleRef}
-        className="home-reel-title font-Aeonik !mt-0 !mb-[1.5em]"
+        className="home-reel-title font-Aeonik !mt-0 !mb-[0.5em] lg:!mb-[1.5em]"
       >
         <div id="home-reel-title-inner" className="home-reel-title-inner">
           <div className="home-reel-title-line-wrapper wrapper-2">
@@ -91,12 +91,12 @@ const HeaderExpert = () => {
       </div>
 
       {/* Mobile & Tablet - flows below title */}
-      <div className="lg:hidden py-8 text-sm md:text-[15px] uppercase font-Aeonik content-start">
+      <div className="lg:hidden pt-2 pb-6 text-sm md:text-[15px] uppercase font-Aeonik content-start">
         <p className="leading-snug text-left">
           A TEAM OF EXPERIENCED INVENTORS & DREAMERS WITH A WIDE RANGE OF SKILLS
           AND KNOWLEDGE
         </p>
-        <div className="flex justify-left space-x-2 mt-5">
+        <div className="flex justify-left space-x-2 mt-4 mb-6 md:mb-4">
           {[
             "/eight-bit-icons/s.svg",
             "/eight-bit-icons/c.svg",

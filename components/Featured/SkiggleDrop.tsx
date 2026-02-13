@@ -44,7 +44,7 @@ const SkiggleDrop = () => {
   return (
     <svg
       ref={svgRef}
-      className="squigggle absolute top-[-10%] left-0 w-screen h-full z-4"
+      className="squigggle absolute top-[-10%] left-0 w-full h-full z-4"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
