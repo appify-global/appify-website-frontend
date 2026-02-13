@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNewsFilter, SortOption } from "@/contexts/NewsFilterContext";
 
-const topics = ["All", "AI", "Automation", "Web", "Startups", "Defi", "Web3", "Work", "Design", "Culture"];
+const topics = ["All", "AI", "Web", "Startups", "Web3", "Work", "Design", "Culture"];
 const sortOptions: SortOption[] = ["Latest", "Most Popular", "Most Read", "Featured"];
 
 export default function NewsFilterButton() {

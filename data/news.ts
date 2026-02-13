@@ -25,10 +25,8 @@ export interface NewsArticle {
 
 export const newsCategories = [
   "AI",
-  "Automation",
   "Web",
   "Startups",
-  "Defi",
   "Web3",
   "Work",
   "Design",
