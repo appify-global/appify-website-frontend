@@ -12,14 +12,23 @@ const API_KEY = process.env.API_KEY || "your-secret-api-key-for-write-endpoints"
 
 async function generateArticle() {
   try {
-    console.log(`Triggering article generation on ${API_BASE_URL}/api/admin/generate...`);
-    
     // Use fetchAll=true query param to fetch all RSS items (including older ones)
     const fetchAll = process.argv.includes("--fetch-all") || process.argv.includes("--all");
-    const url = `${API_BASE_URL}/api/admin/generate${fetchAll ? "?fetchAll=true" : ""}`;
+    const countArg = process.argv.find(arg => arg.startsWith("--count="));
+    const count = countArg ? parseInt(countArg.split("=")[1]) : undefined;
     
+    let url = `${API_BASE_URL}/api/admin/generate`;
+    const params: string[] = [];
+    if (fetchAll) params.push("fetchAll=true");
+    if (count) params.push(`count=${count}`);
+    if (params.length > 0) url += "?" + params.join("&");
+    
+    console.log(`Triggering article generation on ${url}...`);
     if (fetchAll) {
       console.log("📥 Fetching ALL RSS items (including older ones that haven't been generated yet)...");
+    }
+    if (count) {
+      console.log(`📝 Generating ${count} article(s)...`);
     }
     
     const response = await fetch(url, {
@@ -28,7 +37,7 @@ async function generateArticle() {
         "Content-Type": "application/json",
         "x-api-key": API_KEY, // Note: lowercase header name as used in backend
       },
-      body: JSON.stringify({ fetchAll }),
+      body: JSON.stringify({ fetchAll, count }),
     });
 
     if (!response.ok) {
