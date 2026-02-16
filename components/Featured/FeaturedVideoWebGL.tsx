@@ -7,17 +7,12 @@ import MarqueePlusRow from "../MarqueePlusRow";
 import HomeReelVideoWatchButton from "../ui/HomeReelVideoWatchButton";
 
 /**
- * FeaturedVideoWebGL - CSS 3D Transform implementation for liquid glass effect
- * 
- * Uses CSS 3D transforms instead of WebGL for better reliability and performance.
- * The effect mimics Lusion.co's liquid glass warp through perspective, rotateX/Y, and skew.
- * 
- * Animation phases (matching Lusion.co):
- * 1. Video starts small (40.3vw) on LEFT, completely FLAT
- * 2. Text parallaxes up while video stays static
- * 3. Video gains 3D perspective warp and starts expanding
- * 4. Video continues expanding while warp intensity peaks
- * 5. Video flattens to 90vw, centered, PLAY REEL appears
+ * FeaturedVideoWebGL - Scroll-driven expand/collapse animation
+ *
+ * Phase 1 (0-0.35): Video sits small (40.3vw) on the left — normal layout
+ * Phase 2 (0.35-0.5): Video scales up to fullscreen, centers, z-index above all
+ * Phase 3 (0.5-0.65): Holds fullscreen — PLAY REEL visible
+ * Phase 4 (0.65-1.0): Video scales back down to original left position
  */
 
 interface FeaturedVideoWebGLProps {
@@ -42,118 +37,86 @@ const FeaturedVideoWebGL = ({
 }: FeaturedVideoWebGLProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
-  
+
   const [showPlayReel, setShowPlayReel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  
-  // Local video source - no CORS issues
+
   const videoSrc = "/Videos/Appify_Introduction_CEO_cropped.mp4";
 
-  // Framer Motion scroll tracking
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 80%", "end 80%"],
+    offset: ["start 40%", "end 20%"],
   });
 
-  // Smooth the progress for buttery animation
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 80,
     damping: 25,
     restDelta: 0.001,
   });
 
-  // === ANIMATION TRANSFORMS ===
-  // Designed to match Lusion.co's behavior:
-  // - Start small and flat on left
-  // - Build warp effect during middle of scroll
-  // - End large and flat, centered
-  
-  // Width: 40.3vw -> 90vw
+  // === Width: small -> fullscreen (slightly smaller) -> back to small ===
   const width = useTransform(
     smoothProgress,
-    [0, 0.15, 0.5, 0.75],
-    ["40.3vw", "40.3vw", "70vw", "90vw"]
-  );
-  
-  // Vertical position: Start lower, push down more as video expands
-  // After 0.65, push down further for play reel reveal
-  const y = useTransform(
-    smoothProgress,
-    [0, 0.5, 0.65, 0.75, 1],
-    ["5vh", "35vh", "90vh", "55vh", "40vh"]
+    [0, 0.15, 0.35, 0.5, 0.65, 0.85, 1.0],
+    ["40.3vw", "40.3vw", "75vw", "75vw", "78vw", "40.3vw", "40.3vw"]
   );
 
-  // 3D Perspective transforms for liquid glass effect
-  // rotateX: Tips forward/backward
-  const rotateX = useTransform(
-    smoothProgress,
-    [0, 0.15, 0.3, 0.45, 0.6],
-    [0, 0, 12, 6, 0]  // Flat -> peak warp -> flat
-  );
-
-  // rotateY: Slight side tilt for more 3D feel
-  const rotateY = useTransform(
-    smoothProgress,
-    [0, 0.15, 0.3, 0.45, 0.6],
-    [0, 0, -3, -1.5, 0]
-  );
-
-  // skewY: Adds to the liquid distortion
-  const skewY = useTransform(
-    smoothProgress,
-    [0, 0.15, 0.3, 0.45, 0.6],
-    [0, 0, 2, 1, 0]
-  );
-  
-  // Scale for subtle depth pulse during warp
-  const scale = useTransform(
-    smoothProgress,
-    [0, 0.35, 0.55],
-    [1, 1.02, 1]
-  );
-
-  // Border radius
-  const borderRadius = useTransform(
-    smoothProgress,
-    [0, 0.75],
-    ["16px", "12px"]
-  );
-
-  // Shadow intensity - stronger during warp phase
-  const shadowOpacity = useTransform(
-    smoothProgress,
-    [0, 0.15, 0.3, 0.45, 0.6],
-    [0.15, 0.15, 0.4, 0.3, 0.2]
-  );
-
-  // Box shadow derived from shadow opacity - MUST be at top level, not inside JSX
-  const boxShadow = useTransform(
-    shadowOpacity,
-    (opacity) => `0 40px 80px rgba(0, 0, 0, ${opacity}), 0 20px 40px rgba(0, 0, 0, ${opacity * 0.6})`
-  );
-
-  // Horizontal position: animate from left-aligned to centered as video expands
-  // This prevents video from cutting off screen during expansion
+  // === Horizontal: left-aligned -> centered -> back to center -> back to left ===
+  // At 80vw width, need to shift left to center in viewport
   const x = useTransform(
     smoothProgress,
-    [0, 0.15, 0.5, 0.75],
-    ["0vw", "0vw", "5vw", "0vw"]
+    [0, 0.15, 0.35, 0.5, 0.65, 0.85, 1.0],
+    ["0vw", "0vw", "0vw", "0vw", "0vw", "0vw", "0vw"]
   );
 
-  // Track scroll progress for PLAY REEL visibility
+  // === Vertical: stay put -> slight lift at fullscreen -> back down ===
+  const y = useTransform(
+    smoothProgress,
+    [0, 0.15, 0.35, 0.5, 0.65, 0.85, 1.0],
+    ["2vh", "2vh", "78vh", "78vh", "78vh", "2vh", "2vh"]
+  );
+
+  // === Z-index: normal -> above everything (as soon as expansion starts) -> back ===
+  const zIndex = useTransform(
+    smoothProgress,
+    [0, 0.14, 0.15, 0.85, 0.86, 1.0],
+    [20, 20, 100, 100, 20, 20]
+  );
+
+  // Border radius: rounded -> minimal at fullscreen -> back to rounded
+  const borderRadius = useTransform(
+    smoothProgress,
+    [0, 0.35, 0.5, 0.65, 0.85, 1.0],
+    ["16px", "4px", "4px", "4px", "16px", "16px"]
+  );
+
+  // Shadow: subtle -> dramatic at fullscreen -> back to subtle
+  const boxShadow = useTransform(
+    smoothProgress,
+    [0, 0.35, 0.5, 0.65, 0.85],
+    [
+      "0 10px 30px rgba(0,0,0,0.1)",
+      "0 40px 100px rgba(0,0,0,0.35)",
+      "0 40px 100px rgba(0,0,0,0.35)",
+      "0 40px 100px rgba(0,0,0,0.35)",
+      "0 10px 30px rgba(0,0,0,0.1)",
+    ]
+  );
+
+  // Show PLAY REEL during fullscreen hold phase
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    setShowPlayReel(value > 0.65);
+    setShowPlayReel(value > 0.3 && value < 0.7);
   });
-  
-  // Mobile layout - simple video without complex animation
+
+  // Mobile layout
   if (isMobile) {
     return (
       <div className="w-full">
         <div className="flex flex-col items-center space-y-3 w-full">
           <div id={playerId} />
-          
-          <div 
-            className="w-full relative overflow-hidden" 
+
+          <div
+            className="w-full relative overflow-hidden"
             style={{ borderRadius: "12px", aspectRatio: "2.1 / 1" }}
           >
             <video
@@ -164,7 +127,7 @@ const FeaturedVideoWebGL = ({
               loop
               playsInline
               preload="auto"
-              style={{ 
+              style={{
                 borderRadius: "12px",
                 objectFit: "cover",
                 objectPosition: "center center",
@@ -172,16 +135,16 @@ const FeaturedVideoWebGL = ({
                 transformOrigin: "center center",
               }}
             />
-            
-            <div 
+
+            <div
               className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.15em] font-light z-50 bg-black/10"
               style={{ borderRadius: "12px" }}
             >
               <div className="flex items-center justify-center gap-4">
                 <span className="text-xl font-Aeonik uppercase">PLAY</span>
-                <HomeReelVideoWatchButton 
-                  onMouseEnter={() => {}} 
-                  onMouseLeave={() => {}} 
+                <HomeReelVideoWatchButton
+                  onMouseEnter={() => {}}
+                  onMouseLeave={() => {}}
                 />
                 <span className="text-xl font-Aeonik uppercase">REEL</span>
               </div>
@@ -191,40 +154,31 @@ const FeaturedVideoWebGL = ({
       </div>
     );
   }
-  
-  // Desktop layout with CSS 3D transforms
+
+  // Desktop layout
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className="relative w-full"
-      style={{ height: "200vh" }}
+      style={{ height: "250vh" }}
     >
-      {/* Sticky container - keeps video in viewport during scroll */}
+      {/* Sticky wrapper keeps video pinned in viewport */}
       <div
-        className="sticky w-full flex items-start"
+        className="sticky w-full flex items-center"
         style={{
-          top: "12vh",
-          height: "80vh",
+          top: "10vh",
+          height: "90vh",
           paddingLeft: "5vw",
           paddingRight: "5vw",
-          perspective: "1200px",
-          perspectiveOrigin: "center center",
         }}
       >
-        {/* Video container with CSS 3D transforms */}
         <motion.div
           className={`relative ${className ?? ""}`}
           style={{
             width,
             x,
             y,
-            rotateX,
-            rotateY,
-            skewY,
-            scale,
-            transformStyle: "preserve-3d",
-            transformOrigin: "center center",
-            zIndex: 20,
+            zIndex,
             willChange: "transform, width",
           }}
         >
@@ -233,7 +187,7 @@ const FeaturedVideoWebGL = ({
             className={`flex flex-col items-center space-y-3 w-full ${playerClassName ?? ""}`}
           >
             <div id={playerId} />
-            
+
             {/* Plus sign marquee - top */}
             <AnimatePresence>
               {showPlayReel && (
@@ -244,27 +198,26 @@ const FeaturedVideoWebGL = ({
                   transition={{ duration: 0.3 }}
                   className="w-full"
                 >
-                  <MarqueePlusRow 
-                    show={showPlayReel} 
-                    isHovering={isHovering} 
-                    direction="left" 
-                    count={10} 
-                    exitOffset="-0.5em" 
+                  <MarqueePlusRow
+                    show={showPlayReel}
+                    isHovering={isHovering}
+                    direction="left"
+                    count={10}
+                    exitOffset="-0.5em"
                   />
                 </motion.div>
               )}
             </AnimatePresence>
-            
-            {/* Video wrapper with shadow - slightly wider aspect to crop letterboxing */}
-            <motion.div 
+
+            {/* Video wrapper */}
+            <motion.div
               className="w-full relative overflow-hidden"
-              style={{ 
-                aspectRatio: "2.1 / 1", // Wider to crop black bars from video
+              style={{
+                aspectRatio: "2.1 / 1",
                 borderRadius,
                 boxShadow,
               }}
             >
-              {/* Native HTML5 video element - scaled to crop letterboxing */}
               <video
                 className="absolute inset-0 w-full h-full"
                 src={videoSrc}
@@ -276,17 +229,17 @@ const FeaturedVideoWebGL = ({
                 style={{
                   objectFit: "cover",
                   objectPosition: "center center",
-                  transform: "scale(1.08)", // Scale up slightly to crop black bars
+                  transform: "scale(1.08)",
                   transformOrigin: "center center",
                 }}
               />
-              
-              {/* PLAY REEL overlay */}
+
+              {/* PLAY REEL overlay - visible at fullscreen */}
               <AnimatePresence>
                 {showPlayReel && (
                   <motion.div
                     className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.2em] font-light z-50"
-                    style={{ 
+                    style={{
                       fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
                       background: "rgba(0,0,0,0.15)",
                     }}
@@ -297,9 +250,9 @@ const FeaturedVideoWebGL = ({
                   >
                     <div className="flex items-center justify-center gap-6">
                       <RollerText text="PLAY" className="font-Aeonik uppercase" stagger={0.05} />
-                      <HomeReelVideoWatchButton 
-                        onMouseEnter={() => setIsHovering(true)} 
-                        onMouseLeave={() => setIsHovering(false)} 
+                      <HomeReelVideoWatchButton
+                        onMouseEnter={() => setIsHovering(true)}
+                        onMouseLeave={() => setIsHovering(false)}
                       />
                       <RollerText text="REEL" className="font-Aeonik uppercase" stagger={0.05} />
                     </div>
@@ -307,7 +260,7 @@ const FeaturedVideoWebGL = ({
                 )}
               </AnimatePresence>
             </motion.div>
-            
+
             {/* Plus sign marquee - bottom */}
             <AnimatePresence>
               {showPlayReel && (
@@ -318,12 +271,12 @@ const FeaturedVideoWebGL = ({
                   transition={{ duration: 0.3 }}
                   className="w-full"
                 >
-                  <MarqueePlusRow 
-                    show={showPlayReel} 
-                    isHovering={isHovering} 
-                    direction="right" 
-                    count={10} 
-                    exitOffset="0.5em" 
+                  <MarqueePlusRow
+                    show={showPlayReel}
+                    isHovering={isHovering}
+                    direction="right"
+                    count={10}
+                    exitOffset="0.5em"
                   />
                 </motion.div>
               )}

@@ -82,7 +82,7 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
         Layout container - Video on LEFT (40.3%), Text on RIGHT (36%)
         FIX #1: Text width reduced from 44% to 36%
       */}
-      <div className="relative hidden lg:flex" style={{ minHeight: '200vh' }}>
+      <div className="relative hidden lg:flex" style={{ minHeight: '250vh' }}>
         
         {/* VIDEO SECTION - Handles its own sticky positioning and animation */}
         <div 
