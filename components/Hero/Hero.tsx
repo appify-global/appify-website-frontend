@@ -24,11 +24,6 @@ const Hero: React.FC = () => {
         />
       )}
 
-      <p className="md:hidden text-[4.2vw] sm:text-[3.5vw] leading-relaxed text-black mb-4 sm:mb-6 mt-0 px-[14px] font-medium">
-        Enterprise software, AI-powered apps, and custom solutions built by a
-        global team that turns ambitious visions into reality.
-      </p>
-
       {/* Main Hero Card */}
       <div
         className="
@@ -54,18 +49,15 @@ const Hero: React.FC = () => {
             We Transform <br /> Ideas Into Successful <br /> Tech Products
           </h1>
 
-          {/* Tags - text string on phone, pills on tablet+ */}
-          <p className="md:hidden text-[3vw] tracking-normal mb-2 font-Aeonik">
-            {tags.join(" • ").toUpperCase()}
-          </p>
-          <div className="hidden md:flex flex-wrap gap-3 max-w-[700px]">
+          {/* Tags - pills on all sizes */}
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 max-w-[700px]">
             {tags.map((tag, index) => (
               <Tags key={index} label={tag} />
             ))}
           </div>
 
           {/* Description - visible on tablet+ */}
-          <p className="hidden md:block leading-relaxed max-w-[420px] text-[2vw] lg:text-[1vw]">
+          <p className="leading-relaxed max-w-[420px] text-[3.5vw] sm:text-[3vw] md:text-[2vw] lg:text-[1vw]">
             Enterprise software, AI-powered apps, and custom solutions built
             by a global team that turns ambitious visions into reality.
           </p>
@@ -110,23 +102,31 @@ const Hero: React.FC = () => {
       {/* Popup Modal for Mobile */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4"
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="bg-gray-400/10 backdrop-blur-2xl border border-white/30 rounded-3xl p-6 w-[90%] max-w-md relative"
+            className="bg-gray-400/10 backdrop-blur-2xl border border-white/30 rounded-t-3xl sm:rounded-3xl w-full sm:w-[90%] max-w-md relative max-h-[85vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-3 right-4 text-gray-500 hover:text-gray-800 text-2xl"
+            <div className="sticky top-0 z-10 flex items-center justify-between px-5 pt-5 pb-2 sm:px-6 sm:pt-6 sm:pb-3">
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 pr-6">
+                Apply for a Free Development Strategy!
+              </h2>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-500 hover:text-gray-800 text-2xl flex-shrink-0"
+              >
+                &times;
+              </button>
+            </div>
+            <div
+              className="overflow-y-auto overscroll-contain px-5 pb-3 sm:px-6 sm:pb-6"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+              onTouchMove={(e) => e.stopPropagation()}
             >
-              &times;
-            </button>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              Apply for a Free Development Strategy!
-            </h2>
-            <Form submitBtnVariant={"white"} />
+              <Form submitBtnVariant={"white"} />
+            </div>
           </div>
         </div>
       )}
@@ -139,64 +139,64 @@ const Form = ({
 }: {
   submitBtnVariant: "black" | "white";
 }) => (
-  <form className="space-y-3">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <form className="space-y-2 sm:space-y-3">
+    <div className="grid grid-cols-2 sm:grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4">
       <div className="flex flex-col">
-        <label htmlFor="firstName" className="mb-1 font-medium">
+        <label htmlFor="firstName" className="mb-0.5 sm:mb-1 font-medium text-sm sm:text-base">
           First Name *
         </label>
         <input
           type="text"
           id="firstName"
           placeholder="John"
-          className="w-full p-3 bg-[#e9e9f3] text-gray-800 placeholder-gray-500 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
+          className="w-full p-2.5 sm:p-3 text-sm sm:text-base bg-[#e9e9f3] text-gray-800 placeholder-gray-500 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
         />
       </div>
 
       <div className="flex flex-col">
-        <label htmlFor="lastName" className="mb-1 font-medium">
+        <label htmlFor="lastName" className="mb-0.5 sm:mb-1 font-medium text-sm sm:text-base">
           Last Name *
         </label>
         <input
           type="text"
           id="lastName"
           placeholder="Doe"
-          className="w-full p-3 bg-[#e9e9f3] text-gray-800 placeholder-gray-500 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
+          className="w-full p-2.5 sm:p-3 text-sm sm:text-base bg-[#e9e9f3] text-gray-800 placeholder-gray-500 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
         />
       </div>
     </div>
 
     <div className="flex flex-col">
-      <label htmlFor="email" className="mb-1 font-medium">
+      <label htmlFor="email" className="mb-0.5 sm:mb-1 font-medium text-sm sm:text-base">
         Email *
       </label>
       <input
         type="email"
         id="email"
         placeholder="johnsmith@email.com"
-        className="w-full p-3 bg-[#e9e9f3] text-gray-800 placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
+        className="w-full p-2.5 sm:p-3 text-sm sm:text-base bg-[#e9e9f3] text-gray-800 placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
       />
     </div>
 
     <div className="flex flex-col">
-      <label htmlFor="company" className="mb-1 font-medium">
+      <label htmlFor="company" className="mb-0.5 sm:mb-1 font-medium text-sm sm:text-base">
         Company (Optional)
       </label>
       <input
         type="text"
         id="company"
         placeholder="Nike"
-        className="w-full p-3 bg-[#e9e9f3] text-gray-800 placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
+        className="w-full p-2.5 sm:p-3 text-sm sm:text-base bg-[#e9e9f3] text-gray-800 placeholder-gray-400 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
       />
     </div>
 
-    <div className="flex flex-col mb-3">
-      <label htmlFor="nda" className="mb-1 font-medium">
+    <div className="flex flex-col mb-2 sm:mb-3">
+      <label htmlFor="nda" className="mb-0.5 sm:mb-1 font-medium text-sm sm:text-base">
         Would you like an NDA?
       </label>
       <select
         id="nda"
-        className="w-full p-3 bg-[#e9e9f3] text-gray-800 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
+        className="w-full p-2.5 sm:p-3 text-sm sm:text-base bg-[#e9e9f3] text-gray-800 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
       >
         <option>Yes</option>
         <option>No</option>

@@ -121,7 +121,7 @@ export function PageLayout({
         {/* Particle section - only on pages that need it */}
         {showParticles && wasmReady && (
           <section
-            className="h-[100vh] md:h-[calc(100vh+50px)] lg:h-[calc(100vh+200px)] w-full relative z-20"
+            className="h-[92vh] md:h-[calc(100vh+200px)] lg:h-[100vh] w-full relative z-10 lg:z-20"
             id="particle-section"
           >
             <ParticleWaterfall />
@@ -130,7 +130,7 @@ export function PageLayout({
 
         {/* Footer with parallax effect */}
         {showFooter && wasmReady && (
-          <section id="footer" ref={footerRef} className={`relative z-[15] ${showParticles ? 'lg:pt-24' : ''}`}>
+          <section id="footer" ref={footerRef} className={`relative z-20 lg:z-[15] ${showParticles ? 'lg:pt-24' : ''}`}>
             <Footer />
           </section>
         )}

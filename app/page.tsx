@@ -31,7 +31,7 @@ export default function Home() {
     <PageLayout showParticles={true} navbarPadding="pb-[4vw]">
       <section
         id="hero-section"
-        className="h-full flex flex-col w-full p-[4vw] md:pt-[6vw]"
+        className="h-full flex flex-col w-full p-[4vw] pt-[14vw] md:pt-[6vw]"
       >
         <Hero />
         <div className="mt-6 sm:mt-10" />
@@ -74,7 +74,7 @@ export default function Home() {
           <FeatureWorkHeader />
         </div>
         <div
-          className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 relative z-40 w-full px-4 sm:px-6 lg:px-20 mt-4 md:mt-8 lg:mt-24"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 relative z-40 w-full px-4 sm:px-6 lg:px-20 mt-4 md:mt-8 lg:mt-24"
         >
           {projectsData.map((project, index) => (
             <ProjectCard

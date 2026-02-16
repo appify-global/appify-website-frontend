@@ -37,15 +37,14 @@
 @media (max-width: 767px) {
   #home-reel-title {
     grid-column: 1 / span 6;
-    font-size: 13.8vw;
+    font-size: 11.5vw;
     margin-bottom: 1em;
+    left: -0.06em;
   }
 }
 
-@media (max-width: 480px) {
-  #home-reel-title {
-    font-size: 20vw;
-  }
+#home-reel-title .home-reel-title-line {
+  white-space: nowrap;
 }
 
 #home-reel-title .word {
@@ -183,7 +182,7 @@
 @media (max-width: 560px) {
   #home-goal-title {
     width: 100%;
-    font-size: 16vw;
+    font-size: 12vw;
     margin-top: 0.2em;
   }
 }

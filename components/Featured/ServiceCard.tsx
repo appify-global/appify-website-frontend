@@ -171,7 +171,7 @@ const FloatingCards: React.FC = () => {
 
   if (isMobile) {
     return (
-      <section className="cards relative w-auto overflow-hidden mt-[-5rem] md:mt-0">
+      <section className="cards relative w-auto overflow-hidden mt-0 md:mt-0">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
           {expertsIn.map((expert) => (
             <div
