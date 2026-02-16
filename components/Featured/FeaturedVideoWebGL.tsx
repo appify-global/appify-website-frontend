@@ -80,28 +80,28 @@ const FeaturedVideoWebGL = ({
   const y = useTransform(
     smoothProgress,
     [0, 0.5, 0.65, 0.75, 1],
-    ["5vh", "35vh", "90vh", "35vh", "40vh"]
+    ["5vh", "35vh", "90vh", "55vh", "40vh"]
   );
 
   // 3D Perspective transforms for liquid glass effect
   // rotateX: Tips forward/backward
   const rotateX = useTransform(
     smoothProgress,
-    [0, 0.15, 0.35, 0.55, 0.75],
+    [0, 0.15, 0.3, 0.45, 0.6],
     [0, 0, 12, 6, 0]  // Flat -> peak warp -> flat
   );
-  
+
   // rotateY: Slight side tilt for more 3D feel
   const rotateY = useTransform(
     smoothProgress,
-    [0, 0.15, 0.35, 0.55, 0.75],
+    [0, 0.15, 0.3, 0.45, 0.6],
     [0, 0, -3, -1.5, 0]
   );
-  
+
   // skewY: Adds to the liquid distortion
   const skewY = useTransform(
     smoothProgress,
-    [0, 0.15, 0.35, 0.55, 0.75],
+    [0, 0.15, 0.3, 0.45, 0.6],
     [0, 0, 2, 1, 0]
   );
   
@@ -122,7 +122,7 @@ const FeaturedVideoWebGL = ({
   // Shadow intensity - stronger during warp phase
   const shadowOpacity = useTransform(
     smoothProgress,
-    [0, 0.15, 0.35, 0.55, 0.75],
+    [0, 0.15, 0.3, 0.45, 0.6],
     [0.15, 0.15, 0.4, 0.3, 0.2]
   );
 

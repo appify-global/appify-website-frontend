@@ -139,9 +139,9 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
         </div>
       </div>
 
-      {/* Mobile & Tablet layout - stacked on phone, side-by-side on tablet */}
-      <div className="lg:hidden flex flex-col md:flex-row md:items-start md:gap-6">
-        <div className="w-full md:w-[60%]">
+      {/* Mobile & Tablet layout - stacked single column */}
+      <div className="lg:hidden flex flex-col">
+        <div className="w-full">
           <FeaturedVideoWebGL
             refForward={ref}
             topkeyframe={"70vh"}
@@ -149,7 +149,7 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
           />
         </div>
 
-        <div className="mt-8 md:mt-0 md:w-[40%] md:pt-4 flex flex-col items-start text-left font-Aeonik px-1">
+        <div className="mt-4 flex flex-col items-start text-left font-Aeonik px-1">
           <div className="text-base md:text-lg leading-[1.55] font-Aeonik text-[#2B2E3A]">
             Appify partners with enterprises and startups across Australia, UAE,
             and Qatar to build custom software. From AI-powered automation and
@@ -157,7 +157,7 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
             applications, we bring unprecedented ideas to life. Serving businesses
             in Sydney, Melbourne, Brisbane, Dubai, Abu Dhabi, and Doha.
           </div>
-          <div className="mt-8">
+          <div className="mt-4">
             <DotButton text="ABOUT US" onClick={() => window.location.href = "/about"} variant="white" />
           </div>
         </div>
