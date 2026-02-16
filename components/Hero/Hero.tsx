@@ -102,11 +102,11 @@ const Hero: React.FC = () => {
       {/* Popup Modal for Mobile */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4"
+          className="fixed inset-0 flex items-center justify-center z-50 px-4 pb-8 sm:p-4"
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="bg-gray-400/10 backdrop-blur-2xl border border-white/30 rounded-t-3xl sm:rounded-3xl w-full sm:w-[90%] max-w-md relative max-h-[85vh] flex flex-col"
+            className="bg-gray-400/10 backdrop-blur-2xl border border-white/30 rounded-3xl w-full sm:w-[90%] max-w-md relative max-h-[85vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="sticky top-0 z-10 flex items-center justify-between px-5 pt-5 pb-2 sm:px-6 sm:pt-6 sm:pb-3">
@@ -190,18 +190,18 @@ const Form = ({
       />
     </div>
 
-    <div className="flex flex-col mb-2 sm:mb-3">
-      <label htmlFor="nda" className="mb-0.5 sm:mb-1 font-medium text-sm sm:text-base">
-        Would you like an NDA?
-      </label>
-      <select
-        id="nda"
-        className="w-full p-2.5 sm:p-3 text-sm sm:text-base bg-[#e9e9f3] text-gray-800 backdrop-blur-sm focus:outline-none focus:border-black border-b border-gray-300"
-      >
-        <option>Yes</option>
-        <option>No</option>
-        <option>Maybe later</option>
-      </select>
+    <div className="flex flex-col gap-1.5 mb-2 sm:mb-3">
+      <span className="font-medium text-sm sm:text-base mb-0.5">Would you like an NDA?</span>
+      <div className="flex flex-col gap-2">
+        <label className="flex items-center gap-1.5 cursor-pointer select-none text-sm sm:text-base">
+          <input type="radio" name="nda" value="yes" defaultChecked className="w-4 h-4 accent-black cursor-pointer" />
+          Yes
+        </label>
+        <label className="flex items-center gap-1.5 cursor-pointer select-none text-sm sm:text-base">
+          <input type="radio" name="nda" value="no" className="w-4 h-4 accent-black cursor-pointer" />
+          No
+        </label>
+      </div>
     </div>
 
     <DotButton text="Get Your Free Development Strategy" variant={submitBtnVariant} />
