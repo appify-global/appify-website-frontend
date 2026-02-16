@@ -7,6 +7,8 @@
  *   npm run generate-article (if added to package.json)
  */
 
+export {};
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://appifyglobalbackend-production.up.railway.app";
 const API_KEY = process.env.API_KEY || "your-secret-api-key-for-write-endpoints";
 
