@@ -18,6 +18,10 @@ async function generateArticle() {
     const fetchAll = process.argv.includes("--fetch-all") || process.argv.includes("--all");
     const url = `${API_BASE_URL}/api/admin/generate${fetchAll ? "?fetchAll=true" : ""}`;
     
+    if (fetchAll) {
+      console.log("📥 Fetching ALL RSS items (including older ones that haven't been generated yet)...");
+    }
+    
     const response = await fetch(url, {
       method: "POST",
       headers: {
