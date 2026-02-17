@@ -48,16 +48,16 @@ const CompanyLogos = () => {
   );
   
   return (
-    <div className="relative w-full h-[300px] lg:h-[400px] overflow-hidden">
+    <div className="relative w-full h-[250px] sm:h-[300px] lg:h-[400px] overflow-hidden">
       {/* Background gradient fade */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#F0F1FA] via-transparent to-[#F0F1FA] z-10 pointer-events-none" />
       
       {/* Logo grid */}
-      <div className="grid grid-cols-7 lg:grid-cols-14 gap-2 lg:gap-3 p-4">
+      <div className="grid grid-cols-5 sm:grid-cols-7 lg:grid-cols-14 gap-2 lg:gap-3 p-4">
         {logoStyles.map((style, i) => (
           <div
             key={i}
-            className="w-10 h-10 lg:w-14 lg:h-14 rounded-full bg-[#E4E6EF] flex items-center justify-center overflow-hidden"
+            className="w-8 h-8 sm:w-10 sm:h-10 lg:w-14 lg:h-14 rounded-full bg-[#E4E6EF] flex items-center justify-center overflow-hidden"
             style={{
               opacity: style.opacity,
               transform: `scale(${style.scale})`,
@@ -106,12 +106,12 @@ const ServicesFooterCTA = () => {
         {/* Centered CTA content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           {/* Subtitle */}
-          <p className="font-Aeonik text-xs lg:text-sm uppercase tracking-wider text-[#666] mb-4">
+          <p className="font-Aeonik text-xs sm:text-sm uppercase tracking-wider text-[#666] mb-4">
             IS YOUR BIG IDEA READY TO GO WILD?
           </p>
           
           {/* Main title */}
-          <h2 className="font-Aeonik text-[clamp(2rem,8vw,6rem)] leading-[1] text-center">
+          <h2 className="font-Aeonik text-[clamp(1.75rem,6vw,6rem)] leading-[1] text-center">
             <span className="block">Let&apos;s work</span>
             <span className="block">together!</span>
           </h2>

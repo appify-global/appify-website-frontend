@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import DotButton from "@/components/ui/DotButton";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 interface PlusIconProps {
   className?: string;
@@ -46,6 +48,7 @@ const CategoryLetters = () => (
 
 const ServicesHero = () => {
   const titleRef = useRef<HTMLDivElement>(null);
+  const expertiseRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const el = titleRef.current;
@@ -64,37 +67,78 @@ const ServicesHero = () => {
     return () => observer.disconnect();
   }, []);
 
+  // EXPERTISE: initial fade-in + horizontal scroll animation on desktop
+  useEffect(() => {
+    const el = expertiseRef.current;
+    if (!el) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Initial fade-in from below (replaces CSS transform for line-2)
+    gsap.fromTo(el,
+      { y: window.innerWidth < 768 ? 20 : 40 },
+      { y: 0, duration: 0.8, ease: "power2.out", delay: 0.3 }
+    );
+
+    // Skip scroll animation on non-desktop
+    if (window.innerWidth < 1024) return;
+
+    // Scroll-linked horizontal move: starts immediately on any scroll
+    const targetX = window.innerWidth * 0.35;
+
+    // Small delay to ensure Lenis + ScrollTrigger proxy is ready
+    const timer = setTimeout(() => {
+      const tween = gsap.to(el, {
+        x: targetX,
+        ease: "none",
+        scrollTrigger: {
+          trigger: document.body,
+          start: "top top",
+          end: "+=800",
+          scrub: 0.5,
+          scroller: document.body,
+        },
+      });
+
+      ScrollTrigger.refresh();
+
+      // Store for cleanup
+      (el as any)._scrollTween = tween;
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+      const tween = (el as any)?._scrollTween;
+      if (tween) {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+      }
+    };
+  }, []);
+
   return (
-    <section className="relative w-full px-4 lg:px-[5vw] pt-8 lg:pt-0">
+    <section className="relative w-full px-[4vw] sm:px-[6vw] lg:px-[5vw] pt-12 sm:pt-14 lg:pt-[180px]">
       <div ref={titleRef} className="services-hero">
-        {/* Main title section */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-0">
+        {/* Subtitle - above the main title */}
+        <div className="mb-6 lg:mb-10 max-w-[320px] lg:max-w-[300px]">
+          <p className="font-Aeonik text-[clamp(0.75rem,1.2vw,0.9rem)] leading-relaxed text-[#666] uppercase tracking-wide">
+            A TEAM OF EXPERIENCED INVENTORS &amp; DREAMERS WITH A WIDE RANGE OF SKILLS AND KNOWLEDGE
+          </p>
+        </div>
+
+        {/* Main title section with category letters */}
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-0">
           {/* Left side - Main title */}
-          <div className="flex flex-col">
-            <h1 className="font-Aeonik text-[clamp(3rem,12vw,11rem)] leading-[0.95] tracking-[-0.02em]">
+          <div className="flex flex-col w-full pb-3 lg:pb-6">
+            <h1 className="font-Aeonik text-[clamp(2.5rem,10vw,5rem)] sm:text-[clamp(3rem,9vw,6rem)] lg:text-[clamp(3rem,12vw,11rem)] leading-[0.95] tracking-[-0.02em]">
               <span className="block services-title-line services-title-line-1">AREA OF</span>
-              <span className="block services-title-line services-title-line-2 lg:pl-[15%]">EXPERTISE</span>
+              <span ref={expertiseRef} className="block services-title-line services-title-line-2 will-change-transform">EXPERTISE</span>
             </h1>
           </div>
 
-          {/* Right side - Category letters (desktop only) */}
-          <div className="hidden lg:flex flex-col items-end gap-4 pt-8">
+          {/* Right side - Category letters */}
+          <div className="flex lg:flex-col items-center lg:items-end gap-4 lg:mt-[4.5vw]">
             <CategoryLetters />
-          </div>
-        </div>
-
-        {/* Subtitle and description row */}
-        <div className="mt-8 lg:mt-12 flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-16">
-          {/* Subtitle */}
-          <div className="lg:max-w-[400px]">
-            <p className="font-Aeonik text-[clamp(0.7rem,1.2vw,0.9rem)] leading-relaxed text-[#666] uppercase tracking-wide">
-              A TEAM OF EXPERIENCED INVENTORS &amp; DREAMERS WITH A WIDE RANGE OF SKILLS AND KNOWLEDGE
-            </p>
-            
-            {/* Category letters (mobile only) */}
-            <div className="lg:hidden mt-6">
-              <CategoryLetters />
-            </div>
           </div>
         </div>
 
@@ -108,16 +152,16 @@ const ServicesHero = () => {
         </div>
       </div>
 
-      {/* Floating Cards Section - simplified version */}
-      <div className="relative mt-8 lg:mt-0 h-auto lg:h-[30vh] flex items-center justify-center overflow-visible">
-        <div className="relative w-full max-w-[800px] h-[250px] lg:h-[350px] mx-auto">
-          {/* Card stack - simplified static version for the hero */}
+      {/* Cards + Description row */}
+      <div className="mt-16 lg:mt-28 flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12">
+        {/* Left - Card stack */}
+        <div className="relative w-full lg:w-1/2 h-[250px] sm:h-[300px] lg:h-[400px] flex-shrink-0 overflow-visible">
           {[0, 1, 2, 3].map((i) => (
             <div
               key={i}
-              className="absolute top-1/2 left-1/2 w-[120px] lg:w-[180px] h-[160px] lg:h-[240px]"
+              className="absolute top-1/2 left-1/3 lg:left-[40%] w-[110px] sm:w-[130px] lg:w-[180px] h-[148px] sm:h-[175px] lg:h-[240px]"
               style={{
-                transform: `translate(-50%, -50%) translateX(${(i - 1.5) * 30}%) rotate(${(i - 1.5) * 5}deg)`,
+                transform: `translate(-50%, -50%) translateX(${(i - 1.5) * 35}%) rotate(${(i - 1.5) * 6}deg)`,
                 zIndex: i === 1 || i === 2 ? 10 : 5,
               }}
             >
@@ -132,27 +176,23 @@ const ServicesHero = () => {
             </div>
           ))}
         </div>
-      </div>
 
-      {/* CTA Button */}
-      <div className="mt-8 lg:mt-4 flex justify-start lg:justify-start">
-        <DotButton
-          text="FREE DISCOVERY CALL"
-          variant="white"
-          className="free-discovery-call-btn"
-          href="/#contact"
-        />
-      </div>
-
-      {/* Description paragraphs */}
-      <div className="mt-16 lg:mt-24 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-        <div className="lg:col-start-2">
+        {/* Right - Description + CTA */}
+        <div className="flex flex-col justify-center lg:w-[42%] lg:max-w-[500px] lg:pt-8">
           <p className="font-Aeonik text-[clamp(0.95rem,1.4vw,1.1rem)] leading-[1.6] text-[#444]">
             At Appify, we deliver custom software development, AI and machine learning solutions, mobile app development, and enterprise ERP systems across Australia, UAE, and Qatar. We specialise in unprecedented AI implementations, digital transformation projects, complex system integrations, and automation challenges that require cutting-edge technology and proven expertise.
           </p>
           <p className="font-Aeonik text-[clamp(0.95rem,1.4vw,1.1rem)] leading-[1.6] text-[#444] mt-6">
             We don&apos;t just build applications and disappear. Our software development approach focuses on true partnership with your team - from strategic consulting and architecture design to deployment and beyond.
           </p>
+          <div className="mt-8">
+            <DotButton
+              text="FREE DISCOVERY CALL"
+              variant="white"
+              className="free-discovery-call-btn"
+              href="/#contact"
+            />
+          </div>
         </div>
       </div>
     </section>

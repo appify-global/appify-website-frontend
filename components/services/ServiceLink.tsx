@@ -12,10 +12,10 @@ const ServiceLink = ({ service, showArrow = true }: ServiceLinkProps) => {
   return (
     <Link
       href={service.href}
-      className="group flex items-center gap-3 py-2 transition-colors duration-300"
+      className="group flex items-center gap-2 sm:gap-3 py-3 lg:py-2 transition-colors duration-300"
     >
       {showArrow && (
-        <span className="flex items-center justify-center w-6 h-6 rounded-full border border-[#2B2E3A]/20 group-hover:border-[rgb(242,48,132)] group-hover:bg-[rgb(242,48,132)] transition-all duration-300">
+        <span className="flex items-center justify-center w-8 h-8 sm:w-7 sm:h-7 lg:w-6 lg:h-6 rounded-full border border-[#2B2E3A]/20 group-hover:border-[rgb(242,48,132)] group-hover:bg-[rgb(242,48,132)] transition-all duration-300">
           <svg
             width="10"
             height="10"
@@ -34,7 +34,7 @@ const ServiceLink = ({ service, showArrow = true }: ServiceLinkProps) => {
           </svg>
         </span>
       )}
-      <span className="font-Aeonik text-[clamp(1rem,1.5vw,1.25rem)] text-[#2B2E3A] group-hover:text-[rgb(242,48,132)] transition-colors duration-300">
+      <span className="font-Aeonik text-[clamp(0.95rem,1.5vw,1.25rem)] text-[#2B2E3A] group-hover:text-[rgb(242,48,132)] transition-colors duration-300">
         {service.name}
       </span>
     </Link>

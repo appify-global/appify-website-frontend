@@ -8,8 +8,16 @@
 
 .services-title-line {
   opacity: 0;
-  transform: translateY(40px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Line-2 (EXPERTISE): no CSS transform transition — GSAP controls it */
+.services-title-line-2 {
+  transition: opacity 0.8s ease;
+}
+
+.services-title-line-1 {
+  transform: translateY(40px);
 }
 
 .services-hero--visible .services-title-line-1 {
@@ -20,7 +28,7 @@
 
 .services-hero--visible .services-title-line-2 {
   opacity: 1;
-  transform: translateY(0);
+  /* transform handled by GSAP for scroll animation - only fade in via CSS */
   transition-delay: 0.3s;
 }
 
@@ -58,6 +66,19 @@
 
 .service-link-arrow {
   transition: transform 0.3s ease;
+}
+
+/* Reduce animation distance on mobile for less jarring motion */
+@media (max-width: 768px) {
+  .services-title-line-1 {
+    transform: translateY(20px);
+  }
+  .category-section {
+    transform: translateY(15px);
+  }
+  .footer-cta {
+    transform: translateY(15px);
+  }
 }
 
 /* ===== Service Page Template Animations ===== */

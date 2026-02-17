@@ -65,7 +65,7 @@ const CategoryIcon = ({ categoryId }: { categoryId: ServiceCategory }) => {
   };
 
   return (
-    <div className="w-[60px] h-[80px] lg:w-[100px] lg:h-[130px]">
+    <div className="w-[50px] h-[65px] sm:w-[60px] sm:h-[80px] lg:w-[100px] lg:h-[130px]">
       {iconPaths[categoryId]}
     </div>
   );
@@ -115,7 +115,14 @@ const CategorySection = ({ category, index }: CategorySectionProps) => {
     return () => observer.disconnect();
   }, []);
 
-  // Placeholder images for each category
+  const categoryVideos: Partial<Record<ServiceCategory, string>> = {
+    strategy: "/Videos/Strategy.mp4",
+    creative: "/Videos/Creative.mp4",
+    development: "/Videos/Development.mp4",
+    intelligence: "/Videos/Intelligence.mp4",
+  };
+
+  // Fallback images for categories without video
   const categoryImages: Record<ServiceCategory, string> = {
     strategy: "/projects/prelo.png",
     creative: "/projects/booked-ai.png",
@@ -126,33 +133,44 @@ const CategorySection = ({ category, index }: CategorySectionProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="category-section w-full py-8 lg:py-16"
+      className="category-section w-full pt-8 sm:pt-10 lg:pt-16"
     >
       {/* Plus icon separator at top */}
       <PlusIconRow />
 
       {/* Main content grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mt-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 mt-12 lg:mt-16">
         {/* Left column - Image and title */}
         <div className="flex flex-col">
           {/* Ruler (top) */}
-          <div className="mb-4 hidden lg:block">
+          <div className="mb-4">
             <Ruler position="top" />
           </div>
 
           {/* Category title */}
-          <h2 className="font-Aeonik text-[clamp(2.5rem,8vw,10rem)] leading-[0.95] tracking-[-0.02em] mb-6 lg:mb-8">
+          <h2 className="font-Aeonik text-[clamp(2rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.02em] mb-6 lg:mb-8">
             {category.label.toUpperCase()}
           </h2>
 
-          {/* Image placeholder */}
-          <div className="relative w-full aspect-video lg:aspect-[16/9] rounded-xl lg:rounded-2xl overflow-hidden bg-[#E4E6EF]">
-            <Image
-              src={categoryImages[category.id]}
-              alt={`${category.label} services`}
-              fill
-              className="object-cover"
-            />
+          {/* Media - video for strategy, image for others */}
+          <div className="relative w-full aspect-video rounded-xl lg:rounded-2xl overflow-hidden bg-[#E4E6EF]">
+            {categoryVideos[category.id] ? (
+              <video
+                src={categoryVideos[category.id]}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <Image
+                src={categoryImages[category.id]}
+                alt={`${category.label} services`}
+                fill
+                className="object-cover"
+              />
+            )}
           </div>
 
           {/* Ruler (bottom) - mobile only */}
@@ -162,10 +180,10 @@ const CategorySection = ({ category, index }: CategorySectionProps) => {
         </div>
 
         {/* Right column - Description and services */}
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between lg:pt-24">
           {/* Top section with ruler and description */}
           <div>
-            {/* Ruler (desktop) */}
+            {/* Ruler */}
             <div className="mb-4 hidden lg:block">
               <Ruler position="top" />
             </div>
@@ -186,7 +204,7 @@ const CategorySection = ({ category, index }: CategorySectionProps) => {
           {/* Bottom section with icon and progress */}
           <div className="flex items-end justify-between mt-8 lg:mt-12">
             {/* Progress bar */}
-            <div className="hidden lg:block">
+            <div>
               <ProgressBar progress={0.8} />
             </div>
 
