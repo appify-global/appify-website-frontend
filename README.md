@@ -30,3 +30,17 @@ pnpm run dev
 ```
 
 The application will be accessible at [http://localhost:3000](http://localhost:3000).
+
+## Generating Articles
+
+To manually trigger article generation on Railway:
+
+```bash
+# Set API key (get from Railway Variables)
+$env:API_KEY = "your-secret-api-key-for-write-endpoints"
+
+# Generate article
+npm run generate-article
+```
+
+See [GENERATE_ARTICLE.md](./GENERATE_ARTICLE.md) for details.

@@ -212,3 +212,46 @@ export async function getArticleBySlug(slug: string): Promise<NewsArticle | null
     return allArticles.find((article) => article.slug === slug) || null;
   }
 }
+
+/**
+ * Trigger article generation on the backend
+ * Uses Railway backend URL if NEXT_PUBLIC_API_URL is set, otherwise defaults to localhost
+ */
+export async function generateArticle(): Promise<{ success: boolean; message: string; article?: any }> {
+  // Use Railway URL if available, otherwise use configured API_BASE_URL
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL || API_BASE_URL;
+  const apiKey = process.env.API_KEY || "your-secret-api-key-for-write-endpoints";
+  
+  try {
+    const response = await fetch(`${backendUrl}/api/admin/generate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey, // Note: lowercase header name as used in backend
+      },
+      cache: "no-store",
+      body: JSON.stringify({}),
+    });
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error(`Unauthorized (401). Check your API_KEY is correct.`);
+      }
+      const errorText = await response.text();
+      throw new Error(`API error: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    return {
+      success: true,
+      message: data.message || "Article generation started. Check logs for progress.",
+      article: data,
+    };
+  } catch (error: any) {
+    console.error("Failed to generate article:", error);
+    return {
+      success: false,
+      message: error.message || "Failed to generate article. Make sure the backend is running.",
+    };
+  }
+}

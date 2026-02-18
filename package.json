@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "validate-articles": "tsx scripts/validate-articles.ts",
+    "fix-articles": "tsx scripts/fix-articles.ts",
+    "fix-articles:apply": "tsx scripts/fix-articles.ts --apply",
+    "generate-article": "tsx scripts/generate-article.ts"
   },
   "dependencies": {
     "@react-spring/web": "^10.0.3",
