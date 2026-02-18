@@ -7,7 +7,6 @@ import ServiceOfferings from "./ServiceOfferings";
 import ServiceProcess from "./ServiceProcess";
 import ServiceFAQ from "./ServiceFAQ";
 import ServiceCTA from "./ServiceCTA";
-import ServiceFooterNav from "./ServiceFooterNav";
 
 interface ServicePageTemplateProps {
   service: Service;
@@ -47,8 +46,6 @@ export default function ServicePageTemplate({ service, content }: ServicePageTem
       <ServiceFAQ faqs={content.faqs} />
 
       <ServiceCTA />
-
-      <ServiceFooterNav nextService={content.nextService} />
     </PageLayout>
   );
 }

@@ -47,9 +47,19 @@ const BackArrowIcon: React.FC = () => (
 
 export default function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
   return (
-    <section className="w-full px-4 lg:px-20 pt-0 pb-8 lg:pb-16">
-      {/* Back Navigation */}
-      <div className="mb-8 lg:mb-12">
+    <section className="w-full px-4 lg:px-20 pt-12 sm:pt-16 lg:pt-24 pb-8 lg:pb-16">
+      {/* Back Navigation - mobile/tablet: pill arrow only */}
+      <div className="mb-6 lg:hidden">
+        <Link
+          href="/services"
+          className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#E4E6EF] hover:bg-[#d5d7e3] transition-colors"
+        >
+          <BackArrowIcon />
+        </Link>
+      </div>
+
+      {/* Back Navigation - desktop: arrow + text */}
+      <div className="hidden lg:block mb-12">
         <Link
           href="/services"
           className="inline-flex items-center gap-2 text-sm font-AeonikMedium text-[#2B2E3A] hover:text-[#ff009e] transition-colors uppercase tracking-wide"
