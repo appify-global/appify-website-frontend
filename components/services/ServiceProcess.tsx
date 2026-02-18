@@ -102,7 +102,7 @@ const ProcessStepCard: React.FC<{
         </h3>
 
         {/* Description */}
-        <p className="font-Aeonik text-sm lg:text-base leading-[1.6] max-w-[320px] text-black/80">
+        <p className="font-Aeonik text-sm lg:text-base leading-[1.6] max-w-[332px] lg:max-w-[320px] text-black/80">
           {step.description}
         </p>
       </div>
@@ -203,7 +203,7 @@ export default function ServiceProcess({ subtitle, steps }: ServiceProcessProps)
       </div>
 
       {/* Decorative line with plus icons */}
-      <div className="flex items-center justify-between w-full mt-8 sm:mt-10 lg:mt-20">
+      <div className="flex items-center justify-between w-full mt-[89px] sm:mt-[97px] lg:mt-20">
         <PlusIcon className="text-black w-5 h-5" />
         <PlusIcon className="hidden lg:block text-black w-5 h-5" />
         <PlusIcon className="hidden lg:block text-black w-5 h-5" />

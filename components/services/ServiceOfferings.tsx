@@ -83,7 +83,7 @@ const OfferingCard: React.FC<{
       }}
     >
       <div
-        className="bg-[rgba(197,196,207,0.25)] rounded-[20px] lg:rounded-[24px] p-6 lg:p-8 relative overflow-hidden w-full lg:w-[310px] h-auto lg:h-[480px] flex flex-col"
+        className="bg-[rgba(197,196,207,0.25)] rounded-[20px] lg:rounded-[24px] p-6 lg:p-8 relative overflow-hidden w-full lg:w-[310px] h-[420px] sm:h-[460px] lg:h-[480px] flex flex-col"
         style={{ marginTop: `${marginTop}px` }}
       >
         {/* Decorative dots */}
@@ -148,7 +148,7 @@ export default function ServiceOfferings({ subtitle, offerings }: ServiceOfferin
   }, []);
 
   return (
-    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 py-10 sm:py-12 lg:py-24 relative overflow-visible">
+    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 pt-4 sm:pt-6 pb-16 sm:pb-20 lg:py-24 relative overflow-visible">
       {/* Decorative curved line (SVG) - desktop only */}
       <svg
         className="absolute top-0 left-0 w-full h-full pointer-events-none hidden lg:block"
@@ -185,7 +185,7 @@ export default function ServiceOfferings({ subtitle, offerings }: ServiceOfferin
       </div>
 
       {/* Offerings cards - diagonal layout on desktop */}
-      <div className="flex flex-col lg:flex-row gap-4 lg:gap-5 overflow-x-auto lg:overflow-visible pb-4">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-5 overflow-x-auto lg:overflow-visible pb-6 sm:pb-8 lg:pb-4">
         {offerings.map((offering, index) => (
           <OfferingCard key={index} offering={offering} index={index} isMobile={isMobile} />
         ))}

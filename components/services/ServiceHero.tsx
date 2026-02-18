@@ -47,7 +47,7 @@ const BackArrowIcon: React.FC = () => (
 
 export default function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
   return (
-    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 pt-12 sm:pt-16 lg:pt-24 pb-6 sm:pb-8 lg:pb-16">
+    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 pt-28 sm:pt-32 lg:pt-24 pb-6 sm:pb-8 lg:pb-16">
       {/* Main content */}
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-8 lg:gap-16">
         {/* Left side - Title and CTA */}
@@ -62,10 +62,10 @@ export default function ServiceHero({ title, subtitle, heroImage }: ServiceHeroP
             {subtitle}
           </p>
           
-          {/* Contact Button */}
+          {/* Contact Button - desktop only */}
           <Link
             href="/#contact"
-            className="inline-flex items-center gap-3 bg-white rounded-full px-5 py-3 w-fit hover:bg-[#E4E6EF] transition-colors"
+            className="hidden lg:inline-flex items-center gap-3 bg-white rounded-full px-5 py-3 w-fit hover:bg-[#E4E6EF] transition-colors"
           >
             <span className="w-[10px] h-[10px] rounded-full bg-[#ff009e]" />
             <span className="font-Aeonik text-sm tracking-[-0.05em] uppercase">Contact Us</span>
@@ -73,7 +73,7 @@ export default function ServiceHero({ title, subtitle, heroImage }: ServiceHeroP
         </div>
         
         {/* Right side - Hero Image */}
-        <div className="lg:w-1/2 relative">
+        <div className="lg:w-1/2 relative flex flex-col gap-10 sm:gap-12 lg:gap-4">
           <div className="w-full aspect-[16/9] rounded-xl lg:rounded-2xl overflow-hidden relative">
             <Image
               src={heroImage}
@@ -83,6 +83,15 @@ export default function ServiceHero({ title, subtitle, heroImage }: ServiceHeroP
               priority
             />
           </div>
+
+          {/* Contact button below image - mobile/tablet only */}
+          <Link
+            href="/#contact"
+            className="lg:hidden inline-flex items-center gap-3 bg-white rounded-full px-5 py-3 w-fit hover:bg-[#E4E6EF] transition-colors"
+          >
+            <span className="w-[10px] h-[10px] rounded-full bg-[#ff009e]" />
+            <span className="font-Aeonik text-sm tracking-[-0.05em] uppercase">Contact Us</span>
+          </Link>
         </div>
       </div>
     </section>

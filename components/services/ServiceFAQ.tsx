@@ -133,7 +133,7 @@ export default function ServiceFAQ({ faqs }: ServiceFAQProps) {
         {/* Title */}
         <h2
           ref={titleRef}
-          className="font-Aeonik text-2xl sm:text-3xl lg:text-[48px] leading-[1.15] tracking-[-0.01em] mb-4 sm:mb-6 lg:mb-12 opacity-0 translate-y-8 transition-all duration-700 ease-out uppercase whitespace-nowrap"
+          className="font-Aeonik text-[clamp(2.625rem,9vw,8rem)] sm:text-[clamp(2.875rem,9vw,8rem)] lg:text-[clamp(3rem,4.5vw,4.5rem)] leading-[1.05] lg:leading-[0.9] tracking-[-0.02em] mb-[calc(1rem+40px)] sm:mb-[calc(1.5rem+40px)] lg:mb-12 opacity-0 translate-y-8 transition-all duration-700 ease-out uppercase lg:whitespace-nowrap"
         >
           Frequently Asked Questions
         </h2>

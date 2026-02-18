@@ -217,7 +217,7 @@ export default function ServiceCTA() {
         </h2>
 
         {/* Plus icons row */}
-        <div className="flex items-center justify-center gap-12 sm:gap-24 lg:gap-80 mb-6">
+        <div className="flex items-center justify-center gap-12 sm:gap-24 lg:gap-80 mt-[50px] sm:mt-[56px] lg:mt-0 mb-6">
           <PlusIcon className="text-black w-4 h-4 lg:w-5 lg:h-5" />
           <PlusIcon className="text-black w-4 h-4 lg:w-5 lg:h-5" />
           <PlusIcon className="text-black w-4 h-4 lg:w-5 lg:h-5" />

@@ -56,7 +56,7 @@ export default function ServiceExperience({ tagline, description }: ServiceExper
   return (
     <section
       ref={sectionRef}
-      className="w-full px-[4vw] sm:px-[6vw] lg:px-20 py-10 sm:py-12 lg:py-20"
+      className="w-full px-[4vw] sm:px-[6vw] lg:px-20 pt-2 sm:pt-4 lg:pt-20 pb-24 sm:pb-28 lg:pb-20"
     >
       <div className="flex flex-col lg:flex-row lg:justify-end">
         <div className="flex flex-col gap-6 lg:gap-8 lg:w-1/2 max-w-[887px]">
@@ -81,7 +81,7 @@ export default function ServiceExperience({ tagline, description }: ServiceExper
       </div>
 
       {/* Scroll to explore indicator */}
-      <div className="w-full flex items-center justify-center lg:justify-between mt-8 sm:mt-10 lg:mt-20">
+      <div className="w-full flex items-center justify-center lg:justify-between mt-16 sm:mt-20 lg:mt-20">
         <PlusIcon className="hidden lg:block text-black w-5 h-5" />
         <div className="flex items-center gap-4">
           <PlusIcon className="text-black w-5 h-5" />
