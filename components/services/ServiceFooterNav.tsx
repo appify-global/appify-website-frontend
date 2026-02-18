@@ -108,7 +108,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-black text-white py-24 sm:py-32 lg:py-48 relative min-h-[350px] sm:min-h-[450px] lg:min-h-[600px]"
+      className="w-full bg-black text-white py-24 sm:py-32 lg:py-48 relative"
     >
       <div className="px-4 lg:px-20">
         {/* Top row: Keep scrolling + Next service/page indicator */}
