@@ -53,7 +53,7 @@ const RightArrowIcon: React.FC = () => (
 export default function ServiceFooterNav({ nextService, showAboutUs = false }: ServiceFooterNavProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Start visible by default
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -108,7 +108,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-black text-white py-6 lg:py-10 relative"
+      className="w-full bg-black text-white py-12 sm:py-16 lg:py-20 relative"
     >
       <div className="px-4 lg:px-20">
         {/* Top row: Keep scrolling + Next service/page indicator */}
