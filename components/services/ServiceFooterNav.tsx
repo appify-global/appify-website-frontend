@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 interface ServiceFooterNavProps {
@@ -53,6 +53,7 @@ const RightArrowIcon: React.FC = () => (
 export default function ServiceFooterNav({ nextService, showAboutUs = false }: ServiceFooterNavProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -60,17 +61,48 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
+            setIsVisible(true);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
 
-    if (titleRef.current) observer.observe(titleRef.current);
-
-    return () => {
-      if (titleRef.current) observer.unobserve(titleRef.current);
-    };
+    const currentTitle = titleRef.current;
+    if (currentTitle) {
+      // Check if already in viewport
+      const checkVisibility = () => {
+        const rect = currentTitle.getBoundingClientRect();
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInViewport) {
+          // If already visible, add class immediately
+          currentTitle.classList.add("is-visible");
+          setIsVisible(true);
+          return true;
+        }
+        return false;
+      };
+      
+      // Check immediately
+      if (!checkVisibility()) {
+        // Otherwise observe for when it comes into view
+        observer.observe(currentTitle);
+      }
+      
+      // Fallback: ensure visibility after a delay if observer doesn't trigger
+      const fallbackTimeout = setTimeout(() => {
+        if (currentTitle && !currentTitle.classList.contains("is-visible")) {
+          currentTitle.classList.add("is-visible");
+          setIsVisible(true);
+        }
+      }, 1000);
+      
+      return () => {
+        if (currentTitle) observer.unobserve(currentTitle);
+        clearTimeout(fallbackTimeout);
+      };
+    }
   }, []);
 
   return (
@@ -119,7 +151,9 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           >
             <h2
               ref={titleRef}
-              className="font-Aeonik text-[clamp(1.75rem,6vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 opacity-0 translate-y-8 transition-all duration-700 ease-out group-hover:text-[#ff009e]"
+              className={`font-Aeonik text-[clamp(1.75rem,6vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
             >
               ABOUT US
             </h2>
@@ -131,7 +165,9 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           >
             <h2
               ref={titleRef}
-              className="font-Aeonik text-[clamp(1.75rem,6vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 opacity-0 translate-y-8 transition-all duration-700 ease-out group-hover:text-[#ff009e]"
+              className={`font-Aeonik text-[clamp(1.75rem,6vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
             >
               {nextService.name}
             </h2>
