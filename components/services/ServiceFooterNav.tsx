@@ -112,7 +112,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
     >
       <div className="px-4 lg:px-20">
         {/* Top row: Keep scrolling + Next service/page indicator */}
-        <div className="flex items-center justify-between mb-4 lg:mb-6">
+        <div className="flex items-end justify-between mb-4 lg:mb-6">
           {/* Keep scrolling label */}
           <p className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60">
             {showAboutUs ? (
@@ -128,7 +128,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           </p>
 
           {/* Next service/page indicator */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-end gap-3">
             <span className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60">
               {showAboutUs ? "Next Page" : "Next Service"}
             </span>
