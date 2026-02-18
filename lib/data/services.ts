@@ -303,7 +303,7 @@ export const categoryDisplayOrder: ServiceCategory[] = ['strategy', 'creative', 
 export const servicePageContent: Record<string, ServicePageContent> = {
   'digital-transformation': {
     heroSubtitle: 'ENTERPRISE DIGITAL TRANSFORMATION EXPERTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/digital-transformation/hero.jpg',
+    heroImage: '/services/digital-transformation/hero.png',
     
     experienceTagline: 'CREATING THE EXPERIENCE',
     experienceDescription: 'At Appify, we guide digital transformation initiatives that others find too complex - from legacy system modernisation and cloud migration to enterprise architecture redesign and AI powered process automation across Australia, UAE, and Qatar. We specialise in technology transformations that require deep expertise and strategic innovation.',
@@ -481,7 +481,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'business-analysis': {
     heroSubtitle: 'BUSINESS ANALYSIS CONSULTANTS FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/business-analysis/hero.jpg',
+    heroImage: '/services/business_analysis/hero.png',
     
     experienceTagline: 'ANALYSING YOUR BUSINESS',
     experienceDescription: 'At Appify, we bridge the gap between business objectives and technical solutions that others find difficult to navigate - from requirements engineering and process mapping to stakeholder workshops and solution design across Australia, UAE, and Qatar. We specialise in translating complex business needs into clear, actionable specifications that development teams can execute.',
@@ -570,7 +570,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'process-optimisation': {
     heroSubtitle: 'BUSINESS PROCESS OPTIMISATION CONSULTANTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/process-optimisation/hero.jpg',
+    heroImage: '/services/process_optimisation/hero.png',
     
     experienceTagline: 'OPTIMISING YOUR PROCESSES',
     experienceDescription: 'At Appify, we analyse, redesign, and automate business processes that others find too complex to untangle - from workflow optimisation and bottleneck elimination to performance measurement and continuous improvement across Australia, UAE, and Qatar. We specialise in process transformations that deliver measurable efficiency gains and operational excellence.',
@@ -659,7 +659,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'architecture-design': {
     heroSubtitle: 'ENTERPRISE & SOLUTION ARCHITECTURE DESIGN ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/architecture-design/hero.jpg',
+    heroImage: '/services/architecture_design/hero.png',
     
     experienceTagline: 'DESIGNING YOUR ARCHITECTURE',
     experienceDescription: 'At Appify, we design enterprise and solution architectures that balance scalability, security, and pragmatic delivery - from cloud-native designs and microservices to integration patterns and security architecture across Australia, UAE, and Qatar. We specialise in architecture decisions that enable business agility while managing technical complexity.',
@@ -748,7 +748,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'ai-ml-engineering': {
     heroSubtitle: 'AI & MACHINE LEARNING ENGINEERING FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/ai-ml-engineering/hero.jpg',
+    heroImage: '/services/ai_ml_engineering/hero.png',
     
     experienceTagline: 'ENGINEERING WITH AI & ML',
     experienceDescription: 'At Appify, we engineer production-grade AI and machine learning systems that others find too complex to deploy - from custom model development and computer vision to NLP solutions and MLOps across Australia, UAE, and Qatar. We specialise in taking ML from prototype to production with robust, scalable implementations.',
@@ -837,7 +837,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'agentic-solutions': {
     heroSubtitle: 'AUTONOMOUS AI AGENT DEVELOPMENT FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/agentic-solutions/hero.jpg',
+    heroImage: '/services/agentic_solutions/hero.png',
     
     experienceTagline: 'BUILDING AUTONOMOUS AGENTS',
     experienceDescription: 'At Appify, we develop autonomous AI agents that others find too complex to build reliably - from reasoning systems that plan and execute multi-step tasks to multi-agent orchestration and tool integration across Australia, UAE, and Qatar. We specialise in agentic AI that operates safely and effectively in enterprise environments.',
@@ -926,7 +926,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'mcp-development': {
     heroSubtitle: 'MODEL CONTEXT PROTOCOL DEVELOPMENT FOR AI SYSTEMS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/mcp-development/hero.jpg',
+    heroImage: '/services/mcp_development/hero.png',
     
     experienceTagline: 'DEVELOPING MCP SOLUTIONS',
     experienceDescription: 'At Appify, we develop Model Context Protocol implementations that connect AI systems to enterprise data and tools - from custom MCP servers and resource providers to context management and secure integration across Australia, UAE, and Qatar. We specialise in MCP solutions that make AI genuinely useful in enterprise environments.',
@@ -1015,7 +1015,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'intelligent-automation': {
     heroSubtitle: 'INTELLIGENT AUTOMATION SOLUTIONS FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/intelligent-automation/hero.jpg',
+    heroImage: '/services/intelligent_automation/hero.png',
     
     experienceTagline: 'AUTOMATING INTELLIGENTLY',
     experienceDescription: 'At Appify, we implement intelligent automation solutions that combine RPA, AI, and workflow orchestration - from document processing and decision automation to end-to-end process automation across Australia, UAE, and Qatar. We specialise in automation that handles exceptions and edge cases that traditional approaches cannot.',
@@ -1104,7 +1104,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'custom-ai-models': {
     heroSubtitle: 'CUSTOM AI MODEL DEVELOPMENT FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/custom-ai-models/hero.jpg',
+    heroImage: '/services/custom_ai_models/hero.png',
     
     experienceTagline: 'BUILDING CUSTOM AI',
     experienceDescription: 'At Appify, we develop custom AI models tailored to your specific business challenges - from fine-tuned language models and domain-specific classifiers to proprietary algorithms that provide competitive advantage across Australia, UAE, and Qatar. We specialise in AI models that work with your unique data and requirements.',
@@ -1193,7 +1193,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'software-development': {
     heroSubtitle: 'CUSTOM SOFTWARE DEVELOPMENT FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/software-development/hero.jpg',
+    heroImage: '/services/software_development/hero.png',
     
     experienceTagline: 'DEVELOPING CUSTOM SOFTWARE',
     experienceDescription: 'At Appify, we develop custom software solutions that others find too complex to build reliably - from enterprise applications and backend systems to legacy modernisation and cloud-native development across Australia, UAE, and Qatar. We specialise in software that solves unique business challenges with maintainable, scalable code.',
@@ -1282,7 +1282,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'web-applications': {
     heroSubtitle: 'CUSTOM WEB APPLICATION DEVELOPMENT FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/web-applications/hero.jpg',
+    heroImage: '/services/web_applications/hero.png',
     
     experienceTagline: 'BUILDING WEB APPS THAT PERFORM',
     experienceDescription: 'At Appify, we develop custom web applications that deliver desktop-level functionality through browsers - from progressive web apps and single page applications to enterprise portals and real-time systems across Australia, UAE, and Qatar. We specialise in web applications that are fast, accessible, and maintainable.',
@@ -1371,7 +1371,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'app-development': {
     heroSubtitle: 'CUSTOM MOBILE APP DEVELOPMENT FOR IOS AND ANDROID ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/app-development/hero.jpg',
+    heroImage: '/services/app_development/hero.png',
     
     experienceTagline: 'BUILDING APPS USERS LOVE',
     experienceDescription: 'At Appify, we develop custom mobile applications that users love to use - from native iOS and Android apps to cross-platform solutions and enterprise mobile deployments across Australia, UAE, and Qatar. We specialise in mobile experiences that combine beautiful design with robust engineering.',
@@ -1460,7 +1460,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'erp-solutions': {
     heroSubtitle: 'CUSTOM ERP DEVELOPMENT AND IMPLEMENTATION FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/erp-solutions/hero.jpg',
+    heroImage: '/services/erp_solutions/hero.png',
     
     experienceTagline: 'UNIFIED BUSINESS MANAGEMENT',
     experienceDescription: 'At Appify, we develop custom ERP solutions that unify business operations - from financial management and supply chain to HR and operations across Australia, UAE, and Qatar. We specialise in ERP implementations that fit your processes rather than forcing you to adapt to rigid software.',
@@ -1549,7 +1549,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'system-integration': {
     heroSubtitle: 'ENTERPRISE SYSTEM INTEGRATION CONNECTING APPLICATIONS AND DATA ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/system-integration/hero.jpg',
+    heroImage: '/services/system_integration/hero.png',
     
     experienceTagline: 'CONNECTING YOUR SYSTEMS',
     experienceDescription: 'At Appify, we develop system integration solutions that connect disparate applications, databases, and services - from API development and enterprise service buses to data integration and legacy connectivity across Australia, UAE, and Qatar. We specialise in integration that creates unified, reliable data flows.',
@@ -1638,7 +1638,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'ui-ux-design': {
     heroSubtitle: 'A TEAM OF EXPERIENCED INVENTORS & DREAMERS WITH A WIDE RANGE OF SKILLS AND KNOWLEDGE',
-    heroImage: '/services/ui-ux-design/hero.jpg',
+    heroImage: '/services/ui_ux_design/hero.png',
     
     experienceTagline: 'CREATING THE EXPERIENCE',
     experienceDescription: 'At Appify, we take on custom UI/UX design projects that others find too complex, too challenging, or simply impossible. From crafting intuitive interfaces and seamless user journeys to designing scalable design systems for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in designs that drive engagement and deliver measurable business results.',
@@ -1727,7 +1727,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'product-design': {
     heroSubtitle: 'END-TO-END PRODUCT DESIGN FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/product-design/hero.jpg',
+    heroImage: '/services/product_design/hero.png',
     
     experienceTagline: 'DESIGNING PRODUCTS',
     experienceDescription: 'At Appify, we design digital products from concept to launch that others find too ambitious - from MVP definition and product strategy to full-scale product design for forward-thinking startups and enterprises across Australia, UAE, and Qatar. We specialise in product design that balances user needs, business goals, and technical feasibility.',
@@ -1816,7 +1816,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'user-research': {
     heroSubtitle: 'USER RESEARCH & TESTING FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/user-research/hero.jpg',
+    heroImage: '/services/user_research/hero.png',
     
     experienceTagline: 'UNDERSTANDING YOUR USERS',
     experienceDescription: 'At Appify, we conduct user research that uncovers insights others miss - from discovery research and usability testing to analytics analysis and continuous feedback loops for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in research that drives design decisions and improves business outcomes.',
@@ -1905,7 +1905,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'design-systems': {
     heroSubtitle: 'SCALABLE DESIGN SYSTEMS FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/design-systems/hero.jpg',
+    heroImage: '/services/design_systems/hero.png',
     
     experienceTagline: 'SYSTEMATISING DESIGN',
     experienceDescription: 'At Appify, we build design systems that scale with your organisation - from component libraries and design tokens to documentation and governance frameworks for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in design systems that improve consistency, speed, and design quality.',
@@ -1994,7 +1994,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'prototyping': {
     heroSubtitle: 'INTERACTIVE PROTOTYPING FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/prototyping/hero.jpg',
+    heroImage: '/services/prototyping/hero.png',
     
     experienceTagline: 'BRINGING IDEAS TO LIFE',
     experienceDescription: 'At Appify, we create interactive prototypes that bring concepts to life before development - from quick concept validation and user testing prototypes to high-fidelity demos for stakeholder buy-in across Australia, UAE, and Qatar. We specialise in prototypes that reduce risk and accelerate decision-making.',
