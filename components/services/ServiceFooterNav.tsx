@@ -112,7 +112,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
     >
       <div className="px-4 lg:px-20">
         {/* Container with top row and heading aligned at bottom */}
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between mb-12 sm:mb-16 lg:mb-24">
           {/* Left side: Keep scrolling + Service name */}
           <div className="flex flex-col items-start">
             {/* Keep scrolling label */}
