@@ -151,7 +151,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           >
             <h2
               ref={titleRef}
-              className={`font-Aeonik text-[clamp(3.5rem,10vw,8rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
+              className={`font-Aeonik text-[clamp(2rem,5vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
@@ -165,7 +165,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           >
             <h2
               ref={titleRef}
-              className={`font-Aeonik text-[clamp(3.5rem,10vw,8rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
+              className={`font-Aeonik text-[clamp(2rem,5vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
             >
