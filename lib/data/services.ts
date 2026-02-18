@@ -392,7 +392,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'technology-consulting': {
     heroSubtitle: 'TECHNOLOGY CONSULTING FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/technology-consulting/hero.jpg',
+    heroImage: '/services/technology_consulting/hero.png',
     
     experienceTagline: 'ADVISING ON TECHNOLOGY',
     experienceDescription: 'At Appify, we help enterprises navigate technology decisions that others find overwhelming - from platform selection and vendor evaluation to technical due diligence and IT strategy across Australia, UAE, and Qatar. Our consultants bring hands-on development experience to every advisory engagement, providing practical guidance grounded in real-world implementation expertise.',
