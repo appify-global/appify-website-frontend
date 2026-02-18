@@ -303,7 +303,7 @@ export const categoryDisplayOrder: ServiceCategory[] = ['strategy', 'creative', 
 export const servicePageContent: Record<string, ServicePageContent> = {
   'digital-transformation': {
     heroSubtitle: 'ENTERPRISE DIGITAL TRANSFORMATION EXPERTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/digital-transformation/hero.jpg',
+    heroImage: '/services/digital-transformation/hero.png',
     
     experienceTagline: 'CREATING THE EXPERIENCE',
     experienceDescription: 'At Appify, we guide digital transformation initiatives that others find too complex - from legacy system modernisation and cloud migration to enterprise architecture redesign and AI powered process automation across Australia, UAE, and Qatar. We specialise in technology transformations that require deep expertise and strategic innovation.',
@@ -338,25 +338,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'ASSESSMENT & DISCOVERY',
         description: 'We assess your technology landscape, processes, and digital maturity through stakeholder workshops and technical audits to identify transformation opportunities.',
-        image: '/services/digital-transformation/globe.png'
+        image: '/services/digital-transformation/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'STRATEGY & ROADMAP DEVELOPMENT',
         description: 'We develop a strategic transformation roadmap with prioritised initiatives, timelines, and KPIs - balancing quick wins with long-term modernisation for sustainable business impact.',
-        image: '/services/digital-transformation/process-1.png'
+        image: '/services/digital-transformation/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'EXECUTION & MIGRATION',
         description: 'We implement transformation initiatives using agile delivery - migrating legacy systems, deploying cloud infrastructure, and integrating AI-powered automation with minimal business disruption.',
-        image: '/services/digital-transformation/globe.png'
+        image: '/services/digital-transformation/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'ENABLEMENT & OPTIMISATION',
         description: 'We ensure adoption through change management and training, then continuously optimise based on performance data and user feedback - sustaining transformation value long-term.',
-        image: '/services/digital-transformation/process-1.png'
+        image: '/services/digital-transformation/process-4.png'
       }
     ],
     
@@ -439,13 +439,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'VENDOR EVALUATION & SELECTION',
         description: 'We conduct rigorous vendor and platform evaluations using structured criteria - facilitating demos, proof of concepts, and reference checks to ensure the right technology decisions for your business.',
-        image: '/services/technology_consulting/process-1.png'
+        image: '/services/technology_consulting/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'IMPLEMENTATION PLANNING & GOVERNANCE',
         description: 'We create detailed implementation roadmaps and governance frameworks that guide execution - ensuring technology investments deliver expected value with appropriate risk management and oversight.',
-        image: '/services/technology_consulting/process-2.png'
+        image: '/services/technology_consulting/process-4.png'
       }
     ],
     
@@ -528,13 +528,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'REQUIREMENTS DEFINITION & VALIDATION',
         description: 'We define detailed requirements through collaborative workshops and iterative refinement - validating with stakeholders to ensure accuracy, completeness, and alignment with business objectives.',
-        image: '/services/business_analysis/process-1.png'
+        image: '/services/business_analysis/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'SOLUTION DESIGN & HANDOVER',
         description: 'We translate validated requirements into solution designs and specifications that development teams can implement - ensuring smooth handover with clear acceptance criteria and traceability.',
-        image: '/services/business_analysis/process-2.png'
+        image: '/services/business_analysis/process-4.png'
       }
     ],
     
@@ -617,13 +617,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'REDESIGN & SOLUTION DEVELOPMENT',
         description: 'We design optimised future-state processes that address identified issues - developing implementation plans that include process changes, technology enablement, and change management.',
-        image: '/services/process_optimisation/process-1.png'
+        image: '/services/process_optimisation/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'IMPLEMENTATION & CONTINUOUS IMPROVEMENT',
         description: 'We support process implementation and establish continuous improvement frameworks - embedding measurement, feedback loops, and governance that sustain operational excellence long-term.',
-        image: '/services/process_optimisation/process-2.png'
+        image: '/services/process_optimisation/process-4.png'
       }
     ],
     
@@ -706,13 +706,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'DETAILED DESIGN & DOCUMENTATION',
         description: 'We create detailed architecture documentation including component diagrams, data models, interface specifications, and deployment architectures - providing the blueprint for implementation teams.',
-        image: '/services/architecture_design/process-1.png'
+        image: '/services/architecture_design/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'GOVERNANCE & EVOLUTION',
         description: 'We establish architecture governance processes and support ongoing evolution - ensuring designs remain relevant as business needs change and technology advances through regular review and refinement.',
-        image: '/services/architecture_design/process-2.png'
+        image: '/services/architecture_design/process-4.png'
       }
     ],
     
@@ -795,13 +795,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'PRODUCTION ENGINEERING & DEPLOYMENT',
         description: 'We engineer ML systems for production - optimising for performance and scale, implementing monitoring and alerting, and deploying with robust CI/CD pipelines that enable continuous improvement.',
-        image: '/services/ai_ml_engineering/process-1.png'
+        image: '/services/ai_ml_engineering/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'MONITORING & CONTINUOUS IMPROVEMENT',
         description: 'We establish monitoring for model performance, data drift, and business metrics - creating feedback loops that trigger retraining and enable continuous improvement of ML systems over time.',
-        image: '/services/ai_ml_engineering/process-2.png'
+        image: '/services/ai_ml_engineering/process-4.png'
       }
     ],
     
@@ -884,13 +884,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'DEVELOPMENT & INTEGRATION',
         description: 'We develop production-ready agents with robust error handling, integrate with enterprise systems, and implement the orchestration layer for multi-agent coordination.',
-        image: '/services/agentic_solutions/process-1.png'
+        image: '/services/agentic_solutions/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & GOVERNANCE',
         description: 'We deploy agents with comprehensive monitoring, implement governance frameworks for autonomous decisions, and establish processes for ongoing improvement and human oversight.',
-        image: '/services/agentic_solutions/process-2.png'
+        image: '/services/agentic_solutions/process-4.png'
       }
     ],
     
@@ -973,13 +973,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'INTEGRATION & TESTING',
         description: 'We integrate MCP implementations with AI systems and conduct comprehensive testing - validating functionality, security, and performance under realistic conditions.',
-        image: '/services/mcp_development/process-1.png'
+        image: '/services/mcp_development/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & OPERATIONS',
         description: 'We deploy MCP infrastructure with monitoring, logging, and governance - establishing operational procedures that maintain security and reliability in production.',
-        image: '/services/mcp_development/process-2.png'
+        image: '/services/mcp_development/process-4.png'
       }
     ],
     
@@ -1062,13 +1062,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'DEVELOPMENT & TESTING',
         description: 'We develop automation solutions with comprehensive testing including edge cases and exception scenarios - ensuring reliable operation and appropriate error handling.',
-        image: '/services/intelligent_automation/process-1.png'
+        image: '/services/intelligent_automation/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & CONTINUOUS IMPROVEMENT',
         description: 'We deploy automation with monitoring and analytics, then continuously improve based on performance data - expanding automation scope and handling new scenarios as they emerge.',
-        image: '/services/intelligent_automation/process-2.png'
+        image: '/services/intelligent_automation/process-4.png'
       }
     ],
     
@@ -1151,13 +1151,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'TRAINING & OPTIMISATION',
         description: 'We train models using best practices for data preparation, training, and validation - optimising for accuracy, efficiency, and robustness through rigorous methodology.',
-        image: '/services/custom_ai_models/process-1.png'
+        image: '/services/custom_ai_models/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'EVALUATION & DEPLOYMENT',
         description: 'We evaluate models comprehensively, deploy with appropriate infrastructure, and establish processes for monitoring and updates - ensuring models deliver value in production.',
-        image: '/services/custom_ai_models/process-2.png'
+        image: '/services/custom_ai_models/process-4.png'
       }
     ],
     
@@ -1240,13 +1240,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'AGILE DEVELOPMENT & TESTING',
         description: 'We develop software iteratively with continuous testing and stakeholder feedback - delivering working software in sprints that allow for learning and adjustment.',
-        image: '/services/software_development/process-1.png'
+        image: '/services/software_development/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & SUPPORT',
         description: 'We deploy software with robust CI/CD pipelines and provide ongoing support - ensuring smooth launches and continuous improvement based on production feedback.',
-        image: '/services/software_development/process-2.png'
+        image: '/services/software_development/process-4.png'
       }
     ],
     
@@ -1329,13 +1329,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'DEVELOPMENT & TESTING',
         description: 'We develop iteratively with continuous testing across browsers and devices - ensuring responsive, accessible applications that work reliably for all users.',
-        image: '/services/web_applications/process-1.png'
+        image: '/services/web_applications/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'OPTIMISATION & DEPLOYMENT',
         description: 'We optimise performance, implement monitoring, and deploy with robust infrastructure - ensuring fast, reliable applications with visibility into real-world usage.',
-        image: '/services/web_applications/process-2.png'
+        image: '/services/web_applications/process-4.png'
       }
     ],
     
@@ -1418,13 +1418,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'AGILE APP DEVELOPMENT',
         description: 'We develop apps iteratively with regular builds and testing - maintaining quality through automated testing, code review, and continuous integration throughout development.',
-        image: '/services/app_development/process-1.png'
+        image: '/services/app_development/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'TESTING & APP STORE LAUNCH',
         description: 'We conduct comprehensive testing, manage app store submissions, and support launch activities - ensuring smooth releases and successful user adoption.',
-        image: '/services/app_development/process-2.png'
+        image: '/services/app_development/process-4.png'
       }
     ],
     
@@ -1507,13 +1507,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'PHASED IMPLEMENTATION',
         description: 'We implement ERP in phases that deliver value incrementally - reducing risk through manageable rollouts and allowing for learning and adjustment throughout the project.',
-        image: '/services/erp_solutions/process-1.png'
+        image: '/services/erp_solutions/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'TRAINING, GO-LIVE & SUPPORT',
         description: 'We provide comprehensive training, manage go-live activities, and offer ongoing support - ensuring successful adoption and continuous improvement of your ERP investment.',
-        image: '/services/erp_solutions/process-2.png'
+        image: '/services/erp_solutions/process-4.png'
       }
     ],
     
@@ -1596,13 +1596,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'DEVELOPMENT & TESTING',
         description: 'We develop integration solutions with comprehensive testing - validating data accuracy, error handling, and performance under realistic conditions.',
-        image: '/services/system_integration/process-1.png'
+        image: '/services/system_integration/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & MONITORING',
         description: 'We deploy integrations with monitoring and alerting - ensuring reliable operation with visibility into data flows and rapid response to issues.',
-        image: '/services/system_integration/process-2.png'
+        image: '/services/system_integration/process-4.png'
       }
     ],
     
@@ -1685,13 +1685,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'VISUAL DESIGN & UI DEVELOPMENT',
         description: 'We craft pixel-perfect visual designs that bring your brand to life - typography, colour, imagery, and interaction patterns that create memorable, on-brand experiences.',
-        image: '/services/ui_ux_design/process-1.png'
+        image: '/services/ui_ux_design/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'TESTING, LAUNCH & ITERATION',
         description: 'We test with real users, refine based on feedback, and support you through launch. Post-launch analytics and ongoing optimisation ensure your design continues to perform.',
-        image: '/services/ui_ux_design/process-2.png'
+        image: '/services/ui_ux_design/process-4.png'
       }
     ],
     
@@ -1774,13 +1774,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'DETAILED DESIGN & SPECIFICATION',
         description: 'We create comprehensive design deliverables - detailed UI designs, interaction specifications, and design systems that enable efficient development and consistent implementation.',
-        image: '/services/product_design/process-1.png'
+        image: '/services/product_design/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'DESIGN SUPPORT & ITERATION',
         description: 'We support development with design QA and iteration - ensuring designs are implemented correctly and evolving based on user feedback and analytics.',
-        image: '/services/product_design/process-2.png'
+        image: '/services/product_design/process-4.png'
       }
     ],
     
@@ -1863,13 +1863,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'ANALYSIS & SYNTHESIS',
         description: 'We analyse research data to identify patterns, insights, and opportunities - synthesising findings into clear themes and actionable recommendations.',
-        image: '/services/user_research/process-1.png'
+        image: '/services/user_research/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'REPORTING & ACTIVATION',
         description: 'We present findings in compelling formats that drive action - reports, workshops, and artefacts that ensure insights influence design and business decisions.',
-        image: '/services/user_research/process-2.png'
+        image: '/services/user_research/process-4.png'
       }
     ],
     
@@ -1952,13 +1952,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'COMPONENT DESIGN & DEVELOPMENT',
         description: 'We design and build components - from simple atoms to complex organisms. Each component is designed for flexibility, documented thoroughly, and tested for accessibility.',
-        image: '/services/design_systems/process-1.png'
+        image: '/services/design_systems/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'DOCUMENTATION & ROLLOUT',
         description: 'We create comprehensive documentation, establish governance processes, and support rollout across teams - ensuring adoption and ongoing success of your design system.',
-        image: '/services/design_systems/process-2.png'
+        image: '/services/design_systems/process-4.png'
       }
     ],
     
@@ -2041,13 +2041,13 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '03',
         title: 'TESTING & FEEDBACK GATHERING',
         description: 'We test prototypes with users or stakeholders, gathering feedback and insights. Structured testing that generates clear findings for iteration.',
-        image: '/services/prototyping/process-1.png'
+        image: '/services/prototyping/process-3.png'
       },
       {
         stepNumber: '04',
         title: 'ITERATION & DOCUMENTATION',
         description: 'We iterate based on findings and document learnings - refining prototypes and capturing insights that inform subsequent design and development.',
-        image: '/services/prototyping/process-2.png'
+        image: '/services/prototyping/process-4.png'
       }
     ],
     
