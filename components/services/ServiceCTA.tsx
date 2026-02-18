@@ -147,7 +147,7 @@ export default function ServiceCTA() {
   }, []);
 
   return (
-    <section className="w-full bg-[#F0F1FA] pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-32 relative overflow-hidden">
+    <section className="w-full bg-[#F0F1FA] pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-12 relative overflow-hidden">
       {/* Decorative plus icons at corners */}
       <div className="absolute top-6 left-[4vw] sm:left-[6vw] lg:left-20">
         <PlusIcon className="text-black w-5 h-5" />
