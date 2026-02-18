@@ -49,6 +49,10 @@ interface PageLayoutProps {
    * Href for the back button. Default: "/services"
    */
   backHref?: string;
+  /**
+   * Hide the ABOUT US section in the footer. Default: false
+   */
+  hideFooterAboutUs?: boolean;
 }
 
 /**
@@ -83,6 +87,7 @@ export function PageLayout({
   loadingFallback,
   showBackButton = false,
   backHref = "/services",
+  hideFooterAboutUs = false,
 }: PageLayoutProps) {
   const footerRef = useRef<HTMLElement>(null);
   const [wasmReady, setWasmReady] = useState(false);
@@ -141,7 +146,7 @@ export function PageLayout({
         {/* Footer with parallax effect */}
         {showFooter && wasmReady && (
           <section id="footer" ref={footerRef} className={`relative z-20 lg:z-[15] ${showParticles ? 'lg:pt-24' : ''}`}>
-            <Footer />
+            <Footer hideAboutUsSection={hideFooterAboutUs} />
           </section>
         )}
       </LenisProvider>

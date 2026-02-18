@@ -33,7 +33,11 @@ const computeTimes = () => {
     return updated;
 };
 
-const Footer = () => {
+interface FooterProps {
+    hideAboutUsSection?: boolean;
+}
+
+const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
     // Initialize with computed times to avoid setState in effect
     const [times, setTimes] = useState<Record<string, string>>(computeTimes);
 
@@ -138,25 +142,27 @@ const Footer = () => {
             </div>
 
             {/* BLACK ABOUT US SECTION */}
-            <div className="bg-black text-white px-[4vw] py-12 sm:py-16 lg:py-20">
-                <div className="text-xs sm:text-sm lg:text-xl text-gray-400 mb-4 sm:mb-6 tracking-wide">KEEP SCROLLING TO LEARN MORE</div>
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-light">ABOUT US</h2>
+            {!hideAboutUsSection && (
+                <div className="bg-black text-white px-[4vw] py-12 sm:py-16 lg:py-20">
+                    <div className="text-xs sm:text-sm lg:text-xl text-gray-400 mb-4 sm:mb-6 tracking-wide">KEEP SCROLLING TO LEARN MORE</div>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-light">ABOUT US</h2>
 
-                    <div className="flex items-center gap-3">
-                        <p className="text-sm sm:text-base lg:text-xl">NEXT PAGE</p>
-                        <div className="w-8 sm:w-12 h-[2px] bg-pink-500" />
-                        <FaArrowRight size={14} />
+                        <div className="flex items-center gap-3">
+                            <p className="text-sm sm:text-base lg:text-xl">NEXT PAGE</p>
+                            <div className="w-8 sm:w-12 h-[2px] bg-pink-500" />
+                            <FaArrowRight size={14} />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 text-center text-sm sm:text-base lg:text-lg opacity-90">
+                        <span>+</span>
+                        <span>+</span>
+                        <span>+</span>
+                        <span>+</span>
                     </div>
                 </div>
-
-                <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 text-center text-sm sm:text-base lg:text-lg opacity-90">
-                    <span>+</span>
-                    <span>+</span>
-                    <span>+</span>
-                    <span>+</span>
-                </div>
-            </div>
+            )}
         </footer>
     );
 };

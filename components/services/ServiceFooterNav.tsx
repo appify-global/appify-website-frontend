@@ -3,11 +3,12 @@ import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 
 interface ServiceFooterNavProps {
-  nextService: {
+  nextService?: {
     category: string;
     slug: string;
     name: string;
   };
+  showAboutUs?: boolean;
 }
 
 // Plus icon component
@@ -49,7 +50,7 @@ const RightArrowIcon: React.FC = () => (
   </svg>
 );
 
-export default function ServiceFooterNav({ nextService }: ServiceFooterNavProps) {
+export default function ServiceFooterNav({ nextService, showAboutUs = false }: ServiceFooterNavProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
 
@@ -78,17 +79,26 @@ export default function ServiceFooterNav({ nextService }: ServiceFooterNavProps)
       className="w-full bg-black text-white py-6 lg:py-10 relative"
     >
       <div className="px-4 lg:px-20">
-        {/* Top row: Keep scrolling + Next service indicator */}
+        {/* Top row: Keep scrolling + Next service/page indicator */}
         <div className="flex items-center justify-between mb-4 lg:mb-6">
           {/* Keep scrolling label */}
           <p className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60">
-            Keep Scrolling
+            {showAboutUs ? (
+              <>
+                Keep Scrolling
+                <br className="lg:hidden" />
+                <span className="hidden lg:inline"> </span>
+                To Learn More
+              </>
+            ) : (
+              "Keep Scrolling"
+            )}
           </p>
 
-          {/* Next service indicator */}
+          {/* Next service/page indicator */}
           <div className="flex items-center gap-3">
             <span className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60">
-              Next Service
+              {showAboutUs ? "Next Page" : "Next Service"}
             </span>
             
             {/* Progress bar */}
@@ -101,18 +111,32 @@ export default function ServiceFooterNav({ nextService }: ServiceFooterNavProps)
           </div>
         </div>
 
-        {/* Next service title */}
-        <Link
-          href={`/services/${nextService.category}/${nextService.slug}`}
-          className="group block"
-        >
-          <h2
-            ref={titleRef}
-            className="font-Aeonik text-[clamp(1.75rem,6vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 opacity-0 translate-y-8 transition-all duration-700 ease-out group-hover:text-[#ff009e]"
+        {/* Title - Next service or ABOUT US */}
+        {showAboutUs ? (
+          <Link
+            href="/about"
+            className="group block"
           >
-            {nextService.name}
-          </h2>
-        </Link>
+            <h2
+              ref={titleRef}
+              className="font-Aeonik text-[clamp(1.75rem,6vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 opacity-0 translate-y-8 transition-all duration-700 ease-out group-hover:text-[#ff009e]"
+            >
+              ABOUT US
+            </h2>
+          </Link>
+        ) : nextService ? (
+          <Link
+            href={`/services/${nextService.category}/${nextService.slug}`}
+            className="group block"
+          >
+            <h2
+              ref={titleRef}
+              className="font-Aeonik text-[clamp(1.75rem,6vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 opacity-0 translate-y-8 transition-all duration-700 ease-out group-hover:text-[#ff009e]"
+            >
+              {nextService.name}
+            </h2>
+          </Link>
+        ) : null}
 
         {/* Bottom row: Plus icons */}
         <div className="flex items-center justify-between">
