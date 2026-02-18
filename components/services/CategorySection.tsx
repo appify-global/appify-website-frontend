@@ -47,19 +47,18 @@ const CategoryIcon = ({ categoryId }: { categoryId: ServiceCategory }) => {
       </svg>
     ),
     creative: (
-      <svg viewBox="0 0 136 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <path d="M136 0H0V35H102V70H0V105H102V140H0V175H136V140H34V105H136V70H34V35H136V0Z" fill="#2B2E3A"/>
+      <svg viewBox="0 0 137 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <path d="M132.222 175H42.7773V132.222H132.222V175ZM136.111 46.667H42.7773V132.222H0V42.7773H42.7773V0H136.111V46.667Z" fill="#2B2E3A"/>
       </svg>
     ),
     development: (
       <svg viewBox="0 0 136 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <path d="M0 0H102C120.778 0 136 15.2223 136 34V141C136 159.778 120.778 175 102 175H0V140H102V35H0V0Z" fill="#2B2E3A"/>
+        <path d="M99.2227 43H135.889V132.444H98.5557V174.777H0V42.7773H0.222656V0H99.2227V43ZM43 132H93.1113V47H43V132Z" fill="#2B2E3A"/>
       </svg>
     ),
     intelligence: (
       <svg viewBox="0 0 43 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <rect y="35" width="43" height="140" fill="#2B2E3A"/>
-        <rect width="43" height="21" fill="#2B2E3A"/>
+        <path d="M43 175H0V0H43V175Z" fill="#2B2E3A"/>
       </svg>
     ),
   };
