@@ -111,23 +111,57 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
       className="w-full bg-black text-white py-28 sm:py-36 lg:py-56 relative"
     >
       <div className="px-4 lg:px-20">
-        {/* Top row: Keep scrolling + Next service/page indicator */}
-        <div className="flex items-end justify-between mb-4 lg:mb-6">
-          {/* Keep scrolling label */}
-          <p className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60">
-            {showAboutUs ? (
-              <>
-                Keep Scrolling
-                <br className="lg:hidden" />
-                <span className="hidden lg:inline"> </span>
-                To Learn More
-              </>
-            ) : (
-              "Keep Scrolling"
-            )}
-          </p>
+        {/* Container with top row and heading aligned at bottom */}
+        <div className="flex items-end justify-between">
+          {/* Left side: Keep scrolling + Service name */}
+          <div className="flex flex-col items-start">
+            {/* Keep scrolling label */}
+            <p className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60 mb-0">
+              {showAboutUs ? (
+                <>
+                  Keep Scrolling
+                  <br className="lg:hidden" />
+                  <span className="hidden lg:inline"> </span>
+                  To Learn More
+                </>
+              ) : (
+                "Keep Scrolling"
+              )}
+            </p>
 
-          {/* Next service/page indicator */}
+            {/* Title - Next service or ABOUT US */}
+            {showAboutUs ? (
+              <Link
+                href="/about"
+                className="group block"
+              >
+                <h2
+                  ref={titleRef}
+                  className={`font-Aeonik text-[clamp(2rem,5vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                  }`}
+                >
+                  ABOUT US
+                </h2>
+              </Link>
+            ) : nextService ? (
+              <Link
+                href={`/services/${nextService.category}/${nextService.slug}`}
+                className="group block"
+              >
+                <h2
+                  ref={titleRef}
+                  className={`font-Aeonik text-[clamp(2rem,5vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
+                    isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+                  }`}
+                >
+                  {nextService.name}
+                </h2>
+              </Link>
+            ) : null}
+          </div>
+
+          {/* Right side: Next service/page indicator */}
           <div className="flex items-end gap-3">
             <span className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60">
               {showAboutUs ? "Next Page" : "Next Service"}
@@ -142,37 +176,6 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
             </div>
           </div>
         </div>
-
-        {/* Title - Next service or ABOUT US */}
-        {showAboutUs ? (
-          <Link
-            href="/about"
-            className="group block"
-          >
-            <h2
-              ref={titleRef}
-              className={`font-Aeonik text-[clamp(2rem,5vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              ABOUT US
-            </h2>
-          </Link>
-        ) : nextService ? (
-          <Link
-            href={`/services/${nextService.category}/${nextService.slug}`}
-            className="group block"
-          >
-            <h2
-              ref={titleRef}
-              className={`font-Aeonik text-[clamp(2rem,5vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase mb-6 lg:mb-8 transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              {nextService.name}
-            </h2>
-          </Link>
-        ) : null}
 
         {/* Bottom row: Plus icons */}
         <div className="flex items-center justify-between">
