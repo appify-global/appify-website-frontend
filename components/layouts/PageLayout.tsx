@@ -41,6 +41,14 @@ interface PageLayoutProps {
    * Loading fallback component
    */
   loadingFallback?: ReactNode;
+  /**
+   * Show a back button in the mobile/tablet navbar
+   */
+  showBackButton?: boolean;
+  /**
+   * Href for the back button. Default: "/services"
+   */
+  backHref?: string;
 }
 
 /**
@@ -73,6 +81,8 @@ export function PageLayout({
   showFooter = true,
   navbarPadding = "pb-[4vw]",
   loadingFallback,
+  showBackButton = false,
+  backHref = "/services",
 }: PageLayoutProps) {
   const footerRef = useRef<HTMLElement>(null);
   const [wasmReady, setWasmReady] = useState(false);
@@ -107,7 +117,7 @@ export function PageLayout({
             <>
               {showNavbar && (
                 <nav id="navbar" className={navbarPadding}>
-                  <Navbar />
+                  <Navbar showBackButton={showBackButton} backHref={backHref} />
                 </nav>
               )}
 

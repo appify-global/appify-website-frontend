@@ -392,7 +392,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'technology-consulting': {
     heroSubtitle: 'TECHNOLOGY CONSULTING FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/technology-consulting/hero.jpg',
+    heroImage: '/services/technology_consulting/hero.png',
     
     experienceTagline: 'ADVISING ON TECHNOLOGY',
     experienceDescription: 'At Appify, we help enterprises navigate technology decisions that others find overwhelming - from platform selection and vendor evaluation to technical due diligence and IT strategy across Australia, UAE, and Qatar. Our consultants bring hands-on development experience to every advisory engagement, providing practical guidance grounded in real-world implementation expertise.',
@@ -427,25 +427,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'DISCOVERY & TECHNOLOGY AUDIT',
         description: 'We assess your current technology landscape, business objectives, and strategic priorities through stakeholder interviews and technical analysis to understand your unique context and challenges.',
-        image: '/services/technology-consulting/process-1.png'
+        image: '/services/technology_consulting/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'STRATEGY DEVELOPMENT & RECOMMENDATIONS',
         description: 'We develop strategic recommendations based on industry best practices, emerging technologies, and your specific requirements - providing actionable guidance with clear rationale and prioritisation.',
-        image: '/services/technology-consulting/process-2.png'
+        image: '/services/technology_consulting/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'VENDOR EVALUATION & SELECTION',
         description: 'We conduct rigorous vendor and platform evaluations using structured criteria - facilitating demos, proof of concepts, and reference checks to ensure the right technology decisions for your business.',
-        image: '/services/technology-consulting/process-1.png'
+        image: '/services/technology_consulting/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'IMPLEMENTATION PLANNING & GOVERNANCE',
         description: 'We create detailed implementation roadmaps and governance frameworks that guide execution - ensuring technology investments deliver expected value with appropriate risk management and oversight.',
-        image: '/services/technology-consulting/process-2.png'
+        image: '/services/technology_consulting/process-2.png'
       }
     ],
     
@@ -481,7 +481,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'business-analysis': {
     heroSubtitle: 'BUSINESS ANALYSIS CONSULTANTS FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/business-analysis/hero.jpg',
+    heroImage: '/services/business_analysis/hero.png',
     
     experienceTagline: 'ANALYSING YOUR BUSINESS',
     experienceDescription: 'At Appify, we bridge the gap between business objectives and technical solutions that others find difficult to navigate - from requirements engineering and process mapping to stakeholder workshops and solution design across Australia, UAE, and Qatar. We specialise in translating complex business needs into clear, actionable specifications that development teams can execute.',
@@ -516,25 +516,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'STAKEHOLDER DISCOVERY & ENGAGEMENT',
         description: 'We identify and engage key stakeholders across business and technology teams - understanding their perspectives, pain points, and success criteria through interviews, surveys, and observation.',
-        image: '/services/business-analysis/process-1.png'
+        image: '/services/business_analysis/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'PROCESS ANALYSIS & DOCUMENTATION',
         description: 'We analyse current business processes and document findings using standard notations - identifying bottlenecks, redundancies, and improvement opportunities that inform solution design.',
-        image: '/services/business-analysis/process-2.png'
+        image: '/services/business_analysis/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'REQUIREMENTS DEFINITION & VALIDATION',
         description: 'We define detailed requirements through collaborative workshops and iterative refinement - validating with stakeholders to ensure accuracy, completeness, and alignment with business objectives.',
-        image: '/services/business-analysis/process-1.png'
+        image: '/services/business_analysis/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'SOLUTION DESIGN & HANDOVER',
         description: 'We translate validated requirements into solution designs and specifications that development teams can implement - ensuring smooth handover with clear acceptance criteria and traceability.',
-        image: '/services/business-analysis/process-2.png'
+        image: '/services/business_analysis/process-2.png'
       }
     ],
     
@@ -570,7 +570,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'process-optimisation': {
     heroSubtitle: 'BUSINESS PROCESS OPTIMISATION CONSULTANTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/process-optimisation/hero.jpg',
+    heroImage: '/services/process_optimisation/hero.png',
     
     experienceTagline: 'OPTIMISING YOUR PROCESSES',
     experienceDescription: 'At Appify, we analyse, redesign, and automate business processes that others find too complex to untangle - from workflow optimisation and bottleneck elimination to performance measurement and continuous improvement across Australia, UAE, and Qatar. We specialise in process transformations that deliver measurable efficiency gains and operational excellence.',
@@ -605,25 +605,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'PROCESS DISCOVERY & MAPPING',
         description: 'We document current-state processes through observation, interviews, and process mining - creating detailed maps that show how work actually flows through your organisation.',
-        image: '/services/process-optimisation/process-1.png'
+        image: '/services/process_optimisation/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'ANALYSIS & OPPORTUNITY IDENTIFICATION',
         description: 'We analyse processes to identify bottlenecks, waste, and variation - quantifying improvement opportunities and prioritising based on business impact and implementation feasibility.',
-        image: '/services/process-optimisation/process-2.png'
+        image: '/services/process_optimisation/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'REDESIGN & SOLUTION DEVELOPMENT',
         description: 'We design optimised future-state processes that address identified issues - developing implementation plans that include process changes, technology enablement, and change management.',
-        image: '/services/process-optimisation/process-1.png'
+        image: '/services/process_optimisation/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'IMPLEMENTATION & CONTINUOUS IMPROVEMENT',
         description: 'We support process implementation and establish continuous improvement frameworks - embedding measurement, feedback loops, and governance that sustain operational excellence long-term.',
-        image: '/services/process-optimisation/process-2.png'
+        image: '/services/process_optimisation/process-2.png'
       }
     ],
     
@@ -659,7 +659,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'architecture-design': {
     heroSubtitle: 'ENTERPRISE & SOLUTION ARCHITECTURE DESIGN ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/architecture-design/hero.jpg',
+    heroImage: '/services/architecture_design/hero.png',
     
     experienceTagline: 'DESIGNING YOUR ARCHITECTURE',
     experienceDescription: 'At Appify, we design enterprise and solution architectures that balance scalability, security, and pragmatic delivery - from cloud-native designs and microservices to integration patterns and security architecture across Australia, UAE, and Qatar. We specialise in architecture decisions that enable business agility while managing technical complexity.',
@@ -694,25 +694,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'REQUIREMENTS & CONTEXT ANALYSIS',
         description: 'We analyse business requirements, technical constraints, and existing systems to understand the context for architecture decisions - identifying drivers, risks, and success criteria that shape the design.',
-        image: '/services/architecture-design/process-1.png'
+        image: '/services/architecture_design/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'ARCHITECTURE OPTIONS & EVALUATION',
         description: 'We develop architecture options and evaluate them against requirements using structured decision frameworks - considering trade-offs in scalability, cost, complexity, and time to delivery.',
-        image: '/services/architecture-design/process-2.png'
+        image: '/services/architecture_design/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'DETAILED DESIGN & DOCUMENTATION',
         description: 'We create detailed architecture documentation including component diagrams, data models, interface specifications, and deployment architectures - providing the blueprint for implementation teams.',
-        image: '/services/architecture-design/process-1.png'
+        image: '/services/architecture_design/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'GOVERNANCE & EVOLUTION',
         description: 'We establish architecture governance processes and support ongoing evolution - ensuring designs remain relevant as business needs change and technology advances through regular review and refinement.',
-        image: '/services/architecture-design/process-2.png'
+        image: '/services/architecture_design/process-2.png'
       }
     ],
     
@@ -748,7 +748,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'ai-ml-engineering': {
     heroSubtitle: 'AI & MACHINE LEARNING ENGINEERING FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/ai-ml-engineering/hero.jpg',
+    heroImage: '/services/ai_ml_engineering/hero.png',
     
     experienceTagline: 'ENGINEERING WITH AI & ML',
     experienceDescription: 'At Appify, we engineer production-grade AI and machine learning systems that others find too complex to deploy - from custom model development and computer vision to NLP solutions and MLOps across Australia, UAE, and Qatar. We specialise in taking ML from prototype to production with robust, scalable implementations.',
@@ -783,25 +783,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'PROBLEM DEFINITION & DATA ASSESSMENT',
         description: 'We work with you to define the ML problem clearly, assess data availability and quality, and determine whether machine learning is the right approach - ensuring we solve real business problems with appropriate methods.',
-        image: '/services/ai-ml-engineering/process-1.png'
+        image: '/services/ai_ml_engineering/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'MODEL DEVELOPMENT & EXPERIMENTATION',
         description: 'We develop and experiment with ML models using rigorous methodology - testing hypotheses, comparing approaches, and iterating on features and architectures to achieve optimal performance.',
-        image: '/services/ai-ml-engineering/process-2.png'
+        image: '/services/ai_ml_engineering/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'PRODUCTION ENGINEERING & DEPLOYMENT',
         description: 'We engineer ML systems for production - optimising for performance and scale, implementing monitoring and alerting, and deploying with robust CI/CD pipelines that enable continuous improvement.',
-        image: '/services/ai-ml-engineering/process-1.png'
+        image: '/services/ai_ml_engineering/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'MONITORING & CONTINUOUS IMPROVEMENT',
         description: 'We establish monitoring for model performance, data drift, and business metrics - creating feedback loops that trigger retraining and enable continuous improvement of ML systems over time.',
-        image: '/services/ai-ml-engineering/process-2.png'
+        image: '/services/ai_ml_engineering/process-2.png'
       }
     ],
     
@@ -837,7 +837,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'agentic-solutions': {
     heroSubtitle: 'AUTONOMOUS AI AGENT DEVELOPMENT FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/agentic-solutions/hero.jpg',
+    heroImage: '/services/agentic_solutions/hero.png',
     
     experienceTagline: 'BUILDING AUTONOMOUS AGENTS',
     experienceDescription: 'At Appify, we develop autonomous AI agents that others find too complex to build reliably - from reasoning systems that plan and execute multi-step tasks to multi-agent orchestration and tool integration across Australia, UAE, and Qatar. We specialise in agentic AI that operates safely and effectively in enterprise environments.',
@@ -872,25 +872,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'USE CASE DEFINITION & FEASIBILITY',
         description: 'We work with you to define agentic use cases, assess feasibility, and identify the right level of autonomy - ensuring agents are applied where they add value with appropriate risk management.',
-        image: '/services/agentic-solutions/process-1.png'
+        image: '/services/agentic_solutions/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'AGENT DESIGN & PROTOTYPING',
         description: 'We design agent architectures including reasoning patterns, tool access, and safety guardrails - building prototypes that validate approaches before full implementation.',
-        image: '/services/agentic-solutions/process-2.png'
+        image: '/services/agentic_solutions/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'DEVELOPMENT & INTEGRATION',
         description: 'We develop production-ready agents with robust error handling, integrate with enterprise systems, and implement the orchestration layer for multi-agent coordination.',
-        image: '/services/agentic-solutions/process-1.png'
+        image: '/services/agentic_solutions/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & GOVERNANCE',
         description: 'We deploy agents with comprehensive monitoring, implement governance frameworks for autonomous decisions, and establish processes for ongoing improvement and human oversight.',
-        image: '/services/agentic-solutions/process-2.png'
+        image: '/services/agentic_solutions/process-2.png'
       }
     ],
     
@@ -926,7 +926,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'mcp-development': {
     heroSubtitle: 'MODEL CONTEXT PROTOCOL DEVELOPMENT FOR AI SYSTEMS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/mcp-development/hero.jpg',
+    heroImage: '/services/mcp_development/hero.png',
     
     experienceTagline: 'DEVELOPING MCP SOLUTIONS',
     experienceDescription: 'At Appify, we develop Model Context Protocol implementations that connect AI systems to enterprise data and tools - from custom MCP servers and resource providers to context management and secure integration across Australia, UAE, and Qatar. We specialise in MCP solutions that make AI genuinely useful in enterprise environments.',
@@ -961,25 +961,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'REQUIREMENTS & ARCHITECTURE DESIGN',
         description: 'We analyse your data sources, AI use cases, and security requirements to design MCP architectures that provide appropriate access while maintaining security and performance.',
-        image: '/services/mcp-development/process-1.png'
+        image: '/services/mcp_development/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'SERVER & TOOL DEVELOPMENT',
         description: 'We develop MCP servers and implement tools and resources that expose your systems to AI - following best practices for security, error handling, and performance.',
-        image: '/services/mcp-development/process-2.png'
+        image: '/services/mcp_development/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'INTEGRATION & TESTING',
         description: 'We integrate MCP implementations with AI systems and conduct comprehensive testing - validating functionality, security, and performance under realistic conditions.',
-        image: '/services/mcp-development/process-1.png'
+        image: '/services/mcp_development/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & OPERATIONS',
         description: 'We deploy MCP infrastructure with monitoring, logging, and governance - establishing operational procedures that maintain security and reliability in production.',
-        image: '/services/mcp-development/process-2.png'
+        image: '/services/mcp_development/process-2.png'
       }
     ],
     
@@ -1015,7 +1015,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'intelligent-automation': {
     heroSubtitle: 'INTELLIGENT AUTOMATION SOLUTIONS FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/intelligent-automation/hero.jpg',
+    heroImage: '/services/intelligent_automation/hero.png',
     
     experienceTagline: 'AUTOMATING INTELLIGENTLY',
     experienceDescription: 'At Appify, we implement intelligent automation solutions that combine RPA, AI, and workflow orchestration - from document processing and decision automation to end-to-end process automation across Australia, UAE, and Qatar. We specialise in automation that handles exceptions and edge cases that traditional approaches cannot.',
@@ -1050,25 +1050,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'PROCESS ASSESSMENT & PRIORITISATION',
         description: 'We assess your processes for automation potential, evaluating volume, complexity, and business value - creating a prioritised roadmap that delivers quick wins while building toward comprehensive automation.',
-        image: '/services/intelligent-automation/process-1.png'
+        image: '/services/intelligent_automation/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'SOLUTION DESIGN & ARCHITECTURE',
         description: 'We design automation solutions that combine appropriate technologies - RPA, AI, workflow tools - architected for reliability, maintainability, and scale.',
-        image: '/services/intelligent-automation/process-2.png'
+        image: '/services/intelligent_automation/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'DEVELOPMENT & TESTING',
         description: 'We develop automation solutions with comprehensive testing including edge cases and exception scenarios - ensuring reliable operation and appropriate error handling.',
-        image: '/services/intelligent-automation/process-1.png'
+        image: '/services/intelligent_automation/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & CONTINUOUS IMPROVEMENT',
         description: 'We deploy automation with monitoring and analytics, then continuously improve based on performance data - expanding automation scope and handling new scenarios as they emerge.',
-        image: '/services/intelligent-automation/process-2.png'
+        image: '/services/intelligent_automation/process-2.png'
       }
     ],
     
@@ -1104,7 +1104,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'custom-ai-models': {
     heroSubtitle: 'CUSTOM AI MODEL DEVELOPMENT FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/custom-ai-models/hero.jpg',
+    heroImage: '/services/custom_ai_models/hero.png',
     
     experienceTagline: 'BUILDING CUSTOM AI',
     experienceDescription: 'At Appify, we develop custom AI models tailored to your specific business challenges - from fine-tuned language models and domain-specific classifiers to proprietary algorithms that provide competitive advantage across Australia, UAE, and Qatar. We specialise in AI models that work with your unique data and requirements.',
@@ -1139,25 +1139,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'REQUIREMENTS & DATA ANALYSIS',
         description: 'We analyse your requirements and data to determine the best approach - custom development, fine-tuning, or adaptation of existing models based on your needs and data availability.',
-        image: '/services/custom-ai-models/process-1.png'
+        image: '/services/custom_ai_models/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'MODEL DESIGN & EXPERIMENTATION',
         description: 'We design model architectures and conduct experiments to identify optimal approaches - testing hypotheses and iterating on designs to achieve target performance.',
-        image: '/services/custom-ai-models/process-2.png'
+        image: '/services/custom_ai_models/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'TRAINING & OPTIMISATION',
         description: 'We train models using best practices for data preparation, training, and validation - optimising for accuracy, efficiency, and robustness through rigorous methodology.',
-        image: '/services/custom-ai-models/process-1.png'
+        image: '/services/custom_ai_models/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'EVALUATION & DEPLOYMENT',
         description: 'We evaluate models comprehensively, deploy with appropriate infrastructure, and establish processes for monitoring and updates - ensuring models deliver value in production.',
-        image: '/services/custom-ai-models/process-2.png'
+        image: '/services/custom_ai_models/process-2.png'
       }
     ],
     
@@ -1193,7 +1193,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'software-development': {
     heroSubtitle: 'CUSTOM SOFTWARE DEVELOPMENT FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/software-development/hero.jpg',
+    heroImage: '/services/software_development/hero.png',
     
     experienceTagline: 'DEVELOPING CUSTOM SOFTWARE',
     experienceDescription: 'At Appify, we develop custom software solutions that others find too complex to build reliably - from enterprise applications and backend systems to legacy modernisation and cloud-native development across Australia, UAE, and Qatar. We specialise in software that solves unique business challenges with maintainable, scalable code.',
@@ -1228,25 +1228,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'DISCOVERY & REQUIREMENTS',
         description: 'We work with stakeholders to understand business needs, define requirements, and establish success criteria - ensuring we build the right solution with clear scope and priorities.',
-        image: '/services/software-development/process-1.png'
+        image: '/services/software_development/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'ARCHITECTURE & DESIGN',
         description: 'We design software architecture that balances current needs with future flexibility - making technology choices that support maintainability, scalability, and team capabilities.',
-        image: '/services/software-development/process-2.png'
+        image: '/services/software_development/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'AGILE DEVELOPMENT & TESTING',
         description: 'We develop software iteratively with continuous testing and stakeholder feedback - delivering working software in sprints that allow for learning and adjustment.',
-        image: '/services/software-development/process-1.png'
+        image: '/services/software_development/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & SUPPORT',
         description: 'We deploy software with robust CI/CD pipelines and provide ongoing support - ensuring smooth launches and continuous improvement based on production feedback.',
-        image: '/services/software-development/process-2.png'
+        image: '/services/software_development/process-2.png'
       }
     ],
     
@@ -1282,7 +1282,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'web-applications': {
     heroSubtitle: 'CUSTOM WEB APPLICATION DEVELOPMENT FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/web-applications/hero.jpg',
+    heroImage: '/services/web_applications/hero.png',
     
     experienceTagline: 'BUILDING WEB APPS THAT PERFORM',
     experienceDescription: 'At Appify, we develop custom web applications that deliver desktop-level functionality through browsers - from progressive web apps and single page applications to enterprise portals and real-time systems across Australia, UAE, and Qatar. We specialise in web applications that are fast, accessible, and maintainable.',
@@ -1317,25 +1317,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'REQUIREMENTS & USER EXPERIENCE',
         description: 'We define requirements and design user experiences that meet business goals and user needs - creating wireframes and prototypes that validate concepts before development.',
-        image: '/services/web-applications/process-1.png'
+        image: '/services/web_applications/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'ARCHITECTURE & TECHNOLOGY',
         description: 'We design technical architecture and select technologies appropriate for your requirements - considering performance, scalability, team capabilities, and long-term maintainability.',
-        image: '/services/web-applications/process-2.png'
+        image: '/services/web_applications/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'DEVELOPMENT & TESTING',
         description: 'We develop iteratively with continuous testing across browsers and devices - ensuring responsive, accessible applications that work reliably for all users.',
-        image: '/services/web-applications/process-1.png'
+        image: '/services/web_applications/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'OPTIMISATION & DEPLOYMENT',
         description: 'We optimise performance, implement monitoring, and deploy with robust infrastructure - ensuring fast, reliable applications with visibility into real-world usage.',
-        image: '/services/web-applications/process-2.png'
+        image: '/services/web_applications/process-2.png'
       }
     ],
     
@@ -1371,7 +1371,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'app-development': {
     heroSubtitle: 'CUSTOM MOBILE APP DEVELOPMENT FOR IOS AND ANDROID ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/app-development/hero.jpg',
+    heroImage: '/services/app_development/hero.png',
     
     experienceTagline: 'BUILDING APPS USERS LOVE',
     experienceDescription: 'At Appify, we develop custom mobile applications that users love to use - from native iOS and Android apps to cross-platform solutions and enterprise mobile deployments across Australia, UAE, and Qatar. We specialise in mobile experiences that combine beautiful design with robust engineering.',
@@ -1406,25 +1406,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'DISCOVERY & UX STRATEGY',
         description: 'We research users, define requirements, and create UX strategies that guide app development - ensuring we build mobile experiences that meet real user needs and business goals.',
-        image: '/services/app-development/process-1.png'
+        image: '/services/app_development/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'DESIGN & PROTOTYPING',
         description: 'We design mobile interfaces following platform guidelines and best practices - creating interactive prototypes that validate concepts and align stakeholders before development.',
-        image: '/services/app-development/process-2.png'
+        image: '/services/app_development/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'AGILE APP DEVELOPMENT',
         description: 'We develop apps iteratively with regular builds and testing - maintaining quality through automated testing, code review, and continuous integration throughout development.',
-        image: '/services/app-development/process-1.png'
+        image: '/services/app_development/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'TESTING & APP STORE LAUNCH',
         description: 'We conduct comprehensive testing, manage app store submissions, and support launch activities - ensuring smooth releases and successful user adoption.',
-        image: '/services/app-development/process-2.png'
+        image: '/services/app_development/process-2.png'
       }
     ],
     
@@ -1460,7 +1460,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'erp-solutions': {
     heroSubtitle: 'CUSTOM ERP DEVELOPMENT AND IMPLEMENTATION FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/erp-solutions/hero.jpg',
+    heroImage: '/services/erp_solutions/hero.png',
     
     experienceTagline: 'UNIFIED BUSINESS MANAGEMENT',
     experienceDescription: 'At Appify, we develop custom ERP solutions that unify business operations - from financial management and supply chain to HR and operations across Australia, UAE, and Qatar. We specialise in ERP implementations that fit your processes rather than forcing you to adapt to rigid software.',
@@ -1495,25 +1495,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'PROCESS ANALYSIS & REQUIREMENTS',
         description: 'We analyse your business processes and define ERP requirements - understanding how you work today and designing systems that improve operations while fitting your organisation.',
-        image: '/services/erp-solutions/process-1.png'
+        image: '/services/erp_solutions/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'SYSTEM DESIGN & ARCHITECTURE',
         description: 'We design ERP architecture and module structure - planning data models, workflows, integrations, and user interfaces that support your operations.',
-        image: '/services/erp-solutions/process-2.png'
+        image: '/services/erp_solutions/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'PHASED IMPLEMENTATION',
         description: 'We implement ERP in phases that deliver value incrementally - reducing risk through manageable rollouts and allowing for learning and adjustment throughout the project.',
-        image: '/services/erp-solutions/process-1.png'
+        image: '/services/erp_solutions/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'TRAINING, GO-LIVE & SUPPORT',
         description: 'We provide comprehensive training, manage go-live activities, and offer ongoing support - ensuring successful adoption and continuous improvement of your ERP investment.',
-        image: '/services/erp-solutions/process-2.png'
+        image: '/services/erp_solutions/process-2.png'
       }
     ],
     
@@ -1549,7 +1549,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'system-integration': {
     heroSubtitle: 'ENTERPRISE SYSTEM INTEGRATION CONNECTING APPLICATIONS AND DATA ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/system-integration/hero.jpg',
+    heroImage: '/services/system_integration/hero.png',
     
     experienceTagline: 'CONNECTING YOUR SYSTEMS',
     experienceDescription: 'At Appify, we develop system integration solutions that connect disparate applications, databases, and services - from API development and enterprise service buses to data integration and legacy connectivity across Australia, UAE, and Qatar. We specialise in integration that creates unified, reliable data flows.',
@@ -1584,25 +1584,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'INTEGRATION ASSESSMENT & STRATEGY',
         description: 'We assess your systems landscape and integration requirements - mapping data flows, identifying pain points, and developing integration strategies aligned with business objectives.',
-        image: '/services/system-integration/process-1.png'
+        image: '/services/system_integration/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'ARCHITECTURE & DESIGN',
         description: 'We design integration architecture including patterns, technologies, and governance - creating blueprints for reliable, maintainable integration that scales with your needs.',
-        image: '/services/system-integration/process-2.png'
+        image: '/services/system_integration/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'DEVELOPMENT & TESTING',
         description: 'We develop integration solutions with comprehensive testing - validating data accuracy, error handling, and performance under realistic conditions.',
-        image: '/services/system-integration/process-1.png'
+        image: '/services/system_integration/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'DEPLOYMENT & MONITORING',
         description: 'We deploy integrations with monitoring and alerting - ensuring reliable operation with visibility into data flows and rapid response to issues.',
-        image: '/services/system-integration/process-2.png'
+        image: '/services/system_integration/process-2.png'
       }
     ],
     
@@ -1638,7 +1638,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'ui-ux-design': {
     heroSubtitle: 'A TEAM OF EXPERIENCED INVENTORS & DREAMERS WITH A WIDE RANGE OF SKILLS AND KNOWLEDGE',
-    heroImage: '/services/ui-ux-design/hero.jpg',
+    heroImage: '/services/ui_ux_design/hero.png',
     
     experienceTagline: 'CREATING THE EXPERIENCE',
     experienceDescription: 'At Appify, we take on custom UI/UX design projects that others find too complex, too challenging, or simply impossible. From crafting intuitive interfaces and seamless user journeys to designing scalable design systems for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in designs that drive engagement and deliver measurable business results.',
@@ -1673,25 +1673,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'DISCOVERY AND WEBSITE PLANNING',
         description: 'We begin with deep discovery sessions to understand your business, users, and goals. Through stakeholder interviews and competitive analysis, we define the strategy that will guide every design decision.',
-        image: '/services/ui-ux-design/process-1.png'
+        image: '/services/ui_ux_design/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'UX DESIGN & WIREFRAMING',
         description: 'We map user journeys and create wireframes that structure content and functionality. Low-fidelity prototypes let us test and refine the experience before investing in visual design.',
-        image: '/services/ui-ux-design/process-2.png'
+        image: '/services/ui_ux_design/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'VISUAL DESIGN & UI DEVELOPMENT',
         description: 'We craft pixel-perfect visual designs that bring your brand to life - typography, colour, imagery, and interaction patterns that create memorable, on-brand experiences.',
-        image: '/services/ui-ux-design/process-1.png'
+        image: '/services/ui_ux_design/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'TESTING, LAUNCH & ITERATION',
         description: 'We test with real users, refine based on feedback, and support you through launch. Post-launch analytics and ongoing optimisation ensure your design continues to perform.',
-        image: '/services/ui-ux-design/process-2.png'
+        image: '/services/ui_ux_design/process-2.png'
       }
     ],
     
@@ -1727,7 +1727,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'product-design': {
     heroSubtitle: 'END-TO-END PRODUCT DESIGN FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/product-design/hero.jpg',
+    heroImage: '/services/product_design/hero.png',
     
     experienceTagline: 'DESIGNING PRODUCTS',
     experienceDescription: 'At Appify, we design digital products from concept to launch that others find too ambitious - from MVP definition and product strategy to full-scale product design for forward-thinking startups and enterprises across Australia, UAE, and Qatar. We specialise in product design that balances user needs, business goals, and technical feasibility.',
@@ -1762,25 +1762,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'PRODUCT DISCOVERY & STRATEGY',
         description: 'We immerse ourselves in your market, users, and business objectives to define product strategy. Research, workshops, and analysis that establish the foundation for successful product design.',
-        image: '/services/product-design/process-1.png'
+        image: '/services/product_design/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'CONCEPT DEVELOPMENT & VALIDATION',
         description: 'We explore concepts, create prototypes, and test with users to validate direction. Rapid iteration that refines ideas and reduces risk before committing to full design.',
-        image: '/services/product-design/process-2.png'
+        image: '/services/product_design/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'DETAILED DESIGN & SPECIFICATION',
         description: 'We create comprehensive design deliverables - detailed UI designs, interaction specifications, and design systems that enable efficient development and consistent implementation.',
-        image: '/services/product-design/process-1.png'
+        image: '/services/product_design/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'DESIGN SUPPORT & ITERATION',
         description: 'We support development with design QA and iteration - ensuring designs are implemented correctly and evolving based on user feedback and analytics.',
-        image: '/services/product-design/process-2.png'
+        image: '/services/product_design/process-2.png'
       }
     ],
     
@@ -1816,7 +1816,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'user-research': {
     heroSubtitle: 'USER RESEARCH & TESTING FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/user-research/hero.jpg',
+    heroImage: '/services/user_research/hero.png',
     
     experienceTagline: 'UNDERSTANDING YOUR USERS',
     experienceDescription: 'At Appify, we conduct user research that uncovers insights others miss - from discovery research and usability testing to analytics analysis and continuous feedback loops for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in research that drives design decisions and improves business outcomes.',
@@ -1851,25 +1851,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'RESEARCH PLANNING & OBJECTIVES',
         description: 'We define research objectives, identify target users, and plan methodologies that will answer your questions. Strategic research design that ensures insights are actionable and relevant.',
-        image: '/services/user-research/process-1.png'
+        image: '/services/user_research/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'PARTICIPANT RECRUITMENT & FIELDWORK',
         description: 'We recruit representative participants and conduct research sessions - interviews, tests, and observations that gather rich qualitative and quantitative data.',
-        image: '/services/user-research/process-2.png'
+        image: '/services/user_research/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'ANALYSIS & SYNTHESIS',
         description: 'We analyse research data to identify patterns, insights, and opportunities - synthesising findings into clear themes and actionable recommendations.',
-        image: '/services/user-research/process-1.png'
+        image: '/services/user_research/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'REPORTING & ACTIVATION',
         description: 'We present findings in compelling formats that drive action - reports, workshops, and artefacts that ensure insights influence design and business decisions.',
-        image: '/services/user-research/process-2.png'
+        image: '/services/user_research/process-2.png'
       }
     ],
     
@@ -1905,7 +1905,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'design-systems': {
     heroSubtitle: 'SCALABLE DESIGN SYSTEMS FOR ENTERPRISES ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/design-systems/hero.jpg',
+    heroImage: '/services/design_systems/hero.png',
     
     experienceTagline: 'SYSTEMATISING DESIGN',
     experienceDescription: 'At Appify, we build design systems that scale with your organisation - from component libraries and design tokens to documentation and governance frameworks for forward-thinking enterprises across Australia, UAE, and Qatar. We specialise in design systems that improve consistency, speed, and design quality.',
@@ -1940,25 +1940,25 @@ export const servicePageContent: Record<string, ServicePageContent> = {
         stepNumber: '01',
         title: 'AUDIT & STRATEGY DEVELOPMENT',
         description: 'We audit existing design assets and patterns, understand organisational needs, and develop design system strategy - defining scope, priorities, and success metrics.',
-        image: '/services/design-systems/process-1.png'
+        image: '/services/design_systems/process-1.png'
       },
       {
         stepNumber: '02',
         title: 'FOUNDATION & TOKEN DEFINITION',
         description: 'We establish design foundations - colour systems, typography scales, spacing systems, and design tokens that form the building blocks of your component library.',
-        image: '/services/design-systems/process-2.png'
+        image: '/services/design_systems/process-2.png'
       },
       {
         stepNumber: '03',
         title: 'COMPONENT DESIGN & DEVELOPMENT',
         description: 'We design and build components - from simple atoms to complex organisms. Each component is designed for flexibility, documented thoroughly, and tested for accessibility.',
-        image: '/services/design-systems/process-1.png'
+        image: '/services/design_systems/process-1.png'
       },
       {
         stepNumber: '04',
         title: 'DOCUMENTATION & ROLLOUT',
         description: 'We create comprehensive documentation, establish governance processes, and support rollout across teams - ensuring adoption and ongoing success of your design system.',
-        image: '/services/design-systems/process-2.png'
+        image: '/services/design_systems/process-2.png'
       }
     ],
     
@@ -1994,7 +1994,7 @@ export const servicePageContent: Record<string, ServicePageContent> = {
 
   'prototyping': {
     heroSubtitle: 'INTERACTIVE PROTOTYPING FOR DIGITAL PRODUCTS ACROSS AUSTRALIA, UAE & QATAR',
-    heroImage: '/services/prototyping/hero.jpg',
+    heroImage: '/services/prototyping/hero.png',
     
     experienceTagline: 'BRINGING IDEAS TO LIFE',
     experienceDescription: 'At Appify, we create interactive prototypes that bring concepts to life before development - from quick concept validation and user testing prototypes to high-fidelity demos for stakeholder buy-in across Australia, UAE, and Qatar. We specialise in prototypes that reduce risk and accelerate decision-making.',

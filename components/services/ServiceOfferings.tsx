@@ -83,7 +83,7 @@ const OfferingCard: React.FC<{
       }}
     >
       <div
-        className="bg-[rgba(197,196,207,0.25)] rounded-[20px] lg:rounded-[24px] p-6 lg:p-8 relative overflow-hidden w-full lg:w-[340px] h-auto lg:h-[480px] flex flex-col"
+        className="bg-[rgba(197,196,207,0.25)] rounded-[20px] lg:rounded-[24px] p-6 lg:p-8 relative overflow-hidden w-full lg:w-[310px] h-auto lg:h-[480px] flex flex-col"
         style={{ marginTop: `${marginTop}px` }}
       >
         {/* Decorative dots */}
@@ -148,7 +148,7 @@ export default function ServiceOfferings({ subtitle, offerings }: ServiceOfferin
   }, []);
 
   return (
-    <section className="w-full px-4 lg:px-20 py-16 lg:py-24 relative overflow-visible">
+    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 py-10 sm:py-12 lg:py-24 relative overflow-visible">
       {/* Decorative curved line (SVG) - desktop only */}
       <svg
         className="absolute top-0 left-0 w-full h-full pointer-events-none hidden lg:block"
@@ -168,7 +168,7 @@ export default function ServiceOfferings({ subtitle, offerings }: ServiceOfferin
       </svg>
 
       {/* Title section */}
-      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-20 mb-10 lg:mb-16">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 sm:gap-6 lg:gap-20 mb-6 sm:mb-8 lg:mb-16">
         <h2
           ref={titleRef}
           className="font-Aeonik text-[clamp(3rem,10vw,8rem)] leading-[0.95] tracking-[-0.02em] opacity-0 translate-y-8 transition-all duration-700 ease-out italic"
@@ -178,21 +178,21 @@ export default function ServiceOfferings({ subtitle, offerings }: ServiceOfferin
 
         <p
           ref={subtitleRef}
-          className="font-Aeonik text-xs lg:text-sm uppercase tracking-[0.02em] max-w-[340px] opacity-0 translate-y-8 transition-all duration-700 ease-out delay-150 lg:mt-8 leading-[1.5]"
+          className="font-Aeonik text-xs lg:text-sm uppercase tracking-[0.02em] max-w-[340px] opacity-0 translate-y-8 transition-all duration-700 ease-out delay-150 lg:mt-[64px] leading-[1.5]"
         >
           {subtitle}
         </p>
       </div>
 
       {/* Offerings cards - diagonal layout on desktop */}
-      <div className="flex flex-col lg:flex-row gap-4 lg:gap-5 lg:pl-4 overflow-x-auto lg:overflow-visible pb-4">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-5 overflow-x-auto lg:overflow-visible pb-4">
         {offerings.map((offering, index) => (
           <OfferingCard key={index} offering={offering} index={index} isMobile={isMobile} />
         ))}
       </div>
 
       {/* Scroll indicator */}
-      <div className="flex items-center justify-end gap-3 mt-10 lg:mt-16">
+      <div className="flex items-center justify-end gap-3 mt-8 sm:mt-10 lg:mt-16">
         <span className="font-Aeonik text-sm uppercase tracking-wide">
           Scroll to Explore
         </span>

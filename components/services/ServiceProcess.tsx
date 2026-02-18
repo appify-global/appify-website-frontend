@@ -31,7 +31,7 @@ const PlusIcon: React.FC<{ className?: string }> = ({ className }) => (
 // Progress bar component
 const ProgressBar: React.FC = () => (
   <div className="flex items-center gap-2">
-    <div className="h-[3px] w-[236px] bg-[rgba(52,57,63,0.4)] relative">
+    <div className="h-[3px] w-[160px] lg:w-[236px] bg-[rgba(52,57,63,0.4)] relative">
       <div className="absolute h-full w-[15%] bg-[#ff009e]" />
     </div>
   </div>
@@ -102,7 +102,7 @@ const ProcessStepCard: React.FC<{
         </h3>
 
         {/* Description */}
-        <p className="font-Aeonik text-sm lg:text-base leading-[1.6] max-w-[500px] text-black/80">
+        <p className="font-Aeonik text-sm lg:text-base leading-[1.6] max-w-[320px] text-black/80">
           {step.description}
         </p>
       </div>
@@ -136,7 +136,7 @@ export default function ServiceProcess({ subtitle, steps }: ServiceProcessProps)
   }, []);
 
   return (
-    <section className="w-full px-4 lg:px-20 py-16 lg:py-24 relative">
+    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 py-10 sm:py-12 lg:py-24 relative">
       {/* Decorative curved line */}
       <svg
         className="absolute top-0 right-0 w-full h-[60%] pointer-events-none hidden lg:block"
@@ -156,10 +156,10 @@ export default function ServiceProcess({ subtitle, steps }: ServiceProcessProps)
       </svg>
 
       {/* Title section */}
-      <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-20 mb-10 lg:mb-16">
+      <div className="flex flex-col gap-6 sm:gap-8 lg:gap-[100px] mb-6 sm:mb-8 lg:mb-16">
         <div
           ref={titleRef}
-          className="opacity-0 translate-y-8 transition-all duration-700 ease-out"
+          className="flex flex-col gap-2 sm:gap-3 lg:gap-4 opacity-0 translate-y-8 transition-all duration-700 ease-out"
         >
           <h2 className="font-Aeonik text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] tracking-[-0.02em]">
             <span className="block">OUR</span>
@@ -169,10 +169,10 @@ export default function ServiceProcess({ subtitle, steps }: ServiceProcessProps)
           </h2>
         </div>
 
-        <div className="flex flex-col gap-4 lg:items-end lg:text-right">
+        <div className="flex flex-wrap items-end gap-6 lg:gap-10">
           <p
             ref={subtitleRef}
-            className="font-Aeonik text-xs lg:text-sm tracking-[0.01em] max-w-[340px] opacity-0 translate-y-8 transition-all duration-700 ease-out delay-150 leading-[1.5]"
+            className="font-Aeonik text-xs lg:text-sm tracking-[0.01em] max-w-[270px] opacity-0 translate-y-8 transition-all duration-700 ease-out delay-150 leading-[1.5]"
           >
             {subtitle}
           </p>
@@ -180,7 +180,7 @@ export default function ServiceProcess({ subtitle, steps }: ServiceProcessProps)
           {/* Get in touch button */}
           <Link
             href="/#contact"
-            className="inline-flex items-center gap-3 bg-white rounded-full px-5 py-3 w-fit hover:bg-[#E4E6EF] transition-colors"
+            className="inline-flex items-center gap-3 bg-white rounded-full px-5 py-3 w-fit hover:bg-[#E4E6EF] transition-colors translate-y-[18px]"
           >
             <span className="w-[10px] h-[10px] rounded-full bg-[#ff009e]" />
             <span className="font-Aeonik text-sm tracking-[-0.05em] uppercase">
@@ -196,14 +196,14 @@ export default function ServiceProcess({ subtitle, steps }: ServiceProcessProps)
       </div>
 
       {/* Process steps */}
-      <div className="flex flex-col gap-12 lg:gap-24">
+      <div className="flex flex-col gap-8 sm:gap-10 lg:gap-24">
         {steps.map((step, index) => (
           <ProcessStepCard key={index} step={step} index={index} />
         ))}
       </div>
 
       {/* Decorative line with plus icons */}
-      <div className="flex items-center justify-between w-full mt-12 lg:mt-20">
+      <div className="flex items-center justify-between w-full mt-8 sm:mt-10 lg:mt-20">
         <PlusIcon className="text-black w-5 h-5" />
         <PlusIcon className="hidden lg:block text-black w-5 h-5" />
         <PlusIcon className="hidden lg:block text-black w-5 h-5" />

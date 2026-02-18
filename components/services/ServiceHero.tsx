@@ -47,34 +47,13 @@ const BackArrowIcon: React.FC = () => (
 
 export default function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
   return (
-    <section className="w-full px-4 lg:px-20 pt-12 sm:pt-16 lg:pt-24 pb-8 lg:pb-16">
-      {/* Back Navigation - mobile/tablet: pill arrow only */}
-      <div className="mb-6 lg:hidden">
-        <Link
-          href="/services"
-          className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#E4E6EF] hover:bg-[#d5d7e3] transition-colors"
-        >
-          <BackArrowIcon />
-        </Link>
-      </div>
-
-      {/* Back Navigation - desktop: arrow + text */}
-      <div className="hidden lg:block mb-12">
-        <Link
-          href="/services"
-          className="inline-flex items-center gap-2 text-sm font-AeonikMedium text-[#2B2E3A] hover:text-[#ff009e] transition-colors uppercase tracking-wide"
-        >
-          <BackArrowIcon />
-          <span>Back</span>
-        </Link>
-      </div>
-
+    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 pt-12 sm:pt-16 lg:pt-24 pb-6 sm:pb-8 lg:pb-16">
       {/* Main content */}
-      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-16">
+      <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-8 lg:gap-16">
         {/* Left side - Title and CTA */}
-        <div className="flex flex-col gap-6 lg:gap-8 lg:w-1/2">
+        <div className="flex flex-col gap-6 sm:gap-8 lg:gap-10 lg:w-1/2">
           {/* Title */}
-          <h1 className="font-Aeonik text-[clamp(3rem,8vw,7rem)] leading-[0.95] tracking-[-0.02em]">
+          <h1 className="font-Aeonik text-[clamp(3rem,8vw,5.5rem)] leading-[0.95] tracking-[-0.02em]">
             {title}
           </h1>
           
@@ -105,19 +84,6 @@ export default function ServiceHero({ title, subtitle, heroImage }: ServiceHeroP
             />
           </div>
         </div>
-      </div>
-      
-      {/* Scroll to explore indicator */}
-      <div className="w-full flex items-center justify-center lg:justify-between mt-12 lg:mt-20">
-        <PlusIcon className="hidden lg:block text-black w-5 h-5" />
-        <div className="flex items-center gap-4">
-          <PlusIcon className="text-black w-5 h-5" />
-          <span className="font-Aeonik text-sm lg:text-base uppercase tracking-wide">
-            Scroll to Explore
-          </span>
-          <PlusIcon className="text-black w-5 h-5" />
-        </div>
-        <PlusIcon className="hidden lg:block text-black w-5 h-5" />
       </div>
     </section>
   );

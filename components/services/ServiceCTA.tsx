@@ -147,9 +147,9 @@ export default function ServiceCTA() {
   }, []);
 
   return (
-    <section className="w-full bg-[#F0F1FA] py-14 lg:py-20 relative overflow-hidden">
+    <section className="w-full bg-[#F0F1FA] pt-16 pb-20 sm:pt-20 sm:pb-24 lg:pt-28 lg:pb-72 relative overflow-hidden">
       {/* Decorative plus icons at corners */}
-      <div className="absolute top-6 left-4 lg:left-20">
+      <div className="absolute top-6 left-[4vw] sm:left-[6vw] lg:left-20">
         <PlusIcon className="text-black w-5 h-5" />
       </div>
 
@@ -199,7 +199,7 @@ export default function ServiceCTA() {
         </div>
       </div>
 
-      <div className="px-4 lg:px-20 relative z-10 text-center">
+      <div className="px-[4vw] sm:px-[6vw] lg:px-20 relative z-10 text-center">
         {/* Subtitle */}
         <p
           ref={subtitleRef}
@@ -211,7 +211,7 @@ export default function ServiceCTA() {
         {/* Main title */}
         <h2
           ref={titleRef}
-          className="font-Aeonik text-[clamp(2.5rem,10vw,7rem)] leading-[1.05] tracking-[-0.02em] mb-10 lg:mb-16 opacity-0 translate-y-8 transition-all duration-700 ease-out delay-150"
+          className="font-Aeonik text-[clamp(2.5rem,10vw,7rem)] leading-[1.05] tracking-[-0.02em] mb-6 sm:mb-8 lg:mb-16 opacity-0 translate-y-8 transition-all duration-700 ease-out delay-150"
         >
           Let&apos;s work<br />together!
         </h2>

@@ -21,7 +21,7 @@ interface ServicePageTemplateProps {
  */
 export default function ServicePageTemplate({ service, content }: ServicePageTemplateProps) {
   return (
-    <PageLayout navbarPadding="pb-[4vw]">
+    <PageLayout navbarPadding="pb-[4vw]" showBackButton backHref="/services">
       <ServiceHero
         title={service.name}
         subtitle={content.heroSubtitle}
