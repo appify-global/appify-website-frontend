@@ -133,13 +133,13 @@ const CategorySection = ({ category, index }: CategorySectionProps) => {
   return (
     <section 
       ref={sectionRef}
-      className="category-section w-full pt-8 sm:pt-10 lg:pt-16"
+      className="category-section w-full pt-6 sm:pt-8 lg:pt-16"
     >
       {/* Plus icon separator at top */}
       <PlusIconRow />
 
       {/* Main content grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 mt-12 lg:mt-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 mt-6 sm:mt-8 lg:mt-16">
         {/* Left column - Image and title */}
         <div className="flex flex-col">
           {/* Ruler (top) */}
@@ -194,7 +194,7 @@ const CategorySection = ({ category, index }: CategorySectionProps) => {
             </p>
 
             {/* Service links */}
-            <div className="flex flex-col gap-2 lg:gap-3">
+            <div className="flex flex-col gap-0 sm:gap-1 lg:gap-3">
               {category.services.map((service) => (
                 <ServiceLink key={service.id} service={service} />
               ))}

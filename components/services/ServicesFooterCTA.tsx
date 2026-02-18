@@ -94,13 +94,13 @@ const ServicesFooterCTA = () => {
   return (
     <section 
       ref={sectionRef}
-      className="footer-cta relative w-full py-12 lg:py-24"
+      className="footer-cta relative w-full py-8 sm:py-10 lg:py-24"
     >
       {/* Plus icon separator */}
       <PlusIconRow />
 
       {/* Company logos background */}
-      <div className="relative mt-8">
+      <div className="relative mt-6 sm:mt-8">
         <CompanyLogos />
         
         {/* Centered CTA content */}
@@ -122,7 +122,7 @@ const ServicesFooterCTA = () => {
       <PlusIconRow />
 
       {/* CTA button */}
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center mt-6 sm:mt-8">
         <DotButton
           text="CONTINUE TO SCROLL"
           variant="white"

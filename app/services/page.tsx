@@ -18,7 +18,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Service Categories */}
-      <section id="service-categories" className="w-full px-[4vw] sm:px-[6vw] lg:px-[5vw] mt-8 sm:mt-10 lg:mt-16">
+      <section id="service-categories" className="w-full px-[4vw] sm:px-[6vw] lg:px-[5vw] mt-10 sm:mt-12 lg:mt-16">
         {orderedCategories.map((category, index) => (
           <CategorySection
             key={category.id}
@@ -29,7 +29,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Let's Work Together CTA */}
-      <section id="services-cta" className="w-full px-[4vw] sm:px-[6vw] lg:px-[5vw] mt-12 sm:mt-16 lg:mt-24">
+      <section id="services-cta" className="w-full px-[4vw] sm:px-[6vw] lg:px-[5vw] mt-10 sm:mt-12 lg:mt-24">
         <ServicesFooterCTA />
       </section>
 

@@ -74,14 +74,14 @@ const ServicesHero = () => {
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initial fade-in from below (replaces CSS transform for line-2)
+    // Skip all animations on mobile/tablet
+    if (window.innerWidth < 1024) return;
+
+    // Initial fade-in from below (desktop only)
     gsap.fromTo(el,
-      { y: window.innerWidth < 768 ? 20 : 40 },
+      { y: 40 },
       { y: 0, duration: 0.8, ease: "power2.out", delay: 0.3 }
     );
-
-    // Skip scroll animation on non-desktop
-    if (window.innerWidth < 1024) return;
 
     // Scroll-linked horizontal move: starts immediately on any scroll
     const targetX = window.innerWidth * 0.35;
@@ -117,10 +117,10 @@ const ServicesHero = () => {
   }, []);
 
   return (
-    <section className="relative w-full px-[4vw] sm:px-[6vw] lg:px-[5vw] pt-12 sm:pt-14 lg:pt-[180px]">
+    <section className="relative w-full px-[4vw] sm:px-[6vw] lg:px-[5vw] pt-20 sm:pt-24 lg:pt-[180px]">
       <div ref={titleRef} className="services-hero">
-        {/* Subtitle - above the main title */}
-        <div className="mb-6 lg:mb-10 max-w-[320px] lg:max-w-[300px]">
+        {/* Subtitle - above the main title (desktop only) */}
+        <div className="hidden lg:block mb-6 lg:mb-10 max-w-[320px] lg:max-w-[300px]">
           <p className="font-Aeonik text-[clamp(0.75rem,1.2vw,0.9rem)] leading-relaxed text-[#666] uppercase tracking-wide">
             A TEAM OF EXPERIENCED INVENTORS &amp; DREAMERS WITH A WIDE RANGE OF SKILLS AND KNOWLEDGE
           </p>
@@ -136,6 +136,13 @@ const ServicesHero = () => {
             </h1>
           </div>
 
+          {/* Subtitle - below title, above icons (mobile/tablet only) */}
+          <div className="lg:hidden max-w-[320px]">
+            <p className="font-Aeonik text-[clamp(0.75rem,1.2vw,0.9rem)] leading-relaxed text-[#666] uppercase tracking-wide">
+              A TEAM OF EXPERIENCED INVENTORS &amp; DREAMERS WITH A WIDE RANGE OF SKILLS AND KNOWLEDGE
+            </p>
+          </div>
+
           {/* Right side - Category letters */}
           <div className="flex lg:flex-col items-center lg:items-end gap-4 lg:mt-[4.5vw]">
             <CategoryLetters />
@@ -143,7 +150,7 @@ const ServicesHero = () => {
         </div>
 
         {/* Scroll indicator */}
-        <div className="mt-12 lg:mt-16 w-full flex items-center justify-between font-medium uppercase text-sm lg:text-base font-Aeonik">
+        <div className="mt-8 sm:mt-10 lg:mt-16 w-full flex items-center justify-between font-medium uppercase text-sm lg:text-base font-Aeonik">
           <PlusIcon />
           <PlusIcon className="hidden lg:inline-block" />
           <div className="mx-2 lg:mx-4">Scroll to Explore</div>
@@ -153,13 +160,13 @@ const ServicesHero = () => {
       </div>
 
       {/* Cards + Description row */}
-      <div className="mt-16 lg:mt-28 flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-12">
+      <div className="mt-10 sm:mt-12 lg:mt-28 flex flex-col-reverse lg:flex-row lg:items-start gap-8 lg:gap-12">
         {/* Left - Card stack */}
-        <div className="relative w-full lg:w-1/2 h-[250px] sm:h-[300px] lg:h-[400px] flex-shrink-0 overflow-visible">
+        <div className="relative w-full lg:w-1/2 h-[300px] sm:h-[350px] lg:h-[400px] flex-shrink-0 overflow-visible">
           {[0, 1, 2, 3].map((i) => (
             <div
               key={i}
-              className="absolute top-1/2 left-1/3 lg:left-[40%] w-[110px] sm:w-[130px] lg:w-[180px] h-[148px] sm:h-[175px] lg:h-[240px]"
+              className="absolute top-1/2 left-1/2 lg:left-[40%] w-[140px] sm:w-[160px] lg:w-[180px] h-[188px] sm:h-[215px] lg:h-[240px]"
               style={{
                 transform: `translate(-50%, -50%) translateX(${(i - 1.5) * 35}%) rotate(${(i - 1.5) * 6}deg)`,
                 zIndex: i === 1 || i === 2 ? 10 : 5,
