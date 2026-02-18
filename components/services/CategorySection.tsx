@@ -42,8 +42,8 @@ const ProgressBar = ({ progress = 0.8 }: { progress?: number }) => (
 const CategoryIcon = ({ categoryId }: { categoryId: ServiceCategory }) => {
   const iconPaths: Record<ServiceCategory, ReactElement> = {
     strategy: (
-      <svg viewBox="0 0 132 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <path d="M0 0H132V35H66V70H132V105H66V140H132V175H0V140H66V105H0V70H66V35H0V0Z" fill="#2B2E3A"/>
+      <svg viewBox="0 0 133 175" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <path d="M128.29 174.941H0V132.178H38.876V85.5264H128.29V174.941ZM132.178 38.876H38.876V85.5264H0V0H132.178V38.876Z" fill="#2B2E3A"/>
       </svg>
     ),
     creative: (
