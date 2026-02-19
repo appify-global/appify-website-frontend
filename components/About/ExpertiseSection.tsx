@@ -100,8 +100,8 @@ const ExpertiseCard = ({
     // Scroll-triggered rotation animation - straighten cards as user scrolls
     const rotationTrigger = ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: "top center",
-      end: "bottom center",
+      start: "top 80%",
+      end: "center center",
       scrub: 1,
       onUpdate: (self) => {
         const progress = self.progress;
