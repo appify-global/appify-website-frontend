@@ -40,10 +40,10 @@ export default function AboutPage() {
         <ClientsSection />
       </section>
 
-      {/* Awards Section */}
-      <section id="awards" className="w-full">
+      {/* Awards Section - Hidden for now */}
+      {/* <section id="awards" className="w-full">
         <AwardsSection />
-      </section>
+      </section> */}
 
       {/* Expertise Section */}
       <section id="expertise" className="w-full">
