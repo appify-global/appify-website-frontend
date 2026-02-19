@@ -148,8 +148,8 @@ const ExpertiseCard = ({
         {/* Top Section */}
         <div className="w-full flex justify-between items-center">
           <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{data.title}</h2>
-          <div className="w-5 h-5 xl:w-7 xl:h-7 flex items-center justify-center">
-            <Image src={data.icon} width={28} height={28} alt={data.title} className="w-full" />
+          <div className={`flex items-center justify-center ${data.title === "DEVELOPMENT" ? "w-6 h-6 xl:w-8 xl:h-8" : "w-5 h-5 xl:w-7 xl:h-7"}`}>
+            <Image src={data.icon} width={28} height={28} alt={data.title} className="w-full h-full" />
           </div>
         </div>
 
@@ -165,8 +165,8 @@ const ExpertiseCard = ({
 
         {/* Bottom Section */}
         <div className="w-full flex justify-between items-center rotate-180">
-          <div className="w-5 h-5 xl:w-7 xl:h-7 flex items-center justify-center">
-            <Image src={data.icon} width={28} height={28} alt={data.title} className="w-full" />
+          <div className={`flex items-center justify-center ${data.title === "DEVELOPMENT" ? "w-6 h-6 xl:w-8 xl:h-8" : "w-5 h-5 xl:w-7 xl:h-7"}`}>
+            <Image src={data.icon} width={28} height={28} alt={data.title} className="w-full h-full" />
           </div>
           <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{data.title}</h2>
         </div>
@@ -242,9 +242,9 @@ const ExpertiseSection = () => {
               {expertiseData.map((item, idx) => (
                 <div
                   key={idx}
-                  className="w-[35px] h-[49px] lg:w-[35px] lg:h-[55px] flex items-center justify-center"
+                  className={`flex items-center justify-center ${item.title === "DEVELOPMENT" ? "w-[40px] h-[55px] lg:w-[40px] lg:h-[60px]" : "w-[35px] h-[49px] lg:w-[35px] lg:h-[55px]"}`}
                 >
-                  <Image src={item.icon} width={35} height={49} alt={item.title} />
+                  <Image src={item.icon} width={35} height={49} alt={item.title} className="w-full h-full" />
                 </div>
               ))}
             </div>
@@ -274,7 +274,13 @@ const ExpertiseSection = () => {
                 <div className="p-6 md:p-8 flex flex-col justify-between gap-5 md:gap-6 md:min-h-[350px]">
                   <div className="flex justify-between items-center">
                     <h2 className="text-2xl md:text-3xl font-Aeonik">{item.title}</h2>
-                    <Image src={item.icon} width={28} height={28} alt={item.title} className="w-6 h-6 md:w-7 md:h-7" />
+                    <Image 
+                      src={item.icon} 
+                      width={28} 
+                      height={28} 
+                      alt={item.title} 
+                      className={item.title === "DEVELOPMENT" ? "w-7 h-7 md:w-8 md:h-8" : "w-6 h-6 md:w-7 md:h-7"} 
+                    />
                   </div>
 
                   <div className="flex flex-col gap-1.5 md:gap-2">
@@ -288,7 +294,13 @@ const ExpertiseSection = () => {
 
                   <div className="flex justify-between items-center rotate-180">
                     <h2 className="text-2xl md:text-3xl font-Aeonik">{item.title}</h2>
-                    <Image src={item.icon} width={28} height={28} alt={item.title} className="w-6 h-6 md:w-7 md:h-7" />
+                    <Image 
+                      src={item.icon} 
+                      width={28} 
+                      height={28} 
+                      alt={item.title} 
+                      className={item.title === "DEVELOPMENT" ? "w-7 h-7 md:w-8 md:h-8" : "w-6 h-6 md:w-7 md:h-7"} 
+                    />
                   </div>
                 </div>
               </div>
