@@ -108,25 +108,16 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-black text-white py-28 sm:py-36 lg:py-56 relative"
+      className="w-full bg-black text-white py-12 sm:py-16 lg:py-20 relative"
     >
-      <div className="px-4 lg:px-20">
+      <div className="px-[4vw]">
         {/* Container with top row and heading aligned at bottom */}
-        <div className="flex items-end justify-between mb-12 sm:mb-16 lg:mb-24">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
           {/* Left side: Keep scrolling + Service name */}
           <div className="flex flex-col items-start">
             {/* Keep scrolling label */}
-            <p className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60 mb-0">
-              {showAboutUs ? (
-                <>
-                  Keep Scrolling
-                  <br className="lg:hidden" />
-                  <span className="hidden lg:inline"> </span>
-                  To Learn More
-                </>
-              ) : (
-                "Keep Scrolling"
-              )}
+            <p className="text-xs sm:text-sm lg:text-xl text-gray-400 mb-4 sm:mb-6 tracking-wide">
+              {showAboutUs ? "KEEP SCROLLING TO LEARN MORE" : "KEEP SCROLLING TO LEARN MORE"}
             </p>
 
             {/* Title - Next service or ABOUT US */}
@@ -137,7 +128,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
               >
                 <h2
                   ref={titleRef}
-                  className={`font-Aeonik text-[clamp(2rem,5vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
+                  className={`text-2xl sm:text-3xl md:text-4xl font-light transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
                 >
@@ -151,7 +142,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
               >
                 <h2
                   ref={titleRef}
-                  className={`font-Aeonik text-[clamp(2rem,5vw,4rem)] leading-[1.1] tracking-[0.02em] uppercase transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
+                  className={`text-2xl sm:text-3xl md:text-4xl font-light transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
                 >
@@ -162,9 +153,9 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           </div>
 
           {/* Right side: Next service/page indicator */}
-          <div className="flex items-end gap-3">
-            <span className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60">
-              {showAboutUs ? "Next Page" : "Next Service"}
+          <div className="flex items-center gap-3">
+            <span className="text-sm sm:text-base lg:text-xl">
+              {showAboutUs ? "NEXT PAGE" : "NEXT SERVICE"}
             </span>
             
             {/* Progress bar */}
@@ -178,12 +169,11 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
         </div>
 
         {/* Bottom row: Plus icons */}
-        <div className="flex items-center justify-between">
-          <PlusIcon className="text-white w-4 h-4 lg:w-5 lg:h-5" />
-          <PlusIcon className="hidden lg:block text-white w-5 h-5" />
-          <PlusIcon className="hidden lg:block text-white w-5 h-5" />
-          <PlusIcon className="hidden lg:block text-white w-5 h-5" />
-          <PlusIcon className="text-white w-4 h-4 lg:w-5 lg:h-5" />
+        <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 text-center text-sm sm:text-base lg:text-lg opacity-90">
+          <span>+</span>
+          <span>+</span>
+          <span>+</span>
+          <span>+</span>
         </div>
       </div>
     </section>
