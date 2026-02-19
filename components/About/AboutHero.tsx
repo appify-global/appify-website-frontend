@@ -43,8 +43,14 @@ const AboutHero = () => {
   return (
     <div
       ref={heroRef}
-      className="relative w-full min-h-[70vh] sm:min-h-[80vh] lg:min-h-[877px] overflow-hidden"
+      className="relative w-full min-h-[70vh] sm:min-h-[80vh] lg:min-h-[877px] overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: 'url(/team_bg.png)',
+      }}
     >
+      {/* Opacity overlay to reduce background image visibility to 30% */}
+      <div className="absolute inset-0 bg-black/70 z-0" />
+      
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80 z-10" />
 
