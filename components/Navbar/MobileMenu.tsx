@@ -72,7 +72,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-[60] lg:hidden">
+    <div className="fixed inset-0 z-[9999] lg:hidden">
       {/* Backdrop */}
       <a.div
         className="absolute inset-0 bg-black/30"

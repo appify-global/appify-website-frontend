@@ -58,10 +58,10 @@ const FeatureWorkHeader = () => {
       <div>
         <div
           className="relative z-10 font-Aeonik text-[13.8vw] sm:text-[10vw] md:text-[8vw]
-          leading-[1.05] sm:leading-[1.1] md:leading-[1.15] lg:leading-[1.2] lg:float-start lg:w-[80%] overflow-hidden"
+          leading-[1.05] sm:leading-[1.1] md:leading-[1.15] lg:leading-[1.2] lg:float-start lg:w-[80%] overflow-hidden min-w-0"
         >
-          <div className="flex flex-wrap justify-start">
-            <div id="feature-work-header" className="whitespace-nowrap">
+          <div className="flex flex-wrap justify-start min-w-0">
+            <div id="feature-work-header" className="whitespace-normal lg:whitespace-nowrap">
               Featured Work
             </div>
           </div>

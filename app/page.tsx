@@ -67,14 +67,14 @@ export default function Home() {
 
       <section
         ref={gridRef}
-        className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-16 lg:mt-96"
+        className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-16 lg:mt-96 min-w-0 overflow-x-hidden"
         id="feature-work"
       >
-        <div className="w-full px-[4vw]">
+        <div className="w-full min-w-0 px-[4vw]">
           <FeatureWorkHeader />
         </div>
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 relative z-40 w-full px-4 sm:px-6 lg:px-20 mt-6 md:mt-8 lg:mt-36"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 relative z-40 w-full min-w-0 px-4 sm:px-6 lg:px-20 mt-6 md:mt-8 lg:mt-36"
         >
           {projectsData.map((project, index) => (
             <ProjectCard

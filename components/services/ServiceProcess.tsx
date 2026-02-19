@@ -136,7 +136,7 @@ export default function ServiceProcess({ subtitle, steps }: ServiceProcessProps)
   }, []);
 
   return (
-    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 py-10 sm:py-12 lg:py-24 relative">
+    <section className="w-full min-w-0 px-[4vw] sm:px-[6vw] lg:px-20 py-10 sm:py-12 lg:py-24 relative">
       {/* Decorative curved line */}
       <svg
         className="absolute top-0 right-0 w-full h-[60%] pointer-events-none hidden lg:block"

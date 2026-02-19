@@ -12,7 +12,7 @@ interface MenuProps {
 const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
   const ref = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  
+
   const handleChildClick = useCallback((event: MouseEvent | TouchEvent) => {
     if (ref.current && !ref.current?.contains(event.target as Node)) {
       onOutsideClick(event);
@@ -37,7 +37,7 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
   const [isClosing, setIsClosing] = useState(false);
   const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const prevOpenRef = useRef(open);
-  
+
   useEffect(() => {
     // Clear any existing timeout
     if (hideTimeoutRef.current) {
@@ -54,9 +54,9 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
         setIsClosing(false);
       }, 500);
     }
-    
+
     prevOpenRef.current = open;
-    
+
     contentsApi.start({
       y: open ? 0 : 100,
       opacity: open ? 1 : 0,
@@ -75,7 +75,7 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
       }
     };
   }, [open, contentsApi, newsApi]);
-  
+
   // Show menu if open OR during closing animation
   const hidden = open || isClosing;
 

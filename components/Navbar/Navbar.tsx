@@ -40,7 +40,7 @@ function Navbar({ showBackButton = false, backHref = "/services", logoColor = "a
   return (
     <>
       {/* Navbar small screen */}
-      <div className="fixed top-0 left-0 z-50 w-full py-6 lg:hidden px-6">
+      <div className="fixed top-0 left-0 z-[9999] w-full py-6 lg:hidden px-6">
         <div className="flex items-center justify-between w-full font-extrabold pb-2">
           <div className="tracking-wider font-extrabold text-3xl cursor-pointer">
             <Link href="/">

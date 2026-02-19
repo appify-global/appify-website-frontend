@@ -21,11 +21,13 @@
 html {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  overflow-x: hidden;
 }
 
 body {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 /* ===== Font Face Declarations ===== */
