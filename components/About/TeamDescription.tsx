@@ -67,39 +67,38 @@ const TeamDescription = () => {
     >
       {/* Main content */}
       <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[8vh] sm:py-[10vh] lg:py-[194px]">
-        {/* Plus icon row - centered horizontally */}
-        <div className="flex items-center justify-center gap-8 lg:gap-12 w-full mb-[30px] sm:mb-[60px] lg:mb-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-0 lg:right-0">
-          {[0, 1, 2].map((i) => (
+        {/* Left text - above plus icons */}
+        <div ref={leftTextRef} className="max-w-full lg:max-w-[947px] mb-[30px] sm:mb-[60px] lg:mb-0 lg:absolute lg:top-[30%]">
+          <h2 className="font-Aeonik text-[7vw] lg:text-[31px] leading-[1.15] text-white">
+            <span className="italic">A world wide team</span>
+            <span className="block">of experienced and skilled</span>
+            <span className="block">professionals</span>
+          </h2>
+        </div>
+
+        {/* Plus icon row - centered vertically, spread across */}
+        <div className="flex items-center justify-between w-full my-[30px] sm:my-[60px] lg:my-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-[5vw] lg:right-[5vw]">
+          {[0, 1, 2, 3, 4].map((i) => (
             <PlusIcon
               key={i}
-              className="w-3.5 h-3.5 lg:w-5 lg:h-5 text-white/60"
+              className={`w-3.5 h-3.5 lg:w-5 lg:h-5 text-white/60 ${
+                i > 0 && i < 4 ? "hidden lg:block" : ""
+              }`}
             />
           ))}
         </div>
 
-        {/* Text content - two columns */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center h-full">
-          {/* Left text */}
-          <div ref={leftTextRef} className="max-w-full lg:max-w-[947px]">
-            <h2 className="font-Aeonik text-[7vw] lg:text-[31px] leading-[1.15] text-white">
-              <span className="italic">A world wide team</span>
-              <span className="block">of experienced and skilled</span>
-              <span className="block">professionals</span>
-            </h2>
-          </div>
-
-          {/* Right text */}
-          <div
-            ref={rightTextRef}
-            className="mt-[15vh] sm:mt-[20vh] lg:mt-0 text-left lg:text-right max-w-full lg:max-w-[947px]"
-          >
-            <p className="font-Aeonik text-[7vw] lg:text-[31px] leading-[1.15] text-white">
-              <span>who bring a </span>
-              <span className="italic">wide range</span>
-              <span className="block">of talents and perspectives</span>
-              <span className="block">to a project.</span>
-            </p>
-          </div>
+        {/* Right text - below plus icons */}
+        <div
+          ref={rightTextRef}
+          className="mt-[15vh] sm:mt-[20vh] lg:mt-0 lg:absolute lg:bottom-[30%] lg:right-[5vw] text-left lg:text-right max-w-full lg:max-w-[947px]"
+        >
+          <p className="font-Aeonik text-[7vw] lg:text-[31px] leading-[1.15] text-white">
+            <span>who bring a </span>
+            <span className="italic">wide range</span>
+            <span className="block">of talents and perspectives</span>
+            <span className="block">to a project.</span>
+          </p>
         </div>
       </div>
 
