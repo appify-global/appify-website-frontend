@@ -160,7 +160,7 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <div ref={containerRef} className="bg-[#0a0a0a] overflow-hidden">
+    <div ref={containerRef} className="bg-[#0a0a0a] overflow-x-hidden min-h-screen">
       <Navbar showBackButton backHref="/projects" />
 
       {/* Mobile & Tablet: vertical scroll, single column, card-style sections */}
@@ -270,15 +270,15 @@ export default function ProjectDetailPage() {
         </div>
       </main>
 
-      {/* Desktop: horizontal scroll */}
-      <section ref={horizontalRef} className="hidden lg:block relative h-screen overflow-hidden">
+      {/* Desktop: horizontal scroll - extra top padding so zoomed-in users clear navbar */}
+      <section ref={horizontalRef} className="hidden lg:block relative h-screen overflow-hidden min-w-0">
         <div
           ref={wrapperRef}
-          className="flex h-screen items-stretch"
+          className="flex h-screen items-stretch min-w-0"
           style={{ width: "fit-content" }}
         >
           {/* Panel 1: Hero with Project Info */}
-          <div className="flex-shrink-0 w-screen h-screen flex flex-col lg:flex-row items-center justify-center relative px-6 sm:px-8 lg:px-20 pt-[10rem] sm:pt-[10.5rem] lg:pt-[12rem] pb-20 sm:pb-24 lg:pb-24 min-h-0">
+          <div className="flex-shrink-0 w-screen h-screen flex flex-col lg:flex-row items-center justify-center relative px-6 sm:px-8 lg:px-20 pt-[12rem] sm:pt-[13rem] lg:pt-[15rem] pb-20 sm:pb-24 lg:pb-24 min-h-0">
             {/* Background decorative element */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <svg
@@ -301,59 +301,64 @@ export default function ProjectDetailPage() {
               </svg>
             </div>
 
-            {/* Left Side - Project Info - scrollable on short viewports */}
-            <div className="w-full lg:w-1/2 lg:pr-12 z-10 flex flex-col justify-center order-2 lg:order-1 min-h-0 overflow-y-auto overflow-x-hidden py-4 lg:py-0 scrollbar-hide">
+            {/* Left Side - Project Info; on desktop: title full width, then paragraph + Services/Recognitions side by side */}
+            <div className="w-full lg:w-1/2 lg:pr-12 z-20 flex flex-col justify-center order-2 lg:order-1 min-h-0 overflow-y-auto overflow-x-hidden py-4 lg:py-0 scrollbar-hide">
               <h1 className="font-Aeonik font-bold text-white leading-[1.05] tracking-[-0.02em] mb-4 sm:mb-6 lg:mb-8 text-[clamp(2.5rem,8vw,5.5rem)] lg:text-[clamp(3rem,4vw,6rem)] shrink-0">
                 {project.title}
               </h1>
 
-              <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-3 sm:mb-4 lg:mb-6 max-w-lg">
-                {project.description}
-              </p>
+              {/* On desktop: row with description/CTA left, Services/Recognitions right (next to paragraph) */}
+              <div className="flex flex-col lg:flex-row lg:items-start lg:gap-10 xl:gap-12 min-w-0">
+                {/* Left: Description, challenge, launch */}
+                <div className="flex flex-col min-w-0 flex-1">
+                  <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-3 sm:mb-4 lg:mb-6 max-w-lg">
+                    {project.description}
+                  </p>
 
-              {project.challenge && (
-                <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 lg:mb-8 max-w-lg">
-                  {project.challenge}
-                </p>
-              )}
+                  {project.challenge && (
+                    <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 lg:mb-8 max-w-lg">
+                      {project.challenge}
+                    </p>
+                  )}
 
-              {/* Services + Recognitions */}
-              <div className="flex flex-wrap gap-6 sm:gap-10 lg:gap-20 mb-4 sm:mb-6 lg:mb-8">
-                <div>
-                  <h4 className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3">Services</h4>
-                  <div className="space-y-1">
-                    {project.services?.map((service, i) => (
-                      <div key={i} className="text-white text-xs sm:text-sm">{service}</div>
-                    ))}
-                  </div>
+                  {project.launchUrl && (
+                    <a
+                      href={project.launchUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 text-white group w-fit mt-auto"
+                    >
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#4ECDC4]" />
+                      <span className="text-xs sm:text-sm uppercase tracking-wider group-hover:text-[#4ECDC4] transition-colors">
+                        Launch Project
+                      </span>
+                    </a>
+                  )}
                 </div>
 
-                {project.recognitions && project.recognitions.length > 0 && (
+                {/* Right: Services + Recognitions (pushed down a bit, more gap before Recognitions) */}
+                <div className="flex flex-wrap gap-6 sm:gap-10 lg:gap-0 lg:flex-col lg:flex-shrink-0 lg:w-[180px] xl:w-[200px] mb-4 sm:mb-6 lg:mb-0 lg:mt-1">
                   <div>
-                    <h4 className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3">Recognitions</h4>
+                    <h4 className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3">Services</h4>
                     <div className="space-y-1">
-                      {project.recognitions.map((recognition, i) => (
-                        <div key={i} className="text-white text-xs sm:text-sm">{recognition}</div>
+                      {project.services?.map((service, i) => (
+                        <div key={i} className="text-white text-xs sm:text-sm">{service}</div>
                       ))}
                     </div>
                   </div>
-                )}
-              </div>
 
-              {/* Launch Project Button */}
-              {project.launchUrl && (
-                <a
-                  href={project.launchUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 text-white group w-fit"
-                >
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#4ECDC4]" />
-                  <span className="text-xs sm:text-sm uppercase tracking-wider group-hover:text-[#4ECDC4] transition-colors">
-                    Launch Project
-                  </span>
-                </a>
-              )}
+                  {project.recognitions && project.recognitions.length > 0 && (
+                    <div className="lg:mt-8">
+                      <h4 className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3">Recognitions</h4>
+                      <div className="space-y-1">
+                        {project.recognitions.map((recognition, i) => (
+                          <div key={i} className="text-white text-xs sm:text-sm">{recognition}</div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             {/* Right Side - Hero Image */}
@@ -374,7 +379,7 @@ export default function ProjectDetailPage() {
           {project.galleryImages?.map((image, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-screen h-screen flex items-center justify-center px-6 sm:px-10 lg:px-20 pt-[10rem] sm:pt-[10.5rem] lg:pt-[12rem] pb-20 sm:pb-24 lg:pb-24"
+              className="flex-shrink-0 w-screen h-screen flex items-center justify-center px-6 sm:px-10 lg:px-20 pt-[12rem] sm:pt-[13rem] lg:pt-[15rem] pb-20 sm:pb-24 lg:pb-24"
             >
               <div className="relative w-full max-w-4xl aspect-video lg:aspect-[16/10] rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl">
                 <Image
@@ -389,7 +394,7 @@ export default function ProjectDetailPage() {
 
           {/* Next Project Panel */}
           <div
-            className="flex-shrink-0 w-screen h-screen flex items-center justify-center cursor-pointer group pt-[10rem] sm:pt-[10.5rem] lg:pt-[12rem] pb-20 sm:pb-24 lg:pb-24"
+            className="flex-shrink-0 w-screen h-screen flex items-center justify-center cursor-pointer group pt-[12rem] sm:pt-[13rem] lg:pt-[15rem] pb-20 sm:pb-24 lg:pb-24"
             onClick={handleNextProject}
           >
             <div className="text-center">
@@ -420,9 +425,9 @@ export default function ProjectDetailPage() {
         </div>
       </section>
 
-      {/* Scroll Indicator - desktop only (horizontal scroll) */}
-      <div className="hidden lg:flex fixed bottom-12 right-8 items-center gap-3 z-50 pointer-events-none">
-        <span className="text-[#4ECDC4] text-xs uppercase tracking-widest">Scroll to explore</span>
+      {/* Scroll Indicator - desktop only; safe insets so zoom doesn't crop it */}
+      <div className="hidden lg:flex fixed bottom-16 right-10 items-center gap-3 z-50 pointer-events-none max-w-[calc(100vw-4rem)]">
+        <span className="text-[#4ECDC4] text-xs uppercase tracking-widest whitespace-nowrap">Scroll to explore</span>
         <div className="flex gap-1">
           <svg className="w-4 h-4 text-[#4ECDC4] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
