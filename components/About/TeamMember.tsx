@@ -139,12 +139,20 @@ const TeamMember = () => {
         </div>
 
         {/* OUR FOUNDER title */}
-        <h2
-          ref={titleRef}
-          className="font-Aeonik text-[16vw] sm:text-[18vw] lg:text-[94px] xl:text-[135px] leading-[1] tracking-[0.2em] sm:tracking-[0.4em] text-white mt-[10vh] sm:mt-[15vh] lg:mt-[118px] lg:ml-auto lg:text-right lg:mr-[5vw]"
-        >
-          OUR FOUNDER
-        </h2>
+        <div className="flex items-center gap-6 lg:gap-8 mt-[10vh] sm:mt-[15vh] lg:mt-[118px] lg:ml-auto lg:justify-end lg:mr-[5vw]">
+          {/* SVG on the left */}
+          <div className="hidden lg:block">
+            <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
+            </svg>
+          </div>
+          <h2
+            ref={titleRef}
+            className="font-Aeonik text-[14vw] sm:text-[16vw] lg:text-[80px] xl:text-[110px] leading-[1] tracking-[0.05em] sm:tracking-[0.1em] lg:tracking-[0.15em] text-white whitespace-nowrap"
+          >
+            OUR FOUNDER
+          </h2>
+        </div>
 
         {/* Founder description text - mobile/tablet */}
         <div className="lg:hidden mt-8 sm:mt-12 max-w-full">
