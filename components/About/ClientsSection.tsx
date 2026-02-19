@@ -44,8 +44,15 @@ const clientLogos = [
     { name: "Global Health", logo: logoMap["Global Health"] },
     { name: "Endota", logo: logoMap["Endota"] },
   ],
-  // Row 2 - scrolls right
+  // Row 2 - scrolls right (needs more logos on left side)
   [
+    { name: "Booked AI", logo: logoMap["Booked AI"] },
+    { name: "Guardian", logo: logoMap["Guardian"] },
+    { name: "Red Bull", logo: logoMap["Red Bull"] },
+    { name: "CSSDA", logo: logoMap["CSSDA"] },
+    { name: "VICINITY", logo: logoMap["VICINITY"] },
+    { name: "Iberdrola", logo: logoMap["Iberdrola"] },
+    { name: "Scalerr", logo: logoMap["Scalerr"] },
     { name: "My Muscle Chef", logo: logoMap["My Muscle Chef"] },
     { name: "Global Health", logo: logoMap["Global Health"] },
     { name: "Hub Australia", logo: logoMap["Hub Australia"] },
@@ -54,6 +61,7 @@ const clientLogos = [
     { name: "Coca-Cola", logo: logoMap["Coca-Cola"] },
     { name: "MaxMara", logo: logoMap["MaxMara"] },
     { name: "Ecommerce Equation", logo: logoMap["Ecommerce Equation"] },
+    { name: "Endota", logo: logoMap["Endota"] },
     { name: "Mirvac", logo: logoMap["Mirvac"] },
     { name: "Prelo", logo: logoMap["Prelo"] },
   ],
