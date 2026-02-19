@@ -66,7 +66,7 @@ const ExpertiseCard = ({
 }: {
   data: (typeof expertiseData)[0];
   index: number;
-  sectionRef: React.RefObject<HTMLDivElement>;
+  sectionRef: React.RefObject<HTMLDivElement | null>;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
