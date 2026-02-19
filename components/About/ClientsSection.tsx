@@ -29,7 +29,7 @@ const logoMap: Record<string, string> = {
   "VICINITY": "/logos/vicinity.svg",
 };
 
-// Client logos data - using available logos
+// Client logos data - using available logos, ensuring enough logos to fill space
 const clientLogos = [
   // Row 1 - scrolls left
   [
@@ -41,6 +41,8 @@ const clientLogos = [
     { name: "Iberdrola", logo: logoMap["Iberdrola"] },
     { name: "Scalerr", logo: logoMap["Scalerr"] },
     { name: "My Muscle Chef", logo: logoMap["My Muscle Chef"] },
+    { name: "Global Health", logo: logoMap["Global Health"] },
+    { name: "Endota", logo: logoMap["Endota"] },
   ],
   // Row 2 - scrolls right
   [
@@ -51,6 +53,9 @@ const clientLogos = [
     { name: "LW", logo: logoMap["LW"] },
     { name: "Coca-Cola", logo: logoMap["Coca-Cola"] },
     { name: "MaxMara", logo: logoMap["MaxMara"] },
+    { name: "Ecommerce Equation", logo: logoMap["Ecommerce Equation"] },
+    { name: "Mirvac", logo: logoMap["Mirvac"] },
+    { name: "Prelo", logo: logoMap["Prelo"] },
   ],
   // Row 3 - scrolls left
   [
@@ -62,6 +67,8 @@ const clientLogos = [
     { name: "Guardian", logo: logoMap["Guardian"] },
     { name: "Red Bull", logo: logoMap["Red Bull"] },
     { name: "CSSDA", logo: logoMap["CSSDA"] },
+    { name: "VICINITY", logo: logoMap["VICINITY"] },
+    { name: "Iberdrola", logo: logoMap["Iberdrola"] },
   ],
 ];
 
@@ -122,7 +129,7 @@ const ClientsSection = () => {
       // Row 1: scroll left
       const row1Content = row1Ref.current.querySelector(".logo-row-content") as HTMLElement;
       if (row1Content) {
-        const width = row1Content.scrollWidth / 2; // Half because we duplicated
+        const width = row1Content.scrollWidth / 3; // Third because we tripled
         gsap.to(row1Content, {
           x: -width,
           duration: 20,
@@ -136,7 +143,7 @@ const ClientsSection = () => {
       // Row 2: scroll right
       const row2Content = row2Ref.current.querySelector(".logo-row-content") as HTMLElement;
       if (row2Content) {
-        const width = row2Content.scrollWidth / 2; // Half because we duplicated
+        const width = row2Content.scrollWidth / 3; // Third because we tripled
         gsap.to(row2Content, {
           x: width,
           duration: 20,
@@ -150,7 +157,7 @@ const ClientsSection = () => {
       // Row 3: scroll left
       const row3Content = row3Ref.current.querySelector(".logo-row-content") as HTMLElement;
       if (row3Content) {
-        const width = row3Content.scrollWidth / 2; // Half because we duplicated
+        const width = row3Content.scrollWidth / 3; // Third because we tripled
         gsap.to(row3Content, {
           x: -width,
           duration: 20,
@@ -187,12 +194,12 @@ const ClientsSection = () => {
         </div>
 
         {/* Client logos with infinite scroll */}
-        <div className="space-y-[20px] sm:space-y-[40px] lg:space-y-[60px] overflow-hidden">
+        <div className="space-y-[20px] sm:space-y-[40px] lg:space-y-[60px]">
           {/* Row 1 - scrolls left */}
-          <div ref={row1Ref} className="overflow-hidden">
+          <div ref={row1Ref} className="overflow-hidden -mx-[4vw] sm:-mx-[6vw] lg:-mx-[5vw]">
             <div className="logo-row-content flex gap-[10px] sm:gap-[20px] lg:gap-[40px] xl:gap-[80px] w-max">
-              {/* Duplicate logos for seamless loop */}
-              {[...clientLogos[0], ...clientLogos[0]].map((client, index) => (
+              {/* Duplicate logos multiple times for seamless loop and to fill space */}
+              {[...clientLogos[0], ...clientLogos[0], ...clientLogos[0]].map((client, index) => (
                 <div
                   key={`row1-${index}`}
                   className="w-[calc(33vw-20px)] sm:w-[100px] lg:w-[136px] h-[60px] sm:h-[80px] lg:h-[115px] flex-shrink-0"
@@ -204,10 +211,10 @@ const ClientsSection = () => {
           </div>
 
           {/* Row 2 - scrolls right */}
-          <div ref={row2Ref} className="overflow-hidden">
+          <div ref={row2Ref} className="overflow-hidden -mx-[4vw] sm:-mx-[6vw] lg:-mx-[5vw]">
             <div className="logo-row-content flex gap-[10px] sm:gap-[20px] lg:gap-[40px] xl:gap-[80px] w-max">
-              {/* Duplicate logos for seamless loop */}
-              {[...clientLogos[1], ...clientLogos[1]].map((client, index) => (
+              {/* Duplicate logos multiple times for seamless loop and to fill space */}
+              {[...clientLogos[1], ...clientLogos[1], ...clientLogos[1]].map((client, index) => (
                 <div
                   key={`row2-${index}`}
                   className="w-[calc(33vw-20px)] sm:w-[100px] lg:w-[136px] h-[60px] sm:h-[80px] lg:h-[115px] flex-shrink-0"
@@ -219,10 +226,10 @@ const ClientsSection = () => {
           </div>
 
           {/* Row 3 - scrolls left */}
-          <div ref={row3Ref} className="overflow-hidden">
+          <div ref={row3Ref} className="overflow-hidden -mx-[4vw] sm:-mx-[6vw] lg:-mx-[5vw]">
             <div className="logo-row-content flex gap-[10px] sm:gap-[20px] lg:gap-[40px] xl:gap-[80px] w-max">
-              {/* Duplicate logos for seamless loop */}
-              {[...clientLogos[2], ...clientLogos[2]].map((client, index) => (
+              {/* Duplicate logos multiple times for seamless loop and to fill space */}
+              {[...clientLogos[2], ...clientLogos[2], ...clientLogos[2]].map((client, index) => (
                 <div
                   key={`row3-${index}`}
                   className="w-[calc(33vw-20px)] sm:w-[100px] lg:w-[136px] h-[60px] sm:h-[80px] lg:h-[115px] flex-shrink-0"
