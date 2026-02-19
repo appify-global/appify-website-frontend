@@ -126,15 +126,15 @@ const AboutHero = () => {
               </h1>
             </div>
 
-            {/* Year indicator - desktop only */}
-            <div className="hidden lg:flex items-start gap-4 absolute right-[5vw] top-[440px]">
+            {/* Year indicator - desktop only - hidden for now */}
+            {/* <div className="hidden lg:flex items-start gap-4 absolute right-[5vw] top-[440px]">
               <span className="font-Aeonik text-[5rem] lg:text-[88px] text-white leading-none">
                 15
               </span>
               <div className="w-[124px] h-[124px] border border-white/30 rounded-sm flex items-center justify-center">
                 <span className="text-white/60 text-xs">YEARS</span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
