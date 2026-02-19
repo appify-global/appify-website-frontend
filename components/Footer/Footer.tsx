@@ -167,7 +167,7 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
 
             {/* BLACK ABOUT US SECTION */}
             {!hideAboutUsSection && (
-                <div className="bg-black text-white px-[4vw] py-12 sm:py-16 lg:py-20">
+                <div className="bg-black text-white px-[4vw] py-12 sm:py-16 lg:py-20 pb-0">
                     <div className="text-xs sm:text-sm lg:text-xl text-gray-400 mb-4 sm:mb-6 tracking-wide">KEEP SCROLLING TO LEARN MORE</div>
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
                         {isAboutPage ? (

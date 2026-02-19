@@ -154,7 +154,7 @@ export function PageLayout({
 
         {/* Footer with parallax effect */}
         {showFooter && wasmReady && (
-          <section id="footer" ref={footerRef} className={`relative z-20 lg:z-[15] ${showParticles ? 'lg:pt-24' : ''}`}>
+          <section id="footer" ref={footerRef} className={`relative z-20 lg:z-[15] ${showParticles ? 'lg:pt-24' : ''} w-full`}>
             <Footer hideAboutUsSection={hideFooterAboutUs} />
           </section>
         )}
