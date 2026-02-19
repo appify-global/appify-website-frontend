@@ -100,7 +100,10 @@ const TeamMember = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:h-screen overflow-hidden"
+      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:h-screen overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: 'url(/team_bg.png)',
+      }}
     >
       {/* Plus icon row */}
       <div className="absolute top-1/2 -translate-y-1/2 left-[5vw] right-[5vw] hidden lg:flex items-center justify-between z-10">
