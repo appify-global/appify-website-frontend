@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
 import { PageLayout } from "@/components/layouts";
 
 import AboutHero from "@/components/About/AboutHero";
@@ -11,36 +14,77 @@ import AwardsSection from "@/components/About/AwardsSection";
 import ExpertiseSection from "@/components/About/ExpertiseSection";
 import CTASection from "@/components/About/CTASection";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function AboutPage() {
+  const bgRef = useRef<HTMLDivElement>(null);
+  const clientsSectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!bgRef.current || !clientsSectionRef.current) return;
+
+    // Animate background opacity when Clients section comes into view
+    gsap.to(bgRef.current, {
+      opacity: 0,
+      ease: "power2.inOut",
+      scrollTrigger: {
+        trigger: clientsSectionRef.current,
+        start: "top 80%",
+        end: "top 20%",
+        scrub: 1,
+      },
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars.trigger === clientsSectionRef.current) {
+          trigger.kill();
+        }
+      });
+    };
+  }, []);
+
   return (
     <PageLayout navbarPadding="pb-[2vw]" backgroundColor="bg-black">
-      {/* Hero Section - "About Us" */}
-      <section id="about-hero" className="w-full">
-        <AboutHero />
-      </section>
+      {/* Fixed background - fades out when Clients section appears */}
+      <div
+        ref={bgRef}
+        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: 'url(/team_bg.png)',
+          backgroundAttachment: 'fixed',
+        }}
+      />
+      {/* Content wrapper with relative positioning */}
+      <div className="relative z-10">
+        {/* Hero Section - "About Us" */}
+        <section id="about-hero" className="w-full">
+          <AboutHero />
+        </section>
 
-      {/* Introduction Section - "WE ARE APPIFY" */}
-      <section id="about-intro" className="w-full">
-        <AboutIntro />
-      </section>
+        {/* Introduction Section - "WE ARE APPIFY" */}
+        <section id="about-intro" className="w-full">
+          <AboutIntro />
+        </section>
 
-      {/* Team Description Section */}
-      <section id="team-description" className="w-full">
-        <TeamDescription />
-      </section>
+        {/* Team Description Section */}
+        <section id="team-description" className="w-full">
+          <TeamDescription />
+        </section>
 
-      {/* Team Member Spotlight */}
-      <section id="team-member" className="w-full">
-        <TeamMember />
-      </section>
+        {/* Team Member Spotlight */}
+        <section id="team-member" className="w-full">
+          <TeamMember />
+        </section>
+      </div>
 
       {/* Clients Section */}
-      <section id="clients" className="w-full">
+      <section id="clients" ref={clientsSectionRef} className="w-full relative z-10">
         <ClientsSection />
       </section>
 
       {/* Plus Icons Separator */}
-      <section className="w-full bg-black pt-[20px] pb-[20px] lg:pt-[30px] lg:pb-[30px]">
+      <section className="w-full bg-black pt-[20px] pb-[20px] lg:pt-[30px] lg:pb-[30px] relative z-10">
         <div className="px-[4vw] sm:px-[6vw] lg:px-[5vw]">
           <div className="flex items-center justify-between w-full">
             {[0, 1, 2, 3].map((i) => (
@@ -66,17 +110,17 @@ export default function AboutPage() {
       </section>
 
       {/* Awards Section (awards table hidden, articles and talks visible) */}
-      <section id="awards" className="w-full">
+      <section id="awards" className="w-full relative z-10">
         <AwardsSection />
       </section>
 
       {/* Expertise Section */}
-      <section id="expertise" className="w-full">
+      <section id="expertise" className="w-full relative z-10">
         <ExpertiseSection />
       </section>
 
       {/* CTA Section - "Let's work together" */}
-      <section id="cta" className="w-full">
+      <section id="cta" className="w-full relative z-10">
         <CTASection />
       </section>
     </PageLayout>
