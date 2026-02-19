@@ -50,14 +50,14 @@ export default function AboutPage() {
       {/* Background sits above black bg but behind text */}
       <div
         ref={bgRef}
-        className="fixed inset-0 z-[15] bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 z-[25] bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'url(/team_bg.png)',
           backgroundAttachment: 'fixed',
         }}
       />
       {/* Content wrapper with relative positioning - above background image */}
-      <div className="relative z-20">
+      <div className="relative z-30">
         {/* Hero Section - "About Us" */}
         <section id="about-hero" className="w-full">
           <AboutHero />
@@ -80,12 +80,12 @@ export default function AboutPage() {
       </div>
 
       {/* Clients Section */}
-      <section id="clients" ref={clientsSectionRef} className="w-full relative z-20">
+      <section id="clients" ref={clientsSectionRef} className="w-full relative z-30">
         <ClientsSection />
       </section>
 
       {/* Plus Icons Separator */}
-      <section className="w-full bg-black pt-[20px] pb-[20px] lg:pt-[30px] lg:pb-[30px] relative z-20">
+      <section className="w-full bg-black pt-[20px] pb-[20px] lg:pt-[30px] lg:pb-[30px] relative z-30">
         <div className="px-[4vw] sm:px-[6vw] lg:px-[5vw]">
           <div className="flex items-center justify-between w-full">
             {[0, 1, 2, 3].map((i) => (
@@ -111,17 +111,17 @@ export default function AboutPage() {
       </section>
 
       {/* Awards Section (awards table hidden, articles and talks visible) */}
-      <section id="awards" className="w-full relative z-20">
+      <section id="awards" className="w-full relative z-30">
         <AwardsSection />
       </section>
 
       {/* Expertise Section */}
-      <section id="expertise" className="w-full relative z-20">
+      <section id="expertise" className="w-full relative z-30">
         <ExpertiseSection />
       </section>
 
       {/* CTA Section - "Let's work together" */}
-      <section id="cta" className="w-full relative z-20">
+      <section id="cta" className="w-full relative z-30">
         <CTASection />
       </section>
     </PageLayout>
