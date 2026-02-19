@@ -63,11 +63,11 @@ const articlesData = [
 
 // Talks data
 const talksData = [
-  { event: "Digital Design Days", location: "Oct 2024 Milan" },
-  { event: "Awwwards Conf", location: "Oct 2024 Amsterdam" },
-  { event: "KIKK Festival", location: "Oct 2024 Namur" },
-  { event: "Awwwards Conf", location: "Oct 2024 Amsterdam" },
-  { event: "Grow Paris", location: "Nov 2024 Paris" },
+  { event: "FRWRDx", location: "Dec 2025 Dubai", link: "" },
+  { event: "Everything AI in Travel", location: "Oct 2025 Melbourne", link: "" },
+  { event: "Beyond the buzz", location: "Aug 2025 Brisbane", link: "" },
+  { event: "Travel Tech Innovation", location: "Sep 2025 Melbourne", link: "" },
+  { event: "More than Money", location: "Feb 2025 Sydney", link: "" },
 ];
 
 // Trophy icon component
@@ -267,19 +267,36 @@ const AwardsSection = () => {
           </div>
 
           <div className="lg:max-w-[806px] space-y-[12px]">
-            {talksData.map((talk, idx) => (
-              <div
-                key={idx}
-                className="flex justify-between items-center gap-4"
-              >
-                <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
-                  {talk.event}
-                </span>
-                <span className="font-Aeonik text-[14px] lg:text-[16px] text-white/60">
-                  {talk.location}
-                </span>
-              </div>
-            ))}
+            {talksData.map((talk, idx) => {
+              const content = (
+                <div
+                  className={`flex justify-between items-center gap-4 ${
+                    talk.link ? "cursor-pointer hover:opacity-80 transition-opacity" : ""
+                  }`}
+                >
+                  <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
+                    {talk.event}
+                  </span>
+                  <span className="font-Aeonik text-[14px] lg:text-[16px] text-white/60">
+                    {talk.location}
+                  </span>
+                </div>
+              );
+
+              return talk.link ? (
+                <a
+                  key={idx}
+                  href={talk.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  {content}
+                </a>
+              ) : (
+                <div key={idx}>{content}</div>
+              );
+            })}
           </div>
         </div>
       </div>
