@@ -13,7 +13,7 @@ import CTASection from "@/components/About/CTASection";
 
 export default function AboutPage() {
   return (
-    <PageLayout navbarPadding="pb-[2vw]" backgroundColor="bg-black">
+    <PageLayout navbarPadding="pb-0" backgroundColor="bg-black">
       {/* Content wrapper */}
       <div className="relative">
         {/* Hero Section - "About Us" */}
