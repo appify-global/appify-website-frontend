@@ -63,12 +63,12 @@ const TeamDescription = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:min-h-[877px] bg-black overflow-hidden"
+      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:h-screen bg-black overflow-hidden"
     >
       {/* Main content */}
       <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[8vh] sm:py-[10vh] lg:py-[194px]">
         {/* Plus icon row */}
-        <div className="flex items-center justify-between w-full mb-[30px] sm:mb-[60px] lg:mb-0 lg:absolute lg:top-[418px] lg:left-[5vw] lg:right-[5vw] lg:w-auto lg:pr-[10vw]">
+        <div className="flex items-center justify-between w-full mb-[30px] sm:mb-[60px] lg:mb-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-[5vw] lg:right-[5vw] lg:w-auto lg:pr-[10vw]">
           {[0, 1, 2, 3, 4].map((i) => (
             <PlusIcon
               key={i}
@@ -105,12 +105,6 @@ const TeamDescription = () => {
         </div>
       </div>
 
-      {/* Vertical scroll indicator bar - desktop only */}
-      <div className="hidden lg:block absolute right-[56px] top-[376px] w-[9px] h-[176px]">
-        <div className="w-full h-full bg-white/10 rounded-full">
-          <div className="w-full h-[50%] bg-white/60 rounded-full" />
-        </div>
-      </div>
     </div>
   );
 };

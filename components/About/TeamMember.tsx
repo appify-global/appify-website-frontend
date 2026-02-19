@@ -99,7 +99,7 @@ const TeamMember = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[874px] bg-black overflow-hidden"
+      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:h-screen bg-black overflow-hidden"
     >
       {/* Background image */}
       <div
@@ -113,7 +113,7 @@ const TeamMember = () => {
       </div>
 
       {/* Plus icon row */}
-      <div className="absolute top-[416px] left-[5vw] right-[5vw] hidden lg:flex items-center justify-between">
+      <div className="absolute top-1/2 -translate-y-1/2 left-[5vw] right-[5vw] hidden lg:flex items-center justify-between">
         {[0, 1, 2, 3, 4].map((i) => (
           <PlusIcon key={i} className="w-5 h-5 text-white/60" />
         ))}
