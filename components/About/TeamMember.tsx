@@ -101,19 +101,8 @@ const TeamMember = () => {
       ref={sectionRef}
       className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:h-screen bg-black overflow-hidden"
     >
-      {/* Background image */}
-      <div
-        ref={imageRef}
-        className="absolute inset-0 z-0"
-      >
-        <div className="w-full h-full bg-gradient-to-br from-gray-900 to-black">
-          {/* Placeholder for team image - you can add actual image here */}
-          <div className="absolute inset-0 bg-[url('/about/team-bg.jpg')] bg-cover bg-center opacity-60" />
-        </div>
-      </div>
-
       {/* Plus icon row */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-[5vw] right-[5vw] hidden lg:flex items-center justify-between">
+      <div className="absolute top-1/2 -translate-y-1/2 left-[5vw] right-[5vw] hidden lg:flex items-center justify-between z-10">
         {[0, 1, 2, 3, 4].map((i) => (
           <PlusIcon key={i} className="w-5 h-5 text-white/60" />
         ))}
@@ -138,89 +127,116 @@ const TeamMember = () => {
           <ThreeRowDots />
         </div>
 
-        {/* OUR FOUNDER title */}
-        <div className="flex items-center gap-6 lg:gap-8 mt-[10vh] sm:mt-[15vh] lg:mt-[118px] lg:ml-auto lg:justify-end lg:mr-[5vw]">
-          {/* SVG on the left */}
-          <div className="hidden lg:block">
-            <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Desktop Layout: Left (Portrait) + Right (SVG + Heading + Text) */}
+        <div className="hidden lg:flex lg:items-center lg:justify-between lg:h-full lg:pt-[100px]">
+          {/* Left Side: Portrait and Info */}
+          <div className="flex flex-col items-start">
+            {/* Portrait placeholder - will be replaced with actual image */}
+            <div
+              ref={imageRef}
+              className="w-[300px] h-[400px] bg-gray-800 rounded-lg mb-6 flex items-center justify-center"
+            >
+              <div className="w-[200px] h-[200px] bg-gray-700 rounded-full flex items-center justify-center">
+                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M50 20C60.4934 20 69 28.5066 69 39C69 49.4934 60.4934 58 50 58C39.5066 58 31 49.4934 31 39C31 28.5066 39.5066 20 50 20Z" fill="white" fillOpacity="0.3"/>
+                  <path d="M50 65C35.0883 65 23 77.0883 23 92V100H77V92C77 77.0883 64.9117 65 50 65Z" fill="white" fillOpacity="0.3"/>
+                </svg>
+              </div>
+            </div>
+
+            {/* Founder info below portrait */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <DotGrid className="w-[13px]" />
+                <span className="font-Aeonik text-[20px] text-white">
+                  :: Mennan Yelkenci
+                </span>
+              </div>
+              <p className="font-Aeonik text-[12px] text-white/60 uppercase tracking-wider mb-4">
+                Founder and CEO
+              </p>
+              {/* Progress bar */}
+              <div className="w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
+                <div className="w-[80%] h-full bg-white/80 rounded-full" />
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side: SVG + Heading + Paragraphs */}
+          <div className="flex-1 max-w-[600px] ml-12">
+            {/* SVG + Heading */}
+            <div className="flex items-center gap-6 mb-8">
+              <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
+              </svg>
+              <h2
+                ref={titleRef}
+                className="font-Aeonik text-[80px] xl:text-[110px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap"
+              >
+                OUR FOUNDER
+              </h2>
+            </div>
+
+            {/* Paragraphs */}
+            <div className="max-w-[458px]">
+              <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
+                Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
+              </p>
+              <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
+                As a result of our diverse experience, we are able to think creatively
+                and find new solutions to problems, providing clients with memorable,
+                purpose-driven experiences that cut through the noise and connect
+                where it matters, which leaves lasting impressions that form enduring
+                connections between brands and consumers.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile/Tablet Layout */}
+        <div className="lg:hidden">
+          {/* OUR FOUNDER title */}
+          <div className="flex items-center gap-4 mt-[10vh] sm:mt-[15vh]">
+            <svg width="80" height="110" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
             </svg>
+            <h2
+              ref={titleRef}
+              className="font-Aeonik text-[14vw] sm:text-[16vw] leading-[1] tracking-[0.05em] sm:tracking-[0.1em] text-white whitespace-nowrap"
+            >
+              OUR FOUNDER
+            </h2>
           </div>
-          <h2
-            ref={titleRef}
-            className="font-Aeonik text-[14vw] sm:text-[16vw] lg:text-[80px] xl:text-[110px] leading-[1] tracking-[0.05em] sm:tracking-[0.1em] lg:tracking-[0.15em] text-white whitespace-nowrap"
-          >
-            OUR FOUNDER
-          </h2>
-        </div>
 
-        {/* Founder description text - mobile/tablet */}
-        <div className="lg:hidden mt-8 sm:mt-12 max-w-full">
-          <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
-            Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
-          </p>
-          <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
-            As a result of our diverse experience, we are able to think creatively
-            and find new solutions to problems, providing clients with memorable,
-            purpose-driven experiences that cut through the noise and connect
-            where it matters, which leaves lasting impressions that form enduring
-            connections between brands and consumers.
-          </p>
-        </div>
-
-        {/* Founder description text - desktop */}
-        <div className="hidden lg:block absolute top-[620px] right-[5vw] max-w-[458px]">
-          <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
-            Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
-          </p>
-          <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
-            As a result of our diverse experience, we are able to think creatively
-            and find new solutions to problems, providing clients with memorable,
-            purpose-driven experiences that cut through the noise and connect
-            where it matters, which leaves lasting impressions that form enduring
-            connections between brands and consumers.
-          </p>
-        </div>
-
-        {/* Founder card - bottom left */}
-        <div className="absolute bottom-[40px] sm:bottom-[60px] lg:bottom-[75px] left-[4vw] sm:left-[6vw] lg:left-[5vw]">
-          {/* Founder info */}
-          <div className="flex items-center gap-2 mb-2">
-            <DotGrid className="w-[13px]" />
-            <span className="font-Aeonik text-[16px] lg:text-[20px] text-white">
-              :: Mennan Yelkenci
-            </span>
+          {/* Founder description text */}
+          <div className="mt-8 sm:mt-12 max-w-full">
+            <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
+              Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
+            </p>
+            <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
+              As a result of our diverse experience, we are able to think creatively
+              and find new solutions to problems, providing clients with memorable,
+              purpose-driven experiences that cut through the noise and connect
+              where it matters, which leaves lasting impressions that form enduring
+              connections between brands and consumers.
+            </p>
           </div>
-          <p className="font-Aeonik text-[10px] lg:text-[12px] text-white/60 uppercase tracking-wider mb-4">
-            Founder and CEO
-          </p>
 
-          {/* Progress bar */}
-          <div className="w-[180px] lg:w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
-            <div className="w-[80%] h-full bg-white/80 rounded-full" />
+          {/* Founder card */}
+          <div className="mt-12">
+            <div className="flex items-center gap-2 mb-2">
+              <DotGrid className="w-[13px]" />
+              <span className="font-Aeonik text-[16px] text-white">
+                :: Mennan Yelkenci
+              </span>
+            </div>
+            <p className="font-Aeonik text-[10px] sm:text-[12px] text-white/60 uppercase tracking-wider mb-4">
+              Founder and CEO
+            </p>
+            <div className="w-[180px] sm:w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
+              <div className="w-[80%] h-full bg-white/80 rounded-full" />
+            </div>
           </div>
-        </div>
-
-        {/* Ruler pattern - bottom desktop */}
-        <div className="hidden lg:block absolute bottom-[223px] left-[540px]">
-          <RulerPattern inverted />
-        </div>
-
-        {/* Decorative silhouette icon - bottom right */}
-        <div className="hidden lg:block absolute bottom-[100px] right-[5vw]">
-          <svg
-            width="130"
-            height="177"
-            viewBox="0 0 130 177"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="text-white/20"
-          >
-            <path
-              d="M65 0C100.899 0 130 29.1015 130 65C130 100.899 100.899 130 65 130C29.1015 130 0 100.899 0 65C0 29.1015 29.1015 0 65 0ZM65 140C100.899 140 130 147.163 130 156V177H0V156C0 147.163 29.1015 140 65 140Z"
-              fill="currentColor"
-            />
-          </svg>
         </div>
       </div>
     </div>
