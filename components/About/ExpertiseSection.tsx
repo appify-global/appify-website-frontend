@@ -150,7 +150,7 @@ const ExpertiseCard = ({
           <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{data.title}</h2>
           <div className={`flex items-center justify-center ${
             data.title === "DEVELOPMENT" ? "w-6 h-6 xl:w-8 xl:h-8" : 
-            data.title === "INTELLIGENCE" ? "w-3 h-5 xl:w-4 xl:h-7" : 
+            data.title === "INTELLIGENCE" ? "w-3 h-4 xl:w-4 xl:h-5" : 
             "w-5 h-5 xl:w-7 xl:h-7"
           }`}>
             <Image src={data.icon} width={28} height={28} alt={data.title} className="w-full h-full" />
@@ -171,7 +171,7 @@ const ExpertiseCard = ({
         <div className="w-full flex justify-between items-center rotate-180">
           <div className={`flex items-center justify-center ${
             data.title === "DEVELOPMENT" ? "w-6 h-6 xl:w-8 xl:h-8" : 
-            data.title === "INTELLIGENCE" ? "w-3 h-5 xl:w-4 xl:h-7" : 
+            data.title === "INTELLIGENCE" ? "w-3 h-4 xl:w-4 xl:h-5" : 
             "w-5 h-5 xl:w-7 xl:h-7"
           }`}>
             <Image src={data.icon} width={28} height={28} alt={data.title} className="w-full h-full" />
@@ -252,7 +252,7 @@ const ExpertiseSection = () => {
                   key={idx}
                   className={`flex items-center justify-center ${
                     item.title === "DEVELOPMENT" ? "w-[40px] h-[55px] lg:w-[40px] lg:h-[60px]" : 
-                    item.title === "INTELLIGENCE" ? "w-[20px] h-[49px] lg:w-[24px] lg:h-[55px]" : 
+                    item.title === "INTELLIGENCE" ? "w-[20px] h-[40px] lg:w-[24px] lg:h-[45px]" : 
                     "w-[35px] h-[49px] lg:w-[35px] lg:h-[55px]"
                   }`}
                 >
@@ -293,7 +293,7 @@ const ExpertiseSection = () => {
                       alt={item.title} 
                       className={
                         item.title === "DEVELOPMENT" ? "w-7 h-7 md:w-8 md:h-8" : 
-                        item.title === "INTELLIGENCE" ? "w-4 h-6 md:w-5 md:h-7" : 
+                        item.title === "INTELLIGENCE" ? "w-4 h-5 md:w-5 md:h-6" : 
                         "w-6 h-6 md:w-7 md:h-7"
                       } 
                     />
@@ -317,7 +317,7 @@ const ExpertiseSection = () => {
                       alt={item.title} 
                       className={
                         item.title === "DEVELOPMENT" ? "w-7 h-7 md:w-8 md:h-8" : 
-                        item.title === "INTELLIGENCE" ? "w-4 h-6 md:w-5 md:h-7" : 
+                        item.title === "INTELLIGENCE" ? "w-4 h-5 md:w-5 md:h-6" : 
                         "w-6 h-6 md:w-7 md:h-7"
                       } 
                     />
