@@ -65,7 +65,7 @@ const AboutHero = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-20 h-full flex flex-col justify-between px-[4vw] lg:px-[5vw] pt-[15vh] sm:pt-[20vh] lg:pt-[140px] pb-[4vh] lg:pb-[80px]">
+      <div className="relative z-20 h-full flex flex-col justify-between px-[4vw] lg:px-[5vw] pt-[8vh] sm:pt-[10vh] lg:pt-[100px] pb-[4vh] lg:pb-[80px]">
         {/* Plus icon row */}
         <div className="hidden lg:flex items-center justify-between w-full mt-[280px]">
           {[0, 1, 2, 3, 4].map((i) => (
