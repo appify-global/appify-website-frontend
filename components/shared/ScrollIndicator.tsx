@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 /**
  * ScrollIndicator - A vertical scroll progress indicator
  * 
@@ -10,8 +12,11 @@
  * The indicator auto-hides after 800ms of scroll inactivity.
  */
 export function ScrollIndicator() {
+  const pathname = usePathname();
+  const isAboutPage = pathname === '/about';
+
   return (
-    <div id="scroll-indicator">
+    <div id="scroll-indicator" className={isAboutPage ? "inverted" : ""}>
       <div id="scroll-indicator-bar" />
     </div>
   );

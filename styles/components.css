@@ -230,6 +230,15 @@
   will-change: transform;
 }
 
+/* Inverted scroll indicator for dark backgrounds (e.g., About page) */
+#scroll-indicator.inverted {
+  background-color: #ffffff1a;
+}
+
+#scroll-indicator.inverted #scroll-indicator-bar {
+  background-color: #ffffff;
+}
+
 /* ===== Carousel Component ===== */
 
 .container {
