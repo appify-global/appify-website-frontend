@@ -138,16 +138,19 @@ const TeamMember = () => {
           <ThreeRowDots />
         </div>
 
-        {/* TEAM title */}
+        {/* OUR FOUNDER title */}
         <h2
           ref={titleRef}
           className="font-Aeonik text-[16vw] sm:text-[18vw] lg:text-[94px] xl:text-[135px] leading-[1] tracking-[0.2em] sm:tracking-[0.4em] text-white mt-[10vh] sm:mt-[15vh] lg:mt-[118px] lg:ml-auto lg:text-right lg:mr-[5vw]"
         >
-          TEAM
+          OUR FOUNDER
         </h2>
 
-        {/* Team description text - desktop */}
-        <div className="hidden lg:block absolute top-[620px] right-[5vw] max-w-[458px]">
+        {/* Founder description text - mobile/tablet */}
+        <div className="lg:hidden mt-8 sm:mt-12 max-w-full">
+          <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
+            Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
+          </p>
           <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
             As a result of our diverse experience, we are able to think creatively
             and find new solutions to problems, providing clients with memorable,
@@ -157,17 +160,31 @@ const TeamMember = () => {
           </p>
         </div>
 
-        {/* Member card - bottom left */}
+        {/* Founder description text - desktop */}
+        <div className="hidden lg:block absolute top-[620px] right-[5vw] max-w-[458px]">
+          <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
+            Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
+          </p>
+          <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
+            As a result of our diverse experience, we are able to think creatively
+            and find new solutions to problems, providing clients with memorable,
+            purpose-driven experiences that cut through the noise and connect
+            where it matters, which leaves lasting impressions that form enduring
+            connections between brands and consumers.
+          </p>
+        </div>
+
+        {/* Founder card - bottom left */}
         <div className="absolute bottom-[40px] sm:bottom-[60px] lg:bottom-[75px] left-[4vw] sm:left-[6vw] lg:left-[5vw]">
-          {/* Member info */}
+          {/* Founder info */}
           <div className="flex items-center gap-2 mb-2">
             <DotGrid className="w-[13px]" />
             <span className="font-Aeonik text-[16px] lg:text-[20px] text-white">
-              Marco Ludovico Perego
+              :: Mennan Yelkenci
             </span>
           </div>
           <p className="font-Aeonik text-[10px] lg:text-[12px] text-white/60 uppercase tracking-wider mb-4">
-            CREATIVE DEVELOPER
+            Founder and CEO
           </p>
 
           {/* Progress bar */}
