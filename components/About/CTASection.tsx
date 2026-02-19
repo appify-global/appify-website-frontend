@@ -125,7 +125,7 @@ const CTASection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[879px] bg-gradient-to-b from-[#040506] via-[#02121a] to-black overflow-hidden py-[40px] sm:py-[60px] lg:py-[133px]"
+      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:min-h-[100vh] bg-gradient-to-b from-[#040506] via-[#02121a] to-black overflow-hidden py-[40px] sm:py-[60px] lg:py-[180px]"
     >
       {/* Face images background */}
       <div
