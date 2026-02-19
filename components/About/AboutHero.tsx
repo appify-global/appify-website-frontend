@@ -43,7 +43,7 @@ const AboutHero = () => {
   return (
     <div
       ref={heroRef}
-      className="relative w-full min-h-[70vh] sm:min-h-[80vh] lg:min-h-[877px] bg-black overflow-hidden"
+      className="relative w-full min-h-[70vh] sm:min-h-[80vh] lg:min-h-[877px] overflow-hidden"
     >
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80 z-10" />

@@ -63,7 +63,7 @@ const TeamDescription = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:h-screen bg-black overflow-hidden"
+      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:h-screen overflow-hidden"
     >
       {/* Main content */}
       <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[8vh] sm:py-[10vh] lg:py-[194px]">
