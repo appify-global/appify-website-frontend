@@ -258,9 +258,12 @@ const AwardsSection = () => {
           </h3>
           <div className="lg:max-w-[806px] space-y-[12px]">
             {articlesData.map((article, idx) => (
-              <div key={idx} className="flex items-center">
+              <div key={idx} className="flex justify-between items-center gap-4">
                 <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
                   {article.title}
+                </span>
+                <span className="font-Aeonik text-[14px] lg:text-[16px] text-white/60 invisible">
+                  {/* Invisible spacer to match talks layout */}
                 </span>
               </div>
             ))}
