@@ -140,7 +140,7 @@ const TeamMember = () => {
             </h2>
           </div>
 
-          {/* Horizontal row: Name + SVG + Paragraphs + Image - bottom aligned */}
+          {/* Horizontal row: Name + Image + SVG + Paragraphs - bottom aligned */}
           <div className="absolute bottom-[60px] left-[5vw] right-[5vw] flex items-end gap-8">
             {/* Founder info */}
             <div className="flex-shrink-0 mb-2">
@@ -157,6 +157,19 @@ const TeamMember = () => {
               <div className="w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
                 <div className="w-[80%] h-full bg-white/80 rounded-full" />
               </div>
+            </div>
+
+            {/* Founder image - in the middle */}
+            <div
+              ref={imageRef}
+              className="w-[300px] h-[400px] relative flex-shrink-0"
+            >
+              <Image
+                src="/team/founder-img.svg"
+                alt="Mennan Yelkenci"
+                fill
+                className="object-cover"
+              />
             </div>
 
             {/* SVG */}
@@ -178,19 +191,6 @@ const TeamMember = () => {
                 where it matters, which leaves lasting impressions that form enduring
                 connections between brands and consumers.
               </p>
-            </div>
-
-            {/* Founder image - moved to right */}
-            <div
-              ref={imageRef}
-              className="w-[300px] h-[400px] relative flex-shrink-0"
-            >
-              <Image
-                src="/team/founder-img.svg"
-                alt="Mennan Yelkenci"
-                fill
-                className="object-cover"
-              />
             </div>
           </div>
         </div>
