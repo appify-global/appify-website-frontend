@@ -262,7 +262,7 @@ const AwardsSection = () => {
           <div className="lg:max-w-[806px] space-y-[12px]">
             {articlesData.map((article, idx) => (
               <div key={idx} className="flex items-center">
-                <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white">
+                <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
                   {article.title}
                 </span>
               </div>
