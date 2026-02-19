@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { FaArrowUp, FaHeart } from "react-icons/fa";
+import { FaArrowUp, FaArrowRight, FaHeart } from "react-icons/fa";
 
 // Right arrow icon (matching ServiceFooterNav style)
 const RightArrowIcon: React.FC = () => (
