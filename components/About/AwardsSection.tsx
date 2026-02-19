@@ -250,8 +250,8 @@ const AwardsSection = () => {
         <div className="border-t border-white/10" />
       </div> */}
 
-      {/* Articles section */}
-      <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px]">
+      {/* Articles section - Hidden */}
+      {/* <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px]">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
           <h3 className="font-Aeonik text-[10vw] lg:text-[45px] leading-[1.1] text-white mb-[30px] lg:mb-0">
             ARTICLES
@@ -269,13 +269,13 @@ const AwardsSection = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Talks section */}
-      <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px] border-t border-white/10">
+      <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px]">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
           <div className="flex items-center gap-4 mb-[30px] lg:mb-0">
-            <h3 className="font-Aeonik text-[10vw] lg:text-[45px] leading-[1.1] text-white">
+            <h3 className="font-Aeonik text-[12vw] lg:text-[56px] xl:text-[72px] leading-[1.1] text-white">
               TALKS
             </h3>
             <CircleBadge number="5" className="lg:hidden" />
@@ -289,10 +289,10 @@ const AwardsSection = () => {
                     talk.link ? "cursor-pointer hover:opacity-80 transition-opacity" : ""
                   }`}
                 >
-                  <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
+                  <span className="font-Aeonik text-[14px] sm:text-[15px] lg:text-[18px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
                     {talk.event}
                   </span>
-                  <span className="font-Aeonik text-[14px] lg:text-[16px] text-white/60">
+                  <span className="font-Aeonik text-[15px] sm:text-[16px] lg:text-[18px] text-white/60">
                     {talk.location}
                   </span>
                 </div>
