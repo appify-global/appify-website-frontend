@@ -63,11 +63,31 @@ const articlesData = [
 
 // Talks data
 const talksData = [
-  { event: "FRWRDx", location: "Dec 2025 Dubai", link: "" },
-  { event: "Everything AI in Travel", location: "Oct 2025 Melbourne", link: "" },
-  { event: "Beyond the buzz", location: "Aug 2025 Brisbane", link: "" },
-  { event: "Travel Tech Innovation", location: "Sep 2025 Melbourne", link: "" },
-  { event: "More than Money", location: "Feb 2025 Sydney", link: "" },
+  { 
+    event: "FRWRDx", 
+    location: "Dec 2025 Dubai", 
+    link: "https://www.linkedin.com/posts/mennan-yelkenci_frwrdx-foundersupport-uaestartupcommunity-activity-7412263036276895744-eULj/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADEEUk8B5-EP02wHXlhflK9PuUd7nYa80q8" 
+  },
+  { 
+    event: "Everything AI in Travel", 
+    location: "Oct 2025 Melbourne", 
+    link: "https://www.linkedin.com/pulse/mennan-yelkenci-isnt-afraid-take-swing-big-prize-trave-tony-carne-y3gtc/?trackingId=UCQ4dJoHIRgs2VqzWtQQQA%3D%3D" 
+  },
+  { 
+    event: "Beyond the buzz", 
+    location: "Aug 2025 Brisbane", 
+    link: "https://www.linkedin.com/posts/bttb2025-bttb2025-travelai-ugcPost-7359106313575915521-sMdt/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADEEUk8B5-EP02wHXlhflK9PuUd7nYa80q8" 
+  },
+  { 
+    event: "Travel Tech Innovation", 
+    location: "Sep 2025 Melbourne", 
+    link: "https://www.linkedin.com/posts/mennan-yelkenci_great-few-days-with-the-booked-ai-scalerr-activity-7375661354692780033-7TJJ/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADEEUk8B5-EP02wHXlhflK9PuUd7nYa80q8" 
+  },
+  { 
+    event: "More than Money", 
+    location: "Feb 2025 Sydney", 
+    link: "https://www.linkedin.com/posts/ravi-sharma-buyer%E2%80%99s-agency-of-the-year-finalist-95b8b849_revolutionising-travel-with-the-worlds-first-share-7292785009617182720-lybz/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADEEUk8B5-EP02wHXlhflK9PuUd7nYa80q8" 
+  },
 ];
 
 // Trophy icon component
