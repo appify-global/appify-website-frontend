@@ -148,14 +148,14 @@ const ClientsSection = () => {
     }
 
     if (row2Ref.current) {
-      // Row 2: scroll right - slower to match other rows
+      // Row 2: scroll right - start from right side
       const row2Content = row2Ref.current.querySelector(".logo-row-content") as HTMLElement;
       if (row2Content) {
-        // Start from left (x: 0) and scroll right
-        gsap.set(row2Content, { x: 0 });
         const width = row2Content.scrollWidth / 3; // Third because we tripled
+        // Start from right (negative position) and scroll right to 0
+        gsap.set(row2Content, { x: -width });
         gsap.to(row2Content, {
-          x: width,
+          x: 0,
           duration: 40, // Slower duration for middle row
           ease: "none",
           repeat: -1,
