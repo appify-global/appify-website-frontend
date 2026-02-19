@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Trail } from "./TrailText";
 
 import LetsTalk from "./LetsTalk";
@@ -17,6 +18,8 @@ interface NavbarProps {
 }
 
 function Navbar({ showBackButton = false, backHref = "/services" }: NavbarProps) {
+  const pathname = usePathname();
+  const isAboutPage = pathname === "/about";
   // Desktop trail animation
   const [open] = useState(true);
 
@@ -29,7 +32,15 @@ function Navbar({ showBackButton = false, backHref = "/services" }: NavbarProps)
       <div className="fixed top-0 left-0 z-50 w-full py-6 lg:hidden px-6">
         <div className="flex items-center justify-between w-full font-extrabold pb-2">
           <div className="tracking-wider font-extrabold text-3xl cursor-pointer">
-            <Link href="/"><Image src={'/appify_black.png'} width={'100'} height={'100'} alt="Appify" /></Link>
+            <Link href="/">
+              <Image 
+                src={'/appify_black.png'} 
+                width={'100'} 
+                height={'100'} 
+                alt="Appify"
+                className={isAboutPage ? "filter brightness-0 invert" : ""}
+              />
+            </Link>
           </div>
           <div className="flex items-center gap-2">
             {showBackButton && (
@@ -61,7 +72,15 @@ function Navbar({ showBackButton = false, backHref = "/services" }: NavbarProps)
       <div className="fixed top-0 left-0 w-full px-[4.1vw] z-50 ">
         <div className="items-start justify-between hidden lg:flex pt-14 pb-10">
           <div className="tracking-wider font-AeonikMedium text-4xl">
-            <Link href="/"><Image src={'/appify_black.png'} width={'130'} height={'45'} alt="Appify" /></Link>
+            <Link href="/">
+              <Image 
+                src={'/appify_black.png'} 
+                width={'130'} 
+                height={'45'} 
+                alt="Appify"
+                className={isAboutPage ? "filter brightness-0 invert" : ""}
+              />
+            </Link>
           </div>
           <div className="hidden lg:flex items-center justify-around font-AeonikMedium">
             <Trail open={open} className="flex items-center">
