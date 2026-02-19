@@ -253,7 +253,7 @@ const AwardsSection = () => {
       {/* Articles section - Hidden */}
 
       {/* Talks section */}
-      <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px]">
+      <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[60px] sm:py-[80px] lg:py-[120px]">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
           <div className="flex items-center gap-4 mb-[30px] lg:mb-0">
             <h3 className="font-Aeonik text-[12vw] lg:text-[56px] xl:text-[72px] leading-[1.1] text-white">
