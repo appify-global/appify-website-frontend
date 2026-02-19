@@ -10,7 +10,6 @@ import ClientsSection from "@/components/About/ClientsSection";
 import AwardsSection from "@/components/About/AwardsSection";
 import ExpertiseSection from "@/components/About/ExpertiseSection";
 import CTASection from "@/components/About/CTASection";
-import FooterScroll from "@/components/About/FooterScroll";
 
 export default function AboutPage() {
   return (
@@ -53,11 +52,6 @@ export default function AboutPage() {
       {/* CTA Section - "Let's work together" */}
       <section id="cta" className="w-full">
         <CTASection />
-      </section>
-
-      {/* Footer Scroll Section */}
-      <section id="footer-scroll" className="w-full">
-        <FooterScroll />
       </section>
     </PageLayout>
   );

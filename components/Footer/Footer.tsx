@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { FaArrowUp, FaArrowRight, FaHeart } from "react-icons/fa";
 
 // Right arrow icon (matching ServiceFooterNav style)
@@ -58,6 +60,8 @@ interface FooterProps {
 }
 
 const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
+    const pathname = usePathname();
+    const isAboutPage = pathname === "/about";
     // Initialize with computed times to avoid setState in effect
     const [times, setTimes] = useState<Record<string, string>>(computeTimes);
 
@@ -166,7 +170,13 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
                 <div className="bg-black text-white px-[4vw] py-12 sm:py-16 lg:py-20">
                     <div className="text-xs sm:text-sm lg:text-xl text-gray-400 mb-4 sm:mb-6 tracking-wide">KEEP SCROLLING TO LEARN MORE</div>
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-light">ABOUT US</h2>
+                        {isAboutPage ? (
+                            <Link href="/projects">
+                                <h2 className="text-2xl sm:text-3xl md:text-4xl font-light hover:text-[#ff009e] transition-colors">PROJECTS</h2>
+                            </Link>
+                        ) : (
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-light">ABOUT US</h2>
+                        )}
 
                         <div className="flex items-center gap-3">
                             <p className="text-sm sm:text-base lg:text-xl">NEXT PAGE</p>
