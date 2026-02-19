@@ -80,9 +80,6 @@ const AboutHero = () => {
       />
       {/* Opacity overlay to reduce background image visibility to 30% */}
       <div className="absolute inset-0 bg-black/70 z-[1]" />
-      
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80 z-[2]" />
 
       {/* Masked "ABOUT" and "US" text effect */}
       <div className="absolute inset-0 z-[1]">
