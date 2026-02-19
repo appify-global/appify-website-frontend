@@ -3,8 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import Matter from "matter-js";
-import PhysicsFace from "./PhysicsFace";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,8 +67,6 @@ const CTASection = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const avatarsRef = useRef<HTMLDivElement>(null);
   const [faceImages] = useState<string[]>(getFaceImages());
-  const [facePositions, setFacePositions] = useState<Array<{ x: number; y: number; size: number }>>([]);
-  const mouseConstraintRef = useRef<Matter.MouseConstraint | null>(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -92,121 +89,69 @@ const CTASection = () => {
     }
   }, []);
 
-  // Calculate face positions when container is ready
-  useEffect(() => {
-    if (!avatarsRef.current) return;
-
-    const calculatePositions = () => {
-      const container = avatarsRef.current;
-      if (!container) return;
-      
-      const width = container.clientWidth || 1200; // Fallback width
-      const height = container.clientHeight || 800; // Fallback height
-      
-      // Use a subset of faces (adjust number as needed)
-      const numFaces = Math.min(faceImages.length, 30);
-      const positions = [
-        // Left side
-        { x: width * 0.05, y: height * 0.15, size: 66 },
-        { x: width * 0.12, y: height * 0.25, size: 78 },
-        { x: width * 0.03, y: height * 0.35, size: 90 },
-        { x: width * 0.20, y: height * 0.20, size: 66 },
-        { x: width * 0.08, y: height * 0.45, size: 82 },
-        { x: width * 0.18, y: height * 0.40, size: 70 },
-        { x: width * 0.02, y: height * 0.55, size: 75 },
-        { x: width * 0.15, y: height * 0.50, size: 88 },
-        { x: width * 0.10, y: height * 0.60, size: 66 },
-        { x: width * 0.22, y: height * 0.65, size: 92 },
-        { x: width * 0.05, y: height * 0.70, size: 80 },
-        { x: width * 0.18, y: height * 0.75, size: 66 },
-        // Right side
-        { x: width * 0.78, y: height * 0.15, size: 82 },
-        { x: width * 0.85, y: height * 0.25, size: 75 },
-        { x: width * 0.75, y: height * 0.35, size: 93 },
-        { x: width * 0.92, y: height * 0.20, size: 66 },
-        { x: width * 0.82, y: height * 0.45, size: 85 },
-        { x: width * 0.90, y: height * 0.40, size: 72 },
-        { x: width * 0.78, y: height * 0.55, size: 90 },
-        { x: width * 0.88, y: height * 0.50, size: 66 },
-        { x: width * 0.95, y: height * 0.60, size: 78 },
-        { x: width * 0.80, y: height * 0.65, size: 66 },
-        { x: width * 0.92, y: height * 0.70, size: 85 },
-        { x: width * 0.85, y: height * 0.75, size: 66 },
-        // Center area (fewer faces)
-        { x: width * 0.50, y: height * 0.30, size: 70 },
-        { x: width * 0.45, y: height * 0.60, size: 75 },
-        { x: width * 0.55, y: height * 0.65, size: 68 },
-      ];
-
-      setFacePositions(positions.slice(0, numFaces));
-    };
-
-    // Calculate on mount and resize
-    calculatePositions();
-    const resizeObserver = new ResizeObserver(calculatePositions);
-    resizeObserver.observe(avatarsRef.current);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [faceImages.length]);
-
-  // Set up mouse interaction for physics
-  useEffect(() => {
-    if (!avatarsRef.current) return;
-
-    const { Mouse, MouseConstraint, World } = Matter;
-
-    // Wait for engine to be initialized
-    const checkEngine = setInterval(() => {
-      if (window.physicsEngine && avatarsRef.current) {
-        clearInterval(checkEngine);
-
-        const container = avatarsRef.current;
-        const mouse = Mouse.create(container);
-        const mouseConstraint = MouseConstraint.create(window.physicsEngine, {
-          mouse: mouse,
-          constraint: {
-            stiffness: 0.2,
-            render: { visible: false },
-          },
-        });
-
-        World.add(window.physicsEngine.world, mouseConstraint);
-        mouseConstraintRef.current = mouseConstraint;
-        window.physicsMouseConstraint = mouseConstraint;
-      }
-    }, 100);
-
-    return () => {
-      clearInterval(checkEngine);
-      if (mouseConstraintRef.current && window.physicsEngine) {
-        World.remove(window.physicsEngine.world, mouseConstraintRef.current);
-      }
-    };
-  }, []);
+  // Generate face positions for the decorative pattern
+  const facePositions = [
+    { top: "15%", left: "5%", size: 66 },
+    { top: "25%", left: "12%", size: 78 },
+    { top: "35%", left: "3%", size: 90 },
+    { top: "20%", left: "20%", size: 66 },
+    { top: "45%", left: "8%", size: 82 },
+    { top: "40%", left: "18%", size: 70 },
+    { top: "55%", left: "2%", size: 75 },
+    { top: "50%", left: "15%", size: 88 },
+    { top: "60%", left: "10%", size: 66 },
+    { top: "65%", left: "22%", size: 92 },
+    { top: "70%", left: "5%", size: 80 },
+    { top: "75%", left: "18%", size: 66 },
+    // Right side
+    { top: "15%", left: "78%", size: 82 },
+    { top: "25%", left: "85%", size: 75 },
+    { top: "35%", left: "75%", size: 93 },
+    { top: "20%", left: "92%", size: 66 },
+    { top: "45%", left: "82%", size: 85 },
+    { top: "40%", left: "90%", size: 72 },
+    { top: "55%", left: "78%", size: 90 },
+    { top: "50%", left: "88%", size: 66 },
+    { top: "60%", left: "95%", size: 78 },
+    { top: "65%", left: "80%", size: 66 },
+    { top: "70%", left: "92%", size: 85 },
+    { top: "75%", left: "85%", size: 66 },
+    // Center area (fewer faces)
+    { top: "30%", left: "50%", size: 70 },
+    { top: "60%", left: "45%", size: 75 },
+    { top: "65%", left: "55%", size: 68 },
+  ];
 
   return (
     <div
       ref={sectionRef}
       className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[879px] bg-gradient-to-b from-[#040506] via-[#02121a] to-black overflow-hidden py-[40px] sm:py-[60px] lg:py-[133px]"
     >
-      {/* Physics-based interactive faces */}
+      {/* Face images background */}
       <div
         ref={avatarsRef}
-        className="absolute inset-0 pointer-events-auto overflow-hidden"
-        style={{ touchAction: "none" }}
+        className="absolute inset-0 pointer-events-none overflow-hidden"
       >
         {facePositions.map((pos, idx) => (
-          <PhysicsFace
+          <div
             key={idx}
-            src={faceImages[idx % faceImages.length]}
-            alt={`Team member ${idx + 1}`}
-            initialX={pos.x}
-            initialY={pos.y}
-            size={pos.size}
-            containerRef={avatarsRef}
-          />
+            className="absolute rounded-full overflow-hidden"
+            style={{
+              top: pos.top,
+              left: pos.left,
+              width: `${pos.size}px`,
+              height: `${pos.size}px`,
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <Image
+              src={faceImages[idx % faceImages.length]}
+              alt={`Team member ${idx + 1}`}
+              width={pos.size}
+              height={pos.size}
+              className="rounded-full object-cover w-full h-full"
+            />
+          </div>
         ))}
       </div>
 
