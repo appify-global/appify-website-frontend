@@ -251,25 +251,6 @@ const AwardsSection = () => {
       </div> */}
 
       {/* Articles section - Hidden */}
-      {/* <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px]">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
-          <h3 className="font-Aeonik text-[10vw] lg:text-[45px] leading-[1.1] text-white mb-[30px] lg:mb-0">
-            ARTICLES
-          </h3>
-          <div className="lg:max-w-[806px] space-y-[12px]">
-            {articlesData.map((article, idx) => (
-              <div key={idx} className="flex justify-between items-center gap-4">
-                <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
-                  {article.title}
-                </span>
-                <span className="font-Aeonik text-[14px] lg:text-[16px] text-white/60 invisible">
-                  {/* Invisible spacer to match talks layout */}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
 
       {/* Talks section */}
       <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px]">
