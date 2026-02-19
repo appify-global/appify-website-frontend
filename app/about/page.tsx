@@ -45,7 +45,7 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <PageLayout navbarPadding="pb-[2vw]" backgroundColor="bg-black">
+    <PageLayout navbarPadding="pb-[2vw]">
       {/* Fixed background - fades out when Clients section appears */}
       {/* Background sits above black bg but behind text */}
       <div
