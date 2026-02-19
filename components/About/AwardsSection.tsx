@@ -163,9 +163,9 @@ const AwardsSection = () => {
 
   return (
     <div ref={sectionRef} className="relative w-full bg-black overflow-hidden">
+      {/* Awards section - Hidden for now */}
       {/* Large background text - AWARD WINNING */}
-      <div className="relative min-h-[40vh] sm:min-h-[50vh] lg:min-h-[740px] overflow-hidden py-[6vh] sm:py-[8vh] lg:py-[112px]">
-        {/* Background animated text */}
+      {/* <div className="relative min-h-[40vh] sm:min-h-[50vh] lg:min-h-[740px] overflow-hidden py-[6vh] sm:py-[8vh] lg:py-[112px]">
         <div className="absolute inset-0 flex flex-col justify-center items-start overflow-hidden pointer-events-none">
           <div className="whitespace-nowrap">
             <span className="font-Aeonik text-[15vw] lg:text-[105px] text-transparent bg-clip-text bg-gradient-to-r from-white/5 to-white/10 tracking-[0.03em]">
@@ -199,7 +199,6 @@ const AwardsSection = () => {
           </div>
         </div>
 
-        {/* Title and count */}
         <div className="relative z-10 px-[6vw] lg:px-[5vw]">
           <div className="flex items-center justify-between">
             <h2
@@ -211,10 +210,10 @@ const AwardsSection = () => {
             <CircleBadge number="58" className="hidden lg:flex" />
           </div>
         </div>
-      </div>
+      </div> */}
 
-      {/* Awards table */}
-      <div
+      {/* Awards table - Hidden for now */}
+      {/* <div
         ref={tableRef}
         className="relative z-10 px-[4vw] lg:px-[10px] pb-[30px] sm:pb-[50px] lg:pb-[100px]"
       >
@@ -224,14 +223,12 @@ const AwardsSection = () => {
             className="border-t border-white/10 py-[15px] lg:py-[18px]"
           >
             <div className="flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-[49px] px-[2vw] lg:px-[15px]">
-              {/* Organization name */}
               <div className="w-full lg:w-[98px] shrink-0">
                 <span className="font-Aeonik text-[14px] text-white">
                   {category.organization}
                 </span>
               </div>
 
-              {/* Awards list */}
               <div className="flex flex-col gap-[10px] flex-1">
                 {category.awards.map((award, awardIdx) => (
                   <div
@@ -251,7 +248,7 @@ const AwardsSection = () => {
           </div>
         ))}
         <div className="border-t border-white/10" />
-      </div>
+      </div> */}
 
       {/* Articles section */}
       <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px]">
