@@ -152,7 +152,7 @@ const CTASection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[879px] bg-[#F0F1FA] overflow-hidden py-[40px] sm:py-[60px] lg:py-[133px]"
+      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:min-h-[879px] bg-gradient-to-b from-[#040506] via-[#02121a] to-black overflow-hidden py-[40px] sm:py-[60px] lg:py-[133px]"
     >
       {/* Floating avatars background */}
       <div
@@ -172,41 +172,64 @@ const CTASection = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-[6vw] lg:px-[5vw]">
-        {/* Top text with plus icons */}
-        <div className="flex items-center gap-4 mb-[20px]">
-          <PlusIcon className="w-4 h-4 lg:w-5 lg:h-5 text-black/40" />
-          <p className="font-Aeonik text-[12px] lg:text-[15px] text-black/80 text-center uppercase tracking-tight">
+      <div className="relative z-10 h-full flex flex-col items-center justify-start pt-[18vh] sm:justify-center sm:pt-0 text-center px-4 py-3 md:py-8 lg:pb-17 lg:pt-0">
+        <div className="relative inline-block px-8 sm:px-20 lg:px-20 py-4 sm:py-8 lg:py-12">
+          {/* Plus icons positioned absolutely */}
+          <span className="absolute -top-4 -left-4 sm:-top-8 sm:-left-8 select-none">
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </span>
+          <span className="absolute -top-4 -right-4 sm:-top-8 sm:-right-8 select-none">
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </span>
+          
+          {/* Top text */}
+          <p
+            className="absolute -top-4 sm:-top-8 left-1/2 -translate-x-1/2 text-white font-Aeonik uppercase
+                text-[clamp(0.55rem,2.5vw,1.25rem)] tracking-wide whitespace-nowrap
+                flex items-center justify-center gap-4"
+          >
             IS YOUR BIG IDEA READY TO GO WILD?
           </p>
-          <PlusIcon className="w-4 h-4 lg:w-5 lg:h-5 text-black/40" />
+
+          {/* Main CTA title */}
+          <h2
+            ref={titleRef}
+            className="relative inline-block text-white font-Aeonik leading-none
+                text-[clamp(2rem,8vw,10rem)] sm:text-[clamp(3rem,12vw,10rem)]"
+          >
+            <div>Let&apos;s work</div>
+            <div>together!</div>
+          </h2>
         </div>
 
-        {/* Main CTA title */}
-        <h2
-          ref={titleRef}
-          className="font-Aeonik text-[12vw] lg:text-[72px] xl:text-[90px] leading-[1.1] text-black text-center mb-[40px]"
-        >
-          Let&apos;s work
-          <br />
-          together!
-        </h2>
-
-        {/* Plus icon row */}
-        <div className="flex items-center justify-center gap-[40px] sm:gap-[80px] lg:gap-[200px] mb-[30px]">
-          <PlusIcon className="w-4 h-4 lg:w-5 lg:h-5 text-black/40" />
-          <PlusIcon className="w-4 h-4 lg:w-5 lg:h-5 text-black/40 hidden lg:block" />
-          <PlusIcon className="w-4 h-4 lg:w-5 lg:h-5 text-black/40" />
+        {/* Plus icons row */}
+        <div className="hidden sm:flex items-center justify-between w-full max-w-[900px] mt-6 lg:mt-12 px-4">
+          <span className="select-none">
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </span>
+          <span className="select-none">
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </span>
+          <span className="select-none">
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </span>
         </div>
 
         {/* Continue to scroll button */}
-        <button className="flex items-center gap-[10px] bg-black rounded-full px-[20px] lg:px-[30px] py-[12px] lg:py-[17px] hover:bg-gray-800 transition-colors">
-          <ArrowDownIcon className="w-[20px] h-[20px] text-white rotate-180" />
-          <span className="font-Aeonik text-[11px] lg:text-[13px] text-white uppercase tracking-tight">
+        <div className="mt-4 sm:mt-4 lg:mt-8">
+          <a
+            href="#footer-scroll"
+            className="inline-flex items-center gap-2 sm:gap-3 bg-white text-black rounded-full px-4 py-2 sm:px-6 sm:py-3 font-Aeonik text-xs sm:text-sm tracking-widest uppercase hover:bg-transparent hover:text-white border border-white transition-colors duration-300"
+          >
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 1V13M7 13L1 7M7 13L13 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
             CONTINUE TO SCROLL
-          </span>
-          <ArrowDownIcon className="w-[20px] h-[20px] text-white" />
-        </button>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 1V13M7 13L1 7M7 13L13 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   );
