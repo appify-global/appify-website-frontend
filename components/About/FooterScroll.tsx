@@ -3,7 +3,25 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { FaArrowRight } from "react-icons/fa";
+// Right arrow icon (matching ServiceFooterNav style)
+const RightArrowIcon: React.FC = () => (
+  <svg
+    width="20"
+    height="16"
+    viewBox="0 0 20 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="text-white"
+  >
+    <path
+      d="M1 8H19M19 8L12 1M19 8L12 15"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,14 +92,16 @@ const FooterScroll = () => {
         </h2>
 
         {/* Next page indicator */}
-        <div className="flex items-center gap-4">
-          <span className="font-Aeonik text-[14px] lg:text-[16px] text-white/80 uppercase">
+        <div className="flex items-center gap-3">
+          <span className="font-Aeonik text-[14px] lg:text-[16px] text-white/60 uppercase">
             NEXT PAGE
           </span>
-          <div className="w-[140px] lg:w-[179px] h-[6px] bg-white/20 rounded-full relative overflow-hidden">
-            <div className="absolute top-0 left-0 h-full w-[60px] bg-[#FF009E] rounded-full" />
+          <div className="flex items-center gap-2">
+            <div className="h-[4px] w-[120px] lg:w-[160px] bg-[#34393f] rounded-full relative">
+              <div className="absolute h-full w-[33%] bg-[#ff009e] rounded-full" />
+            </div>
+            <RightArrowIcon />
           </div>
-          <FaArrowRight className="text-white w-4 h-4 lg:w-5 lg:h-5" />
         </div>
       </div>
 
