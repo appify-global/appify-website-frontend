@@ -40,7 +40,7 @@ export default function AboutPage() {
       </section>
 
       {/* Plus Icons Separator */}
-      <section className="w-full bg-black py-[40px] lg:py-[60px]">
+      <section className="w-full bg-black pt-[20px] pb-[20px] lg:pt-[30px] lg:pb-[30px]">
         <div className="px-[4vw] sm:px-[6vw] lg:px-[5vw]">
           <div className="flex items-center justify-between w-full">
             {[0, 1, 2, 3].map((i) => (

@@ -183,7 +183,7 @@ const ClientsSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full lg:min-h-[1189px] bg-black overflow-hidden py-[8vh] sm:py-[10vh] lg:py-[160px]"
+      className="relative w-full bg-black overflow-hidden pt-[8vh] sm:pt-[10vh] lg:pt-[160px] pb-[4vh] sm:pb-[5vh] lg:pb-[40px]"
     >
       {/* Main content */}
       <div className="relative z-10 px-[4vw] sm:px-[6vw] lg:px-[5vw]">
