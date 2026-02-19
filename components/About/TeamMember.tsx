@@ -128,14 +128,24 @@ const TeamMember = () => {
           <ThreeRowDots />
         </div>
 
-        {/* Desktop Layout: Left (Portrait) + Right (Heading + SVG + Text) */}
-        <div className="hidden lg:flex lg:items-start lg:justify-between lg:h-full lg:pt-[100px]">
-          {/* Left Side: Portrait and Info */}
-          <div className="flex flex-col items-start">
+        {/* Desktop Layout: Heading floating + Horizontal row of elements */}
+        <div className="hidden lg:block relative h-full">
+          {/* Heading - floating on top, right aligned */}
+          <div className="absolute top-[100px] right-[5vw] text-right z-20">
+            <h2
+              ref={titleRef}
+              className="font-Aeonik text-[60px] lg:text-[70px] xl:text-[85px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap inline-block"
+            >
+              OUR FOUNDER
+            </h2>
+          </div>
+
+          {/* Horizontal row: Image + Name + SVG + Paragraphs - bottom aligned */}
+          <div className="absolute bottom-[60px] left-[5vw] right-[5vw] flex items-end gap-8">
             {/* Founder image */}
             <div
               ref={imageRef}
-              className="w-[300px] h-[400px] mb-6 relative"
+              className="w-[300px] h-[400px] relative flex-shrink-0"
             >
               <Image
                 src="/team/founder-img.svg"
@@ -145,8 +155,8 @@ const TeamMember = () => {
               />
             </div>
 
-            {/* Founder info below portrait */}
-            <div>
+            {/* Founder info */}
+            <div className="flex-shrink-0 mb-2">
               <div className="flex items-center gap-2 mb-2">
                 <DotGrid className="w-[13px]" />
                 <span className="font-Aeonik text-[20px] text-white">
@@ -161,41 +171,26 @@ const TeamMember = () => {
                 <div className="w-[80%] h-full bg-white/80 rounded-full" />
               </div>
             </div>
-          </div>
 
-          {/* Right Side: Heading + SVG + Paragraphs */}
-          <div className="flex-1 max-w-[700px] ml-12 flex flex-col justify-between h-full">
-            {/* Heading - right aligned */}
-            <div className="text-right">
-              <h2
-                ref={titleRef}
-                className="font-Aeonik text-[60px] lg:text-[70px] xl:text-[85px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap inline-block"
-              >
-                OUR FOUNDER
-              </h2>
+            {/* SVG */}
+            <div className="flex-shrink-0">
+              <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
+              </svg>
             </div>
 
-            {/* SVG + Paragraphs - positioned at bottom */}
-            <div className="flex items-start gap-6 mt-auto pb-[60px]">
-              {/* SVG on the left */}
-              <div className="flex-shrink-0">
-                <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
-                </svg>
-              </div>
-              {/* Paragraphs on the right */}
-              <div className="flex-1 max-w-[458px]">
-                <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
-                  Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
-                </p>
-                <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
-                  As a result of our diverse experience, we are able to think creatively
-                  and find new solutions to problems, providing clients with memorable,
-                  purpose-driven experiences that cut through the noise and connect
-                  where it matters, which leaves lasting impressions that form enduring
-                  connections between brands and consumers.
-                </p>
-              </div>
+            {/* Paragraphs */}
+            <div className="flex-1 max-w-[458px] mb-2">
+              <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
+                Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
+              </p>
+              <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
+                As a result of our diverse experience, we are able to think creatively
+                and find new solutions to problems, providing clients with memorable,
+                purpose-driven experiences that cut through the noise and connect
+                where it matters, which leaves lasting impressions that form enduring
+                connections between brands and consumers.
+              </p>
             </div>
           </div>
         </div>
