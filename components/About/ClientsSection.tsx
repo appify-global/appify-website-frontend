@@ -132,7 +132,9 @@ const ClientsSection = () => {
       );
     }
 
-    // Infinite scroll animations
+    // Infinite scroll animations - all rows same speed, slowed down
+    const scrollDuration = 45; // Same duration for all rows, slowed down
+
     if (row1Ref.current) {
       // Row 1: scroll left
       const row1Content = row1Ref.current.querySelector(".logo-row-content") as HTMLElement;
@@ -140,7 +142,7 @@ const ClientsSection = () => {
         const width = row1Content.scrollWidth / 3; // Third because we tripled
         gsap.to(row1Content, {
           x: -width,
-          duration: 30,
+          duration: scrollDuration,
           ease: "none",
           repeat: -1,
         });
@@ -156,7 +158,7 @@ const ClientsSection = () => {
         gsap.set(row2Content, { x: -width });
         gsap.to(row2Content, {
           x: 0,
-          duration: 40, // Slower duration for middle row
+          duration: scrollDuration,
           ease: "none",
           repeat: -1,
         });
@@ -170,7 +172,7 @@ const ClientsSection = () => {
         const width = row3Content.scrollWidth / 3; // Third because we tripled
         gsap.to(row3Content, {
           x: -width,
-          duration: 30,
+          duration: scrollDuration,
           ease: "none",
           repeat: -1,
         });
