@@ -102,6 +102,8 @@ const TeamMember = () => {
       ref={sectionRef}
       className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:h-screen overflow-hidden"
     >
+      {/* Black overlay to match other sections opacity */}
+      <div className="absolute inset-0 bg-black/70 z-0" />
       
       {/* Plus icon row */}
       <div className="absolute top-1/2 -translate-y-1/2 left-[5vw] right-[5vw] hidden lg:flex items-center justify-between z-10">
