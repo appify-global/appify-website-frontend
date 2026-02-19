@@ -381,7 +381,7 @@ export default function ProjectDetailPage() {
               key={index}
               className="flex-shrink-0 w-screen h-screen flex items-center justify-center px-6 sm:px-10 lg:px-20 pt-[12rem] sm:pt-[13rem] lg:pt-[15rem] pb-20 sm:pb-24 lg:pb-24"
             >
-              <div className="relative w-full max-w-4xl aspect-video lg:aspect-[16/10] rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl">
+              <div className="relative w-full max-w-2xl lg:max-w-xl xl:max-w-2xl aspect-video lg:aspect-[16/10] rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src={image}
                   alt={`${project.title} - Gallery ${index + 1}`}
