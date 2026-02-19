@@ -108,7 +108,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-black text-white py-20 sm:py-28 lg:py-40 relative"
+      className="w-full bg-black text-white pt-8 sm:pt-10 lg:pt-12 pb-16 sm:pb-20 lg:pb-24 relative"
     >
       <div className="px-[4vw]">
         {/* Container with top row and heading aligned at bottom */}
