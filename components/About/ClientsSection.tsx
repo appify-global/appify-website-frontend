@@ -140,7 +140,7 @@ const ClientsSection = () => {
         const width = row1Content.scrollWidth / 3; // Third because we tripled
         gsap.to(row1Content, {
           x: -width,
-          duration: 20,
+          duration: 30,
           ease: "none",
           repeat: -1,
         });
@@ -148,13 +148,15 @@ const ClientsSection = () => {
     }
 
     if (row2Ref.current) {
-      // Row 2: scroll right
+      // Row 2: scroll right - slower to match other rows
       const row2Content = row2Ref.current.querySelector(".logo-row-content") as HTMLElement;
       if (row2Content) {
+        // Start from left (x: 0) and scroll right
+        gsap.set(row2Content, { x: 0 });
         const width = row2Content.scrollWidth / 3; // Third because we tripled
         gsap.to(row2Content, {
           x: width,
-          duration: 20,
+          duration: 40, // Slower duration for middle row
           ease: "none",
           repeat: -1,
         });
@@ -168,7 +170,7 @@ const ClientsSection = () => {
         const width = row3Content.scrollWidth / 3; // Third because we tripled
         gsap.to(row3Content, {
           x: -width,
-          duration: 20,
+          duration: 30,
           ease: "none",
           repeat: -1,
         });
