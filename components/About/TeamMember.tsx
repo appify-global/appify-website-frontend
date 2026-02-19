@@ -164,9 +164,9 @@ const TeamMember = () => {
           </div>
 
           {/* Right Side: Heading + SVG + Paragraphs */}
-          <div className="flex-1 max-w-[700px] ml-12">
+          <div className="flex-1 max-w-[700px] ml-12 flex flex-col justify-between h-full">
             {/* Heading - right aligned */}
-            <div className="text-right mb-8">
+            <div className="text-right">
               <h2
                 ref={titleRef}
                 className="font-Aeonik text-[80px] xl:text-[110px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap inline-block"
@@ -175,8 +175,8 @@ const TeamMember = () => {
               </h2>
             </div>
 
-            {/* SVG + Paragraphs */}
-            <div className="flex items-start gap-6">
+            {/* SVG + Paragraphs - positioned at bottom */}
+            <div className="flex items-start gap-6 mt-auto pb-[60px]">
               {/* SVG on the left */}
               <div className="flex-shrink-0">
                 <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
