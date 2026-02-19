@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const expertiseData = [
   {
     title: "STRATEGY",
-    icon: "S",
+    icon: "/eight-bit-icons/s.svg",
     services: [
       "Digital Transformation",
       "Technology Consulting",
@@ -21,7 +22,7 @@ const expertiseData = [
   },
   {
     title: "CREATIVE",
-    icon: "C",
+    icon: "/eight-bit-icons/c.svg",
     services: [
       "UX/UI Design",
       "Product Design",
@@ -32,7 +33,7 @@ const expertiseData = [
   },
   {
     title: "DEVELOPMENT",
-    icon: "D",
+    icon: "/eight-bit-icons/d.svg",
     services: [
       "Software Development",
       "Web Applications",
@@ -43,7 +44,7 @@ const expertiseData = [
   },
   {
     title: "INTELLIGENCE",
-    icon: "I",
+    icon: "/eight-bit-icons/i.svg",
     services: [
       "AI/ML Engineering",
       "Agentic Solutions",
@@ -54,27 +55,8 @@ const expertiseData = [
   },
 ];
 
-// Icon component for each expertise category
-const ExpertiseIcon = ({ letter }: { letter: string }) => {
-  const iconStyles: Record<string, string> = {
-    S: "bg-gradient-to-br from-blue-500 to-purple-600",
-    C: "bg-gradient-to-br from-pink-500 to-red-500",
-    D: "bg-gradient-to-br from-green-500 to-teal-500",
-    I: "bg-gradient-to-br from-yellow-500 to-orange-500",
-  };
-
-  return (
-    <div
-      className={`w-[35px] h-[45px] lg:w-[40px] lg:h-[45px] rounded-md flex items-center justify-center ${
-        iconStyles[letter] || "bg-gray-600"
-      }`}
-    >
-      <span className="font-AeonikBold text-white text-[20px] lg:text-[24px]">
-        {letter}
-      </span>
-    </div>
-  );
-};
+const rotations = [-15, -7.5, 7.5, 15];
+const positions = [14, 38, 62, 86];
 
 // Expertise card component
 const ExpertiseCard = ({
@@ -110,38 +92,50 @@ const ExpertiseCard = ({
   return (
     <div
       ref={cardRef}
-      className="w-full lg:w-[400px] bg-[rgba(197,196,207,0.2)] rounded-[22px] p-[20px] sm:p-[30px] lg:p-[45px]"
+      className="
+        card absolute
+        w-[22%] max-w-[380px]
+        h-[clamp(400px,30vw,550px)]
+        transform-gpu
+      "
+      style={{
+        left: `${positions[index]}%`,
+        top: '50%',
+        transform: `translate(-50%, -50%) rotate(${rotations[index]}deg)`,
+      }}
     >
-      {/* Header with title and icon */}
-      <div className="flex items-center justify-between mb-[35px]">
-        <h3 className="font-Aeonik text-[28px] lg:text-[36px] text-black tracking-tight">
-          {data.title}
-        </h3>
-        <ExpertiseIcon letter={data.icon} />
-      </div>
+      <div className="
+        relative w-full h-full
+        bg-gray-300 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-20 border border-gray-300
+        rounded-3xl overflow-hidden
+        flex flex-col items-center justify-between text-black
+        px-6 xl:px-8 py-6 xl:py-8
+      ">
+        {/* Top Section */}
+        <div className="w-full flex justify-between items-center">
+          <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{data.title}</h2>
+          <div className="w-5 h-5 xl:w-7 xl:h-7 flex items-center justify-center">
+            <Image src={data.icon} width={28} height={28} alt={data.title} className="w-full" />
+          </div>
+        </div>
 
-      {/* Services list */}
-      <div className="space-y-0">
-        {data.services.map((service, idx) => (
-          <React.Fragment key={idx}>
-            <p className="font-Aeonik text-[16px] lg:text-[19px] text-black py-[8px]">
-              {service}
-            </p>
-            {idx < data.services.length - 1 && (
-              <p className="font-Aeonik text-[16px] sm:text-[20px] lg:text-[30px] text-black/30 tracking-[3.6px] leading-none py-[4px] overflow-hidden">
-                ..............................
-              </p>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
+        {/* Services list */}
+        <div className="w-full flex flex-col gap-1.5 xl:gap-2.5 text-sm xl:text-lg font-Aeonik">
+          {data.services.map((item, idx) => (
+            <div key={idx}>
+              <p className="whitespace-nowrap py-0.5">{item}</p>
+              <div className="border-t-2 border-dotted border-black w-full" />
+            </div>
+          ))}
+        </div>
 
-      {/* Footer with title and icon (mirrored/rotated) */}
-      <div className="flex items-center justify-between mt-[35px] rotate-180">
-        <ExpertiseIcon letter={data.icon} />
-        <h3 className="font-Aeonik text-[28px] lg:text-[36px] text-black tracking-tight">
-          {data.title}
-        </h3>
+        {/* Bottom Section */}
+        <div className="w-full flex justify-between items-center rotate-180">
+          <div className="w-5 h-5 xl:w-7 xl:h-7 flex items-center justify-center">
+            <Image src={data.icon} width={28} height={28} alt={data.title} className="w-full" />
+          </div>
+          <h2 className="text-xl xl:text-3xl font-Aeonik whitespace-nowrap">{data.title}</h2>
+        </div>
       </div>
     </div>
   );
@@ -216,18 +210,56 @@ const ExpertiseSection = () => {
                   key={idx}
                   className="w-[35px] h-[49px] lg:w-[35px] lg:h-[55px] flex items-center justify-center"
                 >
-                  <ExpertiseIcon letter={item.icon} />
+                  <Image src={item.icon} width={35} height={49} alt={item.title} />
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Expertise cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-[30px] lg:gap-[42px]">
-          {expertiseData.map((item, idx) => (
-            <ExpertiseCard key={idx} data={item} index={idx} />
-          ))}
+        {/* Expertise cards - overlapping tilted cards like home page */}
+        <div className="relative w-full min-h-[700px] h-[45vw] max-h-[900px] overflow-hidden lg:overflow-visible flex items-center justify-center">
+          {/* Desktop: overlapping tilted cards */}
+          <div className="hidden lg:block relative w-full h-full">
+            {expertiseData.map((item, idx) => (
+              <ExpertiseCard key={idx} data={item} index={idx} />
+            ))}
+          </div>
+          {/* Mobile: grid layout */}
+          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+            {expertiseData.map((item, idx) => (
+              <div
+                key={idx}
+                className="
+                  w-full rounded-2xl overflow-hidden border
+                  bg-gray-300 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm
+                  bg-opacity-20 border border-gray-300
+                  rounded-3xl overflow-hidden
+                "
+              >
+                <div className="p-6 md:p-8 flex flex-col justify-between gap-5 md:gap-6 md:min-h-[350px]">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-2xl md:text-3xl font-Aeonik">{item.title}</h2>
+                    <Image src={item.icon} width={28} height={28} alt={item.title} className="w-6 h-6 md:w-7 md:h-7" />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5 md:gap-2">
+                    {item.services.map((skill, skillIdx) => (
+                      <div key={skillIdx}>
+                        <p className="text-lg md:text-xl py-0.5">{skill}</p>
+                        <div className="border-t-2 border-dotted border-black w-full" />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex justify-between items-center rotate-180">
+                    <h2 className="text-2xl md:text-3xl font-Aeonik">{item.title}</h2>
+                    <Image src={item.icon} width={28} height={28} alt={item.title} className="w-6 h-6 md:w-7 md:h-7" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
