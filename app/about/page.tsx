@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/all";
 import { PageLayout } from "@/components/layouts";
 
 import AboutHero from "@/components/About/AboutHero";
@@ -14,50 +11,11 @@ import AwardsSection from "@/components/About/AwardsSection";
 import ExpertiseSection from "@/components/About/ExpertiseSection";
 import CTASection from "@/components/About/CTASection";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function AboutPage() {
-  const bgRef = useRef<HTMLDivElement>(null);
-  const clientsSectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!bgRef.current || !clientsSectionRef.current) return;
-
-    // Animate background opacity when Clients section comes into view
-    gsap.to(bgRef.current, {
-      opacity: 0,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: clientsSectionRef.current,
-        start: "top 80%",
-        end: "top 20%",
-        scrub: 1,
-      },
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === clientsSectionRef.current) {
-          trigger.kill();
-        }
-      });
-    };
-  }, []);
-
   return (
-    <PageLayout navbarPadding="pb-[2vw]" backgroundColor="bg-transparent">
-      {/* Fixed background - fades out when Clients section appears */}
-      {/* Background sits above black bg but behind text */}
-      <div
-        ref={bgRef}
-        className="fixed inset-0 z-[1] bg-cover bg-center bg-no-repeat pointer-events-none"
-        style={{
-          backgroundImage: 'url(/team_bg.png)',
-          backgroundAttachment: 'fixed',
-        }}
-      />
-      {/* Content wrapper with relative positioning - above background image */}
-      <div className="relative z-10">
+    <PageLayout navbarPadding="pb-[2vw]" backgroundColor="bg-black">
+      {/* Content wrapper */}
+      <div className="relative">
         {/* Hero Section - "About Us" */}
         <section id="about-hero" className="w-full">
           <AboutHero />
@@ -80,12 +38,12 @@ export default function AboutPage() {
       </div>
 
       {/* Clients Section */}
-      <section id="clients" ref={clientsSectionRef} className="w-full relative z-10">
+      <section id="clients" className="w-full relative">
         <ClientsSection />
       </section>
 
       {/* Plus Icons Separator */}
-      <section className="w-full bg-black pt-[20px] pb-[20px] lg:pt-[30px] lg:pb-[30px] relative z-10">
+      <section className="w-full bg-black pt-[20px] pb-[20px] lg:pt-[30px] lg:pb-[30px] relative">
         <div className="px-[4vw] sm:px-[6vw] lg:px-[5vw]">
           <div className="flex items-center justify-between w-full">
             {[0, 1, 2, 3].map((i) => (
@@ -111,17 +69,17 @@ export default function AboutPage() {
       </section>
 
       {/* Awards Section (awards table hidden, articles and talks visible) */}
-      <section id="awards" className="w-full relative z-10">
+      <section id="awards" className="w-full relative">
         <AwardsSection />
       </section>
 
       {/* Expertise Section */}
-      <section id="expertise" className="w-full relative z-10">
+      <section id="expertise" className="w-full relative">
         <ExpertiseSection />
       </section>
 
       {/* CTA Section - "Let's work together" */}
-      <section id="cta" className="w-full relative z-10">
+      <section id="cta" className="w-full relative">
         <CTASection />
       </section>
     </PageLayout>
