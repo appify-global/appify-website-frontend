@@ -22,11 +22,11 @@ export const projectsData: Project[] = [
     metadata: ["AI DEVELOPMENT", "UI/UX DESIGN", "APP DEVELOPMENT", "TRAVEL"],
     imageUrl: "/projects/booked-ai.png",
     linkUrl: "/projects/booked-ai",
-    description: "Expanding Boundaries through Cinematic Innovation. An R&D feat by Lusion, this project showcases team versatility and artistry. We crafted 3D assets from scratch and seamlessly blended hand-drawn sketches into a captivating WebGL environment for a unique experience.",
+    description: "Smarter Travel, Seamlessly Delivered. Built for Booked AI, this platform transforms traditional booking by removing the hassle of comparisons, hidden fees and delays. Through AI-powered insights and automation, users can discover better deals, personalise trips and receive instant support, all in one streamlined experience.",
     client: "Booked AI",
     year: "2024",
-    services: ["Concept", "Web Design", "Web Development", "3D Design", "WebGL"],
-    challenge: "Crafting My Little Storybook's Triumph. The Lusion team meticulously shaped every element in this challenging one-month project. Their dedication resulted in acclaim, with multiple awards, including the coveted 2022 Webby Award for Best Visual Design Aesthetic, recognizing the blend of innovation and creativity.",
+    services: ["App Development", "UI/UX Design"],
+    challenge: "Faster Decisions, Better Journeys. Advanced algorithms analyse preferences and real-time pricing to secure competitive bookings instantly, while intelligent assistance ensures travellers stay informed every step of the way.",
     solution: "We developed a sophisticated AI engine that learns user preferences and behaviors to deliver hyper-personalized travel suggestions, combined with a beautiful, intuitive interface.",
     galleryImages: [
       "/projects/booked-ai.png",
@@ -34,7 +34,7 @@ export const projectsData: Project[] = [
       "/projects/booked-ai.png",
       "/projects/booked-ai.png"
     ],
-    recognitions: ["FWA SOTD", "Awwwards SOTD", "Webby Winner"],
+    recognitions: ["Onstage", "FutureTravel"],
     launchUrl: "https://bookedai.com"
   },
   {
