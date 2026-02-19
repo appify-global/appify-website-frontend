@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
@@ -127,21 +128,21 @@ const TeamMember = () => {
           <ThreeRowDots />
         </div>
 
-        {/* Desktop Layout: Left (Portrait) + Right (SVG + Heading + Text) */}
-        <div className="hidden lg:flex lg:items-center lg:justify-between lg:h-full lg:pt-[100px]">
+        {/* Desktop Layout: Left (Portrait) + Right (Heading + SVG + Text) */}
+        <div className="hidden lg:flex lg:items-start lg:justify-between lg:h-full lg:pt-[100px]">
           {/* Left Side: Portrait and Info */}
           <div className="flex flex-col items-start">
-            {/* Portrait placeholder - will be replaced with actual image */}
+            {/* Founder image */}
             <div
               ref={imageRef}
-              className="w-[300px] h-[400px] bg-gray-800 rounded-lg mb-6 flex items-center justify-center"
+              className="w-[300px] h-[400px] mb-6 relative"
             >
-              <div className="w-[200px] h-[200px] bg-gray-700 rounded-full flex items-center justify-center">
-                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M50 20C60.4934 20 69 28.5066 69 39C69 49.4934 60.4934 58 50 58C39.5066 58 31 49.4934 31 39C31 28.5066 39.5066 20 50 20Z" fill="white" fillOpacity="0.3"/>
-                  <path d="M50 65C35.0883 65 23 77.0883 23 92V100H77V92C77 77.0883 64.9117 65 50 65Z" fill="white" fillOpacity="0.3"/>
-                </svg>
-              </div>
+              <Image
+                src="/team/founder-img.svg"
+                alt="Mennan Yelkenci"
+                fill
+                className="object-cover"
+              />
             </div>
 
             {/* Founder info below portrait */}
@@ -162,23 +163,74 @@ const TeamMember = () => {
             </div>
           </div>
 
-          {/* Right Side: SVG + Heading + Paragraphs */}
-          <div className="flex-1 max-w-[600px] ml-12">
-            {/* SVG + Heading */}
-            <div className="flex items-center gap-6 mb-8">
-              <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
-              </svg>
+          {/* Right Side: Heading + SVG + Paragraphs */}
+          <div className="flex-1 max-w-[700px] ml-12">
+            {/* Heading - right aligned */}
+            <div className="text-right mb-8">
               <h2
                 ref={titleRef}
-                className="font-Aeonik text-[80px] xl:text-[110px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap"
+                className="font-Aeonik text-[80px] xl:text-[110px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap inline-block"
               >
                 OUR FOUNDER
               </h2>
             </div>
 
-            {/* Paragraphs */}
-            <div className="max-w-[458px]">
+            {/* SVG + Paragraphs */}
+            <div className="flex items-start gap-6">
+              {/* SVG on the left */}
+              <div className="flex-shrink-0">
+                <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
+                </svg>
+              </div>
+              {/* Paragraphs on the right */}
+              <div className="flex-1 max-w-[458px]">
+                <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
+                  Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
+                </p>
+                <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
+                  As a result of our diverse experience, we are able to think creatively
+                  and find new solutions to problems, providing clients with memorable,
+                  purpose-driven experiences that cut through the noise and connect
+                  where it matters, which leaves lasting impressions that form enduring
+                  connections between brands and consumers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile/Tablet Layout */}
+        <div className="lg:hidden">
+          {/* Founder image */}
+          <div
+            ref={imageRef}
+            className="w-full max-w-[300px] h-[400px] mx-auto mt-[10vh] sm:mt-[15vh] mb-6 relative"
+          >
+            <Image
+              src="/team/founder-img.svg"
+              alt="Mennan Yelkenci"
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          {/* OUR FOUNDER title */}
+          <div className="text-right mb-6">
+            <h2
+              ref={titleRef}
+              className="font-Aeonik text-[14vw] sm:text-[16vw] leading-[1] tracking-[0.05em] sm:tracking-[0.1em] text-white whitespace-nowrap inline-block"
+            >
+              OUR FOUNDER
+            </h2>
+          </div>
+
+          {/* SVG + Paragraphs */}
+          <div className="flex items-start gap-4 mb-8">
+            <svg width="80" height="110" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+              <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
+            </svg>
+            <div className="flex-1">
               <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
                 Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
               </p>
@@ -191,39 +243,9 @@ const TeamMember = () => {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Mobile/Tablet Layout */}
-        <div className="lg:hidden">
-          {/* OUR FOUNDER title */}
-          <div className="flex items-center gap-4 mt-[10vh] sm:mt-[15vh]">
-            <svg width="80" height="110" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
-            </svg>
-            <h2
-              ref={titleRef}
-              className="font-Aeonik text-[14vw] sm:text-[16vw] leading-[1] tracking-[0.05em] sm:tracking-[0.1em] text-white whitespace-nowrap"
-            >
-              OUR FOUNDER
-            </h2>
-          </div>
-
-          {/* Founder description text */}
-          <div className="mt-8 sm:mt-12 max-w-full">
-            <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
-              Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
-            </p>
-            <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
-              As a result of our diverse experience, we are able to think creatively
-              and find new solutions to problems, providing clients with memorable,
-              purpose-driven experiences that cut through the noise and connect
-              where it matters, which leaves lasting impressions that form enduring
-              connections between brands and consumers.
-            </p>
-          </div>
 
           {/* Founder card */}
-          <div className="mt-12">
+          <div>
             <div className="flex items-center gap-2 mb-2">
               <DotGrid className="w-[13px]" />
               <span className="font-Aeonik text-[16px] text-white">
