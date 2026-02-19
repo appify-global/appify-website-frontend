@@ -172,8 +172,8 @@ const TeamMember = () => {
               />
             </div>
 
-            {/* SVG */}
-            <div className="flex-shrink-0">
+            {/* SVG - increased gap from image */}
+            <div className="flex-shrink-0 ml-12 lg:ml-16">
               <svg width="130" height="178" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
               </svg>
