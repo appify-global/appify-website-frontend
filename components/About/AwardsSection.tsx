@@ -255,19 +255,14 @@ const AwardsSection = () => {
 
       {/* Articles section */}
       <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[40px] lg:py-[76px]">
-        <h3 className="font-Aeonik text-[10vw] lg:text-[45px] leading-[1.1] text-white mb-[30px] lg:mb-[50px]">
-          ARTICLES
-        </h3>
-        <div className="flex flex-col lg:flex-row lg:justify-end">
-          <div className="lg:max-w-[458px] space-y-[12px]">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
+          <h3 className="font-Aeonik text-[10vw] lg:text-[45px] leading-[1.1] text-white mb-[30px] lg:mb-0">
+            ARTICLES
+          </h3>
+          <div className="lg:max-w-[806px] space-y-[12px]">
             {articlesData.map((article, idx) => (
-              <div key={idx} className="flex items-center gap-2">
-                {idx === 0 && (
-                  <div className="w-[27px] h-[27px] rounded-full border border-white/30 flex items-center justify-center">
-                    <span className="text-white/60 text-[10px]">→</span>
-                  </div>
-                )}
-                <span className="font-Aeonik text-[14px] lg:text-[16px] text-white">
+              <div key={idx} className="flex items-center">
+                <span className="font-Aeonik text-[13px] sm:text-[14px] lg:text-[16px] text-white">
                   {article.title}
                 </span>
               </div>
