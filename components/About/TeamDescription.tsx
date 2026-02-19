@@ -69,7 +69,7 @@ const TeamDescription = () => {
       <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[8vh] sm:py-[10vh] lg:py-[194px]">
         {/* Left text - above plus icons */}
         <div ref={leftTextRef} className="max-w-full lg:max-w-[947px] mb-[30px] sm:mb-[60px] lg:mb-0 lg:absolute lg:top-[25%]">
-          <h2 className="font-Aeonik text-[7vw] lg:text-[31px] leading-[1.15] text-white">
+          <h2 className="font-Aeonik text-[9vw] lg:text-[42px] leading-[1.15] text-white">
             <span className="italic">A world wide team</span>
             <span className="block">of experienced and skilled</span>
             <span className="block">professionals</span>
@@ -91,7 +91,7 @@ const TeamDescription = () => {
           ref={rightTextRef}
           className="mt-[15vh] sm:mt-[20vh] lg:mt-0 lg:absolute lg:top-[65%] lg:right-[5vw] text-left lg:text-right max-w-full lg:max-w-[947px]"
         >
-          <p className="font-Aeonik text-[7vw] lg:text-[31px] leading-[1.15] text-white">
+          <p className="font-Aeonik text-[9vw] lg:text-[42px] leading-[1.15] text-white">
             <span>who bring a </span>
             <span className="italic">wide range</span>
             <span className="block">of talents and perspectives</span>

@@ -78,17 +78,17 @@ const AboutHero = () => {
           <div className="w-full">
             {/* Mobile title */}
             <div className="lg:hidden">
-              <h1 className="font-Aeonik text-[18vw] leading-[1] text-white tracking-[0.04em]">
+              <h1 className="font-Aeonik text-[22vw] leading-[1] text-white tracking-[0.04em]">
                 ABOUT
               </h1>
-              <h1 className="font-Aeonik text-[18vw] leading-[1] text-white tracking-[0.04em]">
+              <h1 className="font-Aeonik text-[22vw] leading-[1] text-white tracking-[0.04em]">
                 US
               </h1>
             </div>
 
             {/* Desktop title */}
             <div className="hidden lg:block">
-              <h1 className="font-Aeonik text-[clamp(80px,10vw,180px)] leading-[1] text-white tracking-[0.04em]">
+              <h1 className="font-Aeonik text-[clamp(100px,12vw,220px)] leading-[1] text-white tracking-[0.04em]">
                 About Us
               </h1>
             </div>

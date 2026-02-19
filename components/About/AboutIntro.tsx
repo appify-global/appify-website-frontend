@@ -80,7 +80,7 @@ const AboutIntro = () => {
         <div ref={textRef} className="flex flex-col">
           {/* Main headline */}
           <div className="max-w-[90%] lg:max-w-[755px]">
-            <h2 className="font-Aeonik text-[8vw] lg:text-[32px] leading-[1.2] lg:leading-[1.3] text-white">
+            <h2 className="font-Aeonik text-[10vw] lg:text-[48px] leading-[1.2] lg:leading-[1.3] text-white">
               <span className="block">WE ARE</span>
               <span className="block">APPIFY</span>
               <span className="block">A CREATIVE</span>
@@ -90,7 +90,7 @@ const AboutIntro = () => {
 
           {/* "Nice to meet you" - positioned bottom right */}
           <div className="mt-auto lg:absolute lg:right-[5vw] lg:bottom-[100px] text-right">
-            <p className="font-Aeonik text-[7vw] lg:text-[31px] italic text-white leading-[1.2] mt-[30vh] lg:mt-0">
+            <p className="font-Aeonik text-[9vw] lg:text-[42px] italic text-white leading-[1.2] mt-[30vh] lg:mt-0">
               <span className="block">NICE TO</span>
               <span className="block">MEET YOU</span>
             </p>
