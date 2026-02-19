@@ -105,6 +105,9 @@ const TeamMember = () => {
         backgroundImage: 'url(/team_bg.png)',
       }}
     >
+      {/* Opacity overlay to reduce background image visibility */}
+      <div className="absolute inset-0 bg-black/70 z-0" />
+      
       {/* Plus icon row */}
       <div className="absolute top-1/2 -translate-y-1/2 left-[5vw] right-[5vw] hidden lg:flex items-center justify-between z-10">
         {[0, 1, 2, 3, 4].map((i) => (
