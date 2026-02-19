@@ -127,7 +127,11 @@ export function PageLayout({
             <>
               {showNavbar && (
                 <nav id="navbar" className={navbarPadding}>
-                  <Navbar showBackButton={showBackButton} backHref={backHref} />
+                  <Navbar 
+                    showBackButton={showBackButton} 
+                    backHref={backHref}
+                    logoColor={backgroundColor === "bg-black" ? "white" : "auto"}
+                  />
                 </nav>
               )}
 

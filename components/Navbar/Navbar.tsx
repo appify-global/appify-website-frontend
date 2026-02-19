@@ -15,11 +15,22 @@ import Image from "next/image";
 interface NavbarProps {
   showBackButton?: boolean;
   backHref?: string;
+  logoColor?: "black" | "white" | "auto";
 }
 
-function Navbar({ showBackButton = false, backHref = "/services" }: NavbarProps) {
+function Navbar({ showBackButton = false, backHref = "/services", logoColor = "auto" }: NavbarProps) {
   const pathname = usePathname();
-  const isAboutPage = pathname === "/about";
+  
+  // Determine logo color
+  const getLogoColor = () => {
+    if (logoColor === "black") return false;
+    if (logoColor === "white") return true;
+    // Auto mode: detect based on route
+    const darkBackgroundRoutes = ["/about"];
+    return darkBackgroundRoutes.includes(pathname);
+  };
+  
+  const shouldInvertLogo = getLogoColor();
   // Desktop trail animation
   const [open] = useState(true);
 
@@ -38,7 +49,7 @@ function Navbar({ showBackButton = false, backHref = "/services" }: NavbarProps)
                 width={'100'} 
                 height={'100'} 
                 alt="Appify"
-                className={isAboutPage ? "filter brightness-0 invert" : ""}
+                className={shouldInvertLogo ? "filter brightness-0 invert" : ""}
               />
             </Link>
           </div>
@@ -78,7 +89,7 @@ function Navbar({ showBackButton = false, backHref = "/services" }: NavbarProps)
                 width={'130'} 
                 height={'45'} 
                 alt="Appify"
-                className={isAboutPage ? "filter brightness-0 invert" : ""}
+                className={shouldInvertLogo ? "filter brightness-0 invert" : ""}
               />
             </Link>
           </div>
