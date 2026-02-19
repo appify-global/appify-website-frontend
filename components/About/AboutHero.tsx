@@ -28,6 +28,7 @@ const PlusIcon = ({ className = "" }: { className?: string }) => (
 const AboutHero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!heroRef.current || !titleRef.current) return;
@@ -38,24 +39,53 @@ const AboutHero = () => {
       { y: 100, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.3 }
     );
+
+    // Fade out background when Clients section comes into view
+    const clientsSection = document.getElementById('clients');
+    if (bgRef.current && clientsSection) {
+      gsap.to(bgRef.current, {
+        opacity: 0,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: clientsSection,
+          start: "top 80%",
+          end: "top 20%",
+          scrub: 1,
+        },
+      });
+    }
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (trigger.vars.trigger === clientsSection) {
+          trigger.kill();
+        }
+      });
+    };
   }, []);
 
   return (
     <div
       ref={heroRef}
-      className="relative w-full min-h-[70vh] sm:min-h-[80vh] lg:min-h-[877px] overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: 'url(/team_bg.png)',
-      }}
+      className="relative w-full min-h-[70vh] sm:min-h-[80vh] lg:min-h-[877px] overflow-hidden"
     >
+      {/* Fixed background image */}
+      <div
+        ref={bgRef}
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat z-0"
+        style={{
+          backgroundImage: 'url(/team_bg.png)',
+          backgroundAttachment: 'fixed',
+        }}
+      />
       {/* Opacity overlay to reduce background image visibility to 30% */}
-      <div className="absolute inset-0 bg-black/70 z-0" />
+      <div className="absolute inset-0 bg-black/70 z-[1]" />
       
       {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/80 z-[2]" />
 
       {/* Masked "ABOUT" and "US" text effect */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-[1]">
         {/* Large ABOUT text with gradient mask */}
         <div className="absolute left-[-8%] lg:left-[-15%] top-[12%] lg:top-[103px]">
           <h1 className="font-Aeonik text-[28vw] lg:text-[138px] xl:text-[180px] leading-[0.85] tracking-[0.03em] text-transparent bg-clip-text bg-gradient-to-br from-white/10 to-white/5">
@@ -71,7 +101,7 @@ const AboutHero = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-20 h-full flex flex-col justify-between px-[4vw] lg:px-[5vw] pt-[8vh] sm:pt-[10vh] lg:pt-[100px] pb-[4vh] lg:pb-[80px]">
+      <div className="relative z-[3] h-full flex flex-col justify-between px-[4vw] lg:px-[5vw] pt-[8vh] sm:pt-[10vh] lg:pt-[100px] pb-[4vh] lg:pb-[80px]">
         {/* Plus icon row */}
         <div className="hidden lg:flex items-center justify-between w-full mt-[280px]">
           {[0, 1, 2, 3, 4].map((i) => (

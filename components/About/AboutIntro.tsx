@@ -53,7 +53,7 @@ const AboutIntro = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:h-screen overflow-hidden"
+      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:h-screen overflow-hidden z-10"
     >
       {/* Background masked "ABOUT" text effect - positioned behind */}
       <div className="absolute left-[-20%] lg:left-[-312px] top-[-10%] lg:top-[-78px] opacity-10 pointer-events-none">
