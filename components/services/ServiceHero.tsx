@@ -47,7 +47,7 @@ const BackArrowIcon: React.FC = () => (
 
 export default function ServiceHero({ title, subtitle, heroImage }: ServiceHeroProps) {
   return (
-    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 pt-28 sm:pt-32 lg:pt-24 pb-6 sm:pb-8 lg:pb-16">
+    <section className="w-full min-w-0 px-[4vw] sm:px-[6vw] lg:px-20 pt-28 sm:pt-32 lg:pt-24 pb-6 sm:pb-8 lg:pb-16">
       {/* Main content */}
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-8 lg:gap-16">
         {/* Left side - Title and CTA */}

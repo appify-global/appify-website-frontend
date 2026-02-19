@@ -95,9 +95,6 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
     const card = cardRef.current;
     if (!card || !lenis) return;
 
-    // Note: ScrollTrigger proxy is now handled by LenisProvider
-    // We only need to set up the scroll animation for this card
-
     const ctx = gsap.context(() => {
       gsap.fromTo(card,
         { opacity: 0, y: 80, scale: 0.93, filter: "blur(8px)" },

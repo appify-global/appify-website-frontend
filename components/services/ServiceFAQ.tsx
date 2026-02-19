@@ -93,7 +93,7 @@ export default function ServiceFAQ({ faqs }: ServiceFAQProps) {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[#121416] text-white py-10 sm:py-12 lg:py-20 relative overflow-hidden"
+      className="w-full min-w-0 bg-[#121416] text-white py-10 sm:py-12 lg:py-20 relative overflow-hidden"
     >
       {/* Decorative background text - staggered watermark */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">

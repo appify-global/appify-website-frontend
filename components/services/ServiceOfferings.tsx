@@ -148,7 +148,7 @@ export default function ServiceOfferings({ subtitle, offerings }: ServiceOfferin
   }, []);
 
   return (
-    <section className="w-full px-[4vw] sm:px-[6vw] lg:px-20 pt-4 sm:pt-6 pb-16 sm:pb-20 lg:py-24 relative overflow-visible">
+    <section className="w-full min-w-0 px-[4vw] sm:px-[6vw] lg:px-20 pt-4 sm:pt-6 pb-16 sm:pb-20 lg:py-24 relative overflow-x-hidden lg:overflow-visible">
       {/* Decorative curved line (SVG) - desktop only */}
       <svg
         className="absolute top-0 left-0 w-full h-full pointer-events-none hidden lg:block"

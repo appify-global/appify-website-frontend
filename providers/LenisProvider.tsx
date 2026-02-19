@@ -112,11 +112,14 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
         bar.style.transform = `translateY(${y}px)`;
       }
 
-      // Footer parallax effect - reduce on smaller screens
+      // Footer parallax effect - only on desktop to avoid overlap on mobile/tablet
       if (footerRef?.current) {
-        const parallaxAmount = window.innerWidth < 1024 ? -100 : -200;
-        const totalFooterMovement = progress * parallaxAmount;
-        gsap.set(footerRef.current, { y: totalFooterMovement });
+        if (window.innerWidth >= 1024) {
+          const totalFooterMovement = progress * -200;
+          gsap.set(footerRef.current, { y: totalFooterMovement });
+        } else {
+          gsap.set(footerRef.current, { y: 0 });
+        }
       }
 
       showIndicator();
