@@ -100,7 +100,7 @@ const ExpertiseCard = ({
       "
       style={{
         left: `${positions[index]}%`,
-        top: '50%',
+        top: '40%',
         transform: `translate(-50%, -50%) rotate(${rotations[index]}deg)`,
       }}
     >
