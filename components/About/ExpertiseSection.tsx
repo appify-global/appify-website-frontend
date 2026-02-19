@@ -62,15 +62,24 @@ const positions = [14, 38, 62, 86];
 const ExpertiseCard = ({
   data,
   index,
+  sectionRef,
 }: {
   data: (typeof expertiseData)[0];
   index: number;
+  sectionRef: React.RefObject<HTMLDivElement>;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!cardRef.current) return;
+    if (!cardRef.current || !sectionRef.current) return;
 
+    // Set initial rotation
+    gsap.set(cardRef.current, {
+      rotation: rotations[index],
+      transformOrigin: "center center",
+    });
+
+    // Initial fade-in animation
     gsap.fromTo(
       cardRef.current,
       { y: 50, opacity: 0 },
@@ -87,7 +96,32 @@ const ExpertiseCard = ({
         },
       }
     );
-  }, [index]);
+
+    // Scroll-triggered rotation animation - straighten cards as user scrolls
+    const rotationTrigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top center",
+      end: "bottom center",
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        // Interpolate from initial rotation to 0 (straight)
+        const currentRotation = rotations[index] * (1 - progress);
+        
+        gsap.to(cardRef.current, {
+          rotation: currentRotation,
+          duration: 0.1,
+          ease: "none",
+          force3D: true,
+          transformOrigin: "center center",
+        });
+      },
+    });
+
+    return () => {
+      rotationTrigger.kill();
+    };
+  }, [index, sectionRef]);
 
   return (
     <div
@@ -101,7 +135,7 @@ const ExpertiseCard = ({
       style={{
         left: `${positions[index]}%`,
         top: '40%',
-        transform: `translate(-50%, -50%) rotate(${rotations[index]}deg)`,
+        transform: `translate(-50%, -50%)`,
       }}
     >
       <div className="
@@ -222,7 +256,7 @@ const ExpertiseSection = () => {
           {/* Desktop: overlapping tilted cards */}
           <div className="hidden lg:block relative w-full h-full">
             {expertiseData.map((item, idx) => (
-              <ExpertiseCard key={idx} data={item} index={idx} />
+              <ExpertiseCard key={idx} data={item} index={idx} sectionRef={sectionRef} />
             ))}
           </div>
           {/* Mobile: grid layout */}
