@@ -120,11 +120,7 @@ export function PageLayout({
   return (
     <Suspense fallback={loadingFallback || defaultLoadingFallback}>
       <LenisProvider footerRef={footerRef}>
-<<<<<<< Updated upstream
-        <div className={`${backgroundColor || "bg-[var(--color-background,#F0F1FA)]"} h-auto w-full flex flex-col overflow-x-clip min-h-screen relative z-10`}>
-=======
-        <div className="bg-[var(--color-background,#F0F1FA)] h-auto w-full min-w-0 flex flex-col overflow-x-clip min-h-screen relative z-10 lg:z-[20]">
->>>>>>> Stashed changes
+        <div className={`${backgroundColor || "bg-[var(--color-background,#F0F1FA)]"} h-auto w-full min-w-0 flex flex-col overflow-x-clip min-h-screen relative z-10 lg:z-[20]`}>
           <ScrollIndicator />
 
           {wasmReady && (
@@ -158,11 +154,7 @@ export function PageLayout({
 
         {/* Footer with parallax effect */}
         {showFooter && wasmReady && (
-<<<<<<< Updated upstream
-          <section id="footer" ref={footerRef} className={`relative z-20 lg:z-[15] ${showParticles ? 'lg:pt-24' : ''} w-full`}>
-=======
           <section id="footer" ref={footerRef} className={`relative z-[5] lg:z-[15] ${showParticles ? 'lg:pt-24' : 'lg:mt-[200px]'}`}>
->>>>>>> Stashed changes
             <Footer hideAboutUsSection={hideFooterAboutUs} />
           </section>
         )}

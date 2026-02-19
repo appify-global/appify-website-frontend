@@ -108,18 +108,6 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
   return (
     <section
       ref={sectionRef}
-<<<<<<< Updated upstream
-      className="w-full bg-black text-white py-12 sm:py-16 lg:py-20 relative"
-    >
-      <div className="px-[4vw]">
-        {/* Container with top row and heading aligned at bottom */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
-          {/* Left side: Keep scrolling + Service name */}
-          <div className="flex flex-col items-start">
-            {/* Keep scrolling label */}
-            <p className="text-xs sm:text-sm lg:text-xl text-gray-400 mb-4 sm:mb-6 tracking-wide">
-              {showAboutUs ? "KEEP SCROLLING TO LEARN MORE" : "KEEP SCROLLING TO LEARN MORE"}
-=======
       className="w-full min-w-0 bg-black text-white py-14 sm:py-16 lg:py-28 relative z-0"
     >
       <div className="px-[4vw] sm:px-[6vw] lg:px-20">
@@ -130,7 +118,6 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
             {/* Keep scrolling label */}
             <p className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60 mb-0">
               {showAboutUs ? "Keep Scrolling To Learn More" : "Keep Scrolling"}
->>>>>>> Stashed changes
             </p>
 
             {/* Title - Next service or ABOUT US */}
@@ -141,11 +128,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
               >
                 <h2
                   ref={titleRef}
-<<<<<<< Updated upstream
-                  className={`text-2xl sm:text-3xl md:text-4xl font-light transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
-=======
                   className={`font-Aeonik text-[clamp(2rem,8vw,4rem)] sm:text-[clamp(2rem,5vw,4rem)] leading-[1.15] sm:leading-[1.1] tracking-[0.02em] uppercase transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
->>>>>>> Stashed changes
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
                 >
@@ -159,11 +142,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
               >
                 <h2
                   ref={titleRef}
-<<<<<<< Updated upstream
-                  className={`text-2xl sm:text-3xl md:text-4xl font-light transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
-=======
                   className={`font-Aeonik text-[clamp(2rem,8vw,4rem)] sm:text-[clamp(2rem,5vw,4rem)] leading-[1.15] sm:leading-[1.1] tracking-[0.02em] uppercase transition-all duration-700 ease-out group-hover:text-[#ff009e] ${
->>>>>>> Stashed changes
                     isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                   }`}
                 >
@@ -174,15 +153,9 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           </div>
 
           {/* Right side: Next service/page indicator */}
-<<<<<<< Updated upstream
-          <div className="flex items-center gap-3">
-            <span className="text-sm sm:text-base lg:text-xl">
-              {showAboutUs ? "NEXT PAGE" : "NEXT SERVICE"}
-=======
           <div className="flex items-center gap-3 sm:items-end">
             <span className="font-Aeonik text-xs lg:text-sm tracking-[0.02em] uppercase text-white/60">
               {showAboutUs ? "Next Page" : "Next Service"}
->>>>>>> Stashed changes
             </span>
 
             {/* Progress bar */}
