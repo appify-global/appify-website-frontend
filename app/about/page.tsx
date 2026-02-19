@@ -14,7 +14,7 @@ import FooterScroll from "@/components/About/FooterScroll";
 
 export default function AboutPage() {
   return (
-    <PageLayout navbarPadding="pb-[2vw]">
+    <PageLayout navbarPadding="pb-[2vw]" backgroundColor="bg-black">
       {/* Hero Section - "About Us" */}
       <section id="about-hero" className="w-full">
         <AboutHero />

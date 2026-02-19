@@ -53,6 +53,10 @@ interface PageLayoutProps {
    * Hide the ABOUT US section in the footer. Default: false
    */
   hideFooterAboutUs?: boolean;
+  /**
+   * Custom background color class. Default: uses design token background
+   */
+  backgroundColor?: string;
 }
 
 /**
@@ -88,6 +92,7 @@ export function PageLayout({
   showBackButton = false,
   backHref = "/services",
   hideFooterAboutUs = false,
+  backgroundColor,
 }: PageLayoutProps) {
   const footerRef = useRef<HTMLElement>(null);
   const [wasmReady, setWasmReady] = useState(false);
@@ -115,7 +120,7 @@ export function PageLayout({
   return (
     <Suspense fallback={loadingFallback || defaultLoadingFallback}>
       <LenisProvider footerRef={footerRef}>
-        <div className="bg-[var(--color-background,#F0F1FA)] h-auto w-full flex flex-col overflow-x-clip min-h-screen relative z-10">
+        <div className={`${backgroundColor || "bg-[var(--color-background,#F0F1FA)]"} h-auto w-full flex flex-col overflow-x-clip min-h-screen relative z-10`}>
           <ScrollIndicator />
 
           {wasmReady && (
