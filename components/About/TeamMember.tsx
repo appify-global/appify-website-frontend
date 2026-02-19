@@ -169,7 +169,7 @@ const TeamMember = () => {
             <div className="text-right">
               <h2
                 ref={titleRef}
-                className="font-Aeonik text-[80px] xl:text-[110px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap inline-block"
+                className="font-Aeonik text-[60px] lg:text-[70px] xl:text-[85px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap inline-block"
               >
                 OUR FOUNDER
               </h2>
@@ -219,7 +219,7 @@ const TeamMember = () => {
           <div className="text-right mb-6">
             <h2
               ref={titleRef}
-              className="font-Aeonik text-[14vw] sm:text-[16vw] leading-[1] tracking-[0.05em] sm:tracking-[0.1em] text-white whitespace-nowrap inline-block"
+              className="font-Aeonik text-[12vw] sm:text-[14vw] leading-[1] tracking-[0.05em] sm:tracking-[0.1em] text-white whitespace-nowrap inline-block"
             >
               OUR FOUNDER
             </h2>
