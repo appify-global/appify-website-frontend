@@ -42,6 +42,7 @@ export default function ProjectDetailPage() {
   const horizontalRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null);
+  const galleryImageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const project = getProjectBySlug(slug);
   const isMobileOrTablet = useIsMobile(TAB_BRAKEPOINT); // true when < 1024px
@@ -141,6 +142,83 @@ export default function ProjectDetailPage() {
       window.removeEventListener("resize", handleResize);
     };
   }, [isMounted, isMobileOrTablet, slug, isTransitioning]);
+
+  // Animate gallery images to scale as they approach center (mobile/tablet)
+  useEffect(() => {
+    if (!isMounted || !isMobileOrTablet) return;
+
+    const images = galleryImageRefs.current.filter(Boolean) as HTMLDivElement[];
+    if (images.length === 0) return;
+
+    images.forEach((image, index) => {
+      gsap.fromTo(
+        image,
+        { scale: 0.7, opacity: 0.8 },
+        {
+          scale: 1,
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: image,
+            start: "top 80%",
+            end: "center center",
+            scrub: 1,
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (images.some((img) => trigger.vars.trigger === img)) {
+          trigger.kill();
+        }
+      });
+    };
+  }, [isMounted, isMobileOrTablet, project?.galleryImages]);
+
+  // Animate gallery images to scale as they approach center (desktop horizontal scroll)
+  useEffect(() => {
+    if (!isMounted || isMobileOrTablet || !wrapperRef.current) return;
+
+    const images = galleryImageRefs.current.filter(Boolean) as HTMLDivElement[];
+    if (images.length === 0) return;
+
+    const updateImageScales = () => {
+      const viewportCenter = window.innerWidth / 2;
+      
+      images.forEach((image) => {
+        const rect = image.getBoundingClientRect();
+        const imageCenter = rect.left + rect.width / 2;
+        const distanceFromCenter = Math.abs(imageCenter - viewportCenter);
+        const maxDistance = window.innerWidth;
+        
+        // Calculate scale: 0.7 when far, 1.0 when at center
+        const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
+        const scale = 0.7 + (1 - normalizedDistance) * 0.3;
+        
+        gsap.to(image, {
+          scale: Math.max(0.7, Math.min(1, scale)),
+          duration: 0.1,
+          ease: "power1.out",
+        });
+      });
+    };
+
+    // Update on scroll
+    const handleScroll = () => {
+      requestAnimationFrame(updateImageScales);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", updateImageScales);
+    updateImageScales(); // Initial update
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updateImageScales);
+    };
+  }, [isMounted, isMobileOrTablet, project?.galleryImages]);
 
   // Handle next project navigation
   const handleNextProject = useCallback(() => {
@@ -248,7 +326,13 @@ export default function ProjectDetailPage() {
           {/* Gallery cards */}
           {project.galleryImages?.map((image, index) => (
             <section key={index} className="mt-8 sm:mt-12">
-              <div className="bg-white rounded-2xl overflow-hidden shadow-xl">
+              <div 
+                ref={(el) => {
+                  galleryImageRefs.current[index] = el;
+                }}
+                className="bg-white rounded-2xl overflow-hidden shadow-xl transform-gpu transition-transform"
+                style={{ transformOrigin: "center" }}
+              >
                 <div className="relative w-full aspect-video">
                   <Image
                     src={image}
@@ -377,7 +461,13 @@ export default function ProjectDetailPage() {
               key={index}
               className="flex-shrink-0 w-screen h-screen flex items-center justify-center px-6 sm:px-10 lg:px-20 pt-[12rem] sm:pt-[13rem] lg:pt-[15rem] pb-20 sm:pb-24 lg:pb-24"
             >
-              <div className="relative w-full max-w-2xl lg:max-w-xl xl:max-w-2xl aspect-video lg:aspect-[16/10] rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl">
+              <div 
+                ref={(el) => {
+                  galleryImageRefs.current[index] = el;
+                }}
+                className="relative w-full max-w-2xl lg:max-w-xl xl:max-w-2xl aspect-video lg:aspect-[16/10] rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl transform-gpu"
+                style={{ transformOrigin: "center", scale: 0.7 }}
+              >
                 <Image
                   src={image}
                   alt={`${project.title} - Gallery ${index + 1}`}
