@@ -99,11 +99,11 @@ const FeaturedVideoWebGL = ({
   );
 
   // === Horizontal: thumbnail position (left) -> reel position (centered) ===
-  // Account for container padding (5vw on each side) when centering
+  // Start at left edge (accounting for 5vw padding), move to center
   const x = useTransform(
     smoothProgress,
     [0, 0.6, 1.0],
-    ["0vw", "calc(50% - 37.5vw)", "calc(50% - 37.5vw)"] // Start at left, move to center (50% of container, not viewport)
+    ["-5vw", "calc(-37.5vw)", "calc(-37.5vw)"] // Start at left edge, move to center (negative half of 75vw)
   );
 
   // === Vertical: thumbnail position -> reel position (moves down to center) ===
@@ -226,7 +226,7 @@ const FeaturedVideoWebGL = ({
       >
         {/* Sticky wrapper keeps video pinned in viewport */}
         <div
-          className="sticky w-full flex items-center"
+          className="sticky w-full flex items-center justify-center"
           style={{
             top: "10vh",
             height: "90vh",
