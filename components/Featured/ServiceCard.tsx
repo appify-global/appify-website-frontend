@@ -220,7 +220,7 @@ const FloatingCards: React.FC = () => {
         h-[45vw]
         max-h-[900px]
         overflow-visible
-        mt-[8vw]
+        -mt-[5vw]
         flex items-center justify-center
         z-50
       "
