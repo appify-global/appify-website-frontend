@@ -338,7 +338,7 @@ const FeaturedVideoWebGL = ({
                     show={showPlayReel}
                     isHovering={isHovering}
                     direction="right"
-                    count={10}
+                    count={5}
                     exitOffset="0.5em"
                   />
                 </motion.div>
