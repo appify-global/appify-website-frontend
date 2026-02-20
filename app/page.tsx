@@ -51,7 +51,7 @@ export default function Home() {
       </section>
 
       <section
-        className="h-auto lg:h-[200vh] relative z-30 py-[4vw] pt-[2vw] lg:pt-[4vw]"
+        className="h-auto lg:h-[200vh] relative z-30 py-[2vw] pt-[1vw] lg:pt-[2vw]"
         id="experts-section"
         style={{ zIndex: 30, overflow: 'visible' }}
       >
