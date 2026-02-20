@@ -29,6 +29,7 @@ export const projectsData: Project[] = [
     challenge: "Faster Decisions, Better Journeys. Advanced algorithms analyse preferences and real-time pricing to secure competitive bookings instantly, while intelligent assistance ensures travellers stay informed every step of the way.",
     solution: "We developed a sophisticated AI engine that learns user preferences and behaviors to deliver hyper-personalized travel suggestions, combined with a beautiful, intuitive interface.",
     galleryImages: [
+      "/projects/inner projects/booked-1.png",
       "/projects/inner projects/booked-2.png",
       "/projects/inner projects/booked-3.png",
       "/projects/inner projects/booked-4.png",
@@ -52,6 +53,7 @@ export const projectsData: Project[] = [
     challenge: "Building a secure, HIPAA-compliant platform that makes complex medical information accessible and manageable for everyday users.",
     solution: "We created a user-centric mobile application with enterprise-grade security, intuitive data visualization, and seamless integration with healthcare providers.",
     galleryImages: [
+      "/projects/inner projects/lifecard-1.png",
       "/projects/inner projects/lifecard-2.png",
       "/projects/inner projects/lifecard-3.png",
       "/projects/inner projects/lifecard-4.png",
@@ -74,6 +76,7 @@ export const projectsData: Project[] = [
     challenge: "Delivering a full-featured MVP within tight timelines while ensuring the architecture could scale with the company's growth.",
     solution: "We implemented an agile development process with modular architecture, allowing rapid iteration while maintaining code quality and scalability.",
     galleryImages: [
+      "/projects/inner projects/prelo-1.png",
       "/projects/inner projects/prelo-2.png",
       "/projects/inner projects/prelo-3.png",
       "/projects/inner projects/prelo-4.png",
@@ -95,6 +98,7 @@ export const projectsData: Project[] = [
     challenge: "Transforming a traditional spa and wellness brand into a digital-first company while preserving the essence of their premium brand experience.",
     solution: "We designed and implemented a comprehensive digital ecosystem that seamlessly blends online and offline experiences, driving engagement and revenue growth.",
     galleryImages: [
+      "/projects/inner projects/endota-1.png",
       "/projects/inner projects/endota-2.png",
       "/projects/inner projects/endota-3.png",
       "/projects/inner projects/endota-4.png",
@@ -116,6 +120,7 @@ export const projectsData: Project[] = [
     challenge: "Creating a unified platform that serves the complex needs of childcare centers, educators, and parents while ensuring data security and compliance.",
     solution: "We built an integrated platform that simplifies daily operations, enhances communication between educators and families, and provides valuable insights through analytics.",
     galleryImages: [
+      "/projects/inner projects/guardian-1.png",
       "/projects/inner projects/guardian-2.png",
       "/projects/inner projects/guardian-3.png",
       "/projects/inner projects/guardian-4.png",
@@ -137,6 +142,7 @@ export const projectsData: Project[] = [
     challenge: "Modernizing a traditional B2B construction supply business with complex inventory, pricing, and customer relationship requirements.",
     solution: "We delivered a comprehensive digital platform that streamlines ordering, provides real-time inventory visibility, and enhances customer relationships through personalized experiences.",
     galleryImages: [
+      "/projects/inner projects/css-1.png",
       "/projects/inner projects/css-2.png",
       "/projects/inner projects/css-3.png",
       "/projects/inner projects/css-4.png",
