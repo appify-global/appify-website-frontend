@@ -335,32 +335,32 @@ const FeaturedVideoWebGL = ({
         aria-hidden="true"
       />
 
+    <div
+      ref={containerRef}
+      className="relative w-full"
+        style={{ height: "120vh" }} // Reduced height to decrease space before expertise section
+    >
+      {/* Sticky wrapper keeps video pinned in viewport */}
       <div
-        ref={containerRef}
-        className="relative w-full"
-        style={{ height: "150vh" }} // Reduced height for faster completion
-      >
-        {/* Sticky wrapper keeps video pinned in viewport */}
-        <div
           className="sticky w-full flex items-center justify-center"
+        style={{
+          top: "10vh",
+          height: "90vh",
+          paddingLeft: "5vw",
+          paddingRight: "5vw",
+        }}
+      >
+        <motion.div
+            ref={videoWrapperRef}
+          className={`relative ${className ?? ""}`}
           style={{
-            top: "10vh",
-            height: "90vh",
-            paddingLeft: "5vw",
-            paddingRight: "5vw",
+            width,
+            x,
+            y,
+            zIndex,
+            willChange: "transform, width",
           }}
         >
-          <motion.div
-            ref={videoWrapperRef}
-            className={`relative ${className ?? ""}`}
-            style={{
-              width,
-              x,
-              y,
-              zIndex,
-              willChange: "transform, width",
-            }}
-          >
           <div
             id="player-container"
             className={`flex flex-col items-center space-y-3 w-full ${playerClassName ?? ""}`}
