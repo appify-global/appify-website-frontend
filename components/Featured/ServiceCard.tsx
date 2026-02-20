@@ -78,7 +78,7 @@ const FloatingCards: React.FC = () => {
 
     const pinTrigger = ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: "top top",
+      start: "center center",
       end: `+=${totalScrollHeight}`,
       pin: true,
       scrub: 1,
@@ -102,7 +102,7 @@ const FloatingCards: React.FC = () => {
 
       const trigger = ScrollTrigger.create({
         trigger: sectionRef.current!,
-        start: "top top",
+        start: "center center",
         end: `+=${totalScrollHeight}`,
         scrub: 1, // Smoother scrubbing
         invalidateOnRefresh: false,
@@ -223,6 +223,7 @@ const FloatingCards: React.FC = () => {
         -mt-[5vw]
         flex items-center justify-center
         z-50
+        px-[10vw]
       "
       id="service-cards"
       style={{ zIndex: 50 }}
