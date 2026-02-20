@@ -123,27 +123,25 @@ const FloatingCards: React.FC = () => {
             positions
           );
 
-          // Use smooth animations instead of immediate set
-          gsap.to(front, { 
-            rotateY: state.front_rot, 
-            duration: 1.5,
-            ease: "power2.inOut",
+          // Make flip progress smoothly based on scroll - interpolate from 0 to 180
+          const frontRot = p * 180; // Progress from 0 to 180 degrees
+          const backRot = (p * 180) - 180; // Progress from -180 to 0 degrees
+
+          // Use immediate set for scrub-based animations (no duration)
+          gsap.set(front, { 
+            rotateY: frontRot,
             force3D: true
           });
-          gsap.to(back, { 
-            rotateY: state.back_rot, 
-            duration: 1.5,
-            ease: "power2.inOut",
+          gsap.set(back, { 
+            rotateY: backRot,
             force3D: true
           });
 
-          gsap.to(card, {
+          gsap.set(card, {
             left: `${state.left}%`,
             rotate: state.rot,
             xPercent: -50,
             yPercent: -50,
-            duration: 0.5,
-            ease: "power2.inOut",
             force3D: true,
             transformOrigin: "center center"
           });
