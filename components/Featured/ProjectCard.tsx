@@ -167,7 +167,6 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
             {metadataString}
           </p>
           <h3 ref={titleRef} className="flex items-center gap-2 relative font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
-            <span>{title}</span>
             <svg
               ref={arrowRef}
               className="w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0"
@@ -178,6 +177,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
+            <span>{title}</span>
           </h3>
         </div>
       </div>
