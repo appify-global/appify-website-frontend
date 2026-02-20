@@ -73,12 +73,12 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
         const arrowWidth = arrowRef.current.getBoundingClientRect().width || 24;
         gsap.to(arrowRef.current, {
           opacity: 1,
-          x: 0, // Arrow stays at its fixed left position
+          x: -arrowWidth - 40, // Move arrow much further to the left
           duration: 0.3,
           ease: "power2.out",
         });
         gsap.to(titleRef.current, {
-          x: arrowWidth + 24, // Move title to the right with more spacing
+          x: 40, // Move title to the right with clear spacing
           duration: 0.3,
           ease: "power2.out",
         });
@@ -99,9 +99,10 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
       
       // Animate arrow and title back on leave
       if (arrowRef.current && titleRef.current) {
+        const arrowWidth = arrowRef.current.getBoundingClientRect().width || 24;
         gsap.to(arrowRef.current, {
           opacity: 0,
-          x: -30, // Move arrow back to hidden position
+          x: -arrowWidth - 60, // Move arrow much further left when hiding
           duration: 0.3,
           ease: "power2.out",
         });
@@ -176,7 +177,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
               viewBox="0 0 24 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ left: 0, transform: "translateX(-30px)" }}
+              style={{ left: 0, transform: "translateX(-60px)" }}
             >
               <path d="M0.942871 11.3138H22.9429M22.9429 11.3138L12.8857 0.942383M22.9429 11.3138L12.8857 21.0567" stroke="black" strokeWidth="1.88571" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
