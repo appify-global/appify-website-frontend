@@ -80,22 +80,22 @@ const FeaturedVideoWebGL = ({
 
         const videoRect = videoWrapperRef.current.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
+        const viewportCenter = viewportHeight / 2;
         
         // Check if video is visible in viewport (at least 50% visible)
         const videoTop = videoRect.top;
         const videoBottom = videoRect.bottom;
         const videoVisible = videoTop < viewportHeight && videoBottom > 0;
         const videoCenter = videoRect.top + videoRect.height / 2;
-        const viewportCenter = viewportHeight / 2;
         
         // Video is "in center" if its center is within 200px of viewport center
         const isVideoNearCenter = Math.abs(videoCenter - viewportCenter) < 200;
 
-        // Check reel container visibility
-        const reelRect = reelContainerRef.current.getBoundingClientRect();
-        const reelBottom = reelRect.bottom;
-        const isReelBottomInView = reelBottom <= viewportHeight && reelBottom >= 0;
-        const isReelTopInView = reelRect.top <= viewportHeight && reelRect.top >= 0;
+        // Check thumbnail container position
+        const thumbRect = thumbnailRef.current?.getBoundingClientRect();
+        const thumbCenter = thumbRect ? thumbRect.top + thumbRect.height / 2 : 0;
+        const isThumbnailNearCenter = thumbRect && Math.abs(thumbCenter - viewportCenter) < 200;
+        const isThumbnailVisible = thumbRect && thumbRect.top < viewportHeight && thumbRect.bottom > 0;
 
         // Trigger animation to reel when:
         // - Video is visible and near center
@@ -111,9 +111,9 @@ const FeaturedVideoWebGL = ({
         }
         // Trigger animation to thumbnail when:
         // - In reel state
-        // - Reel bottom is out of view (scrolled up past it) OR scrolling up
+        // - Thumbnail container is back in view and near center
         // - User scrolls up
-        else if (isInReelState && scrollDirection === -1 && (!isReelBottomInView || !isReelTopInView)) {
+        else if (isInReelState && scrollDirection === -1 && isThumbnailVisible && isThumbnailNearCenter) {
           setIsInReelState(false);
           // Smooth transition back to thumbnail position
           animate(animationProgressValue, 0, {
