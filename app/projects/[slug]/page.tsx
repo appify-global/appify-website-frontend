@@ -163,6 +163,7 @@ export default function ProjectDetailPage() {
             start: "top 80%",
             end: "center center",
             scrub: 1,
+            once: true, // Don't reverse animation
           },
         }
       );
@@ -184,25 +185,43 @@ export default function ProjectDetailPage() {
     const images = galleryImageRefs.current.filter(Boolean) as HTMLDivElement[];
     if (images.length === 0) return;
 
+    // Track which images have reached full scale (so they stay enlarged)
+    const maxScaledImages = new Set<HTMLDivElement>();
+
     const updateImageScales = () => {
       const viewportCenter = window.innerWidth / 2;
       
       images.forEach((image) => {
+        // If image has already reached full scale, keep it at 1.0
+        if (maxScaledImages.has(image)) {
+          gsap.to(image, {
+            scale: 1,
+            duration: 0.1,
+            ease: "power1.out",
+          });
+          return;
+        }
+
         const rect = image.getBoundingClientRect();
         const imageCenter = rect.left + rect.width / 2;
         const distanceFromCenter = Math.abs(imageCenter - viewportCenter);
         const maxDistance = window.innerWidth * 0.8; // Scale within 80% of viewport width
         
         // Calculate scale: 0.7 when far, 1.0 when at center
-        // Stop expanding once it reaches center
         let normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
         if (distanceFromCenter < viewportCenter * 0.1) {
           normalizedDistance = 0; // At center, use full scale
         }
         const scale = 0.7 + (1 - normalizedDistance) * 0.3;
+        const finalScale = Math.max(0.7, Math.min(1, scale));
+        
+        // If image reaches full scale, mark it so it stays enlarged
+        if (finalScale >= 0.99) {
+          maxScaledImages.add(image);
+        }
         
         gsap.to(image, {
-          scale: Math.max(0.7, Math.min(1, scale)),
+          scale: finalScale,
           duration: 0.1,
           ease: "power1.out",
         });
@@ -227,6 +246,7 @@ export default function ProjectDetailPage() {
       ScrollTrigger.removeEventListener("refresh", updateImageScales);
       window.removeEventListener("resize", updateImageScales);
       if (rafId) cancelAnimationFrame(rafId);
+      maxScaledImages.clear();
     };
   }, [isMounted, isMobileOrTablet, project?.galleryImages]);
 
