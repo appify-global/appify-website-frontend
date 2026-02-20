@@ -78,7 +78,7 @@ const FeaturedVideoWebGL = ({
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 80%", "start 20%"], // Much shorter range - completes in ~60vh of scroll
+    offset: ["start 60%", "start 10%"], // Start later, complete in ~50vh of scroll
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -192,10 +192,10 @@ const FeaturedVideoWebGL = ({
   // Desktop layout
   return (
     <>
-      {/* Thumbnail container - hidden reference for position calculation */}
+      {/* Thumbnail container - positioned where video should start */}
       <div
         ref={thumbnailRef}
-        className="absolute left-[5vw] top-[20vh] pointer-events-none"
+        className="absolute left-[5vw] top-[35vh] pointer-events-none"
         style={{
           width: "40.3vw",
           aspectRatio: "2.1 / 1",
