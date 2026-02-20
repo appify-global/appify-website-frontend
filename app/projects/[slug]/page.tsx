@@ -353,12 +353,12 @@ export default function ProjectDetailPage() {
             </div>
           </section>
 
-          {/* Gallery cards */}
-          {project.galleryImages?.map((image, index) => (
-            <section key={index} className="mt-8 sm:mt-12">
+          {/* Gallery cards - skip first image */}
+          {project.galleryImages?.slice(1).map((image, index) => (
+            <section key={index + 1} className="mt-8 sm:mt-12">
               <div 
                 ref={(el) => {
-                  galleryImageRefs.current[index] = el;
+                  galleryImageRefs.current[index + 1] = el;
                 }}
                 className="bg-white rounded-2xl overflow-hidden shadow-xl transform-gpu transition-transform"
                 style={{ transformOrigin: "center" }}
@@ -366,7 +366,7 @@ export default function ProjectDetailPage() {
                 <div className="relative w-full aspect-video">
                   <Image
                     src={image}
-                    alt={`${project.title} - ${index + 1}`}
+                    alt={`${project.title} - ${index + 2}`}
                     fill
                     className="object-cover"
                   />
@@ -485,22 +485,22 @@ export default function ProjectDetailPage() {
             </div>
           </div>
 
-          {/* Gallery Panels */}
-          {project.galleryImages?.map((image, index) => (
+          {/* Gallery Panels - skip first image */}
+          {project.galleryImages?.slice(1).map((image, index) => (
             <div
-              key={index}
+              key={index + 1}
               className="flex-shrink-0 w-screen h-screen flex items-center justify-center px-6 sm:px-10 lg:px-20 pt-[12rem] sm:pt-[13rem] lg:pt-[15rem] pb-20 sm:pb-24 lg:pb-24"
             >
               <div 
                 ref={(el) => {
-                  galleryImageRefs.current[index] = el;
+                  galleryImageRefs.current[index + 1] = el;
                 }}
                 className="relative w-full max-w-2xl lg:max-w-xl xl:max-w-2xl aspect-video lg:aspect-[16/10] rounded-xl lg:rounded-2xl overflow-hidden shadow-2xl transform-gpu"
                 style={{ transformOrigin: "center", scale: 0.7 }}
               >
                 <Image
                   src={image}
-                  alt={`${project.title} - Gallery ${index + 1}`}
+                  alt={`${project.title} - Gallery ${index + 2}`}
                   fill
                   className="object-cover"
                 />
