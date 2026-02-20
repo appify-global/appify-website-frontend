@@ -116,13 +116,18 @@ const FloatingCards: React.FC = () => {
             setScrollLocked(true);
           }
 
-          const state = compute_card_state(
-            p,
-            index,
-            rotations,
-            positions
-          );
-
+          // Calculate smooth interpolation based on scroll progress
+          // Cards start stacked in center (50%) and spread to their final positions
+          const initialPos = 50; // All cards start at center
+          const finalPos = positions[index] || 50;
+          
+          // Interpolate position from center to final position based on progress
+          const currentLeft = initialPos + (finalPos - initialPos) * p;
+          
+          // Interpolate rotation from initial rotation to 0 (straight) based on progress
+          const initialRot = rotations[index] || 0;
+          const currentRot = initialRot * (1 - p);
+          
           // Make flip progress smoothly based on scroll - interpolate from 0 to 180
           const frontRot = p * 180; // Progress from 0 to 180 degrees
           const backRot = (p * 180) - 180; // Progress from -180 to 0 degrees
@@ -138,8 +143,8 @@ const FloatingCards: React.FC = () => {
           });
 
           gsap.set(card, {
-            left: `${state.left}%`,
-            rotate: state.rot,
+            left: `${currentLeft}%`,
+            rotate: currentRot,
             xPercent: -50,
             yPercent: -50,
             force3D: true,
