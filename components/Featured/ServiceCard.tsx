@@ -100,6 +100,26 @@ const FloatingCards: React.FC = () => {
       back.style.willChange = "transform";
       card.style.willChange = "transform";
 
+      // Set initial position - all cards start at center (50%)
+      gsap.set(card, {
+        left: "50%",
+        rotate: rotations[index] || 0,
+        xPercent: -50,
+        yPercent: -50,
+        force3D: true,
+        transformOrigin: "center center"
+      });
+      
+      // Set initial flip state - cards start showing front (0 degrees)
+      gsap.set(front, {
+        rotateY: 0,
+        force3D: true
+      });
+      gsap.set(back, {
+        rotateY: -180,
+        force3D: true
+      });
+
       const trigger = ScrollTrigger.create({
         trigger: sectionRef.current!,
         start: "center center",
