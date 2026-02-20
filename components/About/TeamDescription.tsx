@@ -33,31 +33,39 @@ const TeamDescription = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 70%",
-        toggleActions: "play none none reverse",
+    let hasAnimated = false;
+    const trigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top 70%",
+      onEnter: () => {
+        if (!hasAnimated) {
+          hasAnimated = true;
+          const tl = gsap.timeline();
+
+          if (leftTextRef.current) {
+            tl.fromTo(
+              leftTextRef.current,
+              { x: -80, opacity: 0 },
+              { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+              0
+            );
+          }
+
+          if (rightTextRef.current) {
+            tl.fromTo(
+              rightTextRef.current,
+              { x: 80, opacity: 0 },
+              { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+              0.2
+            );
+          }
+        }
       },
     });
 
-    if (leftTextRef.current) {
-      tl.fromTo(
-        leftTextRef.current,
-        { x: -80, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-        0
-      );
-    }
-
-    if (rightTextRef.current) {
-      tl.fromTo(
-        rightTextRef.current,
-        { x: 80, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-        0.2
-      );
-    }
+    return () => {
+      trigger.kill();
+    };
   }, []);
 
   return (

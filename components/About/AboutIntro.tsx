@@ -32,22 +32,31 @@ const AboutIntro = () => {
   useEffect(() => {
     if (!sectionRef.current || !textRef.current) return;
 
-    gsap.fromTo(
-      textRef.current.children,
-      { y: 60, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
+    let hasAnimated = false;
+    const trigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top 80%",
+      onEnter: () => {
+        if (!hasAnimated) {
+          hasAnimated = true;
+          gsap.fromTo(
+            textRef.current!.children,
+            { y: 60, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: "power3.out",
+            }
+          );
+        }
+      },
+    });
+
+    return () => {
+      trigger.kill();
+    };
   }, []);
 
   return (

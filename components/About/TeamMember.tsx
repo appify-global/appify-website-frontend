@@ -70,31 +70,39 @@ const TeamMember = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        start: "top 70%",
-        toggleActions: "play none none reverse",
+    let hasAnimated = false;
+    const trigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top 70%",
+      onEnter: () => {
+        if (!hasAnimated) {
+          hasAnimated = true;
+          const tl = gsap.timeline();
+
+          if (titleRef.current) {
+            tl.fromTo(
+              titleRef.current,
+              { y: 60, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+              0
+            );
+          }
+
+          if (imageRef.current) {
+            tl.fromTo(
+              imageRef.current,
+              { scale: 1.1, opacity: 0 },
+              { scale: 1, opacity: 1, duration: 1, ease: "power3.out" },
+              0.2
+            );
+          }
+        }
       },
     });
 
-    if (titleRef.current) {
-      tl.fromTo(
-        titleRef.current,
-        { y: 60, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-        0
-      );
-    }
-
-    if (imageRef.current) {
-      tl.fromTo(
-        imageRef.current,
-        { scale: 1.1, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1, ease: "power3.out" },
-        0.2
-      );
-    }
+    return () => {
+      trigger.kill();
+    };
   }, []);
 
   return (
