@@ -45,7 +45,7 @@ const FeaturedVideoWebGL = ({
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 40%", "end 20%"],
+    offset: ["start 80%", "start 20%"], // Much shorter range - completes in ~60vh of scroll
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -81,21 +81,21 @@ const FeaturedVideoWebGL = ({
   // === Z-index: normal -> above everything (stays on top once enlarged) ===
   const zIndex = useTransform(
     smoothProgress,
-    [0, 0.3, 1.0],
-    [20, 100, 100] // Jumps to front when expanding and stays
+    [0, 0.2, 1.0],
+    [20, 100, 100] // Jumps to front early when expanding and stays
   );
 
   // Border radius: rounded -> minimal (stays minimal)
   const borderRadius = useTransform(
     smoothProgress,
-    [0, 0.5, 1.0],
-    ["16px", "4px", "4px"] // Becomes less rounded and stays
+    [0, 0.6, 1.0],
+    ["16px", "4px", "4px"] // Becomes less rounded quickly and stays
   );
 
   // Shadow: subtle -> dramatic (stays dramatic)
   const boxShadow = useTransform(
     smoothProgress,
-    [0, 0.5, 1.0],
+    [0, 0.6, 1.0],
     [
       "0 10px 30px rgba(0,0,0,0.1)",
       "0 40px 100px rgba(0,0,0,0.35)",
@@ -105,7 +105,7 @@ const FeaturedVideoWebGL = ({
 
   // Show PLAY REEL once video is enlarged and centered
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    setShowPlayReel(value > 0.4);
+    setShowPlayReel(value > 0.5);
   });
 
   // Mobile layout
