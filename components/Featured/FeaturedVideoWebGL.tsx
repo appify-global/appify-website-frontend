@@ -55,27 +55,25 @@ const FeaturedVideoWebGL = ({
   });
 
   // === Width: small -> large (stays large, doesn't shrink back) ===
+  // Complete animation faster - most of the change happens in first 60% of scroll
   const width = useTransform(
     smoothProgress,
-    [0, 0.5, 1.0],
-    ["40.3vw", "75vw", "75vw"] // Enlarges and stays large
+    [0, 0.6, 1.0],
+    ["40.3vw", "75vw", "75vw"] // Enlarges quickly and stays large
   );
 
   // === Horizontal: left-aligned -> centered (stays centered) ===
-  // Start at left (0), move to center by translating left by half the difference
-  // When width is 40.3vw, x is 0. When width is 75vw, x should center it
-  // Center calculation: translateX(calc(50vw - 50%)) centers any width
   const x = useTransform(
     smoothProgress,
-    [0, 0.5, 1.0],
-    [0, "calc(50vw - 37.5vw)", "calc(50vw - 37.5vw)"] // Moves to center and stays
+    [0, 0.6, 1.0],
+    [0, "calc(50vw - 37.5vw)", "calc(50vw - 37.5vw)"] // Moves to center quickly and stays
   );
 
   // === Vertical: moves down and stays down ===
   const y = useTransform(
     smoothProgress,
-    [0, 0.5, 1.0],
-    ["2vh", "50vh", "50vh"] // Moves down to center and stays
+    [0, 0.6, 1.0],
+    ["2vh", "50vh", "50vh"] // Moves down to center quickly and stays
   );
 
   // === Z-index: normal -> above everything (stays on top once enlarged) ===
