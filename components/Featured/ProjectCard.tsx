@@ -73,12 +73,12 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
         const arrowWidth = arrowRef.current.getBoundingClientRect().width || 24;
         gsap.to(arrowRef.current, {
           opacity: 1,
-          x: 0,
+          x: 0, // Arrow stays at its fixed left position
           duration: 0.3,
           ease: "power2.out",
         });
         gsap.to(titleRef.current, {
-          x: arrowWidth + 16, // Arrow width + larger gap for better spacing
+          x: arrowWidth + 24, // Move title to the right with more spacing
           duration: 0.3,
           ease: "power2.out",
         });
@@ -101,7 +101,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
       if (arrowRef.current && titleRef.current) {
         gsap.to(arrowRef.current, {
           opacity: 0,
-          x: -10,
+          x: -30, // Move arrow back to hidden position
           duration: 0.3,
           ease: "power2.out",
         });
@@ -176,7 +176,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
               viewBox="0 0 24 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ left: 0, transform: "translateX(-10px)" }}
+              style={{ left: 0, transform: "translateX(-30px)" }}
             >
               <path d="M0.942871 11.3138H22.9429M22.9429 11.3138L12.8857 0.942383M22.9429 11.3138L12.8857 21.0567" stroke="black" strokeWidth="1.88571" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
