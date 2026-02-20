@@ -235,16 +235,16 @@ export default function ProjectDetailPage() {
       rafId = requestAnimationFrame(updateImageScales);
     };
 
-    // Use ScrollTrigger's onUpdate for better performance with horizontal scroll
-    ScrollTrigger.addEventListener("scroll", handleScroll);
-    ScrollTrigger.addEventListener("refresh", updateImageScales);
+    // Listen to window scroll events
+    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", updateImageScales);
+    ScrollTrigger.addEventListener("refresh", updateImageScales);
     updateImageScales(); // Initial update
 
     return () => {
-      ScrollTrigger.removeEventListener("scroll", handleScroll);
-      ScrollTrigger.removeEventListener("refresh", updateImageScales);
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", updateImageScales);
+      ScrollTrigger.removeEventListener("refresh", updateImageScales);
       if (rafId) cancelAnimationFrame(rafId);
       maxScaledImages.clear();
     };
