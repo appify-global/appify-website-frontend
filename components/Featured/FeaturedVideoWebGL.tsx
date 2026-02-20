@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent, useMotionValue } from "framer-motion";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { RollerText } from "../RollerText";
 import MarqueePlusRow from "../MarqueePlusRow";
@@ -49,6 +49,9 @@ const FeaturedVideoWebGL = ({
 
   const videoSrc = "/Videos/Appify_Introduction_CEO_cropped.mp4";
 
+  // Motion value for animation progress
+  const animationProgressValue = useMotionValue(0);
+
   // Detect when reel container bottom is visible in viewport
   React.useEffect(() => {
     if (!reelContainerRef.current || isMobile) return;
@@ -60,7 +63,10 @@ const FeaturedVideoWebGL = ({
           const viewportHeight = window.innerHeight;
           // Reel bottom is visible when its bottom edge is within viewport
           const reelBottom = rect.bottom;
-          setReelBottomVisible(reelBottom <= viewportHeight && reelBottom >= 0);
+          const isVisible = reelBottom <= viewportHeight && reelBottom >= 0;
+          setReelBottomVisible(isVisible);
+          // Update motion value immediately
+          animationProgressValue.set(isVisible ? 1 : 0);
         });
       },
       {
@@ -71,7 +77,7 @@ const FeaturedVideoWebGL = ({
 
     observer.observe(reelContainerRef.current);
     return () => observer.disconnect();
-  }, [isMobile]);
+  }, [isMobile, animationProgressValue]);
 
   // Calculate positions on mount and resize
   React.useEffect(() => {
@@ -129,17 +135,8 @@ const FeaturedVideoWebGL = ({
   }, [isMobile]);
 
   // Binary animation: 0 = thumbnail state, 1 = reel state
-  // Trigger based on reel container bottom visibility
-  const animationProgress = useTransform(
-    [reelBottomVisible],
-    ([visible]) => {
-      // If reel bottom is out of screen → thumbnail state (0)
-      // If reel bottom is in screen → reel state (1)
-      return visible ? 1 : 0;
-    }
-  );
-
-  const smoothProgress = useSpring(animationProgress, {
+  // Use motion value that gets updated by IntersectionObserver
+  const smoothProgress = useSpring(animationProgressValue, {
     stiffness: 200,
     damping: 40,
     restDelta: 0.001,
