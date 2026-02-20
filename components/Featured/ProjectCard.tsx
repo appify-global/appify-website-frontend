@@ -18,6 +18,8 @@ interface ProjectCardProps {
 export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: ProjectCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const arrowRef = useRef<SVGSVGElement>(null);
   const lenis = useLenis();
 
   const state = useRef({
@@ -65,6 +67,22 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
         imgRef.current.style.transition = calculate_image_ref_transform();
       }
       if (!s.raf) loop();
+      
+      // Animate arrow and title on hover
+      if (arrowRef.current && titleRef.current) {
+        const arrowWidth = arrowRef.current.getBoundingClientRect().width || 24;
+        gsap.to(arrowRef.current, {
+          opacity: 1,
+          x: 0, // Arrow appears at left edge (left aligned)
+          duration: 0.3,
+          ease: "power2.out",
+        });
+        gsap.to(titleRef.current, {
+          x: arrowWidth + 16, // Move title to the right with 16px gap
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
     }
 
     function onLeave() {
@@ -77,6 +95,21 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
         setTimeout(() => {
           if (imgRef.current) imgRef.current.style.willChange = "auto";
         }, 500);
+      }
+      
+      // Animate arrow and title back on leave
+      if (arrowRef.current && titleRef.current) {
+        gsap.to(arrowRef.current, {
+          opacity: 0,
+          x: -30, // Arrow moves back left when hiding
+          duration: 0.3,
+          ease: "power2.out",
+        });
+        gsap.to(titleRef.current, {
+          x: 0, // Title returns to original position
+          duration: 0.3,
+          ease: "power2.out",
+        });
       }
     }
 
@@ -134,8 +167,20 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
           <p className="text-[10px] sm:text-xs md:text-xs lg:text-[13px] tracking-wide mb-1 font-Aeonik leading-snug text-black/70">
             {metadataString}
           </p>
-          <h3 className="font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
-            {title}
+          <h3 ref={titleRef} className="relative font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
+            <svg
+              ref={arrowRef}
+              className="absolute left-0 w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0"
+              width="24"
+              height="22"
+              viewBox="0 0 24 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ transform: "translateX(-30px)" }}
+            >
+              <path d="M0.942871 11.3138H22.9429M22.9429 11.3138L12.8857 0.942383M22.9429 11.3138L12.8857 21.0567" stroke="black" strokeWidth="1.88571" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <span className="inline-block">{title}</span>
           </h3>
         </div>
       </div>
