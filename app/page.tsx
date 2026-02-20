@@ -68,7 +68,7 @@ export default function Home() {
 
       <section
         ref={gridRef}
-        className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-16 lg:mt-96 min-w-0 overflow-x-hidden"
+        className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-16 lg:mt-[200vh] min-w-0 overflow-x-hidden"
         id="feature-work"
       >
         <div className="w-full min-w-0 px-[4vw]">
