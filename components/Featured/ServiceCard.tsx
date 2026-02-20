@@ -126,6 +126,25 @@ const FloatingCards: React.FC = () => {
         end: `+=${totalScrollHeight}`,
         scrub: 1, // Smoother scrubbing
         invalidateOnRefresh: false,
+        onEnter: () => {
+          // Ensure all cards are at center when section first enters
+          gsap.set(card, {
+            left: "50%",
+            rotate: rotations[index] || 0,
+            xPercent: -50,
+            yPercent: -50,
+            force3D: true,
+            transformOrigin: "center center"
+          });
+          gsap.set(front, {
+            rotateY: 0,
+            force3D: true
+          });
+          gsap.set(back, {
+            rotateY: -180,
+            force3D: true
+          });
+        },
         onUpdate: (self) => {
           const p = self.progress;
 
