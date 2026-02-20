@@ -40,33 +40,47 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
   useEffect(() => {
     if (!textRef.current || !buttonRef.current || !sectionRef.current || isMobile) return;
 
+    let hasAnimated = false;
+
     const ctx = gsap.context(() => {
-      // FIX #3 & #4: Text parallax - starts EARLIER so title moves up before video animates
-      // Animation completes by the time video starts expanding (at 25% scroll progress)
-      gsap.to(textRef.current, {
-        y: -450, // Strong upward movement
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          scroller: document.body,
-          start: "top 95%",    // Start VERY early
-          end: "top 10%",      // Complete before video expansion
-          scrub: 0.5,
+      // Set initial position - start lower
+      gsap.set([textRef.current, buttonRef.current], {
+        y: 100,
+        opacity: 0,
+      });
+
+      // One-time animation when section enters viewport
+      const trigger = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        scroller: document.body,
+        start: "top 85%",
+        onEnter: () => {
+          if (!hasAnimated) {
+            hasAnimated = true;
+            
+            // Animate text and button up together
+            gsap.to([textRef.current, buttonRef.current], {
+              y: 0,
+              opacity: 1,
+              duration: 1.2,
+              ease: "power3.out",
+              onComplete: () => {
+                // Clear transforms after animation to keep elements fixed
+                if (textRef.current) {
+                  gsap.set(textRef.current, { clearProps: "transform" });
+                }
+                if (buttonRef.current) {
+                  gsap.set(buttonRef.current, { clearProps: "transform" });
+                }
+              },
+            });
+          }
         },
       });
 
-      // FIX #5: Button parallax - SAME values as text so they move together
-      gsap.to(buttonRef.current, {
-        y: -450, // Same as text - moves at SAME PACE
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          scroller: document.body,
-          start: "top 95%",    // Same start as text
-          end: "top 10%",      // Same end as text
-          scrub: 0.5,          // Same scrub as text
-        },
-      });
+      return () => {
+        trigger.kill();
+      };
     });
 
     return () => ctx.revert();
