@@ -70,6 +70,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
       
       // Animate arrow and title on hover
       if (arrowRef.current && titleRef.current) {
+        const arrowWidth = arrowRef.current.offsetWidth || 24;
         gsap.to(arrowRef.current, {
           opacity: 1,
           x: 0,
@@ -77,7 +78,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
           ease: "power2.out",
         });
         gsap.to(titleRef.current, {
-          x: 20,
+          x: arrowWidth + 8, // Arrow width + gap
           duration: 0.3,
           ease: "power2.out",
         });
