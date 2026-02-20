@@ -71,17 +71,21 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
       // Animate arrow and title on hover
       if (arrowRef.current && titleRef.current) {
         const arrowWidth = arrowRef.current.getBoundingClientRect().width || 24;
-        gsap.to(arrowRef.current, {
-          opacity: 1,
-          x: 0, // Arrow appears at left edge (left aligned)
-          duration: 0.3,
-          ease: "power2.out",
-        });
-        gsap.to(titleRef.current, {
-          x: arrowWidth + 16, // Move title to the right with 16px gap
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        const titleSpan = titleRef.current.querySelector('span');
+        if (titleSpan) {
+          const titleLeft = titleSpan.getBoundingClientRect().left - titleRef.current.getBoundingClientRect().left;
+          gsap.to(arrowRef.current, {
+            opacity: 1,
+            x: titleLeft, // Arrow aligns with the left edge of the title text
+            duration: 0.3,
+            ease: "power2.out",
+          });
+          gsap.to(titleSpan, {
+            x: arrowWidth + 16, // Move title to the right with 16px gap
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        }
       }
     }
 
@@ -99,17 +103,20 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
       
       // Animate arrow and title back on leave
       if (arrowRef.current && titleRef.current) {
+        const titleSpan = titleRef.current.querySelector('span');
         gsap.to(arrowRef.current, {
           opacity: 0,
           x: -30, // Arrow moves back left when hiding
           duration: 0.3,
           ease: "power2.out",
         });
-        gsap.to(titleRef.current, {
-          x: 0, // Title returns to original position
-          duration: 0.3,
-          ease: "power2.out",
-        });
+        if (titleSpan) {
+          gsap.to(titleSpan, {
+            x: 0, // Title returns to original position
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        }
       }
     }
 
@@ -170,13 +177,13 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
           <h3 ref={titleRef} className="relative font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
             <svg
               ref={arrowRef}
-              className="absolute left-0 w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0"
+              className="absolute w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0"
               width="24"
               height="22"
               viewBox="0 0 24 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ transform: "translateX(-30px)" }}
+              style={{ left: 0, transform: "translateX(-30px)" }}
             >
               <path d="M0.942871 11.3138H22.9429M22.9429 11.3138L12.8857 0.942383M22.9429 11.3138L12.8857 21.0567" stroke="black" strokeWidth="1.88571" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
