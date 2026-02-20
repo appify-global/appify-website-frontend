@@ -7,12 +7,14 @@ const HomeGoalTitle = () => {
     const el = titleRef.current;
     if (!el) return;
 
+    const hasAnimatedRef = { current: false };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !hasAnimatedRef.current) {
+          hasAnimatedRef.current = true;
           el.classList.add("home-goal-title--visible");
-        } else {
-          el.classList.remove("home-goal-title--visible");
+          observer.disconnect();
         }
       },
       {
