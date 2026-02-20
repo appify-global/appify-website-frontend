@@ -46,7 +46,18 @@ const TeamDescription = () => {
             tl.fromTo(
               leftTextRef.current,
               { x: -80, opacity: 0 },
-              { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+              { 
+                x: 0, 
+                opacity: 1, 
+                duration: 0.8, 
+                ease: "power3.out",
+                onComplete: () => {
+                  // Clear transforms after animation to keep text fixed
+                  if (leftTextRef.current) {
+                    gsap.set(leftTextRef.current, { clearProps: "transform" });
+                  }
+                }
+              },
               0
             );
           }
@@ -55,7 +66,18 @@ const TeamDescription = () => {
             tl.fromTo(
               rightTextRef.current,
               { x: 80, opacity: 0 },
-              { x: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+              { 
+                x: 0, 
+                opacity: 1, 
+                duration: 0.8, 
+                ease: "power3.out",
+                onComplete: () => {
+                  // Clear transforms after animation to keep text fixed
+                  if (rightTextRef.current) {
+                    gsap.set(rightTextRef.current, { clearProps: "transform" });
+                  }
+                }
+              },
               0.2
             );
           }

@@ -83,7 +83,18 @@ const TeamMember = () => {
             tl.fromTo(
               titleRef.current,
               { y: 60, opacity: 0 },
-              { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+              { 
+                y: 0, 
+                opacity: 1, 
+                duration: 0.8, 
+                ease: "power3.out",
+                onComplete: () => {
+                  // Clear transforms after animation to keep text fixed
+                  if (titleRef.current) {
+                    gsap.set(titleRef.current, { clearProps: "transform" });
+                  }
+                }
+              },
               0
             );
           }
@@ -92,7 +103,18 @@ const TeamMember = () => {
             tl.fromTo(
               imageRef.current,
               { scale: 1.1, opacity: 0 },
-              { scale: 1, opacity: 1, duration: 1, ease: "power3.out" },
+              { 
+                scale: 1, 
+                opacity: 1, 
+                duration: 1, 
+                ease: "power3.out",
+                onComplete: () => {
+                  // Clear transforms after animation to keep image fixed
+                  if (imageRef.current) {
+                    gsap.set(imageRef.current, { clearProps: "transform" });
+                  }
+                }
+              },
               0.2
             );
           }
