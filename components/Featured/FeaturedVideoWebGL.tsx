@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, useMotionValue } from "framer-motion";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { RollerText } from "../RollerText";
 import MarqueePlusRow from "../MarqueePlusRow";
@@ -177,13 +177,8 @@ const FeaturedVideoWebGL = ({
   }, [isMobile]);
 
   // Binary animation: 0 = thumbnail state, 1 = reel state
-  // Use motion value with smooth spring animation (less shaky)
-  const smoothProgress = useSpring(animationProgressValue, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-    mass: 1,
-  });
+  // Direct motion value (no spring) for instant, precise transitions
+  const smoothProgress = animationProgressValue;
 
   // === Width: thumbnail -> reel (binary: only two states) ===
   const width = useTransform(
