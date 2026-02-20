@@ -93,7 +93,9 @@ const FeaturedVideoWebGL = ({
 
         // Check reel container visibility
         const reelRect = reelContainerRef.current.getBoundingClientRect();
-        const isReelVisible = reelRect.bottom <= viewportHeight && reelRect.top >= 0;
+        const reelBottom = reelRect.bottom;
+        const isReelBottomInView = reelBottom <= viewportHeight && reelBottom >= 0;
+        const isReelTopInView = reelRect.top <= viewportHeight && reelRect.top >= 0;
 
         // Trigger animation to reel when:
         // - Video is visible and near center
@@ -109,9 +111,9 @@ const FeaturedVideoWebGL = ({
         }
         // Trigger animation to thumbnail when:
         // - In reel state
-        // - Reel is visible
+        // - Reel bottom is out of view (scrolled up past it) OR scrolling up
         // - User scrolls up
-        else if (isInReelState && isReelVisible && scrollDirection === -1) {
+        else if (isInReelState && scrollDirection === -1 && (!isReelBottomInView || !isReelTopInView)) {
           setIsInReelState(false);
           // Smooth transition back to thumbnail position
           animate(animationProgressValue, 0, {
