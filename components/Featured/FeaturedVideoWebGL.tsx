@@ -99,10 +99,11 @@ const FeaturedVideoWebGL = ({
   );
 
   // === Horizontal: thumbnail position (left) -> reel position (centered) ===
+  // Account for container padding (5vw on each side) when centering
   const x = useTransform(
     smoothProgress,
     [0, 0.6, 1.0],
-    ["0vw", "calc(50vw - 37.5vw)", "calc(50vw - 37.5vw)"] // Start at left, move to center
+    ["0vw", "calc(50% - 37.5vw)", "calc(50% - 37.5vw)"] // Start at left, move to center (50% of container, not viewport)
   );
 
   // === Vertical: thumbnail position -> reel position (moves down to center) ===
