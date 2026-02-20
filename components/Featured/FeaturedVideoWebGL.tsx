@@ -78,7 +78,7 @@ const FeaturedVideoWebGL = ({
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 60%", "start 10%"], // Start later, complete in ~50vh of scroll
+    offset: ["start 20%", "start -20%"], // Start much later - when section is well into view
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
