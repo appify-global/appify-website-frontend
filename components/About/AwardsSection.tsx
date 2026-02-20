@@ -253,27 +253,27 @@ const AwardsSection = () => {
       {/* Articles section - Hidden */}
 
       {/* Talks section */}
-      <div className="relative z-10 px-[6vw] lg:px-[5vw] py-[60px] sm:py-[80px] lg:py-[120px]">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between">
-          <div className="flex items-center gap-4 mb-[30px] lg:mb-0">
-            <h3 className="font-Aeonik text-[12vw] lg:text-[56px] xl:text-[72px] leading-[1.1] text-white">
+      <div className="relative z-10 px-[5vw] sm:px-[6vw] md:px-[5vw] lg:px-[5vw] py-12 sm:py-14 md:py-16 lg:py-[120px]">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 sm:gap-10 md:gap-12">
+          <div className="flex items-center gap-4">
+            <h3 className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,8vw,2.75rem)] md:text-[clamp(2.25rem,6vw,3rem)] lg:text-[56px] xl:text-[72px] leading-[1.08] text-white">
               TALKS
             </h3>
             <CircleBadge number="5" className="lg:hidden" />
           </div>
 
-          <div className="lg:max-w-[806px] space-y-[12px]">
+          <div className="lg:max-w-[806px] space-y-3 sm:space-y-4 w-full">
             {talksData.map((talk, idx) => {
               const content = (
                 <div
-                  className={`flex justify-between items-center gap-4 ${
+                  className={`flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 sm:gap-4 ${
                     talk.link ? "cursor-pointer hover:opacity-80 transition-opacity" : ""
                   }`}
                 >
-                  <span className="font-Aeonik text-[14px] sm:text-[15px] lg:text-[18px] text-white w-[140px] sm:w-[200px] lg:w-[305px]">
+                  <span className="font-Aeonik text-[clamp(0.8125rem,2vw,0.9375rem)] lg:text-[18px] text-white min-w-0 lg:w-[305px]">
                     {talk.event}
                   </span>
-                  <span className="font-Aeonik text-[15px] sm:text-[16px] lg:text-[18px] text-white/60">
+                  <span className="font-Aeonik text-[clamp(0.75rem,1.8vw,0.9375rem)] lg:text-[18px] text-white/60 shrink-0">
                     {talk.location}
                   </span>
                 </div>

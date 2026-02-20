@@ -183,30 +183,30 @@ const ClientsSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full bg-black overflow-hidden pt-[8vh] sm:pt-[10vh] lg:pt-[160px] pb-[4vh] sm:pb-[5vh] lg:pb-[40px]"
+      className="relative w-full bg-black overflow-hidden pt-[6vh] sm:pt-[8vh] md:pt-[10vh] lg:pt-[160px] pb-[4vh] sm:pb-[5vh] lg:pb-[40px]"
     >
       {/* Main content */}
-      <div className="relative z-10 px-[4vw] sm:px-[6vw] lg:px-[5vw]">
+      <div className="relative z-10 px-[5vw] sm:px-[6vw] md:px-[5vw] lg:px-[5vw]">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-[30px] sm:mb-[50px] lg:mb-[80px]">
+        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start mb-8 sm:mb-10 md:mb-12 lg:mb-[80px] gap-4 sm:gap-6">
           {/* Title */}
           <h2
             ref={titleRef}
-            className="font-Aeonik text-[12vw] lg:text-[56px] xl:text-[72px] leading-[1.1] text-white max-w-full lg:max-w-[905px]"
+            className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,8.5vw,2.75rem)] md:text-[clamp(2.25rem,6.5vw,3rem)] lg:text-[56px] xl:text-[72px] leading-[1.08] sm:leading-[1.1] text-white max-w-full lg:max-w-[905px]"
           >
             CLIENTS WE WORK WITH
           </h2>
 
           {/* Subtitle - positioned right on desktop */}
-          <div className="mt-6 lg:mt-0 lg:max-w-[219px] lg:text-right">
-            <p className="font-Aeonik text-[14px] lg:text-[14px] leading-[1.3] text-white/80 uppercase">
+          <div className="lg:max-w-[219px] lg:text-right">
+            <p className="font-Aeonik text-[clamp(0.6875rem,2vw,0.875rem)] leading-[1.35] text-white/80 uppercase">
               WE CAN&apos;T WAIT TO SHOW YOU WHAT WE CAN DO FOR YOU AND YOUR BRAND.
             </p>
           </div>
         </div>
 
         {/* Client logos with infinite scroll */}
-        <div className="space-y-[20px] sm:space-y-[40px] lg:space-y-[60px]">
+        <div className="space-y-5 sm:space-y-8 md:space-y-10 lg:space-y-[60px]">
           {/* Row 1 - scrolls left */}
           <div ref={row1Ref} className="overflow-hidden -mx-[4vw] sm:-mx-[6vw] lg:-mx-[5vw]">
             <div className="logo-row-content flex gap-[10px] sm:gap-[20px] lg:gap-[40px] xl:gap-[80px] w-max">
@@ -214,7 +214,7 @@ const ClientsSection = () => {
               {[...clientLogos[0], ...clientLogos[0], ...clientLogos[0]].map((client, index) => (
                 <div
                   key={`row1-${index}`}
-                  className="w-[calc(33vw-20px)] sm:w-[100px] lg:w-[136px] h-[60px] sm:h-[80px] lg:h-[115px] flex-shrink-0"
+                  className="w-[calc(36vw-16px)] sm:w-[90px] md:w-[100px] lg:w-[136px] h-[52px] sm:h-[72px] md:h-[80px] lg:h-[115px] flex-shrink-0"
                 >
                   <LogoItem name={client.name} logo={client.logo} />
                 </div>
@@ -229,7 +229,7 @@ const ClientsSection = () => {
               {[...clientLogos[1], ...clientLogos[1], ...clientLogos[1]].map((client, index) => (
                 <div
                   key={`row2-${index}`}
-                  className="w-[calc(33vw-20px)] sm:w-[100px] lg:w-[136px] h-[60px] sm:h-[80px] lg:h-[115px] flex-shrink-0"
+                  className="w-[calc(36vw-16px)] sm:w-[90px] md:w-[100px] lg:w-[136px] h-[52px] sm:h-[72px] md:h-[80px] lg:h-[115px] flex-shrink-0"
                 >
                   <LogoItem name={client.name} logo={client.logo} />
                 </div>
@@ -244,7 +244,7 @@ const ClientsSection = () => {
               {[...clientLogos[2], ...clientLogos[2], ...clientLogos[2]].map((client, index) => (
                 <div
                   key={`row3-${index}`}
-                  className="w-[calc(33vw-20px)] sm:w-[100px] lg:w-[136px] h-[60px] sm:h-[80px] lg:h-[115px] flex-shrink-0"
+                  className="w-[calc(36vw-16px)] sm:w-[90px] md:w-[100px] lg:w-[136px] h-[52px] sm:h-[72px] md:h-[80px] lg:h-[115px] flex-shrink-0"
                 >
                   <LogoItem name={client.name} logo={client.logo} />
                 </div>

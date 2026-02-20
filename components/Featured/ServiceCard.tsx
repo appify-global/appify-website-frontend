@@ -56,7 +56,8 @@ const expertsIn = [
 ];
 
 const rotations = [-15, -7.5, 7.5, 15];
-const positions = [14, 38, 62, 86];
+// Wider spacing between cards (was 14, 38, 62, 86 — 24% gap; now 26% gap)
+const positions = [10, 36, 62, 88];
 
 const FloatingCards: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);

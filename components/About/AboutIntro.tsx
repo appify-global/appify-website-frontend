@@ -53,7 +53,7 @@ const AboutIntro = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[60vh] sm:min-h-[70vh] lg:h-screen overflow-hidden z-10"
+      className="relative w-full min-h-[55vh] sm:min-h-[65vh] md:min-h-[70vh] lg:h-screen overflow-hidden z-10"
     >
       {/* Black overlay to match hero section opacity */}
       <div className="absolute inset-0 bg-black/70 z-0" />
@@ -66,13 +66,13 @@ const AboutIntro = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[10vh] sm:py-[12vh] lg:py-[131px]">
+      <div className="relative z-10 h-full px-[5vw] sm:px-[6vw] md:px-[5vw] lg:px-[5vw] py-[10vh] sm:py-[12vh] md:py-[14vh] lg:py-[131px]">
         {/* Plus icon row */}
-        <div className="flex items-center justify-between w-full mb-[40px] lg:mb-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-[5vw] lg:right-[5vw] lg:w-auto lg:px-0">
+        <div className="flex items-center justify-between w-full mb-8 sm:mb-10 md:mb-12 lg:mb-0 lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-[5vw] lg:right-[5vw] lg:w-auto lg:px-0">
           {[0, 1, 2, 3, 4].map((i) => (
             <PlusIcon
               key={i}
-              className={`w-3.5 h-3.5 lg:w-5 lg:h-5 text-white/60 ${
+              className={`w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white/60 ${
                 i > 0 && i < 4 ? "hidden lg:block" : ""
               }`}
             />
@@ -80,10 +80,10 @@ const AboutIntro = () => {
         </div>
 
         {/* Text content */}
-        <div ref={textRef} className="flex flex-col">
-          {/* Main headline */}
-          <div className="max-w-[90%] lg:max-w-[755px]">
-            <h2 className="font-Aeonik text-[10vw] lg:text-[48px] leading-[1.2] lg:leading-[1.3] text-white">
+        <div ref={textRef} className="flex flex-col gap-0">
+          {/* Main headline - fixed scale mobile/tablet */}
+          <div className="max-w-[92%] sm:max-w-[88%] md:max-w-[85%] lg:max-w-[755px]">
+            <h2 className="font-Aeonik text-[clamp(1.75rem,7.5vw,2.75rem)] sm:text-[clamp(2rem,8vw,3rem)] md:text-[clamp(2.25rem,6vw,3.25rem)] lg:text-[48px] leading-[1.15] sm:leading-[1.2] lg:leading-[1.3] text-white tracking-tight">
               <span className="block">WE ARE</span>
               <span className="block">APPIFY</span>
               <span className="block">A CREATIVE</span>
@@ -92,8 +92,8 @@ const AboutIntro = () => {
           </div>
 
           {/* "Nice to meet you" - positioned bottom right */}
-          <div className="mt-auto lg:absolute lg:right-[5vw] lg:bottom-[100px] text-right">
-            <p className="font-Aeonik text-[9vw] lg:text-[42px] italic text-white leading-[1.2] mt-[30vh] lg:mt-0">
+          <div className="mt-[18vh] sm:mt-[22vh] md:mt-[24vh] lg:absolute lg:right-[5vw] lg:bottom-[100px] lg:mt-0 text-right">
+            <p className="font-Aeonik text-[clamp(1.5rem,6.5vw,2.25rem)] sm:text-[clamp(1.75rem,6vw,2.5rem)] md:text-[clamp(2rem,5vw,2.75rem)] lg:text-[42px] italic text-white leading-[1.15]">
               <span className="block">NICE TO</span>
               <span className="block">MEET YOU</span>
             </p>
