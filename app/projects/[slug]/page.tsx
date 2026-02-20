@@ -191,10 +191,14 @@ export default function ProjectDetailPage() {
         const rect = image.getBoundingClientRect();
         const imageCenter = rect.left + rect.width / 2;
         const distanceFromCenter = Math.abs(imageCenter - viewportCenter);
-        const maxDistance = window.innerWidth;
+        const maxDistance = window.innerWidth * 0.8; // Scale within 80% of viewport width
         
         // Calculate scale: 0.7 when far, 1.0 when at center
-        const normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
+        // Stop expanding once it reaches center
+        let normalizedDistance = Math.min(distanceFromCenter / maxDistance, 1);
+        if (distanceFromCenter < viewportCenter * 0.1) {
+          normalizedDistance = 0; // At center, use full scale
+        }
         const scale = 0.7 + (1 - normalizedDistance) * 0.3;
         
         gsap.to(image, {
@@ -205,18 +209,24 @@ export default function ProjectDetailPage() {
       });
     };
 
-    // Update on scroll
+    // Update on scroll using requestAnimationFrame for smooth updates
+    let rafId: number;
     const handleScroll = () => {
-      requestAnimationFrame(updateImageScales);
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateImageScales);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    // Use ScrollTrigger's onUpdate for better performance with horizontal scroll
+    ScrollTrigger.addEventListener("scroll", handleScroll);
+    ScrollTrigger.addEventListener("refresh", updateImageScales);
     window.addEventListener("resize", updateImageScales);
     updateImageScales(); // Initial update
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      ScrollTrigger.removeEventListener("scroll", handleScroll);
+      ScrollTrigger.removeEventListener("refresh", updateImageScales);
       window.removeEventListener("resize", updateImageScales);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, [isMounted, isMobileOrTablet, project?.galleryImages]);
 
