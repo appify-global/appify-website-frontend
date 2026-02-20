@@ -219,13 +219,13 @@ const FeaturedVideoWebGL = ({
     ]
   );
 
-  // === Vertical: keep video centered throughout entire transition ===
+  // === Vertical: thumbnail position -> reel position (binary) ===
   const y = useTransform(
     smoothProgress,
     [0, 1],
     [
-      0, // Always centered vertically during transition
-      0  // Stay centered
+      thumbnailPos.y || 0, // Start at thumbnail position
+      reelPos.y || 0 // End at reel position (below text)
     ]
   );
 
