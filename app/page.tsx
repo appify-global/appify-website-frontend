@@ -61,7 +61,7 @@ export default function Home() {
           <HeaderExpert />
         </div>
 
-        <div className="w-full px-[4vw]">
+        <div className="w-full px-[4vw] overflow-visible" style={{ overflow: 'visible' }}>
           <FloatingCards />
         </div>
       </section>

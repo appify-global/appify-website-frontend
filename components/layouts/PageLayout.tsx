@@ -120,7 +120,7 @@ export function PageLayout({
   return (
     <Suspense fallback={loadingFallback || defaultLoadingFallback}>
       <LenisProvider footerRef={footerRef}>
-        <div className={`${backgroundColor || "bg-[var(--color-background,#F0F1FA)]"} h-auto w-full min-w-0 flex flex-col overflow-x-clip min-h-screen relative z-10 lg:z-[20]`}>
+        <div className={`${backgroundColor || "bg-[var(--color-background,#F0F1FA)]"} h-auto w-full min-w-0 flex flex-col overflow-x-visible min-h-screen relative z-10 lg:z-[20]`}>
           <ScrollIndicator />
 
           {wasmReady && (
