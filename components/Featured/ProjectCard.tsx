@@ -135,21 +135,47 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
     const card = cardRef.current;
     if (!card || !lenis) return;
 
+    const hasAnimatedRef = { current: false };
+
     const ctx = gsap.context(() => {
-      gsap.fromTo(card,
-        { opacity: 0, y: 80, scale: 0.93, filter: "blur(8px)" },
+      // Set initial state
+      gsap.set(card, {
+        opacity: 0,
+        y: 80,
+        scale: 0.93,
+        filter: "blur(8px)",
+        force3D: true
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !hasAnimatedRef.current) {
+              hasAnimatedRef.current = true;
+              gsap.to(card, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                ease: "power3.out",
+                duration: 1.1,
+                force3D: true
+              });
+              observer.disconnect();
+            }
+          });
+        },
         {
-          opacity: 1, y: 0, scale: 1, filter: "blur(0px)", ease: "power3.out", duration: 1.1,
-          force3D: true,
-          scrollTrigger: { 
-            trigger: card, 
-            start: "top 85%", 
-            end: "bottom 10%", 
-            toggleActions: "play none none reverse",
-            invalidateOnRefresh: false
-          }
+          threshold: 0.1,
+          rootMargin: "0px 0px -15% 0px"
         }
       );
+
+      observer.observe(card);
+
+      return () => {
+        observer.disconnect();
+      };
     }, card);
 
     return () => ctx.revert();
