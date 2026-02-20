@@ -219,7 +219,7 @@ const FloatingCards: React.FC = () => {
         h-[45vw]
         max-h-[900px]
         overflow-visible
-        mt-[10vw]
+        mt-[15vw]
         flex items-center justify-center
         z-50
       "
@@ -234,7 +234,7 @@ const FloatingCards: React.FC = () => {
           }}
           className="
             card absolute
-            top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2
+            top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
             w-[22%]
             max-w-[380px]
             h-[clamp(400px,30vw,550px)]
