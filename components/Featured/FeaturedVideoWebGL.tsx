@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValueEvent, useMotionValue, animate } from "framer-motion";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { RollerText } from "../RollerText";
 import MarqueePlusRow from "../MarqueePlusRow";
