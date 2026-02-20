@@ -25,8 +25,6 @@ interface FeaturedVideoWebGLProps {
   scrollToOverrideId?: string;
   /** @deprecated - kept for API compatibility */
   refForward?: React.RefObject<HTMLElement | null>;
-  /** Callback when reel state changes */
-  onReelStateChange?: (isInReel: boolean) => void;
 }
 
 const FeaturedVideoWebGL = ({
@@ -36,7 +34,6 @@ const FeaturedVideoWebGL = ({
   playerId,
   scrollToOverrideId: _scrollToOverrideId,
   refForward: _refForward,
-  onReelStateChange,
 }: FeaturedVideoWebGLProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const thumbnailRef = useRef<HTMLDivElement>(null);
@@ -105,7 +102,6 @@ const FeaturedVideoWebGL = ({
         // RULE 1: If we're above thumbnail container, ALWAYS force thumbnail position
         if (isAboveThumbnail && isInReelState) {
           setIsInReelState(false);
-          onReelStateChange?.(false);
           animate(animationProgressValue, 0, {
             duration: 0.6,
             ease: [0.25, 0.1, 0.25, 1],
@@ -117,7 +113,6 @@ const FeaturedVideoWebGL = ({
         // - Not already in reel state
         else if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
           setIsInReelState(true);
-          onReelStateChange?.(true);
           // Smooth transition to reel position
           animate(animationProgressValue, 1, {
             duration: 0.6,
@@ -130,7 +125,6 @@ const FeaturedVideoWebGL = ({
         // - User scrolls up
         else if (isInReelState && scrollDirection === -1 && isThumbnailVisible && isThumbnailNearCenter) {
           setIsInReelState(false);
-          onReelStateChange?.(false);
           // Smooth transition back to thumbnail position
           animate(animationProgressValue, 0, {
             duration: 0.6,
