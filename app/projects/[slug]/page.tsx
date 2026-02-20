@@ -343,7 +343,7 @@ export default function ProjectDetailPage() {
             <div className="bg-white rounded-2xl overflow-hidden shadow-xl">
               <div className="relative w-full aspect-[4/3] sm:aspect-video">
                 <Image
-                  src={project.imageUrl}
+                  src={project.galleryImages?.[0] || project.imageUrl}
                   alt={project.title}
                   fill
                   className="object-cover"
@@ -475,7 +475,7 @@ export default function ProjectDetailPage() {
             <div className="w-full lg:w-1/2 h-[70vh] sm:h-[75vh] lg:h-[85%] min-h-[380px] max-h-[720px] lg:max-h-[85vh] relative z-10 order-1 lg:order-2 mb-6 lg:mb-0 shrink-0">
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src={project.imageUrl}
+                  src={project.galleryImages?.[0] || project.imageUrl}
                   alt={project.title}
                   fill
                   className="object-cover"
