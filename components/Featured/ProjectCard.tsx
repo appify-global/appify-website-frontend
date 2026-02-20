@@ -18,6 +18,8 @@ interface ProjectCardProps {
 export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: ProjectCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const arrowRef = useRef<SVGSVGElement>(null);
   const lenis = useLenis();
 
   const state = useRef({
@@ -65,6 +67,21 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
         imgRef.current.style.transition = calculate_image_ref_transform();
       }
       if (!s.raf) loop();
+      
+      // Animate arrow and title on hover
+      if (arrowRef.current && titleRef.current) {
+        gsap.to(arrowRef.current, {
+          opacity: 1,
+          x: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+        gsap.to(titleRef.current, {
+          x: 20,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      }
     }
 
     function onLeave() {
@@ -77,6 +94,21 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
         setTimeout(() => {
           if (imgRef.current) imgRef.current.style.willChange = "auto";
         }, 500);
+      }
+      
+      // Animate arrow and title back on leave
+      if (arrowRef.current && titleRef.current) {
+        gsap.to(arrowRef.current, {
+          opacity: 0,
+          x: -10,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+        gsap.to(titleRef.current, {
+          x: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        });
       }
     }
 
@@ -134,8 +166,18 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
           <p className="text-[10px] sm:text-xs md:text-xs lg:text-[13px] tracking-wide mb-1 font-Aeonik leading-snug text-black/70">
             {metadataString}
           </p>
-          <h3 className="flex items-center relative font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
-            {title}
+          <h3 ref={titleRef} className="flex items-center gap-2 relative font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
+            <span>{title}</span>
+            <svg
+              ref={arrowRef}
+              className="w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              style={{ transform: "translateX(-10px)" }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </h3>
         </div>
       </div>
