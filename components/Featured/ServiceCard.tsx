@@ -125,14 +125,14 @@ const FloatingCards: React.FC = () => {
           // Use smooth animations instead of immediate set
           gsap.to(front, { 
             rotateY: state.front_rot, 
-            duration: 0.1,
-            ease: "none",
+            duration: 0.5,
+            ease: "power2.inOut",
             force3D: true
           });
           gsap.to(back, { 
             rotateY: state.back_rot, 
-            duration: 0.1,
-            ease: "none",
+            duration: 0.5,
+            ease: "power2.inOut",
             force3D: true
           });
 
@@ -141,8 +141,8 @@ const FloatingCards: React.FC = () => {
             rotate: state.rot,
             xPercent: -50,
             yPercent: -50,
-            duration: 0.1,
-            ease: "none",
+            duration: 0.5,
+            ease: "power2.inOut",
             force3D: true,
             transformOrigin: "center center"
           });
@@ -219,7 +219,7 @@ const FloatingCards: React.FC = () => {
         h-[45vw]
         max-h-[900px]
         overflow-visible
-        mt-[15vw]
+        mt-[8vw]
         flex items-center justify-center
         z-50
       "
