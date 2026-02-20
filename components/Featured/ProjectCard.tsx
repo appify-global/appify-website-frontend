@@ -169,7 +169,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
           <h3 ref={titleRef} className="flex items-center gap-2 relative font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
             <svg
               ref={arrowRef}
-              className="w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0 absolute left-0"
               width="24"
               height="22"
               viewBox="0 0 24 22"
@@ -179,7 +179,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
             >
               <path d="M0.942871 11.3138H22.9429M22.9429 11.3138L12.8857 0.942383M22.9429 11.3138L12.8857 21.0567" stroke="black" strokeWidth="1.88571" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span>{title}</span>
+            <span className="relative">{title}</span>
           </h3>
         </div>
       </div>
