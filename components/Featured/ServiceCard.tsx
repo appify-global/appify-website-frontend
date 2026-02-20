@@ -101,13 +101,16 @@ const FloatingCards: React.FC = () => {
       card.style.willChange = "transform";
 
       // Set initial position - all cards start at center (50%)
+      // Use immediate set to override any CSS positioning
       gsap.set(card, {
         left: "50%",
+        top: "50%",
         rotate: rotations[index] || 0,
         xPercent: -50,
         yPercent: -50,
         force3D: true,
-        transformOrigin: "center center"
+        transformOrigin: "center center",
+        clearProps: "all" // Clear any conflicting CSS transforms
       });
       
       // Set initial flip state - cards start showing front (0 degrees)
@@ -130,6 +133,27 @@ const FloatingCards: React.FC = () => {
           // Ensure all cards are at center when section first enters
           gsap.set(card, {
             left: "50%",
+            top: "50%",
+            rotate: rotations[index] || 0,
+            xPercent: -50,
+            yPercent: -50,
+            force3D: true,
+            transformOrigin: "center center"
+          });
+          gsap.set(front, {
+            rotateY: 0,
+            force3D: true
+          });
+          gsap.set(back, {
+            rotateY: -180,
+            force3D: true
+          });
+        },
+        onLeaveBack: () => {
+          // Reset cards to center when scrolling back up past the trigger
+          gsap.set(card, {
+            left: "50%",
+            top: "50%",
             rotate: rotations[index] || 0,
             xPercent: -50,
             yPercent: -50,
