@@ -78,7 +78,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
           ease: "power2.out",
         });
         gsap.to(titleRef.current, {
-          x: arrowWidth + 8, // Arrow width + gap
+          x: arrowWidth + 16, // Arrow width + larger gap for better spacing
           duration: 0.3,
           ease: "power2.out",
         });
@@ -170,13 +170,13 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
           <h3 ref={titleRef} className="flex items-center gap-2 relative font-Aeonik text-xl sm:text-2xl md:text-2xl lg:text-3xl leading-tight font-medium">
             <svg
               ref={arrowRef}
-              className="w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0 absolute left-0"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-black opacity-0 absolute"
               width="24"
               height="22"
               viewBox="0 0 24 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ transform: "translateX(-10px)" }}
+              style={{ left: 0, transform: "translateX(-10px)" }}
             >
               <path d="M0.942871 11.3138H22.9429M22.9429 11.3138L12.8857 0.942383M22.9429 11.3138L12.8857 21.0567" stroke="black" strokeWidth="1.88571" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
