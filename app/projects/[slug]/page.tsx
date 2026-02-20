@@ -17,6 +17,20 @@ import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
  * This page uses a custom horizontal scroll setup that differs from the standard
  * PageLayout. It has its own Lenis instance for horizontal scrolling behavior.
  */
+
+// Project-specific background colors
+const getProjectBackgroundColor = (slug: string): string => {
+  const colorMap: Record<string, string> = {
+    "booked-ai": "#CCD8EC",
+    "lifecard": "#DBEBEA",
+    "prelo": "#DBD7EE",
+    "construction-supply": "#E1E2E4",
+    "endota": "#E3EDDA",
+    "guardian-childcare": "#F8E9EF",
+  };
+  return colorMap[slug] || "#0a0a0a";
+};
+
 export default function ProjectDetailPage() {
   const params = useParams();
   const router = useRouter();
@@ -31,6 +45,7 @@ export default function ProjectDetailPage() {
 
   const project = getProjectBySlug(slug);
   const isMobileOrTablet = useIsMobile(TAB_BRAKEPOINT); // true when < 1024px
+  const backgroundColor = getProjectBackgroundColor(slug);
 
   // Get next project
   const currentIndex = projectsData.findIndex(p => p.slug === slug);
@@ -144,8 +159,8 @@ export default function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <div className="h-screen w-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="text-white text-2xl">Project not found</div>
+      <div className="h-screen w-screen flex items-center justify-center" style={{ backgroundColor }}>
+        <div className="text-2xl" style={{ color: "#000" }}>Project not found</div>
       </div>
     );
   }
@@ -153,47 +168,47 @@ export default function ProjectDetailPage() {
   // Render loading state until client is mounted to avoid hydration issues
   if (!isMounted) {
     return (
-      <div className="h-screen w-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="text-white text-xl font-Aeonik">Loading...</div>
+      <div className="h-screen w-screen flex items-center justify-center" style={{ backgroundColor }}>
+        <div className="text-xl font-Aeonik" style={{ color: "#000" }}>Loading...</div>
       </div>
     );
   }
 
   return (
-    <div ref={containerRef} className="bg-[#0a0a0a] overflow-x-hidden min-h-screen">
+    <div ref={containerRef} className="overflow-x-hidden min-h-screen" style={{ backgroundColor }}>
       <Navbar showBackButton backHref="/projects" />
 
       {/* Mobile & Tablet: vertical scroll, single column, card-style sections */}
-      <main className="block lg:hidden bg-[#0a0a0a] min-h-screen pt-[10rem] sm:pt-[10.5rem] pb-24">
+      <main className="block lg:hidden min-h-screen pt-[10rem] sm:pt-[10.5rem] pb-24" style={{ backgroundColor }}>
         <div className="w-full px-6 sm:px-8 max-w-2xl mx-auto">
           {/* Hero: title + description + meta */}
           <section className="space-y-6 sm:space-y-8">
-            <h1 className="font-Aeonik font-bold text-white leading-[1.05] tracking-[-0.02em] text-[clamp(2.25rem,7vw,4rem)]">
+            <h1 className="font-Aeonik font-bold leading-[1.05] tracking-[-0.02em] text-[clamp(2.25rem,7vw,4rem)]" style={{ color: "#000" }}>
               {project.title}
             </h1>
-            <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
+            <p className="text-base sm:text-lg leading-relaxed" style={{ color: "#333" }}>
               {project.description}
             </p>
             {project.challenge && (
-              <p className="text-gray-500 text-sm sm:text-base leading-relaxed">
+              <p className="text-sm sm:text-base leading-relaxed" style={{ color: "#666" }}>
                 {project.challenge}
               </p>
             )}
             <div className="flex flex-wrap gap-10 sm:gap-14 pt-2">
               <div>
-                <h4 className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider mb-2">Services</h4>
+                <h4 className="text-xs sm:text-sm uppercase tracking-wider mb-2" style={{ color: "#666" }}>Services</h4>
                 <div className="space-y-1">
                   {project.services?.map((service, i) => (
-                    <div key={i} className="text-white text-sm">{service}</div>
+                    <div key={i} className="text-sm" style={{ color: "#000" }}>{service}</div>
                   ))}
                 </div>
               </div>
               {project.recognitions && project.recognitions.length > 0 && (
                 <div>
-                  <h4 className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider mb-2">Recognitions</h4>
+                  <h4 className="text-xs sm:text-sm uppercase tracking-wider mb-2" style={{ color: "#666" }}>Recognitions</h4>
                   <div className="space-y-1">
                     {project.recognitions.map((recognition, i) => (
-                      <div key={i} className="text-white text-sm">{recognition}</div>
+                      <div key={i} className="text-sm" style={{ color: "#000" }}>{recognition}</div>
                     ))}
                   </div>
                 </div>
@@ -204,7 +219,8 @@ export default function ProjectDetailPage() {
                 href={project.launchUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 text-white group pt-2"
+                className="inline-flex items-center gap-3 group pt-2"
+                style={{ color: "#000" }}
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-[#4ECDC4]" />
                 <span className="text-sm uppercase tracking-wider group-hover:text-[#4ECDC4] transition-colors">
@@ -246,22 +262,22 @@ export default function ProjectDetailPage() {
           ))}
 
           {/* Next project */}
-          <section className="mt-16 sm:mt-20 pt-8 border-t border-white/10">
+          <section className="mt-16 sm:mt-20 pt-8 border-t" style={{ borderColor: "rgba(0,0,0,0.1)" }}>
             <Link
               href={`/projects/${nextProject.slug}`}
               className="block text-center group"
             >
-              <span className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider">Next Project</span>
+              <span className="text-xs sm:text-sm uppercase tracking-wider" style={{ color: "#666" }}>Next Project</span>
               <div className="flex items-center justify-center gap-2 mt-3 mb-4">
-                <svg className="w-4 h-4 text-gray-500 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: "#666" }}>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </div>
-              <h2 className="font-Aeonik font-bold text-white group-hover:text-[#4ECDC4] transition-colors text-2xl sm:text-3xl">
+              <h2 className="font-Aeonik font-bold group-hover:text-[#4ECDC4] transition-colors text-2xl sm:text-3xl" style={{ color: "#000" }}>
                 {nextProject.title}
               </h2>
               <div className="mt-6 flex justify-center">
-                <div className="w-24 h-1 bg-gray-800 rounded-full overflow-hidden">
+                <div className="w-24 h-1 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(0,0,0,0.1)" }}>
                   <div className="h-full w-full bg-[#4ECDC4] rounded-full opacity-60 group-hover:opacity-100 transition-opacity" />
                 </div>
               </div>
@@ -303,7 +319,7 @@ export default function ProjectDetailPage() {
 
             {/* Left Side - Project Info; on desktop: title full width, then paragraph + Services/Recognitions side by side */}
             <div className="w-full lg:w-1/2 lg:pr-12 z-20 flex flex-col justify-center order-2 lg:order-1 min-h-0 overflow-y-auto overflow-x-hidden py-4 lg:py-0 scrollbar-hide">
-              <h1 className="font-Aeonik font-bold text-white leading-[1.05] tracking-[-0.02em] mb-4 sm:mb-6 lg:mb-8 text-[clamp(2.5rem,8vw,5.5rem)] lg:text-[clamp(3rem,4vw,6rem)] shrink-0">
+              <h1 className="font-Aeonik font-bold leading-[1.05] tracking-[-0.02em] mb-4 sm:mb-6 lg:mb-8 text-[clamp(2.5rem,8vw,5.5rem)] lg:text-[clamp(3rem,4vw,6rem)] shrink-0" style={{ color: "#000" }}>
                 {project.title}
               </h1>
 
@@ -311,12 +327,12 @@ export default function ProjectDetailPage() {
               <div className="flex flex-col lg:flex-row lg:items-start lg:gap-10 xl:gap-12 min-w-0">
                 {/* Left: Description, challenge, launch */}
                 <div className="flex flex-col min-w-0 flex-1">
-                  <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-3 sm:mb-4 lg:mb-6 max-w-lg">
+                  <p className="text-base sm:text-lg leading-relaxed mb-3 sm:mb-4 lg:mb-6 max-w-lg" style={{ color: "#333" }}>
                     {project.description}
                   </p>
 
                   {project.challenge && (
-                    <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 lg:mb-8 max-w-lg">
+                    <p className="text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 lg:mb-8 max-w-lg" style={{ color: "#666" }}>
                       {project.challenge}
                     </p>
                   )}
@@ -326,7 +342,8 @@ export default function ProjectDetailPage() {
                       href={project.launchUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-3 text-white group w-fit mt-auto"
+                      className="inline-flex items-center gap-3 group w-fit mt-auto"
+                      style={{ color: "#000" }}
                     >
                       <span className="w-2.5 h-2.5 rounded-full bg-[#4ECDC4]" />
                       <span className="text-xs sm:text-sm uppercase tracking-wider group-hover:text-[#4ECDC4] transition-colors">
@@ -339,20 +356,20 @@ export default function ProjectDetailPage() {
                 {/* Right: Services + Recognitions (pushed down a bit, more gap before Recognitions) */}
                 <div className="flex flex-wrap gap-6 sm:gap-10 lg:gap-0 lg:flex-col lg:flex-shrink-0 lg:w-[180px] xl:w-[200px] mb-4 sm:mb-6 lg:mb-0 lg:mt-1">
                   <div>
-                    <h4 className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3">Services</h4>
+                    <h4 className="text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3" style={{ color: "#666" }}>Services</h4>
                     <div className="space-y-1">
                       {project.services?.map((service, i) => (
-                        <div key={i} className="text-white text-xs sm:text-sm">{service}</div>
+                        <div key={i} className="text-xs sm:text-sm" style={{ color: "#000" }}>{service}</div>
                       ))}
                     </div>
                   </div>
 
                   {project.recognitions && project.recognitions.length > 0 && (
                     <div className="lg:mt-8">
-                      <h4 className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3">Recognitions</h4>
+                      <h4 className="text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-3" style={{ color: "#666" }}>Recognitions</h4>
                       <div className="space-y-1">
                         {project.recognitions.map((recognition, i) => (
-                          <div key={i} className="text-white text-xs sm:text-sm">{recognition}</div>
+                          <div key={i} className="text-xs sm:text-sm" style={{ color: "#000" }}>{recognition}</div>
                         ))}
                       </div>
                     </div>
@@ -399,24 +416,25 @@ export default function ProjectDetailPage() {
           >
             <div className="text-center">
               <div className="flex items-center justify-center gap-4 mb-8">
-                <span className="text-gray-500 text-sm uppercase tracking-wider">Next Project</span>
+                <span className="text-sm uppercase tracking-wider" style={{ color: "#666" }}>Next Project</span>
                 <svg 
-                  className="w-5 h-5 text-gray-500 transform group-hover:translate-x-2 transition-transform"
+                  className="w-5 h-5 transform group-hover:translate-x-2 transition-transform"
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
+                  style={{ color: "#666" }}
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </div>
               
-              <h2 className="font-Aeonik font-bold text-white group-hover:text-[#4ECDC4] transition-colors leading-[1.05] text-[clamp(2rem,6vw,5rem)]">
+              <h2 className="font-Aeonik font-bold group-hover:text-[#4ECDC4] transition-colors leading-[1.05] text-[clamp(2rem,6vw,5rem)]" style={{ color: "#000" }}>
                 {nextProject.title}
               </h2>
 
               {/* Progress indicator */}
               <div className="mt-12 flex items-center justify-center gap-2">
-                <div className="w-32 h-1 bg-gray-800 rounded-full overflow-hidden">
+                <div className="w-32 h-1 rounded-full overflow-hidden" style={{ backgroundColor: "rgba(0,0,0,0.1)" }}>
                   <div className="h-full bg-[#4ECDC4] rounded-full w-0 group-hover:w-full transition-all duration-500"></div>
                 </div>
               </div>
