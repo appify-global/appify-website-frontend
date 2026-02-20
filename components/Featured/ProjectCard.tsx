@@ -183,7 +183,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
               viewBox="0 0 24 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style={{ left: 0, transform: "translateX(-30px)" }}
+              style={{ left: 0, top: "50%", transform: "translateY(-50%) translateX(-30px)" }}
             >
               <path d="M0.942871 11.3138H22.9429M22.9429 11.3138L12.8857 0.942383M22.9429 11.3138L12.8857 21.0567" stroke="black" strokeWidth="1.88571" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
