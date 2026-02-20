@@ -51,53 +51,68 @@ const FeaturedVideoWebGL = ({
 
   // Motion value for animation progress
   const animationProgressValue = useMotionValue(0);
-  const lastScrollY = useRef(0);
 
-  // Detect scroll direction and trigger animation when thumbnail is in middle of screen
+  // Detect scroll direction and trigger animation based on video visibility
   React.useEffect(() => {
     if (isMobile) return;
 
     let ticking = false;
+    let lastScrollY = window.scrollY;
+    let scrollDirection = 0; // 1 = down, -1 = up
 
     const handleScroll = () => {
       if (ticking) return;
       ticking = true;
 
       requestAnimationFrame(() => {
-        if (!thumbnailRef.current || !reelContainerRef.current) {
+        if (!videoWrapperRef.current || !reelContainerRef.current) {
           ticking = false;
           return;
         }
 
         const currentScrollY = window.scrollY;
-        const scrollDelta = currentScrollY - lastScrollY.current;
-        const thumbRect = thumbnailRef.current.getBoundingClientRect();
+        const scrollDelta = currentScrollY - lastScrollY;
+        
+        // Determine scroll direction (accumulate small movements)
+        if (Math.abs(scrollDelta) > 5) {
+          scrollDirection = scrollDelta > 0 ? 1 : -1;
+        }
+
+        const videoRect = videoWrapperRef.current.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
+        
+        // Check if video is visible in viewport (at least 50% visible)
+        const videoTop = videoRect.top;
+        const videoBottom = videoRect.bottom;
+        const videoVisible = videoTop < viewportHeight && videoBottom > 0;
+        const videoCenter = videoRect.top + videoRect.height / 2;
         const viewportCenter = viewportHeight / 2;
         
-        // Check if thumbnail center is near viewport center (within 100px)
-        const thumbCenter = thumbRect.top + thumbRect.height / 2;
-        const isThumbnailInCenter = Math.abs(thumbCenter - viewportCenter) < 100;
+        // Video is "in center" if its center is within 200px of viewport center
+        const isVideoNearCenter = Math.abs(videoCenter - viewportCenter) < 200;
 
-        // Check if we're in reel state by checking if reel container is visible
+        // Check reel container visibility
         const reelRect = reelContainerRef.current.getBoundingClientRect();
         const isReelVisible = reelRect.bottom <= viewportHeight && reelRect.top >= 0;
 
-        if (isThumbnailInCenter && !isInReelState) {
-          // Thumbnail is in center, scroll down triggers reel
-          if (scrollDelta > 10) {
-            setIsInReelState(true);
-            animationProgressValue.set(1);
-          }
-        } else if (isInReelState && isReelVisible) {
-          // In reel state, scroll up triggers thumbnail
-          if (scrollDelta < -10) {
-            setIsInReelState(false);
-            animationProgressValue.set(0);
-          }
+        // Trigger animation to reel when:
+        // - Video is visible and near center
+        // - User scrolls down
+        // - Not already in reel state
+        if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
+          setIsInReelState(true);
+          animationProgressValue.set(1);
+        }
+        // Trigger animation to thumbnail when:
+        // - In reel state
+        // - Reel is visible
+        // - User scrolls up
+        else if (isInReelState && isReelVisible && scrollDirection === -1) {
+          setIsInReelState(false);
+          animationProgressValue.set(0);
         }
 
-        lastScrollY.current = currentScrollY;
+        lastScrollY = currentScrollY;
         ticking = false;
       });
     };
