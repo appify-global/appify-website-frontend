@@ -121,10 +121,10 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
           ref={textContainerRef}
           className="absolute flex flex-col items-start text-left font-Aeonik pointer-events-auto"
           style={{
-            top: '18vh',          // FIX #3: Lower start position relative to title
+            top: '12vh',          // Moved higher (was 18vh)
             left: '54%',          // FIX #1: Moved right (was 51%)
-            width: '90%',         // Changed from 40% to 90%
-            maxWidth: '480px',    // FIX #1: Smaller max width (was 540px)
+            width: '95%',         // Increased width (was 90%)
+            maxWidth: '600px',    // Increased max width (was 480px)
             paddingRight: '5vw',
             zIndex: 40,           // FIX #6: Higher than video z-index
           }}
