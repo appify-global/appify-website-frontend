@@ -284,7 +284,7 @@ export default function ProjectDetailPage() {
 
   return (
     <div ref={containerRef} className="overflow-x-hidden min-h-screen" style={{ backgroundColor }}>
-      <Navbar showBackButton backHref="/projects" logoColor="white" />
+      <Navbar showBackButton backHref="/projects" logoColor="black" />
 
       {/* Mobile & Tablet: vertical scroll, single column, card-style sections */}
       <main className="block lg:hidden min-h-screen pt-[10rem] sm:pt-[10.5rem] pb-24" style={{ backgroundColor }}>

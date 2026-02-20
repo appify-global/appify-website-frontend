@@ -100,7 +100,7 @@ const TeamMember = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[50vh] sm:min-h-[60vh] lg:h-screen overflow-hidden"
+      className="relative w-full min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] lg:h-screen overflow-hidden"
     >
       {/* Black overlay to match other sections opacity */}
       <div className="absolute inset-0 bg-black/70 z-0" />
@@ -113,7 +113,7 @@ const TeamMember = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 h-full px-[4vw] sm:px-[6vw] lg:px-[5vw] py-[6vh] sm:py-[8vh] lg:py-[53px]">
+      <div className="relative z-10 h-full px-[4vw] sm:px-[5vw] md:px-[6vw] lg:px-[5vw] py-[5vh] sm:py-[6vh] md:py-[8vh] lg:py-[53px]">
         {/* Section number indicator */}
         <div className="flex items-center gap-7 text-white/60 mb-4 lg:mb-0">
           <span className="font-mono text-[10px] lg:text-xs">[[</span>
@@ -203,7 +203,7 @@ const TeamMember = () => {
           {/* Founder image */}
           <div
             ref={imageRef}
-            className="w-full max-w-[300px] h-[400px] mx-auto mt-[10vh] sm:mt-[15vh] mb-6 relative"
+            className="w-full max-w-[220px] sm:max-w-[260px] md:max-w-[300px] h-[280px] sm:h-[340px] md:h-[400px] mx-auto mt-4 sm:mt-8 md:mt-10 mb-6 sm:mb-8 md:mb-10 relative"
           >
             <Image
               src="/team/founder-img.svg"
@@ -214,25 +214,25 @@ const TeamMember = () => {
           </div>
 
           {/* OUR FOUNDER title */}
-          <div className="text-right mb-6">
+          <div className="text-right mb-6 sm:mb-8">
             <h2
               ref={titleRef}
-              className="font-Aeonik text-[12vw] sm:text-[14vw] leading-[1] tracking-[0.05em] sm:tracking-[0.1em] text-white whitespace-nowrap inline-block"
+              className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,10vw,3rem)] md:text-[clamp(2.5rem,8vw,3.25rem)] leading-[0.98] tracking-[0.06em] sm:tracking-[0.1em] text-white inline-block"
             >
               OUR FOUNDER
             </h2>
           </div>
 
           {/* SVG + Paragraphs */}
-          <div className="flex items-start gap-4 mb-8">
-            <svg width="80" height="110" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+          <div className="flex items-start gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10">
+            <svg width="80" height="110" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-12 h-[5.5rem] sm:w-16 sm:h-[6.5rem] md:w-20 md:h-28">
               <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
             </svg>
-            <div className="flex-1">
-              <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
+            <div className="flex-1 min-w-0">
+              <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-white/80 mb-4">
                 Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
               </p>
-              <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
+              <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-white/80">
                 As a result of our diverse experience, we are able to think creatively
                 and find new solutions to problems, providing clients with memorable,
                 purpose-driven experiences that cut through the noise and connect
@@ -243,17 +243,17 @@ const TeamMember = () => {
           </div>
 
           {/* Founder card */}
-          <div>
+          <div className="mt-2">
             <div className="flex items-center gap-2 mb-2">
               <DotGrid className="w-[13px]" />
-              <span className="font-Aeonik text-[16px] text-white">
+              <span className="font-Aeonik text-[clamp(0.875rem,2.5vw,1rem)] text-white">
                 :: Mennan Yelkenci
               </span>
             </div>
-            <p className="font-Aeonik text-[10px] sm:text-[12px] text-white/60 uppercase tracking-wider mb-4">
+            <p className="font-Aeonik text-[10px] sm:text-[11px] md:text-xs text-white/60 uppercase tracking-wider mb-3 sm:mb-4">
               Founder and CEO
             </p>
-            <div className="w-[180px] sm:w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
+            <div className="w-[160px] sm:w-[220px] md:w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
               <div className="w-[80%] h-full bg-white/80 rounded-full" />
             </div>
           </div>

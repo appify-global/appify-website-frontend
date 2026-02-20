@@ -56,7 +56,8 @@ const expertiseData = [
 ];
 
 const rotations = [-15, -7.5, 7.5, 15];
-const positions = [14, 38, 62, 86];
+// Center the 4 cards, 25% gap between each
+const positions = [12, 37, 62, 87];
 
 // Expertise card component
 const ExpertiseCard = ({
@@ -79,18 +80,17 @@ const ExpertiseCard = ({
       transformOrigin: "center center",
     });
 
-    // Initial fade-in animation
+    // Slide-up when section enters view (no opacity so cards never stuck hidden on desktop)
     gsap.fromTo(
       cardRef.current,
-      { y: 50, opacity: 0 },
+      { y: 50 },
       {
         y: 0,
-        opacity: 1,
         duration: 0.6,
         delay: index * 0.1,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: cardRef.current,
+          trigger: sectionRef.current,
           start: "top 85%",
           toggleActions: "play none none reverse",
         },
@@ -105,16 +105,16 @@ const ExpertiseCard = ({
       scrub: 1,
       onUpdate: (self) => {
         const progress = self.progress;
-        // Interpolate from initial rotation to 0 (straight)
         const currentRotation = rotations[index] * (1 - progress);
-        
-        gsap.to(cardRef.current, {
-          rotation: currentRotation,
-          duration: 0.1,
-          ease: "none",
-          force3D: true,
-          transformOrigin: "center center",
-        });
+        if (cardRef.current) {
+          gsap.to(cardRef.current, {
+            rotation: currentRotation,
+            duration: 0.1,
+            ease: "none",
+            force3D: true,
+            transformOrigin: "center center",
+          });
+        }
       },
     });
 
@@ -210,7 +210,7 @@ const ExpertiseSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full bg-[#F0F1FA] overflow-hidden py-[40px] sm:py-[60px] lg:py-[120px]"
+      className="relative w-full bg-[#F0F1FA] overflow-x-hidden pt-[32px] sm:pt-[48px] md:pt-[60px] lg:pt-[120px] pb-16 sm:pb-20 md:pb-[60px] lg:pb-[120px]"
     >
       {/* Background decorative vector */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -229,18 +229,18 @@ const ExpertiseSection = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 px-[4vw] sm:px-[6vw] lg:px-[5vw]">
+      <div className="relative z-10 px-[5vw] sm:px-[6vw] md:px-[5vw] lg:px-[5vw] overflow-x-hidden min-w-0">
         {/* Header */}
-        <div ref={titleRef} className="mb-[30px] sm:mb-[50px] lg:mb-[100px]">
+        <div ref={titleRef} className="mb-8 sm:mb-10 md:mb-12 lg:mb-[100px]">
           {/* Main title */}
-          <h2 className="font-Aeonik text-[14vw] lg:text-[75px] xl:text-[90px] leading-[1] text-black tracking-tight mb-[30px]">
+          <h2 className="font-Aeonik text-[clamp(1.75rem,10vw,2.75rem)] sm:text-[clamp(2rem,9vw,3rem)] md:text-[clamp(2.25rem,7vw,3.25rem)] lg:text-[75px] xl:text-[90px] leading-[0.98] text-black tracking-tight mb-6 sm:mb-8">
             <span className="block">AREA OF</span>
             <span className="block">EXPERTISE</span>
           </h2>
 
           {/* Subtitle with icons */}
-          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-[20px]">
-            <p className="font-Aeonik text-[14px] lg:text-[16px] text-black/80 max-w-[400px] leading-[1.4]">
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5 sm:gap-6">
+            <p className="font-Aeonik text-[clamp(0.8125rem,2.2vw,0.9375rem)] lg:text-[16px] text-black/80 max-w-full md:max-w-[400px] leading-[1.45]">
               A TEAM OF EXPERIENCED INVENTORS & DREAMERS WITH A WIDE RANGE OF
               SKILLS AND KNOWLEDGE
             </p>
@@ -264,52 +264,52 @@ const ExpertiseSection = () => {
         </div>
 
         {/* Expertise cards - overlapping tilted cards like home page */}
-        <div className="relative w-full min-h-[700px] h-[45vw] max-h-[900px] overflow-hidden lg:overflow-visible flex items-center justify-center">
+        <div className="relative w-full min-w-0 min-h-0 lg:min-h-[700px] h-auto lg:h-[45vw] lg:max-h-[900px] overflow-visible flex items-start lg:items-center justify-center">
           {/* Desktop: overlapping tilted cards */}
           <div className="hidden lg:block relative w-full h-full">
             {expertiseData.map((item, idx) => (
               <ExpertiseCard key={idx} data={item} index={idx} sectionRef={sectionRef} />
             ))}
           </div>
-          {/* Mobile: grid layout */}
-          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+          {/* Mobile & tablet: single col then 2-col */}
+          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5 w-full max-w-4xl mx-auto min-w-0 overflow-visible">
             {expertiseData.map((item, idx) => (
               <div
                 key={idx}
                 className="
-                  w-full rounded-2xl overflow-hidden border
+                  w-full min-w-0 rounded-xl sm:rounded-2xl border overflow-visible
                   bg-gray-300 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm
                   bg-opacity-20 border border-gray-300
-                  rounded-3xl overflow-hidden
+                  rounded-3xl
                 "
               >
-                <div className="p-6 md:p-8 flex flex-col justify-between gap-5 md:gap-6 md:min-h-[350px]">
-                  <div className="flex justify-between items-center">
-                    <h2 className="text-2xl md:text-3xl font-Aeonik">{item.title}</h2>
+                <div className="p-5 sm:p-5 md:p-6 lg:p-8 flex flex-col gap-4 sm:gap-4 md:gap-5 min-w-0">
+                  <div className="flex justify-between items-center gap-2 min-w-0 shrink-0">
+                    <h2 className="text-[clamp(1.25rem,4vw,1.5rem)] md:text-[1.75rem] font-Aeonik truncate min-w-0">{item.title}</h2>
                     <Image 
                       src={item.icon} 
                       width={28} 
                       height={28} 
                       alt={item.title} 
-                      className={
+                      className={`shrink-0 ${
                         item.title === "DEVELOPMENT" ? "w-7 h-7 md:w-8 md:h-8" : 
                         item.title === "INTELLIGENCE" ? "w-4 h-5 md:w-5 md:h-6" : 
                         "w-6 h-6 md:w-7 md:h-7"
-                      } 
+                      }`}
                     />
                   </div>
 
-                  <div className="flex flex-col gap-1.5 md:gap-2">
+                  <div className="flex flex-col gap-1.5 md:gap-2 min-w-0">
                     {item.services.map((skill, skillIdx) => (
-                      <div key={skillIdx}>
-                        <p className="text-lg md:text-xl py-0.5">{skill}</p>
+                      <div key={skillIdx} className="min-w-0">
+                        <p className="text-[clamp(0.875rem,2vw,1rem)] md:text-lg py-0.5 break-words">{skill}</p>
                         <div className="border-t-2 border-dotted border-black w-full" />
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex justify-between items-center rotate-180">
-                    <h2 className="text-2xl md:text-3xl font-Aeonik">{item.title}</h2>
+                  <div className="flex justify-between items-center min-w-0 shrink-0 mt-auto max-sm:rotate-0 sm:rotate-180">
+                    <h2 className="text-[clamp(1.25rem,4vw,1.5rem)] md:text-[1.75rem] font-Aeonik truncate min-w-0">{item.title}</h2>
                     <Image 
                       src={item.icon} 
                       width={28} 
