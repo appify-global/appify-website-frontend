@@ -54,58 +54,58 @@ const FeaturedVideoWebGL = ({
     restDelta: 0.001,
   });
 
-  // === Width: small -> fullscreen (slightly smaller) -> back to small ===
+  // === Width: small -> large (stays large, doesn't shrink back) ===
   const width = useTransform(
     smoothProgress,
-    [0, 0.15, 0.35, 0.5, 0.65, 0.85, 1.0],
-    ["40.3vw", "40.3vw", "75vw", "75vw", "78vw", "40.3vw", "40.3vw"]
+    [0, 0.5, 1.0],
+    ["40.3vw", "75vw", "75vw"] // Enlarges and stays large
   );
 
-  // === Horizontal: left-aligned -> centered -> back to center -> back to left ===
-  // At 80vw width, need to shift left to center in viewport
+  // === Horizontal: left-aligned -> centered (stays centered) ===
+  // Start at left (0), move to center by translating left by half the difference
+  // When width is 40.3vw, x is 0. When width is 75vw, x should center it
+  // Center calculation: translateX(calc(50vw - 50%)) centers any width
   const x = useTransform(
     smoothProgress,
-    [0, 0.15, 0.35, 0.5, 0.65, 0.85, 1.0],
-    ["0vw", "0vw", "0vw", "0vw", "0vw", "0vw", "0vw"]
+    [0, 0.5, 1.0],
+    [0, "calc(50vw - 37.5vw)", "calc(50vw - 37.5vw)"] // Moves to center and stays
   );
 
-  // === Vertical: stay put -> slight lift at fullscreen -> back down ===
+  // === Vertical: moves down and stays down ===
   const y = useTransform(
     smoothProgress,
-    [0, 0.15, 0.35, 0.5, 0.65, 0.85, 1.0],
-    ["2vh", "2vh", "78vh", "78vh", "78vh", "2vh", "2vh"]
+    [0, 0.5, 1.0],
+    ["2vh", "50vh", "50vh"] // Moves down to center and stays
   );
 
-  // === Z-index: normal -> above everything (as soon as expansion starts) -> back ===
+  // === Z-index: normal -> above everything (stays on top once enlarged) ===
   const zIndex = useTransform(
     smoothProgress,
-    [0, 0.14, 0.15, 0.85, 0.86, 1.0],
-    [20, 20, 100, 100, 20, 20]
+    [0, 0.3, 1.0],
+    [20, 100, 100] // Jumps to front when expanding and stays
   );
 
-  // Border radius: rounded -> minimal at fullscreen -> back to rounded
+  // Border radius: rounded -> minimal (stays minimal)
   const borderRadius = useTransform(
     smoothProgress,
-    [0, 0.35, 0.5, 0.65, 0.85, 1.0],
-    ["16px", "4px", "4px", "4px", "16px", "16px"]
+    [0, 0.5, 1.0],
+    ["16px", "4px", "4px"] // Becomes less rounded and stays
   );
 
-  // Shadow: subtle -> dramatic at fullscreen -> back to subtle
+  // Shadow: subtle -> dramatic (stays dramatic)
   const boxShadow = useTransform(
     smoothProgress,
-    [0, 0.35, 0.5, 0.65, 0.85],
+    [0, 0.5, 1.0],
     [
       "0 10px 30px rgba(0,0,0,0.1)",
       "0 40px 100px rgba(0,0,0,0.35)",
       "0 40px 100px rgba(0,0,0,0.35)",
-      "0 40px 100px rgba(0,0,0,0.35)",
-      "0 10px 30px rgba(0,0,0,0.1)",
     ]
   );
 
-  // Show PLAY REEL during fullscreen hold phase
+  // Show PLAY REEL once video is enlarged and centered
   useMotionValueEvent(scrollYProgress, "change", (value) => {
-    setShowPlayReel(value > 0.3 && value < 0.7);
+    setShowPlayReel(value > 0.4);
   });
 
   // Mobile layout
