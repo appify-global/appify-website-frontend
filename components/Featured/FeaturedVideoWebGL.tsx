@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { RollerText } from "../RollerText";
@@ -36,12 +36,45 @@ const FeaturedVideoWebGL = ({
   refForward: _refForward,
 }: FeaturedVideoWebGLProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const thumbnailRef = useRef<HTMLDivElement>(null);
+  const reelContainerRef = useRef<HTMLDivElement>(null);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
 
   const [showPlayReel, setShowPlayReel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
   const videoSrc = "/Videos/Appify_Introduction_CEO_cropped.mp4";
+
+  // Calculate positions on mount and resize
+  React.useEffect(() => {
+    const calculatePositions = () => {
+      if (thumbnailRef.current && reelContainerRef.current && !isMobile) {
+        const thumbRect = thumbnailRef.current.getBoundingClientRect();
+        const reelRect = reelContainerRef.current.getBoundingClientRect();
+        
+        setThumbnailPos({
+          x: thumbRect.left,
+          y: thumbRect.top,
+          width: thumbRect.width,
+          height: thumbRect.height,
+        });
+        
+        setReelPos({
+          x: reelRect.left,
+          y: reelRect.top,
+          width: reelRect.width,
+          height: reelRect.height,
+        });
+      }
+    };
+
+    calculatePositions();
+    window.addEventListener('resize', calculatePositions);
+    return () => window.removeEventListener('resize', calculatePositions);
+  }, [isMobile]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -54,26 +87,29 @@ const FeaturedVideoWebGL = ({
     restDelta: 0.001,
   });
 
-  // === Width: small -> large (stays large, doesn't shrink back) ===
-  // Complete animation faster - most of the change happens in first 60% of scroll
+  // === Width: thumbnail -> reel (stays at reel size) ===
   const width = useTransform(
     smoothProgress,
     [0, 0.6, 1.0],
-    ["40.3vw", "75vw", "75vw"] // Enlarges quickly and stays large
+    [
+      thumbnailPos.width || "40.3vw",
+      reelPos.width || "75vw",
+      reelPos.width || "75vw"
+    ]
   );
 
-  // === Horizontal: left-aligned -> centered (stays centered) ===
+  // === Horizontal: thumbnail position (left) -> reel position (centered) ===
   const x = useTransform(
     smoothProgress,
     [0, 0.6, 1.0],
-    [0, "calc(50vw - 37.5vw)", "calc(50vw - 37.5vw)"] // Moves to center quickly and stays
+    ["0vw", "calc(50vw - 37.5vw)", "calc(50vw - 37.5vw)"] // Start at left, move to center
   );
 
-  // === Vertical: moves down and stays down ===
+  // === Vertical: thumbnail position -> reel position (moves down to center) ===
   const y = useTransform(
     smoothProgress,
     [0, 0.6, 1.0],
-    ["2vh", "50vh", "50vh"] // Moves down to center quickly and stays
+    ["2vh", "50vh", "50vh"] // Moves down to center and stays
   );
 
   // === Z-index: normal -> above everything (stays on top once enlarged) ===
@@ -155,31 +191,59 @@ const FeaturedVideoWebGL = ({
 
   // Desktop layout
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full"
-      style={{ height: "150vh" }} // Reduced height for faster completion
-    >
-      {/* Sticky wrapper keeps video pinned in viewport */}
+    <>
+      {/* Thumbnail container - hidden reference for position calculation */}
       <div
-        className="sticky w-full flex items-center"
+        ref={thumbnailRef}
+        className="absolute left-[5vw] top-[20vh] pointer-events-none"
         style={{
-          top: "10vh",
-          height: "90vh",
-          paddingLeft: "5vw",
-          paddingRight: "5vw",
+          width: "40.3vw",
+          aspectRatio: "2.1 / 1",
+          opacity: 0,
+          zIndex: -1,
         }}
+        aria-hidden="true"
+      />
+
+      {/* Reel container - target position (centered) */}
+      <div
+        ref={reelContainerRef}
+        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+        style={{
+          width: "75vw",
+          aspectRatio: "2.1 / 1",
+          opacity: 0,
+          zIndex: -1,
+        }}
+        aria-hidden="true"
+      />
+
+      <div
+        ref={containerRef}
+        className="relative w-full"
+        style={{ height: "150vh" }} // Reduced height for faster completion
       >
-        <motion.div
-          className={`relative ${className ?? ""}`}
+        {/* Sticky wrapper keeps video pinned in viewport */}
+        <div
+          className="sticky w-full flex items-center"
           style={{
-            width,
-            x,
-            y,
-            zIndex,
-            willChange: "transform, width",
+            top: "10vh",
+            height: "90vh",
+            paddingLeft: "5vw",
+            paddingRight: "5vw",
           }}
         >
+          <motion.div
+            ref={videoWrapperRef}
+            className={`relative ${className ?? ""}`}
+            style={{
+              width,
+              x,
+              y,
+              zIndex,
+              willChange: "transform, width",
+            }}
+          >
           <div
             id="player-container"
             className={`flex flex-col items-center space-y-3 w-full ${playerClassName ?? ""}`}
@@ -283,6 +347,7 @@ const FeaturedVideoWebGL = ({
         </motion.div>
       </div>
     </div>
+    </>
   );
 };
 
