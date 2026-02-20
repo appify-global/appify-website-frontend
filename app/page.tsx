@@ -51,8 +51,9 @@ export default function Home() {
       </section>
 
       <section
-        className="h-auto lg:h-[200vh] relative z-40 py-[4vw] pt-[8vw] lg:pt-[12vw]"
+        className="h-auto lg:h-[200vh] relative z-50 py-[4vw] pt-[8vw] lg:pt-[12vw] overflow-visible"
         id="experts-section"
+        style={{ zIndex: 50, overflow: 'visible' }}
       >
         <SkiggleDrop />
 

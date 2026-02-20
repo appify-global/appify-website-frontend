@@ -221,8 +221,10 @@ const FloatingCards: React.FC = () => {
         overflow-visible
         mt-[10vw]
         flex items-center justify-center
+        z-50
       "
       id="service-cards"
+      style={{ zIndex: 50 }}
     >
       {expertsIn.map((expert, i) => (
         <div
@@ -238,7 +240,9 @@ const FloatingCards: React.FC = () => {
             h-[clamp(400px,30vw,550px)]
             [perspective:1000px]
             transform-gpu
+            z-50
           "
+          style={{ zIndex: 50 }}
         >
           <div className="flip-card-inner relative w-full h-full [transform-style:preserve-3d] border-1 border-black">
             <div className="flip-card-front absolute w-full h-full [backface-visibility:hidden] rounded-xl overflow-hidden">
