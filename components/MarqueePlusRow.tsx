@@ -39,7 +39,7 @@ export default function MarqueePlusRow({ show, isHovering = false, direction = "
                                 exit="exit"
                             >
                                 {[...Array(count)].map((_, i) => (
-                                    <PlusIconSVG key={i} className="h-2 w-2 text-black font-thin" />
+                                    <PlusIconSVG key={i} className="h-4 w-4 text-black font-thin" />
                                 ))}
                             </motion.div>
                         )}
