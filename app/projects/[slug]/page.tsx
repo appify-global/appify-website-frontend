@@ -230,20 +230,6 @@ export default function ProjectDetailPage() {
             )}
           </section>
 
-          {/* Hero image card */}
-          <section className="mt-10 sm:mt-14">
-            <div className="bg-white rounded-2xl overflow-hidden shadow-xl">
-              <div className="relative w-full aspect-[4/3] sm:aspect-video">
-                <Image
-                  src={project.imageUrl}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
-          </section>
 
           {/* Gallery cards */}
           {project.galleryImages?.map((image, index) => (
@@ -357,18 +343,6 @@ export default function ProjectDetailPage() {
               </div>
             </div>
 
-            {/* Right Side - Hero Image */}
-            <div className="w-full lg:w-1/2 h-[70vh] sm:h-[75vh] lg:h-[85%] min-h-[380px] max-h-[720px] lg:max-h-[85vh] relative z-10 order-1 lg:order-2 mb-6 lg:mb-0 shrink-0">
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src={project.imageUrl}
-                  alt={project.title}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
           </div>
 
           {/* Gallery Panels */}
