@@ -129,17 +129,8 @@ const FeaturedVideoWebGL = ({
   }, [isMobile]);
 
   // Binary animation: 0 = thumbnail state, 1 = reel state
-  // Trigger based on reel container bottom visibility
-  const animationProgress = useTransform(
-    [reelBottomVisible],
-    ([visible]) => {
-      // If reel bottom is out of screen → thumbnail state (0)
-      // If reel bottom is in screen → reel state (1)
-      return visible ? 1 : 0;
-    }
-  );
-
-  const smoothProgress = useSpring(animationProgress, {
+  // Trigger based on reel container bottom visibility (drive spring from boolean state)
+  const smoothProgress = useSpring(reelBottomVisible ? 1 : 0, {
     stiffness: 200,
     damping: 40,
     restDelta: 0.001,
