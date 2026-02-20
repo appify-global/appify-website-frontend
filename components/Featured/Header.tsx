@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 export default function Header() {
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
     const el = titleRef.current;
@@ -9,10 +10,11 @@ export default function Header() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && !hasAnimatedRef.current) {
           el.classList.add("home-reel-title--visible");
-        } else {
-          el.classList.remove("home-reel-title--visible");
+          hasAnimatedRef.current = true;
+          // Disconnect observer once animation has been triggered
+          observer.disconnect();
         }
       },
       {
