@@ -51,7 +51,7 @@ export default function Home() {
       </section>
 
       <section
-        className="h-auto lg:h-[200vh] relative z-40 py-[4vw]"
+        className="h-auto lg:h-[200vh] relative z-40 py-[4vw] pt-[8vw] lg:pt-[12vw]"
         id="experts-section"
       >
         <SkiggleDrop />
