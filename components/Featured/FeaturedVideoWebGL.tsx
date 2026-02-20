@@ -101,7 +101,11 @@ const FeaturedVideoWebGL = ({
         // - Not already in reel state
         if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
           setIsInReelState(true);
-          animationProgressValue.set(1);
+          // Smooth transition to reel position
+          animate(animationProgressValue, 1, {
+            duration: 0.6,
+            ease: [0.25, 0.1, 0.25, 1], // easeInOut cubic bezier - smooth, no overshoot
+          });
         }
         // Trigger animation to thumbnail when:
         // - In reel state
@@ -109,7 +113,11 @@ const FeaturedVideoWebGL = ({
         // - User scrolls up
         else if (isInReelState && isReelVisible && scrollDirection === -1) {
           setIsInReelState(false);
-          animationProgressValue.set(0);
+          // Smooth transition back to thumbnail position
+          animate(animationProgressValue, 0, {
+            duration: 0.6,
+            ease: [0.25, 0.1, 0.25, 1], // easeInOut cubic bezier - smooth, no overshoot
+          });
         }
 
         lastScrollY = currentScrollY;
