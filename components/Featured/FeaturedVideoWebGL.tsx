@@ -51,16 +51,25 @@ const FeaturedVideoWebGL = ({
   // Calculate positions on mount and resize
   React.useEffect(() => {
     const calculatePositions = () => {
-      if (thumbnailRef.current && reelContainerRef.current && !isMobile) {
+      if (thumbnailRef.current && reelContainerRef.current && videoWrapperRef.current && !isMobile) {
         const thumbRect = thumbnailRef.current.getBoundingClientRect();
         const reelRect = reelContainerRef.current.getBoundingClientRect();
+        const stickyRect = videoWrapperRef.current.parentElement?.getBoundingClientRect();
         
-        setThumbnailPos({
-          x: thumbRect.left,
-          y: thumbRect.top,
-          width: thumbRect.width,
-          height: thumbRect.height,
-        });
+        if (stickyRect) {
+          // Calculate thumbnail position relative to sticky wrapper center
+          const thumbCenterX = thumbRect.left + thumbRect.width / 2;
+          const thumbCenterY = thumbRect.top + thumbRect.height / 2;
+          const stickyCenterX = stickyRect.left + stickyRect.width / 2;
+          const stickyCenterY = stickyRect.top + stickyRect.height / 2;
+          
+          setThumbnailPos({
+            x: thumbCenterX - stickyCenterX, // Offset from sticky center
+            y: thumbCenterY - stickyCenterY, // Offset from sticky center
+            width: thumbRect.width,
+            height: thumbRect.height,
+          });
+        }
         
         setReelPos({
           x: reelRect.left,
@@ -73,12 +82,17 @@ const FeaturedVideoWebGL = ({
 
     calculatePositions();
     window.addEventListener('resize', calculatePositions);
-    return () => window.removeEventListener('resize', calculatePositions);
+    window.addEventListener('scroll', calculatePositions);
+    return () => {
+      window.removeEventListener('resize', calculatePositions);
+      window.removeEventListener('scroll', calculatePositions);
+    };
   }, [isMobile]);
 
+  // Use thumbnail as the scroll trigger target - start when thumbnail reaches top 50% of viewport
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 50%", "start -20%"], // Start when thumbnail reaches top half of screen
+    target: thumbnailRef,
+    offset: ["top 50%", "top -50%"], // Start when thumbnail top reaches 50% of viewport
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -99,18 +113,26 @@ const FeaturedVideoWebGL = ({
   );
 
   // === Horizontal: thumbnail position (left) -> reel position (centered) ===
-  // Start at left edge, move to center (0 = centered with justify-center)
+  // Start at thumbnail position relative to sticky center, move to center (0 = centered)
   const x = useTransform(
     smoothProgress,
     [0, 0.6, 1.0],
-    ["-8vw", "0vw", "0vw"] // Start further left, move to center (0 = centered)
+    [
+      thumbnailPos.x || 0, // Start at calculated thumbnail x offset
+      "0vw", // Move to center
+      "0vw" // Stay centered
+    ]
   );
 
   // === Vertical: thumbnail position -> reel position (moves down to center) ===
   const y = useTransform(
     smoothProgress,
     [0, 0.6, 1.0],
-    ["2vh", "50vh", "50vh"] // Moves down to center and stays
+    [
+      thumbnailPos.y || 0, // Start at calculated thumbnail y offset
+      "0vh", // Move to center
+      "0vh" // Stay centered
+    ]
   );
 
   // === Z-index: normal -> above everything (stays on top once enlarged) ===
