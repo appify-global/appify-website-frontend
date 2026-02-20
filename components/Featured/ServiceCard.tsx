@@ -224,7 +224,7 @@ const FloatingCards: React.FC = () => {
         px-[10vw]
       "
       id="service-cards"
-      style={{ zIndex: 50 }}
+      style={{ zIndex: 50, overflow: 'visible' }}
     >
       {expertsIn.map((expert, i) => (
         <div
