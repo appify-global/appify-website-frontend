@@ -295,27 +295,6 @@ export default function ProjectDetailPage() {
         >
           {/* Panel 1: Hero with Project Info */}
           <div className="flex-shrink-0 w-screen h-screen flex flex-col lg:flex-row items-center justify-center relative px-6 sm:px-8 lg:px-20 pt-[12rem] sm:pt-[13rem] lg:pt-[15rem] pb-20 sm:pb-24 lg:pb-24 min-h-0">
-            {/* Background decorative element */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <svg
-                className="absolute -right-[10%] top-0 w-[80%] h-full opacity-10"
-                viewBox="0 0 500 500"
-                fill="none"
-              >
-                <path
-                  d="M250 50 L450 150 L450 350 L250 450 L50 350 L50 150 Z"
-                  stroke="url(#gradient1)"
-                  strokeWidth="1"
-                  fill="none"
-                />
-                <defs>
-                  <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#3B82F6" />
-                    <stop offset="100%" stopColor="#8B5CF6" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
 
             {/* Left Side - Project Info; on desktop: title full width, then paragraph + Services/Recognitions side by side */}
             <div className="w-full lg:w-1/2 lg:pr-12 z-20 flex flex-col justify-center order-2 lg:order-1 min-h-0 overflow-y-auto overflow-x-hidden py-4 lg:py-0 scrollbar-hide">
