@@ -168,11 +168,10 @@ const FeaturedVideoWebGL = ({
     const timeoutId = setTimeout(calculatePositions, 100);
     
     window.addEventListener('resize', calculatePositions);
-    window.addEventListener('scroll', calculatePositions);
+    // Don't recalculate on scroll to prevent position drift during animation
     return () => {
       clearTimeout(timeoutId);
       window.removeEventListener('resize', calculatePositions);
-      window.removeEventListener('scroll', calculatePositions);
     };
   }, [isMobile]);
 
