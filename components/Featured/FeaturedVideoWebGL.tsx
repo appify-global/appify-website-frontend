@@ -43,7 +43,7 @@ const FeaturedVideoWebGL = ({
 
   const [showPlayReel, setShowPlayReel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [reelBottomVisible, setReelBottomVisible] = useState(false);
+  const [isInReelState, setIsInReelState] = useState(false);
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
@@ -51,33 +51,60 @@ const FeaturedVideoWebGL = ({
 
   // Motion value for animation progress
   const animationProgressValue = useMotionValue(0);
+  const lastScrollY = useRef(0);
 
-  // Detect when reel container bottom is visible in viewport
+  // Detect scroll direction and trigger animation when thumbnail is in middle of screen
   React.useEffect(() => {
-    if (!reelContainerRef.current || isMobile) return;
+    if (isMobile) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const rect = entry.boundingClientRect;
-          const viewportHeight = window.innerHeight;
-          // Reel bottom is visible when its bottom edge is within viewport
-          const reelBottom = rect.bottom;
-          const isVisible = reelBottom <= viewportHeight && reelBottom >= 0;
-          setReelBottomVisible(isVisible);
-          // Update motion value immediately
-          animationProgressValue.set(isVisible ? 1 : 0);
-        });
-      },
-      {
-        threshold: [0, 0.1, 0.5, 1],
-        rootMargin: '0px',
-      }
-    );
+    let ticking = false;
 
-    observer.observe(reelContainerRef.current);
-    return () => observer.disconnect();
-  }, [isMobile, animationProgressValue]);
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        if (!thumbnailRef.current || !reelContainerRef.current) {
+          ticking = false;
+          return;
+        }
+
+        const currentScrollY = window.scrollY;
+        const scrollDelta = currentScrollY - lastScrollY.current;
+        const thumbRect = thumbnailRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const viewportCenter = viewportHeight / 2;
+        
+        // Check if thumbnail center is near viewport center (within 100px)
+        const thumbCenter = thumbRect.top + thumbRect.height / 2;
+        const isThumbnailInCenter = Math.abs(thumbCenter - viewportCenter) < 100;
+
+        // Check if we're in reel state by checking if reel container is visible
+        const reelRect = reelContainerRef.current.getBoundingClientRect();
+        const isReelVisible = reelRect.bottom <= viewportHeight && reelRect.top >= 0;
+
+        if (isThumbnailInCenter && !isInReelState) {
+          // Thumbnail is in center, scroll down triggers reel
+          if (scrollDelta > 10) {
+            setIsInReelState(true);
+            animationProgressValue.set(1);
+          }
+        } else if (isInReelState && isReelVisible) {
+          // In reel state, scroll up triggers thumbnail
+          if (scrollDelta < -10) {
+            setIsInReelState(false);
+            animationProgressValue.set(0);
+          }
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking = false;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile, isInReelState, animationProgressValue]);
 
   // Calculate positions on mount and resize
   React.useEffect(() => {
@@ -135,11 +162,12 @@ const FeaturedVideoWebGL = ({
   }, [isMobile]);
 
   // Binary animation: 0 = thumbnail state, 1 = reel state
-  // Use motion value that gets updated by IntersectionObserver
+  // Use motion value with smooth spring animation (less shaky)
   const smoothProgress = useSpring(animationProgressValue, {
-    stiffness: 200,
-    damping: 40,
+    stiffness: 100,
+    damping: 30,
     restDelta: 0.001,
+    mass: 1,
   });
 
   // === Width: thumbnail -> reel (binary: only two states) ===
