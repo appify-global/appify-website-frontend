@@ -94,7 +94,7 @@ export const projectsData: Project[] = [
     description: "A complete digital transformation for Australia's leading wellness brand, modernizing their digital presence and customer experience.",
     client: "Endota Spa",
     year: "2023",
-    services: ["Digital Strategy", "UI/UX Design", "Architecture Design", "E-commerce Development"],
+    services: ["Digital Strategy", "UI/UX Design", "Architecture Design"],
     challenge: "Transforming a traditional spa and wellness brand into a digital-first company while preserving the essence of their premium brand experience.",
     solution: "We designed and implemented a comprehensive digital ecosystem that seamlessly blends online and offline experiences, driving engagement and revenue growth.",
     galleryImages: [

@@ -46,6 +46,18 @@
     margin-bottom: 6em;
     margin-top: 3em;
   }
+
+  /* Hero mobile CTA stack: minimal gap between the two buttons */
+  .hero-mobile-cta-stack #home-reel-cta {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  /* Hero tablet CTA stack: minimal gap between Discovery Call and form button */
+  .hero-tablet-cta-stack #home-reel-cta {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
 }
 
 @media (hover: hover) {

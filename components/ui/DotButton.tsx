@@ -8,9 +8,11 @@ interface ButtonProps {
     className?: string;
     onClick?: React.MouseEventHandler<HTMLAnchorElement>;
     href?: string;
+    target?: React.HTMLAttributeAnchorTarget;
+    rel?: string;
 }
 
-const DotButton = ({ text, variant = "black", className = "", onClick, href }: ButtonProps) => {
+const DotButton = ({ text, variant = "black", className = "", onClick, href, target, rel }: ButtonProps) => {
   const buttonClasses = variant === "black" ? "black-btn " : "white-btn " + className;
   const content = (
     <>
@@ -37,6 +39,21 @@ const DotButton = ({ text, variant = "black", className = "", onClick, href }: B
   );
 
   if (href) {
+    const isExternal = href.startsWith("http");
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          className={buttonClasses}
+          onClick={onClick}
+          id="home-reel-cta"
+          target={target ?? "_blank"}
+          rel={rel ?? "noopener noreferrer"}
+        >
+          {content}
+        </a>
+      );
+    }
     return (
       <Link href={href} className={buttonClasses} onClick={onClick} id="home-reel-cta">
         {content}

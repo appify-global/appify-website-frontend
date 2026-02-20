@@ -50,7 +50,7 @@ const Hero: React.FC = () => {
           </h1>
 
           {/* Tags - pills on all sizes */}
-          <div className="flex flex-wrap gap-1.5 sm:gap-2 md:gap-3 max-w-[700px]">
+          <div className="flex flex-wrap gap-3 sm:gap-2 md:gap-3 max-w-[700px]">
             {tags.map((tag, index) => (
               <Tags key={index} label={tag} />
             ))}
@@ -62,20 +62,16 @@ const Hero: React.FC = () => {
             by a global team that turns ambitious visions into reality.
           </p>
 
-          <div>
-            <div
-              className="md:hidden w-full"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <Button
-                text="FREE DISCOVERY CALL"
-                variant="white"
-              />
-            </div>
-            <div
-              className="md:hidden w-full uppercase mt-4"
-              onClick={() => setIsModalOpen(true)}
-            >
+          {/* Mobile only: stacked CTAs, small gap */}
+          <div className="hero-mobile-cta-stack md:hidden flex flex-col gap-3 w-full">
+            <DotButton
+              text="FREE DISCOVERY CALL"
+              variant="white"
+              href="https://calendly.com/mennan-appify/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+            />
+            <div className="w-full uppercase" onClick={() => setIsModalOpen(true)}>
               <Button
                 text="Get Your Free Development Strategy"
                 variant="black"
@@ -83,9 +79,27 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-left w-full -mt-1 lg:-mt-2">
-            <div className="hidden md:flex w-full">
-              <DotButton text="FREE DISCOVERY CALL" variant="white" className="free-discovery-call-btn" />
+          {/* Tablet + Desktop: Discovery Call row; Tablet only: form CTA below (reduced gap) */}
+          <div className="hero-tablet-cta-stack hidden md:flex flex-col gap-3 lg:flex-row lg:gap-0 w-full -mt-1 lg:-mt-2">
+            <div className="w-full">
+              <DotButton
+                text="FREE DISCOVERY CALL"
+                variant="white"
+                className="free-discovery-call-btn"
+                href="https://calendly.com/mennan-appify/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            </div>
+            {/* Tablet only: form CTA (opens popup) */}
+            <div
+              className="w-full uppercase lg:hidden"
+              onClick={() => setIsModalOpen(true)}
+            >
+              <Button
+                text="Get Your Free Development Strategy"
+                variant="black"
+              />
             </div>
           </div>
         </div>
@@ -99,33 +113,38 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
-      {/* Popup Modal for Mobile */}
+      {/* Popup Modal for Mobile + Tablet (optimized height/width per breakpoint) */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 flex items-center justify-center z-50 px-4 pb-8 sm:p-4"
+          className="fixed inset-0 flex items-center justify-center z-50 p-4 pb-6 sm:p-6 md:p-8"
           onClick={() => setIsModalOpen(false)}
         >
           <div
-            className="bg-gray-400/10 backdrop-blur-2xl border border-white/30 rounded-3xl w-full sm:w-[90%] max-w-md relative max-h-[85vh] flex flex-col"
+            className="bg-gray-400/10 backdrop-blur-2xl border border-white/30 rounded-3xl w-full flex flex-col
+              max-w-md max-h-[85vh]
+              sm:max-w-md sm:max-h-[82vh]
+              md:max-w-lg md:max-h-[80vh] md:min-h-[420px]
+              shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 z-10 flex items-center justify-between px-5 pt-5 pb-2 sm:px-6 sm:pt-6 sm:pb-3">
-              <h2 className="text-lg sm:text-xl font-semibold text-gray-800 pr-6">
+            <div className="sticky top-0 z-10 flex items-center justify-between flex-shrink-0 px-5 pt-5 pb-2 sm:px-6 sm:pt-6 sm:pb-3 md:px-8 md:pt-7 md:pb-4">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 pr-6">
                 Apply for a Free Development Strategy!
               </h2>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-gray-500 hover:text-gray-800 text-2xl flex-shrink-0"
+                className="text-gray-500 hover:text-gray-800 text-2xl md:text-3xl flex-shrink-0 leading-none"
+                aria-label="Close"
               >
                 &times;
               </button>
             </div>
             <div
-              className="overflow-y-auto overscroll-contain px-5 pb-3 sm:px-6 sm:pb-6"
-              style={{ WebkitOverflowScrolling: 'touch' }}
+              className="overflow-y-auto overscroll-contain flex-1 min-h-0 px-5 pb-4 sm:px-6 sm:pb-6 md:px-8 md:pb-8"
+              style={{ WebkitOverflowScrolling: "touch" }}
               onTouchMove={(e) => e.stopPropagation()}
             >
-              <Form submitBtnVariant={"white"} />
+              <Form submitBtnVariant="white" />
             </div>
           </div>
         </div>
@@ -190,14 +209,14 @@ const Form = ({
       />
     </div>
 
-    <div className="flex flex-col gap-1.5 mb-2 sm:mb-3">
+    <div className="flex flex-col gap-3 mb-2 sm:mb-3">
       <span className="font-medium text-sm sm:text-base mb-0.5">Would you like an NDA?</span>
       <div className="flex flex-col gap-2">
-        <label className="flex items-center gap-1.5 cursor-pointer select-none text-sm sm:text-base">
+        <label className="flex items-center gap-3 cursor-pointer select-none text-sm sm:text-base">
           <input type="radio" name="nda" value="yes" defaultChecked className="w-4 h-4 accent-black cursor-pointer" />
           Yes
         </label>
-        <label className="flex items-center gap-1.5 cursor-pointer select-none text-sm sm:text-base">
+        <label className="flex items-center gap-3 cursor-pointer select-none text-sm sm:text-base">
           <input type="radio" name="nda" value="no" className="w-4 h-4 accent-black cursor-pointer" />
           No
         </label>

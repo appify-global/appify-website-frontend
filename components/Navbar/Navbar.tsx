@@ -21,16 +21,12 @@ interface NavbarProps {
 function Navbar({ showBackButton = false, backHref = "/services", logoColor = "auto" }: NavbarProps) {
   const pathname = usePathname();
   
-  // Determine logo color
-  const getLogoColor = () => {
-    if (logoColor === "black") return false;
-    if (logoColor === "white") return true;
-    // Auto mode: detect based on route
-    const darkBackgroundRoutes = ["/about"];
-    return darkBackgroundRoutes.includes(pathname);
-  };
-  
-  const shouldInvertLogo = getLogoColor();
+  // Logo styling: "auto" uses mix-blend-difference so logo is black on white bg, white on black bg.
+  // "black" / "white" force a single style when needed.
+  const useDifferenceBlend = logoColor === "auto";
+  const forceNormal = logoColor === "black";
+  const logoClassName = forceNormal ? "" : "filter brightness-0 invert";
+  const logoWrapperClassName = useDifferenceBlend ? "inline-block mix-blend-difference" : "";
   // Desktop trail animation
   const [open] = useState(true);
 
@@ -44,13 +40,15 @@ function Navbar({ showBackButton = false, backHref = "/services", logoColor = "a
         <div className="flex items-center justify-between w-full font-extrabold pb-2">
           <div className="tracking-wider font-extrabold text-3xl cursor-pointer">
             <Link href="/">
-              <Image 
-                src={'/appify_black.png'} 
-                width={'100'} 
-                height={'100'} 
-                alt="Appify"
-                className={shouldInvertLogo ? "filter brightness-0 invert" : ""}
-              />
+              <span className={logoWrapperClassName}>
+                <Image 
+                  src={'/appify_black.png'} 
+                  width={'100'} 
+                  height={'100'} 
+                  alt="Appify"
+                  className={logoClassName}
+                />
+              </span>
             </Link>
           </div>
           <div className="flex items-center gap-2">
@@ -84,13 +82,15 @@ function Navbar({ showBackButton = false, backHref = "/services", logoColor = "a
         <div className="items-start justify-between hidden lg:flex pt-14 pb-10">
           <div className="tracking-wider font-AeonikMedium text-4xl">
             <Link href="/">
-              <Image 
-                src={'/appify_black.png'} 
-                width={'130'} 
-                height={'45'} 
-                alt="Appify"
-                className={shouldInvertLogo ? "filter brightness-0 invert" : ""}
-              />
+              <span className={logoWrapperClassName}>
+                <Image 
+                  src={'/appify_black.png'} 
+                  width={'130'} 
+                  height={'45'} 
+                  alt="Appify"
+                  className={logoClassName}
+                />
+              </span>
             </Link>
           </div>
           <div className="hidden lg:flex items-center justify-around font-AeonikMedium">

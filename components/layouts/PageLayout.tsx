@@ -130,7 +130,7 @@ export function PageLayout({
                   <Navbar 
                     showBackButton={showBackButton} 
                     backHref={backHref}
-                    logoColor={backgroundColor === "bg-black" ? "white" : "auto"}
+                    logoColor={backgroundColor === "bg-black" ? "white" : "black"}
                   />
                 </nav>
               )}
