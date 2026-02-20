@@ -43,10 +43,37 @@ const FeaturedVideoWebGL = ({
 
   const [showPlayReel, setShowPlayReel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [thumbnailReachedTop, setThumbnailReachedTop] = useState(false);
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
   const videoSrc = "/Videos/Appify_Introduction_CEO_cropped.mp4";
+
+  // Detect when thumbnail reaches top of screen
+  React.useEffect(() => {
+    if (!thumbnailRef.current || isMobile) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const rect = entry.boundingClientRect;
+          // Thumbnail has reached top when its top edge is at or near the top of viewport
+          if (rect.top <= 50) {
+            setThumbnailReachedTop(true);
+          } else {
+            setThumbnailReachedTop(false);
+          }
+        });
+      },
+      {
+        threshold: [0, 0.1, 0.5, 1],
+        rootMargin: '0px',
+      }
+    );
+
+    observer.observe(thumbnailRef.current);
+    return () => observer.disconnect();
+  }, [isMobile]);
 
   // Calculate positions on mount and resize
   React.useEffect(() => {
@@ -54,9 +81,11 @@ const FeaturedVideoWebGL = ({
       if (thumbnailRef.current && reelContainerRef.current && videoWrapperRef.current && !isMobile) {
         const thumbRect = thumbnailRef.current.getBoundingClientRect();
         const reelRect = reelContainerRef.current.getBoundingClientRect();
-        const stickyRect = videoWrapperRef.current.parentElement?.getBoundingClientRect();
+        const stickyWrapper = videoWrapperRef.current.parentElement;
         
-        if (stickyRect) {
+        if (stickyWrapper) {
+          const stickyRect = stickyWrapper.getBoundingClientRect();
+          
           // Calculate thumbnail position relative to sticky wrapper center
           const thumbCenterX = thumbRect.left + thumbRect.width / 2;
           const thumbCenterY = thumbRect.top + thumbRect.height / 2;
@@ -64,105 +93,123 @@ const FeaturedVideoWebGL = ({
           const stickyCenterY = stickyRect.top + stickyRect.height / 2;
           
           setThumbnailPos({
-            x: thumbCenterX - stickyCenterX, // Offset from sticky center
-            y: thumbCenterY - stickyCenterY, // Offset from sticky center
+            x: thumbCenterX - stickyCenterX, // Offset from sticky center (pixels)
+            y: thumbCenterY - stickyCenterY, // Offset from sticky center (pixels)
             width: thumbRect.width,
             height: thumbRect.height,
           });
         }
         
-        setReelPos({
-          x: reelRect.left,
-          y: reelRect.top,
-          width: reelRect.width,
-          height: reelRect.height,
-        });
+        // Calculate reel position relative to sticky wrapper center (below text)
+        if (stickyWrapper) {
+          const stickyRect = stickyWrapper.getBoundingClientRect();
+          const reelCenterX = reelRect.left + reelRect.width / 2;
+          const reelCenterY = reelRect.top + reelRect.height / 2;
+          const stickyCenterX = stickyRect.left + stickyRect.width / 2;
+          const stickyCenterY = stickyRect.top + stickyRect.height / 2;
+          
+          setReelPos({
+            x: reelCenterX - stickyCenterX, // Offset from sticky center (pixels)
+            y: reelCenterY - stickyCenterY, // Offset from sticky center (pixels)
+            width: reelRect.width,
+            height: reelRect.height,
+          });
+        }
       }
     };
 
-    calculatePositions();
+    // Calculate on mount with delay to ensure layout is ready
+    const timeoutId = setTimeout(calculatePositions, 100);
+    
     window.addEventListener('resize', calculatePositions);
     window.addEventListener('scroll', calculatePositions);
     return () => {
+      clearTimeout(timeoutId);
       window.removeEventListener('resize', calculatePositions);
       window.removeEventListener('scroll', calculatePositions);
     };
   }, [isMobile]);
 
-  // Use container as scroll trigger, but calculate offset based on thumbnail position
-  // We want animation to start when thumbnail reaches top 50% of viewport
+  // Use container scroll, but only animate when thumbnail has reached top
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 80%", "start -20%"], // Start much later - when thumbnail is well into viewport
+    offset: ["start end", "end start"], // Full container scroll range
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 80,
-    damping: 25,
+  // Binary animation: 0 = thumbnail state, 1 = reel state
+  // Only progress when thumbnail has reached top
+  const animationProgress = useTransform(
+    scrollYProgress,
+    (latest) => {
+      if (!thumbnailReachedTop) return 0; // Stay at thumbnail state
+      // Once thumbnail reaches top, animate from 0 to 1
+      // Use a small scroll range to complete animation quickly
+      return Math.min(1, latest * 2); // Double the speed once it starts
+    }
+  );
+
+  const smoothProgress = useSpring(animationProgress, {
+    stiffness: 100,
+    damping: 30,
     restDelta: 0.001,
   });
 
-  // === Width: thumbnail -> reel (stays at reel size) ===
+  // === Width: thumbnail -> reel (binary: only two states) ===
   const width = useTransform(
     smoothProgress,
-    [0, 0.6, 1.0],
+    [0, 1],
     [
       thumbnailPos.width || "40.3vw",
-      reelPos.width || "85vw",
       reelPos.width || "85vw"
     ]
   );
 
-  // === Horizontal: thumbnail position (left) -> reel position (centered) ===
-  // Start at thumbnail position relative to sticky center, move to center (0 = centered)
+  // === Horizontal: thumbnail position -> reel position (binary) ===
   const x = useTransform(
     smoothProgress,
-    [0, 0.6, 1.0],
+    [0, 1],
     [
-      thumbnailPos.x || 0, // Start at calculated thumbnail x offset
-      "0vw", // Move to center
-      "0vw" // Stay centered
+      thumbnailPos.x || 0, // Start at thumbnail position
+      reelPos.x || 0 // End at reel position
     ]
   );
 
-  // === Vertical: thumbnail position -> reel position (moves down to center) ===
+  // === Vertical: thumbnail position -> reel position (binary) ===
   const y = useTransform(
     smoothProgress,
-    [0, 0.6, 1.0],
+    [0, 1],
     [
-      thumbnailPos.y || 0, // Start at calculated thumbnail y offset
-      "0vh", // Move to center
-      "0vh" // Stay centered
+      thumbnailPos.y || 0, // Start at thumbnail position
+      reelPos.y || 0 // End at reel position (below text)
     ]
   );
 
-  // === Z-index: normal -> above everything (stays on top once enlarged) ===
+  // === Z-index: normal -> above everything ===
   const zIndex = useTransform(
     smoothProgress,
-    [0, 0.2, 1.0],
-    [20, 100, 100] // Jumps to front early when expanding and stays
+    [0, 0.1, 1],
+    [20, 100, 100] // Jump to front when animation starts
   );
 
-  // Border radius: rounded -> minimal (stays minimal)
+  // Border radius: more rounded
   const borderRadius = useTransform(
     smoothProgress,
-    [0, 0.6, 1.0],
-    ["20px", "8px", "8px"] // More rounded corners
+    [0, 1],
+    ["24px", "12px"] // More rounded corners
   );
 
-  // Shadow: subtle -> dramatic (stays dramatic)
+  // Shadow: subtle -> dramatic
   const boxShadow = useTransform(
     smoothProgress,
-    [0, 0.6, 1.0],
+    [0, 1],
     [
       "0 10px 30px rgba(0,0,0,0.1)",
       "0 40px 100px rgba(0,0,0,0.35)",
-      "0 40px 100px rgba(0,0,0,0.35)",
     ]
   );
 
-  // Show PLAY REEL once video is enlarged and centered
-  useMotionValueEvent(scrollYProgress, "change", (value) => {
+  // Show PLAY REEL once video is in reel state
+  useMotionValueEvent(smoothProgress, "change", (value) => {
     setShowPlayReel(value > 0.5);
   });
 
@@ -229,11 +276,12 @@ const FeaturedVideoWebGL = ({
         aria-hidden="true"
       />
 
-      {/* Reel container - target position (centered) */}
+      {/* Reel container - target position (below text, centered horizontally) */}
       <div
         ref={reelContainerRef}
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+        className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
         style={{
+          top: "60vh", // Position below text section
           width: "85vw",
           aspectRatio: "2.1 / 1",
           opacity: 0,
