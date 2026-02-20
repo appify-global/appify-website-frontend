@@ -93,8 +93,8 @@ const FeaturedVideoWebGL = ({
     [0, 0.6, 1.0],
     [
       thumbnailPos.width || "40.3vw",
-      reelPos.width || "75vw",
-      reelPos.width || "75vw"
+      reelPos.width || "85vw",
+      reelPos.width || "85vw"
     ]
   );
 
@@ -124,7 +124,7 @@ const FeaturedVideoWebGL = ({
   const borderRadius = useTransform(
     smoothProgress,
     [0, 0.6, 1.0],
-    ["16px", "4px", "4px"] // Becomes less rounded quickly and stays
+    ["20px", "8px", "8px"] // More rounded corners
   );
 
   // Shadow: subtle -> dramatic (stays dramatic)

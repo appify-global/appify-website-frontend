@@ -27,7 +27,7 @@ export default function MarqueePlusRow({ show, isHovering = false, direction = "
                                 animate="animate"
                                 exit="exit"
                             >
-                                <AnimatedMarqueePlayIcon className="h-2 w-auto text-black font-thin" direction={direction} />
+                                <AnimatedMarqueePlayIcon className="h-4 w-auto text-black font-thin" direction={direction} />
                             </motion.div>
                         ) : (
                             <motion.div

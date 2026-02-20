@@ -37,7 +37,7 @@ export const AnimatedMarqueePlayIcon = ({
             fill="none"
             viewBox="0 0 132 14"
             className={`flex-shrink-0 ${className}`}
-            style={{ margin: "0 1em" }}
+            style={{ margin: "0 2em" }}
         >
             <path
                 fill="currentColor"
@@ -46,7 +46,7 @@ export const AnimatedMarqueePlayIcon = ({
         </svg>
     );
 
-    const items = [...Array(10)].map((_, i) => <PlaySVG key={i} />);
+    const items = [...Array(5)].map((_, i) => <PlaySVG key={i} />);
     const [width, setWidth] = useState(0);
 
     useEffect(() => {
