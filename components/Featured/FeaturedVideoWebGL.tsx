@@ -160,7 +160,7 @@ const FeaturedVideoWebGL = ({
     <div
       ref={containerRef}
       className="relative w-full"
-      style={{ height: "250vh" }}
+      style={{ height: "150vh" }} // Reduced height for faster completion
     >
       {/* Sticky wrapper keeps video pinned in viewport */}
       <div
