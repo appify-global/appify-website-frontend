@@ -89,10 +89,11 @@ const FeaturedVideoWebGL = ({
     };
   }, [isMobile]);
 
-  // Use thumbnail as the scroll trigger target - start when thumbnail reaches top 50% of viewport
+  // Use container as scroll trigger, but calculate offset based on thumbnail position
+  // We want animation to start when thumbnail reaches top 50% of viewport
   const { scrollYProgress } = useScroll({
-    target: thumbnailRef,
-    offset: ["top 50%", "top -50%"], // Start when thumbnail top reaches 50% of viewport
+    target: containerRef,
+    offset: ["start 80%", "start -20%"], // Start much later - when thumbnail is well into viewport
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
