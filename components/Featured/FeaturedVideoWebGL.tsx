@@ -96,12 +96,22 @@ const FeaturedVideoWebGL = ({
         const thumbCenter = thumbRect ? thumbRect.top + thumbRect.height / 2 : 0;
         const isThumbnailNearCenter = thumbRect && Math.abs(thumbCenter - viewportCenter) < 200;
         const isThumbnailVisible = thumbRect && thumbRect.top < viewportHeight && thumbRect.bottom > 0;
+        // Check if we're above the thumbnail container (thumbnail is below viewport)
+        const isAboveThumbnail = thumbRect && thumbRect.top > viewportHeight;
 
+        // RULE 1: If we're above thumbnail container, ALWAYS force thumbnail position
+        if (isAboveThumbnail && isInReelState) {
+          setIsInReelState(false);
+          animate(animationProgressValue, 0, {
+            duration: 0.6,
+            ease: [0.25, 0.1, 0.25, 1],
+          });
+        }
         // Trigger animation to reel when:
         // - Video is visible and near center
         // - User scrolls down
         // - Not already in reel state
-        if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
+        else if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
           setIsInReelState(true);
           // Smooth transition to reel position
           animate(animationProgressValue, 1, {
