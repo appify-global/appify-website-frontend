@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import FeaturedVideoWebGL from "./FeaturedVideoWebGL";
@@ -36,6 +36,7 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
   const buttonRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
+  const [isVideoInReel, setIsVideoInReel] = useState(false);
 
   useEffect(() => {
     if (!textRef.current || !buttonRef.current || !sectionRef.current || isMobile) return;
@@ -86,6 +87,17 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
     return () => ctx.revert();
   }, [isMobile]);
 
+  // Animate text container upward when video moves to reel position, down when back to thumbnail
+  useEffect(() => {
+    if (!textContainerRef.current || isMobile) return;
+
+    gsap.to(textContainerRef.current, {
+      top: isVideoInReel ? '2vh' : '6vh', // Move up when in reel state, down when in thumbnail
+      duration: 0.6,
+      ease: [0.25, 0.1, 0.25, 1],
+    });
+  }, [isVideoInReel, isMobile]);
+
   return (
     <div 
       ref={sectionRef} 
@@ -110,6 +122,7 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
             refForward={ref}
             topkeyframe={"70vh"}
             playerId="about-us-video-player"
+            onReelStateChange={setIsVideoInReel}
           />
         </div>
 
