@@ -43,26 +43,24 @@ const FeaturedVideoWebGL = ({
 
   const [showPlayReel, setShowPlayReel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  const [thumbnailReachedTop, setThumbnailReachedTop] = useState(false);
+  const [reelBottomVisible, setReelBottomVisible] = useState(false);
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
   const videoSrc = "/Videos/Appify_Introduction_CEO_cropped.mp4";
 
-  // Detect when thumbnail reaches top of screen
+  // Detect when reel container bottom is visible in viewport
   React.useEffect(() => {
-    if (!thumbnailRef.current || isMobile) return;
+    if (!reelContainerRef.current || isMobile) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const rect = entry.boundingClientRect;
-          // Thumbnail has reached top when its top edge is at or near the top of viewport
-          if (rect.top <= 50) {
-            setThumbnailReachedTop(true);
-          } else {
-            setThumbnailReachedTop(false);
-          }
+          const viewportHeight = window.innerHeight;
+          // Reel bottom is visible when its bottom edge is within viewport
+          const reelBottom = rect.bottom;
+          setReelBottomVisible(reelBottom <= viewportHeight && reelBottom >= 0);
         });
       },
       {
@@ -71,7 +69,7 @@ const FeaturedVideoWebGL = ({
       }
     );
 
-    observer.observe(thumbnailRef.current);
+    observer.observe(reelContainerRef.current);
     return () => observer.disconnect();
   }, [isMobile]);
 
@@ -130,27 +128,20 @@ const FeaturedVideoWebGL = ({
     };
   }, [isMobile]);
 
-  // Use container scroll, but only animate when thumbnail has reached top
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"], // Full container scroll range
-  });
-
   // Binary animation: 0 = thumbnail state, 1 = reel state
-  // Only progress when thumbnail has reached top
+  // Trigger based on reel container bottom visibility
   const animationProgress = useTransform(
-    scrollYProgress,
-    (latest) => {
-      if (!thumbnailReachedTop) return 0; // Stay at thumbnail state
-      // Once thumbnail reaches top, animate from 0 to 1
-      // Use a small scroll range to complete animation quickly
-      return Math.min(1, latest * 2); // Double the speed once it starts
+    [reelBottomVisible],
+    ([visible]) => {
+      // If reel bottom is out of screen → thumbnail state (0)
+      // If reel bottom is in screen → reel state (1)
+      return visible ? 1 : 0;
     }
   );
 
   const smoothProgress = useSpring(animationProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 200,
+    damping: 40,
     restDelta: 0.001,
   });
 
