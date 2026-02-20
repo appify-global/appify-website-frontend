@@ -137,6 +137,139 @@
   height: 100%;
 }
 
+/* ===== Popup form CTA – sizes from #home-reel-cta (white-btn) ===== */
+.popup-cta-btn {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  /* from #home-reel-cta – fit-content so it’s not full width */
+  padding: 1em 1.5em 1em 1.625em;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1em;
+  border-radius: 5.3125em;
+  font-size: clamp(0.875rem, 1vw, 1.75rem);
+  height: 3.375em;
+  font-weight: 500;
+  font-family: "Aeonik";
+  text-transform: uppercase;
+  color: #000;
+  background: #fff;
+  box-shadow: 0 6px 10px #0000000a, 0 2px 4px #0000000a;
+  transition: background cubic-bezier(0.35, 0, 0, 1) 0.2s;
+  cursor: pointer;
+  border: none;
+  width: fit-content;
+}
+@media (min-width: 1024px) {
+  .popup-cta-btn {
+    justify-content: center;
+  }
+}
+.popup-cta-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+@media (hover: hover) {
+  .popup-cta-btn:hover:not(:disabled) {
+    color: #fff;
+    background: var(--color-accent, rgb(242, 48, 132));
+    transition: background cubic-bezier(0.35, 0, 0, 1) 0.5s 0.3s;
+  }
+  .popup-cta-btn:hover:not(:disabled) .popup-cta-text {
+    transform: translate3d(-1.5em, 0, 0);
+  }
+  .popup-cta-btn:hover:not(:disabled) .popup-cta-dot {
+    transform: translate3d(3em, 0, 0) scale(20);
+    background: var(--color-accent, rgb(242, 48, 132));
+  }
+  .popup-cta-btn:hover:not(:disabled) .popup-cta-arrow {
+    transform: translateZ(0);
+  }
+  .popup-cta-btn:hover:not(:disabled) .popup-cta-arrow svg {
+    color: #fff;
+  }
+}
+/* dot: from #home-reel-cta-dot */
+.popup-cta-dot {
+  display: inline-block;
+  position: relative;
+  width: 0.5em;
+  height: 0.5em;
+  background: #000;
+  border-radius: 100px;
+  z-index: 1;
+  transition: background cubic-bezier(0.35, 0, 0, 1) 0.5s,
+    transform cubic-bezier(0.35, 0, 0, 1) 0.4s;
+}
+.popup-cta-text {
+  position: relative;
+  z-index: 1;
+  transition: color cubic-bezier(0.35, 0, 0, 1) 0.5s,
+    transform cubic-bezier(0.35, 0, 0, 1) 0.4s;
+}
+/* arrow: from #home-reel-cta-arrow */
+.popup-cta-arrow {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 1em;
+  height: 1.2em;
+  width: 1.2em;
+  color: #fff;
+  border-radius: 100%;
+  transform: translate3d(3em, 0, 0);
+  transition: transform cubic-bezier(0.4, 0, 0, 1) 0.4s;
+  z-index: 1;
+}
+.popup-cta-arrow svg {
+  transition: color 0.5s;
+  width: 100%;
+  height: 100%;
+}
+.popup-cta-arrow svg path {
+  stroke: #000;
+}
+.popup-cta-btn:hover:not(:disabled) .popup-cta-arrow svg path {
+  stroke: #fff;
+}
+
+/* Legacy popup submit (simplified, no arrow) – used for success Close button */
+.popup-form-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  padding: 1em 1.5em 1em 1.625em;
+  border-radius: 5.3125em;
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  font-family: "Aeonik", sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #000;
+  background: #fff;
+  border: none;
+  width: 100%;
+  height: 3.375em;
+  cursor: pointer;
+  box-shadow: 0 6px 10px #0000000a, 0 2px 4px #0000000a;
+}
+.popup-form-submit-btn:hover:not(:disabled) {
+  box-shadow: 0 8px 14px #00000012, 0 3px 6px #0000000a;
+}
+.popup-form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.popup-form-submit-dot {
+  flex-shrink: 0;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 100px;
+  background: #000;
+}
+
 /* ===== Flip Card Component ===== */
 
 .card-wrapper {
