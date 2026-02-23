@@ -50,6 +50,7 @@ const FeaturedVideoWebGL = ({
   const [isInReelState, setIsInReelState] = useState(false);
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const hasTriggeredTransitionRef = React.useRef(false);
 
   const videoSrc = "/Videos/Appify_Introduction_CEO_cropped.mp4";
 
@@ -61,7 +62,6 @@ const FeaturedVideoWebGL = ({
     if (isMobile) return;
 
     let ticking = false;
-    let hasTriggeredTransition = false; // Track if we've already triggered a transition
 
     const handleScroll = () => {
       if (ticking) return;
@@ -90,30 +90,28 @@ const FeaturedVideoWebGL = ({
         const shouldBeInReelState = !isThumbnailInCenter;
 
         // Only trigger transition if state needs to change and we haven't already triggered
-        if (shouldBeInThumbnailState && isInReelState && !hasTriggeredTransition) {
+        if (shouldBeInThumbnailState && isInReelState && !hasTriggeredTransitionRef.current) {
           setIsInReelState(false);
           onReelStateChange?.(false);
+          hasTriggeredTransitionRef.current = true;
           animate(animationProgressValue, 0, {
             duration: 0.6,
             ease: [0.25, 0.1, 0.25, 1],
+            onComplete: () => {
+              hasTriggeredTransitionRef.current = false;
+            },
           });
-          hasTriggeredTransition = true;
-          // Reset flag after animation completes
-          setTimeout(() => {
-            hasTriggeredTransition = false;
-          }, 600);
-        } else if (shouldBeInReelState && !isInReelState && !hasTriggeredTransition) {
+        } else if (shouldBeInReelState && !isInReelState && !hasTriggeredTransitionRef.current) {
           setIsInReelState(true);
           onReelStateChange?.(true);
+          hasTriggeredTransitionRef.current = true;
           animate(animationProgressValue, 1, {
             duration: 0.6,
             ease: [0.25, 0.1, 0.25, 1],
+            onComplete: () => {
+              hasTriggeredTransitionRef.current = false;
+            },
           });
-          hasTriggeredTransition = true;
-          // Reset flag after animation completes
-          setTimeout(() => {
-            hasTriggeredTransition = false;
-          }, 600);
         }
 
         ticking = false;
