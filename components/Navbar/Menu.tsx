@@ -84,9 +84,8 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
     <>
       {hidden && (
         <div
-          className="absolute top-[4rem] right-0 w-[calc(100vw-3rem)] sm:w-[20rem] lg:w-[18rem] max-w-[calc(100vw-2rem)] sm:max-w-[20rem] lg:max-w-[18rem]"
+          className="absolute top-[4rem] right-0 w-[calc(100vw-3rem)] sm:w-[20rem] max-w-[20rem]"
           ref={ref}
-          style={{ right: '1rem' }}
         >
           {/* Contents */}
           <a.div
