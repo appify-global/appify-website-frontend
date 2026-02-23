@@ -50,70 +50,96 @@ const FeaturedVideoWebGL = ({
   const [isInReelState, setIsInReelState] = useState(false);
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
-  const hasTriggeredTransitionRef = React.useRef(false);
 
   const videoSrc = "/Videos/Appify_Introduction_CEO_cropped.mp4";
 
   // Motion value for animation progress
   const animationProgressValue = useMotionValue(0);
 
-  // State machine: thumbnail when thumbnail is centered, reel when scrolled past
+  // Detect scroll direction and trigger animation based on video visibility
   React.useEffect(() => {
     if (isMobile) return;
 
     let ticking = false;
+    let lastScrollY = window.scrollY;
+    let scrollDirection = 0; // 1 = down, -1 = up
 
     const handleScroll = () => {
       if (ticking) return;
       ticking = true;
 
       requestAnimationFrame(() => {
-        if (!thumbnailRef.current || !reelContainerRef.current) {
+        if (!videoWrapperRef.current || !reelContainerRef.current) {
           ticking = false;
           return;
         }
 
+        const currentScrollY = window.scrollY;
+        const scrollDelta = currentScrollY - lastScrollY;
+        
+        // Determine scroll direction (accumulate small movements)
+        if (Math.abs(scrollDelta) > 5) {
+          scrollDirection = scrollDelta > 0 ? 1 : -1;
+        }
+
+        const videoRect = videoWrapperRef.current.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         const viewportCenter = viewportHeight / 2;
         
-        // Check thumbnail container position relative to viewport center
-        const thumbRect = thumbnailRef.current.getBoundingClientRect();
-        const thumbCenter = thumbRect.top + thumbRect.height / 2;
-        const distanceFromCenter = Math.abs(thumbCenter - viewportCenter);
+        // Check if video is visible in viewport (at least 50% visible)
+        const videoTop = videoRect.top;
+        const videoBottom = videoRect.bottom;
+        const videoVisible = videoTop < viewportHeight && videoBottom > 0;
+        const videoCenter = videoRect.top + videoRect.height / 2;
         
-        // Buffer zone: if thumbnail is within 300px of center, stay in thumbnail state
-        const CENTER_BUFFER = 300;
-        const isThumbnailInCenter = distanceFromCenter < CENTER_BUFFER;
-        
-        // Determine desired state based on thumbnail position
-        const shouldBeInThumbnailState = isThumbnailInCenter;
-        const shouldBeInReelState = !isThumbnailInCenter;
+        // Video is "in center" if its center is within 400px of viewport center
+        const isVideoNearCenter = Math.abs(videoCenter - viewportCenter) < 400;
 
-        // Only trigger transition if state needs to change and we haven't already triggered
-        if (shouldBeInThumbnailState && isInReelState && !hasTriggeredTransitionRef.current) {
+        // Check thumbnail container position
+        const thumbRect = thumbnailRef.current?.getBoundingClientRect();
+        const thumbCenter = thumbRect ? thumbRect.top + thumbRect.height / 2 : 0;
+        const isThumbnailNearCenter = thumbRect && Math.abs(thumbCenter - viewportCenter) < 200;
+        const isThumbnailVisible = thumbRect && thumbRect.top < viewportHeight && thumbRect.bottom > 0;
+        // Check if we're above the thumbnail container (thumbnail is below viewport)
+        const isAboveThumbnail = thumbRect && thumbRect.top > viewportHeight;
+
+        // RULE 1: If we're above thumbnail container, ALWAYS force thumbnail position
+        if (isAboveThumbnail && isInReelState) {
           setIsInReelState(false);
           onReelStateChange?.(false);
-          hasTriggeredTransitionRef.current = true;
           animate(animationProgressValue, 0, {
             duration: 0.6,
             ease: [0.25, 0.1, 0.25, 1],
-            onComplete: () => {
-              hasTriggeredTransitionRef.current = false;
-            },
           });
-        } else if (shouldBeInReelState && !isInReelState && !hasTriggeredTransitionRef.current) {
+        }
+        // Trigger animation to reel when:
+        // - Video is visible and near center
+        // - User scrolls down
+        // - Not already in reel state
+        else if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
           setIsInReelState(true);
           onReelStateChange?.(true);
-          hasTriggeredTransitionRef.current = true;
+          // Smooth transition to reel position
           animate(animationProgressValue, 1, {
             duration: 0.6,
-            ease: [0.25, 0.1, 0.25, 1],
-            onComplete: () => {
-              hasTriggeredTransitionRef.current = false;
-            },
+            ease: [0.25, 0.1, 0.25, 1], // easeInOut cubic bezier - smooth, no overshoot
+          });
+        }
+        // Trigger animation to thumbnail when:
+        // - In reel state
+        // - Thumbnail container is back in view and near center
+        // - User scrolls up
+        else if (isInReelState && scrollDirection === -1 && isThumbnailVisible && isThumbnailNearCenter) {
+          setIsInReelState(false);
+          onReelStateChange?.(false);
+          // Smooth transition back to thumbnail position
+          animate(animationProgressValue, 0, {
+            duration: 0.6,
+            ease: [0.25, 0.1, 0.25, 1], // easeInOut cubic bezier - smooth, no overshoot
           });
         }
 
+        lastScrollY = currentScrollY;
         ticking = false;
       });
     };
@@ -147,23 +173,17 @@ const FeaturedVideoWebGL = ({
           });
         }
         
-        // Calculate reel position relative to sticky wrapper center (centered on screen)
+        // Calculate reel position relative to sticky wrapper center (below text)
         if (stickyWrapper) {
           const stickyRect = stickyWrapper.getBoundingClientRect();
-          const viewportHeight = window.innerHeight;
-          const viewportCenterY = viewportHeight / 2;
-          
-          // Reel should be centered on screen (50vh)
           const reelCenterX = reelRect.left + reelRect.width / 2;
+          const reelCenterY = reelRect.top + reelRect.height / 2;
           const stickyCenterX = stickyRect.left + stickyRect.width / 2;
-          
-          // Calculate Y position: reel should be at viewport center relative to sticky wrapper
-          const stickyTop = stickyRect.top;
-          const reelYRelativeToSticky = viewportCenterY - stickyTop;
+          const stickyCenterY = stickyRect.top + stickyRect.height / 2;
           
           setReelPos({
             x: reelCenterX - stickyCenterX, // Offset from sticky center (pixels)
-            y: reelYRelativeToSticky - stickyRect.height / 2, // Centered vertically on viewport
+            y: reelCenterY - stickyCenterY, // Offset from sticky center (pixels)
             width: reelRect.width,
             height: reelRect.height,
           });
@@ -373,13 +393,12 @@ const FeaturedVideoWebGL = ({
         aria-hidden="true"
       />
 
-      {/* Reel container - target position (centered on screen) */}
+      {/* Reel container - target position (below text, centered horizontally) */}
       <div
         ref={reelContainerRef}
-        className="absolute left-1/2 pointer-events-none"
+        className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
         style={{
-          top: "50vh",
-          transform: "translate(-50%, -50%)", // Center both horizontally and vertically
+          top: "42vh", // Position moved up a tiny bit
           width: "85vw",
           aspectRatio: "2.1 / 1",
           opacity: 0,
