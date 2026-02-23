@@ -337,12 +337,21 @@ const FeaturedVideoWebGL = ({
                 e.stopPropagation();
                 const video = videoRef.current;
                 if (video) {
-                  console.log('Attempting to play video from mobile overlay...', video.readyState);
+                  console.log('Attempting to play video from mobile overlay...', {
+                    readyState: video.readyState,
+                    paused: video.paused,
+                    muted: video.muted
+                  });
+                  // Unmute the video when user clicks to play
+                  video.muted = false;
                   const playPromise = video.play();
                   if (playPromise !== undefined) {
                     playPromise
                       .then(() => {
-                        console.log('Video playing successfully');
+                        console.log('Video playing successfully', {
+                          paused: video.paused,
+                          muted: video.muted
+                        });
                       })
                       .catch((error) => {
                         console.error('Video play failed:', error);
@@ -486,12 +495,15 @@ const FeaturedVideoWebGL = ({
                       muted: video.muted,
                       src: video.src
                     });
+                    // Unmute the video when user clicks to play
+                    video.muted = false;
                     const playPromise = video.play();
                     if (playPromise !== undefined) {
                       playPromise
                         .then(() => {
                           console.log('Video playing successfully', {
                             paused: video.paused,
+                            muted: video.muted,
                             currentTime: video.currentTime,
                             duration: video.duration
                           });
@@ -536,7 +548,8 @@ const FeaturedVideoWebGL = ({
                           muted: video.muted,
                           src: video.src
                         });
-                        // Ensure video is unmuted if needed (though it should be muted for autoplay)
+                        // Unmute the video when user clicks to play
+                        video.muted = false;
                         // Force play and check if it actually plays
                         const playPromise = video.play();
                         if (playPromise !== undefined) {
@@ -544,6 +557,7 @@ const FeaturedVideoWebGL = ({
                             .then(() => {
                               console.log('Video playing successfully', {
                                 paused: video.paused,
+                                muted: video.muted,
                                 currentTime: video.currentTime,
                                 duration: video.duration
                               });
