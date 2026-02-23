@@ -440,6 +440,13 @@ const FeaturedVideoWebGL = ({
                   transform: "scale(1.08)",
                   transformOrigin: "center center",
                 }}
+                onClick={() => {
+                  if (videoRef.current) {
+                    videoRef.current.play().catch((error) => {
+                      console.log('Video play failed:', error);
+                    });
+                  }
+                }}
               />
 
               {/* PLAY REEL overlay - visible at fullscreen */}
@@ -450,12 +457,14 @@ const FeaturedVideoWebGL = ({
                     style={{
                       fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
                       background: "rgba(0,0,0,0.15)",
+                      pointerEvents: 'auto',
                     }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       if (videoRef.current) {
                         videoRef.current.play().catch((error) => {
                           console.log('Video play failed:', error);
