@@ -12,17 +12,17 @@ import HomeAboutScrollSection from "@/components/HomeAboutScrollSection";
 
 // Below-the-fold sections: load after first paint to speed up initial render
 const HomeExpertsSection = dynamic(
-  () => import("@/components/Home/HomeExpertsSection"),
+  () => import("@/components/home/HomeExpertsSection"),
   { ssr: false, loading: () => <div className="min-h-[50vh]" aria-hidden /> }
 );
 
 const HomeFeatureWorkSection = dynamic(
-  () => import("@/components/Home/HomeFeatureWorkSection"),
+  () => import("@/components/home/HomeFeatureWorkSection"),
   { ssr: false, loading: () => <div className="min-h-[80vh]" aria-hidden /> }
 );
 
 const HomeAiSection = dynamic(
-  () => import("@/components/Home/HomeAiSection"),
+  () => import("@/components/home/HomeAiSection"),
   { ssr: false, loading: () => <div className="min-h-[60vh]" aria-hidden /> }
 );
 
