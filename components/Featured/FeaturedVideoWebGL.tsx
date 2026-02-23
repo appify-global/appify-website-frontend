@@ -100,21 +100,17 @@ const FeaturedVideoWebGL = ({
         // When scrolling down: thumbnail needs to be more than 20px above center to transition to reel
         // When scrolling up: thumbnail needs to be at or below center (no buffer) to transition back to thumbnail
         const CENTER_BUFFER = 20;
-        const distanceFromCenter = viewportCenter - thumbCenter; // Positive when thumb is below center
         
         // Determine if we should be in reel state
-        // For going to reel (scrolling down): thumb center must be more than buffer above center
-        // For going back to thumbnail (scrolling up): thumb center must be at or below center
+        // Basic rule: thumb center above viewport center = reel state
+        // With buffer when scrolling down: thumb must be more than 20px above center
         let shouldBeInReelState;
         if (scrollDirection === 1) {
-          // Scrolling down: need more than buffer above center
-          shouldBeInReelState = distanceFromCenter < -CENTER_BUFFER;
-        } else if (scrollDirection === -1) {
-          // Scrolling up: need to be at or below center (no buffer)
-          shouldBeInReelState = distanceFromCenter < 0;
+          // Scrolling down: need more than 20px above center to transition to reel
+          shouldBeInReelState = thumbCenter < (viewportCenter - CENTER_BUFFER);
         } else {
-          // No scroll direction yet: use current state logic without buffer
-          shouldBeInReelState = distanceFromCenter < 0;
+          // Scrolling up or no direction: use basic rule (thumb center above viewport center)
+          shouldBeInReelState = thumbCenter < viewportCenter;
         }
 
         // Transition to reel position if needed
