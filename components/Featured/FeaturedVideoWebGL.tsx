@@ -114,9 +114,9 @@ const FeaturedVideoWebGL = ({
         }
         // Trigger animation to reel when:
         // - Video is visible and near center
+        // - User scrolls down
         // - Not already in reel state
-        // (Removed scrollDirection requirement for more reliable triggering)
-        else if (videoVisible && isVideoNearCenter && !isInReelState) {
+        else if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
           setIsInReelState(true);
           onReelStateChange?.(true);
           // Smooth transition to reel position
