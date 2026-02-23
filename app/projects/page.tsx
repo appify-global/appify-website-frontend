@@ -1,12 +1,24 @@
 "use client";
+
 import ProjectCard from "@/components/Featured/ProjectCard";
 import { PageLayout } from "@/components/layouts";
 import { ServicesFooterCTA } from "@/components/services";
 import { projectsData } from "@/data/projects";
+import NextPageSection from "@/components/NextPageSection";
 
 export default function ProjectsPage() {
   return (
-    <PageLayout navbarPadding="pb-[4vw]">
+    <PageLayout
+      navbarPadding="pb-[4vw]"
+      hideFooterAboutUs={true}
+      childrenAfterFooter={
+        <NextPageSection
+          nextPageHref="/services"
+          pageTitle="SERVICES"
+          ariaLabel="Go to Services page"
+        />
+      }
+    >
       {/* Hero - same horizontal padding as services/home for alignment */}
       <section
         className="w-full min-w-0 px-[4vw] sm:px-[6vw] lg:px-20 pt-28 sm:pt-32 lg:pt-24 pb-12 sm:pb-16 lg:pb-20"

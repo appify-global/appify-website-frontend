@@ -44,8 +44,9 @@ function ScrollToTopButton() {
     );
 }
 
-// Helper to compute times outside of component for initial state
+// Compute times only on client to avoid server/client hydration mismatch
 const computeTimes = () => {
+    if (typeof window === "undefined") return {} as Record<string, string>;
     const updated: Record<string, string> = {};
     cities.forEach((c) => {
         const now = new Date();
@@ -62,14 +63,12 @@ interface FooterProps {
 const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
     const pathname = usePathname();
     const isAboutPage = pathname === "/about";
-    // Initialize with computed times to avoid setState in effect
-    const [times, setTimes] = useState<Record<string, string>>(computeTimes);
+    // Start with empty so server and client match; fill in useEffect to avoid hydration mismatch
+    const [times, setTimes] = useState<Record<string, string>>(() => ({}));
 
     useEffect(() => {
-        // Set up interval for updates only
-        const t = setInterval(() => {
-            setTimes(computeTimes());
-        }, 60_000);
+        setTimes(computeTimes());
+        const t = setInterval(() => setTimes(computeTimes()), 60_000);
         return () => clearInterval(t);
     }, []);
 

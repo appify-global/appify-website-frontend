@@ -1,6 +1,7 @@
 "use client";
 
 import { PageLayout } from "@/components/layouts";
+import NextPageSection from "@/components/NextPageSection";
 import { ServicesHero, CategorySection, ServicesFooterCTA } from "@/components/services";
 import { categoryDisplayOrder, getCategoryById } from "@/lib/data/services";
 
@@ -11,7 +12,17 @@ export default function ServicesPage() {
     .filter((cat): cat is NonNullable<typeof cat> => cat !== undefined);
 
   return (
-    <PageLayout navbarPadding="pb-[4vw]">
+    <PageLayout
+      navbarPadding="pb-[4vw]"
+      hideFooterAboutUs={true}
+      childrenAfterFooter={
+        <NextPageSection
+          nextPageHref="/news"
+          pageTitle="NEWS ROOM"
+          ariaLabel="Go to News page"
+        />
+      }
+    >
       {/* Hero Section */}
       <section id="services-hero" className="h-full flex flex-col w-full">
         <ServicesHero />

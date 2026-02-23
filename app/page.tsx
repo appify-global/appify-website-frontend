@@ -1,34 +1,41 @@
 "use client";
+
 import { useRef } from "react";
+import dynamic from "next/dynamic";
 import Header from "@/components/Featured/Header";
-import HeaderExpert from "@/components/Featured/HeaderExpert";
-import HeaderAi from "@/components/Featured/Hero-Ai";
-import ProjectCard from "@/components/Featured/ProjectCard";
 import Skiggle from "@/components/Featured/Skiggle";
-import SkiggleAi from "@/components/Featured/SkiggleAi";
 import SubVideoText from "@/components/Featured/SubVideoText";
 import Hero from "@/components/Hero/Hero";
 import ScrollText from "@/components/Navbar/ScrollText";
-import FloatingCards from "@/components/Featured/ServiceCard";
-import dynamic from "next/dynamic";
-import SubVideoTextAi from "@/components/Featured/SubVideoAi";
-import FeatureWorkHeader from "@/components/Featured/FeatureWorkHeader";
-import { projectsData } from "@/data/projects";
-import DotButton from "@/components/ui/DotButton";
 import { PageLayout } from "@/components/layouts";
+import HomeAboutScrollSection from "@/components/HomeAboutScrollSection";
 
-const SkiggleDrop = dynamic(
-  () => import("../components/Featured/SkiggleDrop"),
-  { ssr: false }
+// Below-the-fold sections: load after first paint to speed up initial render
+const HomeExpertsSection = dynamic(
+  () => import("@/components/Home/HomeExpertsSection"),
+  { ssr: false, loading: () => <div className="min-h-[50vh]" aria-hidden /> }
+);
+
+const HomeFeatureWorkSection = dynamic(
+  () => import("@/components/Home/HomeFeatureWorkSection"),
+  { ssr: false, loading: () => <div className="min-h-[80vh]" aria-hidden /> }
+);
+
+const HomeAiSection = dynamic(
+  () => import("@/components/Home/HomeAiSection"),
+  { ssr: false, loading: () => <div className="min-h-[60vh]" aria-hidden /> }
 );
 
 export default function Home() {
   const ref = useRef<HTMLElement>(null);
-  const aiRef = useRef<HTMLElement>(null);
-  const gridRef = useRef<HTMLElement>(null);
 
   return (
-    <PageLayout showParticles={true} navbarPadding="pb-[4vw]">
+    <PageLayout
+      showParticles={true}
+      navbarPadding="pb-[4vw]"
+      hideFooterAboutUs={true}
+      childrenAfterFooter={<HomeAboutScrollSection />}
+    >
       <section
         id="hero-section"
         className="h-full flex flex-col w-full p-[4vw] pt-[14vw] md:pt-[6vw]"
@@ -50,64 +57,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        className="h-auto lg:h-[200vh] relative z-30 py-[1vw] pt-[0.5vw] lg:pt-[1vw]"
-        id="experts-section"
-        style={{ zIndex: 30, overflow: 'visible' }}
-      >
-        <SkiggleDrop />
-
-        <div className="w-full px-[4vw]">
-          <HeaderExpert />
-        </div>
-
-        <div className="w-full px-[4vw] overflow-visible" style={{ overflow: 'visible' }}>
-          <FloatingCards />
-        </div>
-      </section>
-
-      <section
-        ref={gridRef}
-        className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-16 lg:mt-[100vh] min-w-0 overflow-x-hidden"
-        id="feature-work"
-      >
-        <div className="w-full min-w-0 px-[4vw]">
-          <FeatureWorkHeader />
-        </div>
-        <div
-          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 relative z-40 w-full min-w-0 px-4 sm:px-6 lg:px-20 mt-6 md:mt-8 lg:mt-36"
-        >
-          {projectsData.map((project, index) => (
-            <ProjectCard
-              key={index}
-              title={project.title}
-              metadata={project.metadata}
-              imageUrl={project.imageUrl}
-              linkUrl={project.linkUrl}
-            />
-          ))}
-        </div>
-
-        <div className="flex justify-center w-full mt-[2rem] lg:mt-[5rem]">
-          <DotButton
-            text="SEE ALL PROJECTS"
-            variant="white"
-            className="see-all-projects-btn"
-            href="/projects"
-          />
-        </div>
-      </section>
-
-      <section
-        className="h-auto lg:h-[130vh] relative mt-[3rem] sm:mt-[5rem] md:mt-[3rem] lg:mt-[15rem] pb-[4rem] sm:pb-[4rem] lg:pb-0 z-40 w-full"
-        ref={aiRef}
-      >
-        <SkiggleAi />
-        <div className="w-full px-[4vw]">
-          <HeaderAi />
-          <SubVideoTextAi ref={aiRef} />
-        </div>
-      </section>
+      <HomeExpertsSection />
+      <HomeFeatureWorkSection />
+      <HomeAiSection />
     </PageLayout>
   );
 }

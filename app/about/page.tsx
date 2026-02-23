@@ -1,6 +1,7 @@
 "use client";
 
 import { PageLayout } from "@/components/layouts";
+import NextPageSection from "@/components/NextPageSection";
 
 import AboutHero from "@/components/About/AboutHero";
 import AboutIntro from "@/components/About/AboutIntro";
@@ -13,7 +14,19 @@ import CTASection from "@/components/About/CTASection";
 
 export default function AboutPage() {
   return (
-    <PageLayout navbarPadding="pb-0" backgroundColor="bg-black">
+    <PageLayout
+      navbarPadding="pb-0"
+      backgroundColor="bg-black"
+      hideFooterAboutUs={true}
+      childrenAfterFooter={
+        <NextPageSection
+          nextPageHref="/projects"
+          pageTitle="PROJECTS"
+          ariaLabel="Go to Projects page"
+          id="footer-scroll"
+        />
+      }
+    >
       {/* Content wrapper */}
       <div className="relative">
         {/* Hero Section - "About Us" */}

@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, memo } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,9 +13,11 @@ interface ProjectCardProps {
   metadata: string[];
   imageUrl: string;
   linkUrl?: string;
+  /** Set for first 1–2 cards to prioritize image loading */
+  priority?: boolean;
 }
 
-export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: ProjectCardProps) {
+function ProjectCard({ title, metadata, imageUrl, linkUrl, priority = false }: ProjectCardProps) {
   const cardRef = useRef<HTMLAnchorElement>(null);
   const imgRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -193,7 +195,7 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
       <div className="h-full overflow-hidden transform-gpu transition-shadow duration-300">
         <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden">
           <div ref={imgRef} className="absolute inset-0" style={{ transformOrigin: "center" }}>
-            <Image src={imageUrl} alt={title} fill className="object-cover" draggable={false} />
+            <Image src={imageUrl} alt={title} fill className="object-cover" draggable={false} priority={priority} />
           </div>
         </div>
         <div className="py-4 sm:py-5 md:py-6">
@@ -220,3 +222,5 @@ export default function ProjectCard({ title, metadata, imageUrl, linkUrl }: Proj
     </a>
   );
 }
+
+export default memo(ProjectCard);

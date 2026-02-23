@@ -281,7 +281,7 @@ const ParticleWaterfall: React.FC = () => {
             <div ref={canvasRef} className="absolute inset-0 z-0" />
 
             {/* Content overlay */}
-            <div className="absolute inset-0 flex flex-col items-center justify-start pt-[18vh] sm:justify-center sm:pt-0 text-center z-20 px-4 py-3 md:py-8 lg:pb-17 lg:pt-0">
+            <div className="absolute inset-0 flex flex-col items-center justify-start pt-[18vh] sm:justify-center sm:pt-0 text-center z-0 px-4 py-3 md:py-8 lg:pb-17 lg:pt-0">
 
                 <div className="relative inline-block px-8 sm:px-20 lg:px-20 py-4 sm:py-8 lg:py-12">
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState, Suspense, ReactNode } from "react";
+import { useRef, useEffect, Suspense, ReactNode } from "react";
 import { LenisProvider } from "@/providers/LenisProvider";
 import { ScrollIndicator } from "@/components/shared/ScrollIndicator";
 import Navbar from "@/components/Navbar/Navbar";
@@ -57,6 +57,10 @@ interface PageLayoutProps {
    * Custom background color class. Default: uses design token background
    */
   backgroundColor?: string;
+  /**
+   * Content to render after the footer. Use for home page black "ABOUT US" section.
+   */
+  childrenAfterFooter?: ReactNode;
 }
 
 /**
@@ -93,22 +97,13 @@ export function PageLayout({
   backHref = "/services",
   hideFooterAboutUs = false,
   backgroundColor,
+  childrenAfterFooter,
 }: PageLayoutProps) {
   const footerRef = useRef<HTMLElement>(null);
-  const [wasmReady, setWasmReady] = useState(false);
 
-  // Initialize WASM module
+  // Init WASM in background so components that need it get it without blocking first paint
   useEffect(() => {
-    (async () => {
-      try {
-        await initWasmModule();
-        setWasmReady(true);
-      } catch (error) {
-        console.error("Failed to initialize WASM module:", error);
-        // Still set ready to allow page to render without WASM features
-        setWasmReady(true);
-      }
-    })();
+    initWasmModule().catch(() => {});
   }, []);
 
   const defaultLoadingFallback = (
@@ -123,29 +118,25 @@ export function PageLayout({
         <div className={`${backgroundColor || "bg-[var(--color-background,#F0F1FA)]"} h-auto w-full min-w-0 flex flex-col overflow-x-visible min-h-screen relative z-10 lg:z-[20]`}>
           <ScrollIndicator />
 
-          {wasmReady && (
-            <>
-              {showNavbar && (
-                <nav id="navbar" className={navbarPadding}>
-                  <Navbar 
-                    showBackButton={showBackButton} 
-                    backHref={backHref}
-                    logoColor={backgroundColor === "bg-black" ? "white" : "black"}
-                  />
-                </nav>
-              )}
-
-              <main className={`flex-1 min-w-0 ${className}`}>
-                {children}
-              </main>
-            </>
+          {showNavbar && (
+            <nav id="navbar" className={`relative z-50 ${navbarPadding}`}>
+              <Navbar 
+                showBackButton={showBackButton} 
+                backHref={backHref}
+                logoColor={backgroundColor === "bg-black" ? "white" : "black"}
+              />
+            </nav>
           )}
+
+          <main className={`flex-1 min-w-0 ${className}`}>
+            {children}
+          </main>
         </div>
 
         {/* Particle section - only on pages that need it */}
-        {showParticles && wasmReady && (
+        {showParticles && (
           <section
-            className="h-[92vh] md:h-[calc(100vh+200px)] lg:h-[100vh] w-full relative z-10 lg:z-20"
+            className="h-[92vh] md:h-[calc(100vh+200px)] lg:h-[100vh] w-full relative z-0"
             id="particle-section"
           >
             <ParticleWaterfall />
@@ -153,11 +144,13 @@ export function PageLayout({
         )}
 
         {/* Footer with parallax effect */}
-        {showFooter && wasmReady && (
+        {showFooter && (
           <section id="footer" ref={footerRef} className={`relative z-[5] lg:z-[15] ${showParticles ? 'lg:pt-24' : 'lg:mt-[200px]'}`}>
             <Footer hideAboutUsSection={hideFooterAboutUs} />
           </section>
         )}
+
+        {childrenAfterFooter}
       </LenisProvider>
     </Suspense>
   );

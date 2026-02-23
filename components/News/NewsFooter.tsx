@@ -10,8 +10,9 @@ const cities = [
   { name: "Dubai", flag: "🇦🇪", tz: "Asia/Dubai" },
 ];
 
-// Helper to compute times outside of component for initial state
-const computeTimes = () => {
+// Compute times only on client to avoid server/client hydration mismatch
+const computeTimes = (): Record<string, string> => {
+  if (typeof window === "undefined") return {};
   const updated: Record<string, string> = {};
   cities.forEach((c) => {
     const now = new Date();
@@ -42,14 +43,12 @@ function ScrollToTopButton() {
 }
 
 export default function NewsFooter() {
-  // Initialize with computed times to avoid setState in effect
-  const [times, setTimes] = useState<Record<string, string>>(computeTimes);
+  // Start with empty so server and client match; fill in useEffect to avoid hydration mismatch
+  const [times, setTimes] = useState<Record<string, string>>(() => ({}));
 
   useEffect(() => {
-    // Set up interval for updates only
-    const t = setInterval(() => {
-      setTimes(computeTimes());
-    }, 60_000);
+    setTimes(computeTimes());
+    const t = setInterval(() => setTimes(computeTimes()), 60_000);
     return () => clearInterval(t);
   }, []);
 
