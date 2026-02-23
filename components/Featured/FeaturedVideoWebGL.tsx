@@ -332,11 +332,24 @@ const FeaturedVideoWebGL = ({
             <div
               className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.15em] font-light z-50 bg-black/10"
               style={{ borderRadius: "12px" }}
-              onClick={() => {
-                if (videoRef.current) {
-                  videoRef.current.play().catch((error) => {
-                    console.log('Video play failed:', error);
-                  });
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const video = videoRef.current;
+                if (video) {
+                  console.log('Attempting to play video from mobile overlay...', video.readyState);
+                  const playPromise = video.play();
+                  if (playPromise !== undefined) {
+                    playPromise
+                      .then(() => {
+                        console.log('Video playing successfully');
+                      })
+                      .catch((error) => {
+                        console.error('Video play failed:', error);
+                      });
+                  }
+                } else {
+                  console.error('Video ref is null');
                 }
               }}
             >
@@ -462,11 +475,24 @@ const FeaturedVideoWebGL = ({
                   transform: "scale(1.08)",
                   transformOrigin: "center center",
                 }}
-                onClick={() => {
-                  if (videoRef.current) {
-                    videoRef.current.play().catch((error) => {
-                      console.log('Video play failed:', error);
-                    });
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const video = videoRef.current;
+                  if (video) {
+                    console.log('Attempting to play video...', video.readyState);
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                      playPromise
+                        .then(() => {
+                          console.log('Video playing successfully');
+                        })
+                        .catch((error) => {
+                          console.error('Video play failed:', error);
+                        });
+                    }
+                  } else {
+                    console.error('Video ref is null');
                   }
                 }}
               />
@@ -486,11 +512,23 @@ const FeaturedVideoWebGL = ({
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
                     onClick={(e) => {
+                      e.preventDefault();
                       e.stopPropagation();
-                      if (videoRef.current) {
-                        videoRef.current.play().catch((error) => {
-                          console.log('Video play failed:', error);
-                        });
+                      const video = videoRef.current;
+                      if (video) {
+                        console.log('Attempting to play video from overlay...', video.readyState);
+                        const playPromise = video.play();
+                        if (playPromise !== undefined) {
+                          playPromise
+                            .then(() => {
+                              console.log('Video playing successfully');
+                            })
+                            .catch((error) => {
+                              console.error('Video play failed:', error);
+                            });
+                        }
+                      } else {
+                        console.error('Video ref is null');
                       }
                     }}
                   >
