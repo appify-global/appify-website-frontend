@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
+import { NewsletterForm } from "@/components/NewsletterForm";
 
 interface MenuProps {
   open: boolean;
@@ -117,26 +118,11 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
             <div className="font-Aeonik text-2xl sm:text-4xl">
               Subscribe to our newsletter
             </div>
-            <form
-              onSubmit={() => console.log("submitted thank you")}
-              className="flex justify-between bg-[#F0F1FA] p-3 sm:p-4 rounded-xl mt-4 sm:mt-6 text-[#BEBFC7] text-base sm:text-xl"
-            >
-              <label>
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="bg-[#F0F1FA] w-full"
-                ></input>
-              </label>
-              <button type="submit">
-                <Image
-                  src={"/arrow-right.svg"}
-                  width={30}
-                  height={30}
-                  alt="right-arrow"
-                />
-              </button>
-            </form>
+            <NewsletterForm
+              formClassName="flex justify-between bg-[#F0F1FA] p-3 sm:p-4 rounded-xl mt-4 sm:mt-6 text-[#BEBFC7] text-base sm:text-xl"
+              inputClassName="bg-[#F0F1FA] w-full outline-none"
+              arrowSize={30}
+            />
           </a.div>
 
           {/* News Room */}

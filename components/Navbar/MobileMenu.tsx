@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useLenis } from "@/providers/LenisProvider";
+import { NewsletterForm } from "@/components/NewsletterForm";
 
 interface MobileMenuProps {
   open: boolean;
@@ -135,27 +136,12 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
             <div className="font-Aeonik text-xl sm:text-2xl text-[#2B2E3A] mb-4 sm:mb-4">
               Subscribe to our newsletter
             </div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                console.log("submitted thank you");
-              }}
-              className="flex items-center justify-between bg-white p-3 sm:p-3 rounded-xl text-[#BEBFC7] text-base sm:text-base"
-            >
-              <input
-                type="email"
-                placeholder="Your email"
-                className="bg-transparent flex-1 min-w-0 outline-none"
-              />
-              <button type="submit" className="flex-shrink-0 ml-3">
-                <Image
-                  src="/arrow-right.svg"
-                  width={24}
-                  height={24}
-                  alt="Submit"
-                />
-              </button>
-            </form>
+            <NewsletterForm
+              formClassName="flex items-center justify-between bg-white p-3 sm:p-3 rounded-xl text-[#BEBFC7] text-base sm:text-base"
+              inputClassName="bg-transparent flex-1 min-w-0 outline-none"
+              buttonClassName="flex-shrink-0 ml-3"
+              arrowSize={24}
+            />
           </div>
 
           {/* News Room */}
