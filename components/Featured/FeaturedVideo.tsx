@@ -62,6 +62,19 @@ const FeaturedVideo = ({
   const [showPlayReel, setShowPlayReel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   
+  // Programmatically play video on mount
+  useEffect(() => {
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          // Autoplay was prevented, but that's okay - user can click to play
+          console.log('Video autoplay prevented:', error);
+        });
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (isMobile || !containerRef.current || !videoWrapperRef.current) return;
 
