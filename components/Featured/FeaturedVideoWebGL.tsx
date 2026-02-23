@@ -92,13 +92,13 @@ const FeaturedVideoWebGL = ({
           return;
         }
 
-        // Check if thumbnail is above the center of the screen
-        // If thumbnail's bottom is above viewport center, it's scrolled past center
-        const thumbBottom = thumbRect.bottom;
-        const isThumbnailAboveCenter = thumbBottom < viewportCenter;
+        // Check if more than half of the thumbnail has passed the center line
+        // This means the thumbnail's center point is above the viewport center
+        const thumbCenter = thumbRect.top + thumbRect.height / 2;
+        const isThumbnailAboveCenter = thumbCenter < viewportCenter;
 
-        // If thumbnail is above center, go to reel position
-        // If thumbnail is at or below center, stay in thumbnail position
+        // If more than half of thumbnail is above center, go to reel position
+        // If thumbnail center is at or below center, stay in thumbnail position
         if (isThumbnailAboveCenter && !isInReelState) {
           setIsInReelState(true);
           onReelStateChange?.(true);
