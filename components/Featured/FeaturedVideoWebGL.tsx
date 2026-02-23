@@ -265,17 +265,32 @@ const FeaturedVideoWebGL = ({
     setShowPlayReel(value > 0.5);
   });
 
-  // Programmatically play video on mount
+  // Programmatically play video on mount and when video is ready
   React.useEffect(() => {
-    if (videoRef.current) {
-      const playPromise = videoRef.current.play();
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => {
+      const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch((error) => {
           // Autoplay was prevented, but that's okay - user can click to play
           console.log('Video autoplay prevented:', error);
         });
       }
-    }
+    };
+
+    // Try to play immediately
+    tryPlay();
+
+    // Also try when video can play
+    video.addEventListener('canplay', tryPlay, { once: true });
+    video.addEventListener('loadeddata', tryPlay, { once: true });
+
+    return () => {
+      video.removeEventListener('canplay', tryPlay);
+      video.removeEventListener('loadeddata', tryPlay);
+    };
   }, []);
 
   // Mobile layout
