@@ -130,10 +130,10 @@ const TeamMember = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] lg:h-screen overflow-hidden"
+      className="relative w-full min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] lg:h-[120vh] overflow-hidden"
     >
       {/* Black overlay to match other sections opacity */}
-      <div className="absolute inset-0 bg-black/70 z-0" />
+      <div className="absolute inset-0 bg-black z-0" />
       
       {/* Plus icon row */}
       <div className="absolute top-1/2 -translate-y-1/2 left-[5vw] right-[5vw] hidden lg:flex items-center justify-between z-10">
@@ -161,10 +161,10 @@ const TeamMember = () => {
           <ThreeRowDots />
         </div>
 
-        {/* Desktop Layout: Heading floating + Horizontal row of elements */}
-        <div className="hidden lg:block relative h-full">
-          {/* Heading - floating on top, right aligned */}
-          <div className="absolute top-[100px] right-[5vw] text-right z-20">
+        {/* Desktop Layout: Vertical flex with heading and content */}
+        <div className="hidden lg:block absolute inset-0 flex flex-col px-[5vw] pt-[100px] pb-[53px]">
+          {/* Heading - top */}
+          <div className="flex justify-end z-20 mb-4">
             <h2
               ref={titleRef}
               className="font-Aeonik text-[60px] lg:text-[70px] xl:text-[85px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap inline-block"
@@ -173,26 +173,25 @@ const TeamMember = () => {
             </h2>
           </div>
 
-          {/* Horizontal row: Name + Image + SVG + Paragraphs - bottom aligned */}
-          <div className="absolute bottom-[60px] left-[5vw] right-[5vw] flex items-end gap-8">
-            {/* Founder info */}
-            <div className="flex-shrink-0 mb-2">
+          {/* Content - bottom, horizontal flex with name, image, SVG, paragraph */}
+          <div className="mt-auto flex items-end justify-between w-full relative z-10">
+            {/* Founder info - name */}
+            <div className="flex-shrink-0">
               <div className="flex items-center gap-2 mb-2">
-                <DotGrid className="w-[13px]" />
-                <span className="font-Aeonik text-[20px] text-white">
+                <span className="font-Aeonik text-[16px] text-white">
                   :: Mennan Yelkenci
                 </span>
               </div>
-              <p className="font-Aeonik text-[12px] text-white/60 uppercase tracking-wider mb-4">
+              <p className="font-Aeonik text-[10px] text-white/60 uppercase tracking-wider mb-3">
                 Founder and CEO
               </p>
               {/* Progress bar */}
-              <div className="w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
+              <div className="w-[220px] h-[2px] bg-white/20 rounded-full overflow-hidden">
                 <div className="w-[80%] h-full bg-white/80 rounded-full" />
               </div>
             </div>
 
-            {/* Founder image - in the middle */}
+            {/* Founder image */}
             <div
               ref={imageRef}
               className="w-[300px] h-[400px] relative flex-shrink-0"
@@ -205,31 +204,44 @@ const TeamMember = () => {
               />
             </div>
 
-            {/* SVG - increased gap from image, smaller size */}
-            <div className="flex-shrink-0 ml-12 lg:ml-16 flex items-end">
-              <svg width="65" height="89" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[65px] h-[89px]">
-                <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
-              </svg>
-            </div>
+            {/* SVG and Paragraphs - Horizontal Flex */}
+            <div className="flex items-end gap-8">
+              {/* SVG */}
+              <div className="flex-shrink-0 flex items-end">
+                <svg width="65" height="89" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[65px] h-[89px]">
+                  <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
+                </svg>
+              </div>
 
-            {/* Paragraphs */}
-            <div className="flex-1 max-w-[458px] mb-2">
-              <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80 mb-4">
-                Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
-              </p>
-              <p className="font-Aeonik text-[14px] leading-[1.4] text-white/80">
-                As a result of our diverse experience, we are able to think creatively
-                and find new solutions to problems, providing clients with memorable,
-                purpose-driven experiences that cut through the noise and connect
-                where it matters, which leaves lasting impressions that form enduring
-                connections between brands and consumers.
-              </p>
+              {/* Paragraphs */}
+              <div className="flex-1 max-w-[458px]">
+                <p className="font-Aeonik text-[16px] leading-[1.4] text-white/80 mb-4">
+                  Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
+                </p>
+                <p className="font-Aeonik text-[16px] leading-[1.4] text-white/80">
+                  As a result of our diverse experience, we are able to think creatively
+                  and find new solutions to problems, providing clients with memorable,
+                  purpose-driven experiences that cut through the noise and connect
+                  where it matters, which leaves lasting impressions that form enduring
+                  connections between brands and consumers.
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Mobile/Tablet Layout */}
         <div className="lg:hidden">
+          {/* OUR FOUNDER title */}
+          <div className="text-right mb-6 sm:mb-8">
+            <h2
+              ref={titleRef}
+              className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,10vw,3rem)] md:text-[clamp(2.5rem,8vw,3.25rem)] leading-[0.98] tracking-[0.06em] sm:tracking-[0.1em] text-white inline-block"
+            >
+              OUR FOUNDER
+            </h2>
+          </div>
+
           {/* Founder image */}
           <div
             ref={imageRef}
@@ -243,49 +255,40 @@ const TeamMember = () => {
             />
           </div>
 
-          {/* OUR FOUNDER title */}
-          <div className="text-right mb-6 sm:mb-8">
-            <h2
-              ref={titleRef}
-              className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,10vw,3rem)] md:text-[clamp(2.5rem,8vw,3.25rem)] leading-[0.98] tracking-[0.06em] sm:tracking-[0.1em] text-white inline-block"
-            >
-              OUR FOUNDER
-            </h2>
-          </div>
-
-          {/* SVG + Paragraphs */}
-          <div className="flex items-start gap-4 sm:gap-5 md:gap-6 mb-8 sm:mb-10">
+          {/* SVG + Name section - Horizontal flex */}
+          <div className="flex items-start gap-4 sm:gap-5 md:gap-6 mt-2 mb-8 sm:mb-10">
+            {/* SVG */}
             <svg width="80" height="110" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-12 h-[5.5rem] sm:w-16 sm:h-[6.5rem] md:w-20 md:h-28">
               <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
             </svg>
-            <div className="flex-1 min-w-0">
-              <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-white/80 mb-4">
-                Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
+            {/* Founder card - Name section */}
+            <div className="flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="font-Aeonik text-[clamp(0.875rem,2.5vw,1rem)] text-white">
+                  :: Mennan Yelkenci
+                </span>
+              </div>
+              <p className="font-Aeonik text-[10px] sm:text-[11px] md:text-xs text-white/60 uppercase tracking-wider mb-3 sm:mb-4">
+                Founder and CEO
               </p>
-              <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-white/80">
-                As a result of our diverse experience, we are able to think creatively
-                and find new solutions to problems, providing clients with memorable,
-                purpose-driven experiences that cut through the noise and connect
-                where it matters, which leaves lasting impressions that form enduring
-                connections between brands and consumers.
-              </p>
+              <div className="w-[160px] sm:w-[220px] md:w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
+                <div className="w-[80%] h-full bg-white/80 rounded-full" />
+              </div>
             </div>
           </div>
 
-          {/* Founder card */}
-          <div className="mt-2">
-            <div className="flex items-center gap-2 mb-2">
-              <DotGrid className="w-[13px]" />
-              <span className="font-Aeonik text-[clamp(0.875rem,2.5vw,1rem)] text-white">
-                :: Mennan Yelkenci
-              </span>
-            </div>
-            <p className="font-Aeonik text-[10px] sm:text-[11px] md:text-xs text-white/60 uppercase tracking-wider mb-3 sm:mb-4">
-              Founder and CEO
+          {/* Paragraphs */}
+          <div className="flex-1 min-w-0">
+            <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-white/80 mb-4">
+              Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
             </p>
-            <div className="w-[160px] sm:w-[220px] md:w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
-              <div className="w-[80%] h-full bg-white/80 rounded-full" />
-            </div>
+            <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-white/80">
+              As a result of our diverse experience, we are able to think creatively
+              and find new solutions to problems, providing clients with memorable,
+              purpose-driven experiences that cut through the noise and connect
+              where it matters, which leaves lasting impressions that form enduring
+              connections between brands and consumers.
+            </p>
           </div>
         </div>
       </div>

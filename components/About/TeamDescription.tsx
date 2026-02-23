@@ -96,7 +96,7 @@ const TeamDescription = () => {
       className="relative w-full min-h-[55vh] sm:min-h-[65vh] md:min-h-[70vh] lg:h-screen overflow-hidden z-10"
     >
       {/* Black overlay to match hero section opacity */}
-      <div className="absolute inset-0 bg-black/70 z-0" />
+      <div className="absolute inset-0 bg-black z-0" />
       
       {/* Main content */}
       <div className="relative z-10 h-full px-[5vw] sm:px-[6vw] md:px-[5vw] lg:px-[5vw] py-[8vh] sm:py-[10vh] md:py-[12vh] lg:py-[194px]">

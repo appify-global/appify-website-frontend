@@ -69,7 +69,7 @@ const AboutIntro = () => {
       className="relative w-full min-h-[55vh] sm:min-h-[65vh] md:min-h-[70vh] lg:h-screen overflow-hidden z-10"
     >
       {/* Black overlay to match hero section opacity */}
-      <div className="absolute inset-0 bg-black/70 z-0" />
+      <div className="absolute inset-0 bg-black z-0" />
       
       {/* Background masked "ABOUT" text effect - positioned behind */}
       <div className="absolute left-[-20%] lg:left-[-312px] top-[-10%] lg:top-[-78px] opacity-10 pointer-events-none">
