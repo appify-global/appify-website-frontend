@@ -310,6 +310,13 @@ const FeaturedVideoWebGL = ({
             <div
               className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.15em] font-light z-50 bg-black/10"
               style={{ borderRadius: "12px" }}
+              onClick={() => {
+                if (videoRef.current) {
+                  videoRef.current.play().catch((error) => {
+                    console.log('Video play failed:', error);
+                  });
+                }
+              }}
             >
               <div className="flex items-center justify-center gap-4">
                 <span className="text-xl font-Aeonik uppercase">PLAY</span>
