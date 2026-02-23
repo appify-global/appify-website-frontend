@@ -319,11 +319,26 @@ const FeaturedVideoWebGL = ({
                 transform: "scale(1.08)",
                 transformOrigin: "center center",
               }}
-              onClick={() => {
-                if (videoRef.current) {
-                  videoRef.current.play().catch((error) => {
-                    console.log('Video play failed:', error);
-                  });
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const video = videoRef.current;
+                if (video) {
+                  // Toggle mute/unmute when user clicks
+                  video.muted = !video.muted;
+                  const playPromise = video.play();
+                  if (playPromise !== undefined) {
+                    playPromise
+                      .then(() => {
+                        console.log('Video playing successfully', {
+                          paused: video.paused,
+                          muted: video.muted
+                        });
+                      })
+                      .catch((error) => {
+                        console.error('Video play failed:', error);
+                      });
+                  }
                 }
               }}
             />
