@@ -94,7 +94,7 @@ const ServicesFooterCTA = () => {
   return (
     <section 
       ref={sectionRef}
-      className="footer-cta relative w-full py-8 sm:py-10 lg:py-24"
+      className="footer-cta relative w-full pt-16 sm:pt-20 lg:pt-32 pb-8 sm:pb-10 lg:pb-24"
     >
       {/* Plus icon separator */}
       <PlusIconRow />
