@@ -342,8 +342,8 @@ const FeaturedVideoWebGL = ({
                     paused: video.paused,
                     muted: video.muted
                   });
-                  // Unmute the video when user clicks to play
-                  video.muted = false;
+                  // Toggle mute/unmute when user clicks
+                  video.muted = !video.muted;
                   const playPromise = video.play();
                   if (playPromise !== undefined) {
                     playPromise
@@ -495,8 +495,8 @@ const FeaturedVideoWebGL = ({
                       muted: video.muted,
                       src: video.src
                     });
-                    // Unmute the video when user clicks to play
-                    video.muted = false;
+                    // Toggle mute/unmute when user clicks
+                    video.muted = !video.muted;
                     const playPromise = video.play();
                     if (playPromise !== undefined) {
                       playPromise
@@ -548,8 +548,8 @@ const FeaturedVideoWebGL = ({
                           muted: video.muted,
                           src: video.src
                         });
-                        // Unmute the video when user clicks to play
-                        video.muted = false;
+                        // Toggle mute/unmute when user clicks
+                        video.muted = !video.muted;
                         // Force play and check if it actually plays
                         const playPromise = video.play();
                         if (playPromise !== undefined) {
