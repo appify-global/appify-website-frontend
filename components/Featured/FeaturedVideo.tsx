@@ -138,11 +138,55 @@ const FeaturedVideo = ({
               playsInline
               preload="auto"
               style={{ borderRadius: "12px" }}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const video = videoRef.current;
+                if (video) {
+                  // Toggle mute/unmute when user clicks
+                  video.muted = !video.muted;
+                  const playPromise = video.play();
+                  if (playPromise !== undefined) {
+                    playPromise
+                      .then(() => {
+                        console.log('Video playing successfully', {
+                          paused: video.paused,
+                          muted: video.muted
+                        });
+                      })
+                      .catch((error) => {
+                        console.error('Video play failed:', error);
+                      });
+                  }
+                }
+              }}
             />
             
             <div 
               className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.15em] font-light z-50 bg-black/10"
               style={{ borderRadius: "12px" }}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const video = videoRef.current;
+                if (video) {
+                  // Toggle mute/unmute when user clicks
+                  video.muted = !video.muted;
+                  const playPromise = video.play();
+                  if (playPromise !== undefined) {
+                    playPromise
+                      .then(() => {
+                        console.log('Video playing successfully', {
+                          paused: video.paused,
+                          muted: video.muted
+                        });
+                      })
+                      .catch((error) => {
+                        console.error('Video play failed:', error);
+                      });
+                  }
+                }
+              }}
             >
               <div className="flex items-center justify-center gap-4">
                 <span className="text-xl font-Aeonik uppercase">PLAY</span>
@@ -233,6 +277,28 @@ const FeaturedVideo = ({
                   objectFit: "cover",
                   objectPosition: "center center",
                 }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const video = videoRef.current;
+                  if (video) {
+                    // Toggle mute/unmute when user clicks
+                    video.muted = !video.muted;
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                      playPromise
+                        .then(() => {
+                          console.log('Video playing successfully', {
+                            paused: video.paused,
+                            muted: video.muted
+                          });
+                        })
+                        .catch((error) => {
+                          console.error('Video play failed:', error);
+                        });
+                    }
+                  }
+                }}
               />
               
               {/* PLAY REEL overlay - fades in when video is expanded */}
@@ -248,6 +314,28 @@ const FeaturedVideo = ({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      const video = videoRef.current;
+                      if (video) {
+                        // Toggle mute/unmute when user clicks
+                        video.muted = !video.muted;
+                        const playPromise = video.play();
+                        if (playPromise !== undefined) {
+                          playPromise
+                            .then(() => {
+                              console.log('Video playing successfully', {
+                                paused: video.paused,
+                                muted: video.muted
+                              });
+                            })
+                            .catch((error) => {
+                              console.error('Video play failed:', error);
+                            });
+                        }
+                      }
+                    }}
                   >
                     <div className="flex items-center justify-center gap-6">
                       <RollerText text="PLAY" className="font-Aeonik uppercase" stagger={0.05} />
