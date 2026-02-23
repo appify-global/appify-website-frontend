@@ -95,18 +95,37 @@ const FeaturedVideoWebGL = ({
         // Check if more than half of the thumbnail has passed the center line
         // This means the thumbnail's center point is above the viewport center
         const thumbCenter = thumbRect.top + thumbRect.height / 2;
-        const isThumbnailAboveCenter = thumbCenter < viewportCenter;
+        
+        // Buffer zone: 20px to prevent premature transitions when very close to center
+        // When scrolling down: thumbnail needs to be more than 20px above center to transition to reel
+        // When scrolling up: thumbnail needs to be at or below center (no buffer) to transition back to thumbnail
+        const CENTER_BUFFER = 20;
+        const distanceFromCenter = viewportCenter - thumbCenter; // Positive when thumb is below center
+        
+        // Determine if we should be in reel state
+        // For going to reel (scrolling down): thumb center must be more than buffer above center
+        // For going back to thumbnail (scrolling up): thumb center must be at or below center
+        let shouldBeInReelState;
+        if (scrollDirection === 1) {
+          // Scrolling down: need more than buffer above center
+          shouldBeInReelState = distanceFromCenter < -CENTER_BUFFER;
+        } else if (scrollDirection === -1) {
+          // Scrolling up: need to be at or below center (no buffer)
+          shouldBeInReelState = distanceFromCenter < 0;
+        } else {
+          // No scroll direction yet: use current state logic without buffer
+          shouldBeInReelState = distanceFromCenter < 0;
+        }
 
-        // If more than half of thumbnail is above center, go to reel position
-        // If thumbnail center is at or below center, stay in thumbnail position
-        if (isThumbnailAboveCenter && !isInReelState) {
+        // Transition to reel position if needed
+        if (shouldBeInReelState && !isInReelState) {
           setIsInReelState(true);
           onReelStateChange?.(true);
           animate(animationProgressValue, 1, {
             duration: 0.6,
             ease: [0.25, 0.1, 0.25, 1],
           });
-        } else if (!isThumbnailAboveCenter && isInReelState) {
+        } else if (!shouldBeInReelState && isInReelState) {
           setIsInReelState(false);
           onReelStateChange?.(false);
           animate(animationProgressValue, 0, {
