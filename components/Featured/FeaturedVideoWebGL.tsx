@@ -51,7 +51,7 @@ const FeaturedVideoWebGL = ({
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
-  const videoSrc = "/Videos/Appify_Introduction_CEO_cropped.mp4";
+  const videoSrc = "https://cdn.ebadfd.tech/Appify_Introduction_CEO_cropped.mp4";
 
   // Motion value for animation progress
   const animationProgressValue = useMotionValue(0);
