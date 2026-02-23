@@ -513,6 +513,21 @@ const FeaturedVideoWebGL = ({
                   transform: "scale(1.08)",
                   transformOrigin: "center center",
                 }}
+                onError={(e) => {
+                  console.error('Video loading error (desktop):', e);
+                  console.error('Video src:', videoSrc);
+                  const video = e.currentTarget;
+                  console.error('Video error details:', {
+                    error: video.error,
+                    networkState: video.networkState,
+                    readyState: video.readyState,
+                    src: video.src,
+                    currentSrc: video.currentSrc
+                  });
+                }}
+                onLoadedData={() => {
+                  console.log('Video loaded successfully (desktop):', videoSrc);
+                }}
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
