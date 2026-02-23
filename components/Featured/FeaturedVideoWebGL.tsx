@@ -207,6 +207,14 @@ const FeaturedVideoWebGL = ({
     ]
   );
 
+  // === Height: maintain aspect ratio but make reel shorter ===
+  // Thumbnail: 2.1 / 1 aspect ratio, Reel: wider aspect ratio (shorter height)
+  const aspectRatio = useTransform(
+    smoothProgress,
+    [0, 1],
+    ["2.1 / 1", "2.5 / 1"] // Reel has wider aspect ratio = shorter height
+  );
+
   // === Horizontal: thumbnail position -> reel position (binary) ===
   const x = useTransform(
     smoothProgress,
@@ -455,7 +463,7 @@ const FeaturedVideoWebGL = ({
             <motion.div
               className="w-full relative overflow-hidden"
               style={{
-                aspectRatio: "2.1 / 1",
+                aspectRatio,
                 borderRadius,
                 boxShadow,
               }}
