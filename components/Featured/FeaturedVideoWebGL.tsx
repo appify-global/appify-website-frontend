@@ -480,12 +480,26 @@ const FeaturedVideoWebGL = ({
                   e.stopPropagation();
                   const video = videoRef.current;
                   if (video) {
-                    console.log('Attempting to play video...', video.readyState);
+                    console.log('Attempting to play video...', {
+                      readyState: video.readyState,
+                      paused: video.paused,
+                      muted: video.muted,
+                      src: video.src
+                    });
                     const playPromise = video.play();
                     if (playPromise !== undefined) {
                       playPromise
                         .then(() => {
-                          console.log('Video playing successfully');
+                          console.log('Video playing successfully', {
+                            paused: video.paused,
+                            currentTime: video.currentTime,
+                            duration: video.duration
+                          });
+                          // Double check it's actually playing
+                          if (video.paused) {
+                            console.warn('Video is paused after play() resolved');
+                            video.play().catch(console.error);
+                          }
                         })
                         .catch((error) => {
                           console.error('Video play failed:', error);
@@ -516,12 +530,28 @@ const FeaturedVideoWebGL = ({
                       e.stopPropagation();
                       const video = videoRef.current;
                       if (video) {
-                        console.log('Attempting to play video from overlay...', video.readyState);
+                        console.log('Attempting to play video from overlay...', {
+                          readyState: video.readyState,
+                          paused: video.paused,
+                          muted: video.muted,
+                          src: video.src
+                        });
+                        // Ensure video is unmuted if needed (though it should be muted for autoplay)
+                        // Force play and check if it actually plays
                         const playPromise = video.play();
                         if (playPromise !== undefined) {
                           playPromise
                             .then(() => {
-                              console.log('Video playing successfully');
+                              console.log('Video playing successfully', {
+                                paused: video.paused,
+                                currentTime: video.currentTime,
+                                duration: video.duration
+                              });
+                              // Double check it's actually playing
+                              if (video.paused) {
+                                console.warn('Video is paused after play() resolved');
+                                video.play().catch(console.error);
+                              }
                             })
                             .catch((error) => {
                               console.error('Video play failed:', error);
