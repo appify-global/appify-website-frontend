@@ -37,7 +37,7 @@ export const AnimatedMarqueePlayIcon = ({
             fill="none"
             viewBox="0 0 132 14"
             className={`flex-shrink-0 ${className}`}
-            style={{ margin: "0 1.5em" }}
+            style={{ margin: "0 2em" }}
         >
             <path
                 fill="currentColor"
