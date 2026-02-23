@@ -82,60 +82,36 @@ const FeaturedVideoWebGL = ({
           scrollDirection = scrollDelta > 0 ? 1 : -1;
         }
 
-        const videoRect = videoWrapperRef.current.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         const viewportCenter = viewportHeight / 2;
-        
-        // Check if video is visible in viewport (at least 50% visible)
-        const videoTop = videoRect.top;
-        const videoBottom = videoRect.bottom;
-        const videoVisible = videoTop < viewportHeight && videoBottom > 0;
-        const videoCenter = videoRect.top + videoRect.height / 2;
-        
-        // Video is "in center" if its center is within 400px of viewport center
-        const isVideoNearCenter = Math.abs(videoCenter - viewportCenter) < 400;
 
         // Check thumbnail container position
         const thumbRect = thumbnailRef.current?.getBoundingClientRect();
-        const thumbCenter = thumbRect ? thumbRect.top + thumbRect.height / 2 : 0;
-        const isThumbnailNearCenter = thumbRect && Math.abs(thumbCenter - viewportCenter) < 200;
-        const isThumbnailVisible = thumbRect && thumbRect.top < viewportHeight && thumbRect.bottom > 0;
-        // Check if we're above the thumbnail container (thumbnail is below viewport)
-        const isAboveThumbnail = thumbRect && thumbRect.top > viewportHeight;
+        if (!thumbRect) {
+          ticking = false;
+          return;
+        }
 
-        // RULE 1: If we're above thumbnail container, ALWAYS force thumbnail position
-        if (isAboveThumbnail && isInReelState) {
+        // Check if thumbnail is above the center of the screen
+        // If thumbnail's bottom is above viewport center, it's scrolled past center
+        const thumbBottom = thumbRect.bottom;
+        const isThumbnailAboveCenter = thumbBottom < viewportCenter;
+
+        // If thumbnail is above center, go to reel position
+        // If thumbnail is at or below center, stay in thumbnail position
+        if (isThumbnailAboveCenter && !isInReelState) {
+          setIsInReelState(true);
+          onReelStateChange?.(true);
+          animate(animationProgressValue, 1, {
+            duration: 0.6,
+            ease: [0.25, 0.1, 0.25, 1],
+          });
+        } else if (!isThumbnailAboveCenter && isInReelState) {
           setIsInReelState(false);
           onReelStateChange?.(false);
           animate(animationProgressValue, 0, {
             duration: 0.6,
             ease: [0.25, 0.1, 0.25, 1],
-          });
-        }
-        // Trigger animation to reel when:
-        // - Video is visible and near center
-        // - User scrolls down
-        // - Not already in reel state
-        else if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
-          setIsInReelState(true);
-          onReelStateChange?.(true);
-          // Smooth transition to reel position
-          animate(animationProgressValue, 1, {
-            duration: 0.6,
-            ease: [0.25, 0.1, 0.25, 1], // easeInOut cubic bezier - smooth, no overshoot
-          });
-        }
-        // Trigger animation to thumbnail when:
-        // - In reel state
-        // - Thumbnail container is back in view and near center
-        // - User scrolls up
-        else if (isInReelState && scrollDirection === -1 && isThumbnailVisible && isThumbnailNearCenter) {
-          setIsInReelState(false);
-          onReelStateChange?.(false);
-          // Smooth transition back to thumbnail position
-          animate(animationProgressValue, 0, {
-            duration: 0.6,
-            ease: [0.25, 0.1, 0.25, 1], // easeInOut cubic bezier - smooth, no overshoot
           });
         }
 
