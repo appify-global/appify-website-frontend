@@ -398,7 +398,7 @@ const FeaturedVideoWebGL = ({
         ref={reelContainerRef}
         className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
         style={{
-          top: "45vh", // Position moved down slightly
+          top: "42vh", // Position moved up a tiny bit
           width: "85vw",
           aspectRatio: "2.1 / 1",
           opacity: 0,

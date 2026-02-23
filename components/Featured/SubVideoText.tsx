@@ -92,7 +92,7 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
     if (!textContainerRef.current || isMobile) return;
 
     gsap.to(textContainerRef.current, {
-      top: isVideoInReel ? '0vh' : '6vh', // Move up more when in reel state, down when in thumbnail
+      top: isVideoInReel ? '-3vh' : '6vh', // Move up more when in reel state, down when in thumbnail
       duration: 0.6,
       ease: "power2.inOut", // Smooth easing similar to cubic-bezier(0.25, 0.1, 0.25, 1)
     });
