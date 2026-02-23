@@ -23,9 +23,6 @@ importers:
       '@studio-freight/lenis':
         specifier: ^1.0.42
         version: 1.0.42
-      '@vimeo/player':
-        specifier: ^2.25.0
-        version: 2.29.0
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
