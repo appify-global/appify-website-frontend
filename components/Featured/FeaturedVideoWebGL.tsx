@@ -305,6 +305,13 @@ const FeaturedVideoWebGL = ({
                 transform: "scale(1.08)",
                 transformOrigin: "center center",
               }}
+              onClick={() => {
+                if (videoRef.current) {
+                  videoRef.current.play().catch((error) => {
+                    console.log('Video play failed:', error);
+                  });
+                }
+              }}
             />
 
             <div
