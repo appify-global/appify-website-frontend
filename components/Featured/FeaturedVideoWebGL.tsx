@@ -42,6 +42,7 @@ const FeaturedVideoWebGL = ({
   const thumbnailRef = useRef<HTMLDivElement>(null);
   const reelContainerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
 
   const [showPlayReel, setShowPlayReel] = useState(false);
@@ -264,6 +265,19 @@ const FeaturedVideoWebGL = ({
     setShowPlayReel(value > 0.5);
   });
 
+  // Programmatically play video on mount
+  React.useEffect(() => {
+    if (videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          // Autoplay was prevented, but that's okay - user can click to play
+          console.log('Video autoplay prevented:', error);
+        });
+      }
+    }
+  }, []);
+
   // Mobile layout
   if (isMobile) {
     return (
@@ -276,6 +290,7 @@ const FeaturedVideoWebGL = ({
             style={{ borderRadius: "12px", aspectRatio: "2.1 / 1" }}
           >
             <video
+              ref={videoRef}
               className="absolute inset-0 w-full h-full"
               src={videoSrc}
               autoPlay
@@ -404,6 +419,7 @@ const FeaturedVideoWebGL = ({
               }}
             >
               <video
+                ref={videoRef}
                 className="absolute inset-0 w-full h-full"
                 src={videoSrc}
                 autoPlay

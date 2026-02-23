@@ -56,6 +56,7 @@ const FeaturedVideo = ({
 }: FeaturedVideoProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
 
   const [showPlayReel, setShowPlayReel] = useState(false);
@@ -115,6 +116,7 @@ const FeaturedVideo = ({
             }}
           >
             <video
+              ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover"
               src="https://cdn.ebadfd.tech/Appify_Introduction_CEO_cropped.mp4"
               autoPlay
@@ -206,6 +208,7 @@ const FeaturedVideo = ({
               }}
             >
               <video
+                ref={videoRef}
                 className="absolute inset-0 w-full h-full"
                 src="https://cdn.ebadfd.tech/Appify_Introduction_CEO_cropped.mp4"
                 autoPlay
