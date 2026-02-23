@@ -205,7 +205,7 @@ const FeaturedVideo = ({
                     show={showPlayReel} 
                     isHovering={isHovering} 
                     direction="left" 
-                    count={10} 
+                    count={5} 
                     exitOffset="-0.5em" 
                   />
                 </motion.div>
