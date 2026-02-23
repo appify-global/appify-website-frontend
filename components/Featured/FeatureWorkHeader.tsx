@@ -9,10 +9,15 @@ import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 gsap.registerPlugin(SplitText);
 
 const FeatureWorkHeader = () => {
-  const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
+  const isMobile = useIsMobile(TAB_BRAKEPOINT);
+  const props = useSpring({ 
+    opacity: 1, 
+    from: { opacity: isMobile ? 1 : 0 }, // Start visible on mobile
+    delay: isMobile ? 0 : 200,
+    config: { duration: 300 }
+  });
   const ref = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
-  const isMobile = useIsMobile(TAB_BRAKEPOINT);
 
   useEffect(() => {
     if (!lenis) return;
