@@ -15,6 +15,8 @@ import HomeReelVideoWatchButton from "../ui/HomeReelVideoWatchButton";
  * Phase 4 (0.65-1.0): Video scales back down to original left position
  */
 
+const DEFAULT_VIDEO_SRC = "/Videos/Mennan Voice Cut.mp4";
+
 interface FeaturedVideoWebGLProps {
   /** @deprecated - kept for API compatibility */
   topkeyframe?: string;
@@ -51,7 +53,7 @@ const FeaturedVideoWebGL = ({
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
-  const videoSrc = "https://cdn.ebadfd.tech/Appify_Introduction_CEO_cropped.mp4";
+  const videoSrc = DEFAULT_VIDEO_SRC;
 
   // Motion value for animation progress
   const animationProgressValue = useMotionValue(0);
@@ -273,16 +275,12 @@ const FeaturedVideoWebGL = ({
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch((error) => {
-          // Autoplay was prevented, but that's okay - user can click to play
           console.log('Video autoplay prevented:', error);
         });
       }
     };
 
-    // Try to play immediately
     tryPlay();
-
-    // Also try when video can play
     video.addEventListener('canplay', tryPlay, { once: true });
     video.addEventListener('loadeddata', tryPlay, { once: true });
 
@@ -305,7 +303,7 @@ const FeaturedVideoWebGL = ({
           >
             <video
               ref={videoRef}
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full object-cover object-center"
               src={videoSrc}
               autoPlay
               muted
@@ -339,20 +337,10 @@ const FeaturedVideoWebGL = ({
                 e.stopPropagation();
                 const video = videoRef.current;
                 if (video) {
-                  // Toggle mute/unmute when user clicks
                   video.muted = !video.muted;
                   const playPromise = video.play();
                   if (playPromise !== undefined) {
-                    playPromise
-                      .then(() => {
-                        console.log('Video playing successfully', {
-                          paused: video.paused,
-                          muted: video.muted
-                        });
-                      })
-                      .catch((error) => {
-                        console.error('Video play failed:', error);
-                      });
+                    playPromise.then(() => {}).catch((error) => console.error('Video play failed:', error));
                   }
                 }
               }}
@@ -366,28 +354,8 @@ const FeaturedVideoWebGL = ({
                 e.stopPropagation();
                 const video = videoRef.current;
                 if (video) {
-                  console.log('Attempting to play video from mobile overlay...', {
-                    readyState: video.readyState,
-                    paused: video.paused,
-                    muted: video.muted
-                  });
-                  // Toggle mute/unmute when user clicks
                   video.muted = !video.muted;
-                  const playPromise = video.play();
-                  if (playPromise !== undefined) {
-                    playPromise
-                      .then(() => {
-                        console.log('Video playing successfully', {
-                          paused: video.paused,
-                          muted: video.muted
-                        });
-                      })
-                      .catch((error) => {
-                        console.error('Video play failed:', error);
-                      });
-                  }
-                } else {
-                  console.error('Video ref is null');
+                  video.play().catch((err) => console.error('Video play failed:', err));
                 }
               }}
             >
@@ -500,7 +468,7 @@ const FeaturedVideoWebGL = ({
             >
               <video
                 ref={videoRef}
-                className="absolute inset-0 w-full h-full"
+                className="absolute inset-0 w-full h-full object-cover object-center"
                 src={videoSrc}
                 autoPlay
                 muted
@@ -514,60 +482,21 @@ const FeaturedVideoWebGL = ({
                   transformOrigin: "center center",
                 }}
                 onError={(e) => {
-                  console.error('Video loading error (desktop):', e);
-                  console.error('Video src:', videoSrc);
                   const video = e.currentTarget;
-                  console.error('Video error details:', {
-                    error: video.error,
-                    networkState: video.networkState,
-                    readyState: video.readyState,
-                    src: video.src,
-                    currentSrc: video.currentSrc
-                  });
-                }}
-                onLoadedData={() => {
-                  console.log('Video loaded successfully (desktop):', videoSrc);
+                  console.error("Hero video load error:", video.error?.message ?? "unknown", video.src);
                 }}
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
                   const video = videoRef.current;
                   if (video) {
-                    console.log('Attempting to play video...', {
-                      readyState: video.readyState,
-                      paused: video.paused,
-                      muted: video.muted,
-                      src: video.src
-                    });
-                    // Toggle mute/unmute when user clicks
                     video.muted = !video.muted;
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                      playPromise
-                        .then(() => {
-                          console.log('Video playing successfully', {
-                            paused: video.paused,
-                            muted: video.muted,
-                            currentTime: video.currentTime,
-                            duration: video.duration
-                          });
-                          // Double check it's actually playing
-                          if (video.paused) {
-                            console.warn('Video is paused after play() resolved');
-                            video.play().catch(console.error);
-                          }
-                        })
-                        .catch((error) => {
-                          console.error('Video play failed:', error);
-                        });
-                    }
-                  } else {
-                    console.error('Video ref is null');
+                    video.play().catch((err) => console.error("Video play failed:", err));
                   }
                 }}
               />
 
-              {/* PLAY REEL overlay - visible at fullscreen */}
+              {/* PLAY REEL overlay - visible at fullscreen; click = unmute + play */}
               <AnimatePresence>
                 {showPlayReel && (
                   <motion.div
@@ -575,7 +504,6 @@ const FeaturedVideoWebGL = ({
                     style={{
                       fontSize: "clamp(1.5rem, 2.5vw, 2.5rem)",
                       background: "rgba(0,0,0,0.15)",
-                      pointerEvents: 'auto',
                     }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -586,37 +514,8 @@ const FeaturedVideoWebGL = ({
                       e.stopPropagation();
                       const video = videoRef.current;
                       if (video) {
-                        console.log('Attempting to play video from overlay...', {
-                          readyState: video.readyState,
-                          paused: video.paused,
-                          muted: video.muted,
-                          src: video.src
-                        });
-                        // Toggle mute/unmute when user clicks
                         video.muted = !video.muted;
-                        // Force play and check if it actually plays
-                        const playPromise = video.play();
-                        if (playPromise !== undefined) {
-                          playPromise
-                            .then(() => {
-                              console.log('Video playing successfully', {
-                                paused: video.paused,
-                                muted: video.muted,
-                                currentTime: video.currentTime,
-                                duration: video.duration
-                              });
-                              // Double check it's actually playing
-                              if (video.paused) {
-                                console.warn('Video is paused after play() resolved');
-                                video.play().catch(console.error);
-                              }
-                            })
-                            .catch((error) => {
-                              console.error('Video play failed:', error);
-                            });
-                        }
-                      } else {
-                        console.error('Video ref is null');
+                        video.play().catch((err) => console.error('Video play failed:', err));
                       }
                     }}
                   >

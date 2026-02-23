@@ -62,17 +62,20 @@ const FeaturedVideo = ({
   const [showPlayReel, setShowPlayReel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   
-  // Programmatically play video on mount
+  // Programmatically play video on mount and when video is ready
   useEffect(() => {
-    if (videoRef.current) {
-      const playPromise = videoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          // Autoplay was prevented, but that's okay - user can click to play
-          console.log('Video autoplay prevented:', error);
-        });
-      }
-    }
+    const video = videoRef.current;
+    if (!video) return;
+    const tryPlay = () => {
+      video.play().catch(() => {});
+    };
+    tryPlay();
+    video.addEventListener("loadeddata", tryPlay, { once: true });
+    video.addEventListener("canplay", tryPlay, { once: true });
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+    };
   }, []);
 
   useEffect(() => {
@@ -122,7 +125,7 @@ const FeaturedVideo = ({
           <div id={playerId} />
           
           <div 
-            className="w-full relative overflow-hidden" 
+            className="w-full relative overflow-hidden min-h-[200px] bg-black"
             style={{ 
               borderRadius: '12px', 
               aspectRatio: '16 / 9',
@@ -130,8 +133,8 @@ const FeaturedVideo = ({
           >
             <video
               ref={videoRef}
-              className="absolute inset-0 w-full h-full object-cover"
-              src="https://cdn.ebadfd.tech/Appify_Introduction_CEO_cropped.mp4"
+              className="absolute inset-0 w-full h-full object-contain object-center"
+              src="/Videos/Mennan Voice Cut.mp4"
               autoPlay
               muted
               loop
@@ -256,9 +259,9 @@ const FeaturedVideo = ({
               )}
             </AnimatePresence>
 
-            {/* Video container - 16:9 aspect with object-fit cover */}
+            {/* Video container - 16:9 aspect with letterboxing (black bars) */}
             <div 
-              className="w-full relative overflow-hidden" 
+              className="w-full relative overflow-hidden min-h-[200px] bg-black"
               style={{ 
                 borderRadius: '12px',
                 aspectRatio: '16 / 9',
@@ -266,15 +269,15 @@ const FeaturedVideo = ({
             >
               <video
                 ref={videoRef}
-                className="absolute inset-0 w-full h-full"
-                src="https://cdn.ebadfd.tech/Appify_Introduction_CEO_cropped.mp4"
+                className="absolute inset-0 w-full h-full object-contain object-center"
+                src="/Videos/Mennan Voice Cut.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="auto"
                 style={{
-                  objectFit: "cover",
+                  objectFit: "contain",
                   objectPosition: "center center",
                 }}
                 onClick={(e) => {

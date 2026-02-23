@@ -1,0 +1,7 @@
+packages:
+  - "."
+
+# Allow build scripts for these dependencies (removes "Ignored build scripts" warning)
+onlyBuiltDependencies:
+  - sharp
+  - unrs-resolver
