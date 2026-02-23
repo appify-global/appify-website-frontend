@@ -92,8 +92,8 @@ const FeaturedVideoWebGL = ({
         const videoVisible = videoTop < viewportHeight && videoBottom > 0;
         const videoCenter = videoRect.top + videoRect.height / 2;
         
-        // Video is "in center" if its center is within 200px of viewport center
-        const isVideoNearCenter = Math.abs(videoCenter - viewportCenter) < 200;
+        // Video is "in center" if its center is within 400px of viewport center
+        const isVideoNearCenter = Math.abs(videoCenter - viewportCenter) < 400;
 
         // Check thumbnail container position
         const thumbRect = thumbnailRef.current?.getBoundingClientRect();
@@ -114,9 +114,9 @@ const FeaturedVideoWebGL = ({
         }
         // Trigger animation to reel when:
         // - Video is visible and near center
-        // - User scrolls down
         // - Not already in reel state
-        else if (videoVisible && isVideoNearCenter && !isInReelState && scrollDirection === 1) {
+        // (Removed scrollDirection requirement for more reliable triggering)
+        else if (videoVisible && isVideoNearCenter && !isInReelState) {
           setIsInReelState(true);
           onReelStateChange?.(true);
           // Smooth transition to reel position
@@ -448,6 +448,13 @@ const FeaturedVideoWebGL = ({
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
+                    onClick={() => {
+                      if (videoRef.current) {
+                        videoRef.current.play().catch((error) => {
+                          console.log('Video play failed:', error);
+                        });
+                      }
+                    }}
                   >
                     <div className="flex items-center justify-center gap-6">
                       <RollerText text="PLAY" className="font-Aeonik uppercase" stagger={0.05} />
