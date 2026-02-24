@@ -1,6 +1,5 @@
 "use client";
 import { PageLayout } from "@/components/layouts";
-import ScrollToNextInvisible from "@/components/ScrollToNextInvisible";
 import { Service, ServicePageContent } from "@/lib/data/services";
 import ServiceHero from "./ServiceHero";
 import ServiceExperience from "./ServiceExperience";
@@ -24,11 +23,6 @@ interface ServicePageTemplateProps {
 export default function ServicePageTemplate({ service, content }: ServicePageTemplateProps) {
   // Check if this is the last service (custom-ai-models)
   const isLastService = service.slug === 'custom-ai-models';
-  const nextPageHref = isLastService
-    ? "/about"
-    : content.nextService
-      ? `/services/${content.nextService.category}/${content.nextService.slug}`
-      : null;
 
   return (
     <PageLayout
@@ -37,7 +31,14 @@ export default function ServicePageTemplate({ service, content }: ServicePageTem
       backHref="/services"
       hideFooterAboutUs={true}
       childrenAfterFooter={
-        nextPageHref ? <ScrollToNextInvisible nextPageHref={nextPageHref} /> : null
+        <>
+          {/* Footer navigation - shows next service or ABOUT US for last service */}
+          {isLastService ? (
+            <ServiceFooterNav showAboutUs={true} />
+          ) : content.nextService ? (
+            <ServiceFooterNav nextService={content.nextService} />
+          ) : null}
+        </>
       }
     >
       <ServiceHero
@@ -64,13 +65,6 @@ export default function ServicePageTemplate({ service, content }: ServicePageTem
       <ServiceFAQ faqs={content.faqs} />
 
       <ServiceCTA />
-
-      {/* Footer navigation - shows next service or ABOUT US for last service */}
-      {isLastService ? (
-        <ServiceFooterNav showAboutUs={true} />
-      ) : content.nextService ? (
-        <ServiceFooterNav nextService={content.nextService} />
-      ) : null}
     </PageLayout>
   );
 }

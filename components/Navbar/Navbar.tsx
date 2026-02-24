@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { Trail } from "./TrailText";
 
@@ -11,6 +11,8 @@ import MobileMenuButton from "./MobileMenuButton";
 import MobileMenu from "./MobileMenu";
 import Link from "next/link";
 import Image from "next/image";
+import { useLenis } from "@/hooks/useLenis";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface NavbarProps {
   showBackButton?: boolean;
@@ -20,6 +22,7 @@ interface NavbarProps {
 
 function Navbar({ showBackButton = false, backHref = "/services", logoColor = "auto" }: NavbarProps) {
   const pathname = usePathname();
+  const lenis = useLenis();
   
   // Logo styling: "auto" uses mix-blend-difference so logo is black on white bg, white on black bg.
   // "black" / "white" force a single style when needed.
@@ -33,13 +36,26 @@ function Navbar({ showBackButton = false, backHref = "/services", logoColor = "a
   // Mobile menu state
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Handle logo click to reload home page
+  const handleLogoClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    // Force full page reload to reset all animations and state
+    if (pathname === "/") {
+      // If already on home page, reload it
+      window.location.reload();
+    } else {
+      // If on different page, navigate to home and reload
+      window.location.href = "/";
+    }
+  }, [pathname]);
+
   return (
     <>
       {/* Navbar small screen */}
       <div className="fixed top-0 left-0 z-[9999] w-full py-6 lg:hidden px-6">
         <div className="flex items-center justify-between w-full font-extrabold pb-2">
           <div className="tracking-wider font-extrabold text-3xl cursor-pointer">
-            <Link href="/">
+            <Link href="/" onClick={handleLogoClick}>
               <span className={logoWrapperClassName}>
                 <Image 
                   src={'/appify_black.png'} 
@@ -81,7 +97,7 @@ function Navbar({ showBackButton = false, backHref = "/services", logoColor = "a
       <div className="fixed top-0 left-0 w-full px-[4.1vw] z-50 ">
         <div className="items-start justify-between hidden lg:flex pt-14 pb-10">
           <div className="tracking-wider font-AeonikMedium text-4xl">
-            <Link href="/">
+            <Link href="/" onClick={handleLogoClick}>
               <span className={logoWrapperClassName}>
                 <Image 
                   src={'/appify_black.png'} 

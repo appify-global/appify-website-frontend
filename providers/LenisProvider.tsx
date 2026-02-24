@@ -9,7 +9,9 @@ import {
   RefObject,
   useSyncExternalStore,
   useCallback,
+  useEffect,
 } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -45,6 +47,7 @@ const SERVER_SNAPSHOT: LenisContextType = {
 };
 
 export function LenisProvider({ children, footerRef }: LenisProviderProps) {
+  const pathname = usePathname();
   // Use ref to store state that shouldn't trigger re-renders on its own
   const storeRef = useRef<LenisStore>({
     lenis: null,
@@ -168,6 +171,20 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
       storeRef.current.isReady = false;
     };
   }, [footerRef]);
+
+  // Refresh ScrollTrigger and scroll to top on route change
+  useEffect(() => {
+    // Small delay to ensure DOM is ready
+    const timeoutId = setTimeout(() => {
+      window.scrollTo(0, 0);
+      if (storeRef.current.lenis) {
+        storeRef.current.lenis.scrollTo(0, { immediate: true });
+      }
+      ScrollTrigger.refresh();
+    }, 50);
+
+    return () => clearTimeout(timeoutId);
+  }, [pathname]);
 
   return (
     <LenisContext.Provider value={state}>

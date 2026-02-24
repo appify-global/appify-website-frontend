@@ -1,23 +1,25 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+const SCROLL_THRESHOLD = 3000; // Total scroll distance needed to fill progress bar (in pixels) - ~5% per scroll
+
 /**
  * Home page only. Renders the "KEEP SCROLLING / ABOUT US" black section.
- * When the user has come to this section (it's in view) and scrolls down again, navigates to /about — once per visit.
+ * Progress bar fills as user scrolls, navigates to /about when progress reaches 100%.
  */
 export default function HomeAboutScrollSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const sectionInViewRef = useRef(false);
-  const inViewSinceRef = useRef<number | null>(null);
+  const scrollProgressRef = useRef(0);
   const hasNavigatedRef = useRef(false);
+  const [progress, setProgress] = useState(0);
 
-  const MIN_VIEW_TIME_MS = 200; // Section must be in view this long before "scroll further" counts (avoids triggering on the same wheel that brought it in)
-
-  // Mark section as "in view" when user has scrolled to it (any part visible)
+  // Track when section enters viewport
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -26,13 +28,13 @@ export default function HomeAboutScrollSection() {
       (entries) => {
         const [e] = entries;
         if (!e) return;
-        const now = Date.now();
         if (e.isIntersecting) {
           sectionInViewRef.current = true;
-          if (inViewSinceRef.current === null) inViewSinceRef.current = now;
         } else {
           sectionInViewRef.current = false;
-          inViewSinceRef.current = null;
+          // Reset progress when section leaves viewport
+          scrollProgressRef.current = 0;
+          setProgress(0);
         }
       },
       { threshold: 0.1, rootMargin: "0px" }
@@ -41,17 +43,37 @@ export default function HomeAboutScrollSection() {
     return () => observer.disconnect();
   }, []);
 
-  // Only when user scrolls down *after* having been at the section (not the wheel that just brought it in)
+  // Track scroll progress and update progress bar
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (hasNavigatedRef.current || !sectionInViewRef.current || e.deltaY <= 0) return;
-      const inViewSince = inViewSinceRef.current;
-      if (inViewSince === null || Date.now() - inViewSince < MIN_VIEW_TIME_MS) return;
-      e.preventDefault();
-      hasNavigatedRef.current = true;
-      window.scrollTo(0, 0);
-      router.push("/about");
+      if (hasNavigatedRef.current || !sectionInViewRef.current) return;
+
+      // Only track scroll down (positive deltaY)
+      if (e.deltaY > 0) {
+        scrollProgressRef.current = Math.min(
+          scrollProgressRef.current + Math.abs(e.deltaY),
+          SCROLL_THRESHOLD
+        );
+      } else if (e.deltaY < 0) {
+        // Allow scrolling back up to reduce progress (but not below 0)
+        scrollProgressRef.current = Math.max(
+          scrollProgressRef.current - Math.abs(e.deltaY),
+          0
+        );
+      }
+
+      const newProgress = (scrollProgressRef.current / SCROLL_THRESHOLD) * 100;
+      setProgress(newProgress);
+
+      // Navigate when progress reaches 100%
+      if (newProgress >= 100 && !hasNavigatedRef.current) {
+        hasNavigatedRef.current = true;
+        e.preventDefault();
+        // Use window.location for full page reload to ensure scroll reset
+        window.location.href = "/about";
+      }
     };
+
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
   }, [router]);
@@ -74,7 +96,11 @@ export default function HomeAboutScrollSection() {
           <p className="text-sm sm:text-base lg:text-xl">NEXT PAGE</p>
           <div className="flex items-center gap-2">
             <div className="h-[4px] w-[120px] lg:w-[160px] bg-[#34393f] rounded-full relative overflow-hidden">
-              <div className="absolute h-full w-[33%] bg-[#ff009e] rounded-full left-0 top-0" />
+              <div
+                ref={progressBarRef}
+                className="absolute h-full bg-[#ff009e] rounded-full left-0 top-0 transition-all duration-150 ease-out"
+                style={{ width: `${progress}%` }}
+              />
             </div>
             <svg
               width="20"

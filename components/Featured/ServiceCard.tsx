@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { compute_card_state } from "@/rust/pkg/skiggle_wasm";
-import { useLenis } from "@/hooks/useLenis";
+import { useLenis, useLenisReady } from "@/hooks/useLenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,10 +66,54 @@ const FloatingCards: React.FC = () => {
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
   const [scrollLocked, setScrollLocked] = useState(false);
   const lenis = useLenis();
+  const lenisReady = useLenisReady();
+  const pathname = usePathname();
+  const triggersRef = useRef<ScrollTrigger[]>([]);
+  const pinTriggerRef = useRef<ScrollTrigger | null>(null);
+
+  // Reset all card positions to initial state
+  const resetCards = () => {
+    cardRefs.current.forEach((card, index) => {
+      if (!card) return;
+      const front = card.querySelector(".flip-card-front") as HTMLElement | null;
+      const back = card.querySelector(".flip-card-back") as HTMLElement | null;
+      if (!front || !back) return;
+
+      // Reset to initial positions
+      gsap.set(card, {
+        left: "50%",
+        top: "50%",
+        rotate: rotations[index] || 0,
+        xPercent: -50,
+        yPercent: -50,
+        force3D: true,
+        transformOrigin: "center center",
+        clearProps: "all"
+      });
+      gsap.set(front, {
+        rotateY: 0,
+        force3D: true
+      });
+      gsap.set(back, {
+        rotateY: -180,
+        force3D: true
+      });
+    });
+  };
 
   useEffect(() => {
     if (isMobile) return;
-    if (!sectionRef.current || !lenis) return;
+    if (!sectionRef.current || !lenis || !lenisReady) return;
+
+    // Kill any existing triggers
+    if (pinTriggerRef.current) {
+      pinTriggerRef.current.kill();
+    }
+    triggersRef.current.forEach((t) => t.kill());
+    triggersRef.current = [];
+
+    // Reset cards to initial state before setting up new triggers
+    resetCards();
 
     ScrollTrigger.defaults({
       scroller: document.body,
@@ -84,6 +129,7 @@ const FloatingCards: React.FC = () => {
       scrub: 1,
       invalidateOnRefresh: false,
     });
+    pinTriggerRef.current = pinTrigger;
 
     const triggers: ScrollTrigger[] = [];
 
@@ -125,6 +171,7 @@ const FloatingCards: React.FC = () => {
 
       const trigger = ScrollTrigger.create({
         trigger: sectionRef.current!,
+        scroller: document.body,
         start: "center center",
         end: `+=${totalScrollHeight}`,
         scrub: 1, // Smoother scrubbing
@@ -218,13 +265,31 @@ const FloatingCards: React.FC = () => {
 
       triggers.push(trigger);
     });
+    triggersRef.current = triggers;
+
+    // Refresh ScrollTrigger after a brief delay to ensure DOM is ready
+    // This ensures all triggers are properly initialized and can detect scroll
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+      // Force an update on all triggers to ensure they're active
+      triggers.forEach((t) => {
+        if (t.isActive) {
+          t.update();
+        }
+      });
+    }, 300);
 
     return () => {
-      pinTrigger.kill();
-      triggers.forEach((t) => t.kill());
+      clearTimeout(refreshTimeout);
+      if (pinTriggerRef.current) {
+        pinTriggerRef.current.kill();
+        pinTriggerRef.current = null;
+      }
+      triggersRef.current.forEach((t) => t.kill());
+      triggersRef.current = [];
       ScrollTrigger.clearMatchMedia();
     };
-  }, [lenis, isMobile, scrollLocked]);
+  }, [lenis, lenisReady, isMobile, scrollLocked, pathname]);
 
   if (isMobile) {
     return (

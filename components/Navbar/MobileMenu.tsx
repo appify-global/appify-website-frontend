@@ -5,7 +5,6 @@ import { useSpring, a } from "@react-spring/web";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useLenis } from "@/providers/LenisProvider";
 import { NewsletterForm } from "@/components/NewsletterForm";
 
 interface MobileMenuProps {
@@ -22,7 +21,6 @@ const navLinks = [
 
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   const pathname = usePathname();
-  const lenis = useLenis();
   const [visible, setVisible] = useState(false);
 
   // Panel slide animation
@@ -39,17 +37,17 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
     config: { duration: 300 },
   });
 
-  // Scroll lock
+  // Scroll lock - disable body scroll when menu is open
   useEffect(() => {
     if (open) {
-      lenis?.stop();
+      document.body.style.overflow = 'hidden';
     } else {
-      lenis?.start();
+      document.body.style.overflow = '';
     }
     return () => {
-      lenis?.start();
+      document.body.style.overflow = '';
     };
-  }, [open, lenis]);
+  }, [open]);
 
   // Escape key
   useEffect(() => {
@@ -67,6 +65,17 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
     },
     [pathname]
   );
+
+  // Handle navigation with full page reload to ensure scroll reset
+  const handleLinkClick = useCallback((e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    // Use window.location for full page reload to ensure scroll reset
+    if (href !== pathname) {
+      window.location.href = href;
+    } else {
+      onClose();
+    }
+  }, [pathname, onClose]);
 
   if (!open && !visible) {
     return null;
@@ -118,7 +127,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={onClose}
+                onClick={(e) => handleLinkClick(e, link.href)}
                 className="flex items-center justify-between py-4 sm:py-3 border-b border-black/5"
               >
                 <span className="font-Aeonik text-2xl sm:text-2xl text-[#2B2E3A]">
@@ -145,7 +154,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           </div>
 
           {/* News Room */}
-          <Link href="/news" onClick={onClose}>
+          <Link href="/news" onClick={(e) => handleLinkClick(e, "/news")}>
             <div className="bg-black text-white p-5 sm:p-5 rounded-xl flex items-center justify-between">
               <span className="font-Aeonik text-xl sm:text-2xl">
                 NEWS ROOM

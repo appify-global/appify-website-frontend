@@ -50,10 +50,17 @@ const RightArrowIcon: React.FC = () => (
   </svg>
 );
 
+const SCROLL_THRESHOLD = 3000; // Total scroll distance needed to fill progress bar (in pixels) - ~5% per scroll
+
 export default function ServiceFooterNav({ nextService, showAboutUs = false }: ServiceFooterNavProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true); // Start visible by default
+  const sectionInViewRef = useRef(false);
+  const scrollProgressRef = useRef(0);
+  const hasNavigatedRef = useRef(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -62,6 +69,12 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible");
             setIsVisible(true);
+            sectionInViewRef.current = true;
+          } else {
+            sectionInViewRef.current = false;
+            // Reset progress when section leaves viewport
+            scrollProgressRef.current = 0;
+            setProgress(0);
           }
         });
       },
@@ -79,6 +92,7 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
           // If already visible, add class immediately
           currentTitle.classList.add("is-visible");
           setIsVisible(true);
+          sectionInViewRef.current = true;
           return true;
         }
         return false;
@@ -104,6 +118,46 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
       };
     }
   }, []);
+
+  // Track scroll progress and update progress bar
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (hasNavigatedRef.current || !sectionInViewRef.current) return;
+
+      // Only track scroll down (positive deltaY)
+      if (e.deltaY > 0) {
+        scrollProgressRef.current = Math.min(
+          scrollProgressRef.current + Math.abs(e.deltaY),
+          SCROLL_THRESHOLD
+        );
+      } else if (e.deltaY < 0) {
+        // Allow scrolling back up to reduce progress (but not below 0)
+        scrollProgressRef.current = Math.max(
+          scrollProgressRef.current - Math.abs(e.deltaY),
+          0
+        );
+      }
+
+      const newProgress = (scrollProgressRef.current / SCROLL_THRESHOLD) * 100;
+      setProgress(newProgress);
+
+      // Navigate when progress reaches 100%
+      if (newProgress >= 100 && !hasNavigatedRef.current) {
+        hasNavigatedRef.current = true;
+        e.preventDefault();
+        const nextHref = showAboutUs 
+          ? "/about" 
+          : nextService 
+            ? `/services/${nextService.category}/${nextService.slug}`
+            : "/";
+        // Use window.location for full page reload to ensure scroll reset
+        window.location.href = nextHref;
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [nextService, showAboutUs]);
 
   return (
     <section
@@ -160,8 +214,12 @@ export default function ServiceFooterNav({ nextService, showAboutUs = false }: S
 
             {/* Progress bar */}
             <div className="flex items-center gap-2">
-              <div className="h-[4px] w-[80px] sm:w-[120px] lg:w-[160px] bg-[#34393f] rounded-full relative">
-                <div className="absolute h-full w-[33%] bg-[#ff009e] rounded-full" />
+              <div className="h-[4px] w-[80px] sm:w-[120px] lg:w-[160px] bg-[#34393f] rounded-full relative overflow-hidden">
+                <div
+                  ref={progressBarRef}
+                  className="absolute h-full bg-[#ff009e] rounded-full left-0 top-0 transition-all duration-150 ease-out"
+                  style={{ width: `${progress}%` }}
+                />
               </div>
               <RightArrowIcon />
             </div>

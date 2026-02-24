@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import React, { useEffect, useState, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaArrowUp, FaArrowRight, FaHeart } from "react-icons/fa";
 
@@ -60,17 +60,89 @@ interface FooterProps {
     hideAboutUsSection?: boolean;
 }
 
+const SCROLL_THRESHOLD = 3000; // Total scroll distance needed to fill progress bar (in pixels) - ~5% per scroll
+
 const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
     const pathname = usePathname();
+    const router = useRouter();
     const isAboutPage = pathname === "/about";
     // Start with empty so server and client match; fill in useEffect to avoid hydration mismatch
     const [times, setTimes] = useState<Record<string, string>>(() => ({}));
+    const aboutSectionRef = useRef<HTMLDivElement>(null);
+    const progressBarRef = useRef<HTMLDivElement>(null);
+    const sectionInViewRef = useRef(false);
+    const scrollProgressRef = useRef(0);
+    const hasNavigatedRef = useRef(false);
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
         setTimes(computeTimes());
         const t = setInterval(() => setTimes(computeTimes()), 60_000);
         return () => clearInterval(t);
     }, []);
+
+    // Track when ABOUT US section enters viewport
+    useEffect(() => {
+        if (hideAboutUsSection) return;
+        const section = aboutSectionRef.current;
+        if (!section) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const [e] = entries;
+                if (!e) return;
+                if (e.isIntersecting) {
+                    sectionInViewRef.current = true;
+                } else {
+                    sectionInViewRef.current = false;
+                    // Reset progress when section leaves viewport
+                    scrollProgressRef.current = 0;
+                    setProgress(0);
+                }
+            },
+            { threshold: 0.1, rootMargin: "0px" }
+        );
+        observer.observe(section);
+        return () => observer.disconnect();
+    }, [hideAboutUsSection]);
+
+    // Track scroll progress and update progress bar
+    useEffect(() => {
+        if (hideAboutUsSection) return;
+
+        const handleWheel = (e: WheelEvent) => {
+            if (hasNavigatedRef.current || !sectionInViewRef.current) return;
+
+            // Only track scroll down (positive deltaY)
+            if (e.deltaY > 0) {
+                scrollProgressRef.current = Math.min(
+                    scrollProgressRef.current + Math.abs(e.deltaY),
+                    SCROLL_THRESHOLD
+                );
+            } else if (e.deltaY < 0) {
+                // Allow scrolling back up to reduce progress (but not below 0)
+                scrollProgressRef.current = Math.max(
+                    scrollProgressRef.current - Math.abs(e.deltaY),
+                    0
+                );
+            }
+
+            const newProgress = (scrollProgressRef.current / SCROLL_THRESHOLD) * 100;
+            setProgress(newProgress);
+
+            // Navigate when progress reaches 100%
+            if (newProgress >= 100 && !hasNavigatedRef.current) {
+                hasNavigatedRef.current = true;
+                e.preventDefault();
+                const nextHref = isAboutPage ? "/projects" : "/about";
+                // Use window.location for full page reload to ensure scroll reset
+                window.location.href = nextHref;
+            }
+        };
+
+        window.addEventListener("wheel", handleWheel, { passive: false });
+        return () => window.removeEventListener("wheel", handleWheel);
+    }, [hideAboutUsSection, isAboutPage, router]);
 
     return (
         <footer className="w-full font-Aeonik">
@@ -166,7 +238,7 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
 
             {/* BLACK ABOUT US SECTION */}
             {!hideAboutUsSection && (
-                <div className="bg-black text-white px-[4vw] py-12 sm:py-16 lg:py-20 pb-0">
+                <div ref={aboutSectionRef} className="bg-black text-white px-[4vw] py-12 sm:py-16 lg:py-20 pb-0">
                     <div className="text-xs sm:text-sm lg:text-xl text-gray-400 mb-4 sm:mb-6 tracking-wide">KEEP SCROLLING TO LEARN MORE</div>
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
                         {isAboutPage ? (
@@ -180,8 +252,12 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
                         <div className="flex items-center gap-3">
                             <p className="text-sm sm:text-base lg:text-xl">NEXT PAGE</p>
                             <div className="flex items-center gap-2">
-                                <div className="h-[4px] w-[120px] lg:w-[160px] bg-[#34393f] rounded-full relative">
-                                    <div className="absolute h-full w-[33%] bg-[#ff009e] rounded-full" />
+                                <div className="h-[4px] w-[120px] lg:w-[160px] bg-[#34393f] rounded-full relative overflow-hidden">
+                                    <div
+                                        ref={progressBarRef}
+                                        className="absolute h-full bg-[#ff009e] rounded-full left-0 top-0 transition-all duration-150 ease-out"
+                                        style={{ width: `${progress}%` }}
+                                    />
                                 </div>
                                 <RightArrowIcon />
                             </div>

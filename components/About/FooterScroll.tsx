@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { useRouter } from "next/navigation";
 // Right arrow icon (matching ServiceFooterNav style)
 const RightArrowIcon: React.FC = () => (
   <svg
@@ -24,6 +25,8 @@ const RightArrowIcon: React.FC = () => (
 );
 
 gsap.registerPlugin(ScrollTrigger);
+
+const SCROLL_THRESHOLD = 3000; // Total scroll distance needed to fill progress bar (in pixels) - ~5% per scroll
 
 // Plus icon component
 const PlusIcon = ({ className = "" }: { className?: string }) => (
@@ -47,6 +50,12 @@ const PlusIcon = ({ className = "" }: { className?: string }) => (
 const FooterScroll = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const sectionInViewRef = useRef(false);
+  const scrollProgressRef = useRef(0);
+  const hasNavigatedRef = useRef(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (!sectionRef.current || !titleRef.current) return;
@@ -67,6 +76,65 @@ const FooterScroll = () => {
       }
     );
   }, []);
+
+  // Track when section enters viewport
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [e] = entries;
+        if (!e) return;
+        if (e.isIntersecting) {
+          sectionInViewRef.current = true;
+        } else {
+          sectionInViewRef.current = false;
+          // Reset progress when section leaves viewport
+          scrollProgressRef.current = 0;
+          setProgress(0);
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px" }
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  // Track scroll progress and update progress bar
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (hasNavigatedRef.current || !sectionInViewRef.current) return;
+
+      // Only track scroll down (positive deltaY)
+      if (e.deltaY > 0) {
+        scrollProgressRef.current = Math.min(
+          scrollProgressRef.current + Math.abs(e.deltaY),
+          SCROLL_THRESHOLD
+        );
+      } else if (e.deltaY < 0) {
+        // Allow scrolling back up to reduce progress (but not below 0)
+        scrollProgressRef.current = Math.max(
+          scrollProgressRef.current - Math.abs(e.deltaY),
+          0
+        );
+      }
+
+      const newProgress = (scrollProgressRef.current / SCROLL_THRESHOLD) * 100;
+      setProgress(newProgress);
+
+      // Navigate when progress reaches 100%
+      if (newProgress >= 100 && !hasNavigatedRef.current) {
+        hasNavigatedRef.current = true;
+        e.preventDefault();
+        // Use window.location for full page reload to ensure scroll reset
+        window.location.href = "/projects";
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [router]);
 
   return (
     <div
@@ -97,8 +165,12 @@ const FooterScroll = () => {
             NEXT PAGE
           </span>
           <div className="flex items-center gap-2">
-            <div className="h-[4px] w-[120px] lg:w-[160px] bg-[#34393f] rounded-full relative">
-              <div className="absolute h-full w-[33%] bg-[#ff009e] rounded-full" />
+            <div className="h-[4px] w-[120px] lg:w-[160px] bg-[#34393f] rounded-full relative overflow-hidden">
+              <div
+                ref={progressBarRef}
+                className="absolute h-full bg-[#ff009e] rounded-full left-0 top-0 transition-all duration-150 ease-out"
+                style={{ width: `${progress}%` }}
+              />
             </div>
             <RightArrowIcon />
           </div>

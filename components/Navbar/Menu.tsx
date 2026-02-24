@@ -20,6 +20,15 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
     }
   }, [onOutsideClick]);
 
+  // Handle navigation with full page reload to ensure scroll reset
+  const handleLinkClick = useCallback((e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    // Use window.location for full page reload to ensure scroll reset
+    if (href !== pathname) {
+      window.location.href = href;
+    }
+  }, [pathname]);
+
   useEffect(() => {
     document.addEventListener("click", handleChildClick);
     return () => {
@@ -94,19 +103,19 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
             style={contents}
           >
             <div className="flex justify-between pb-3">
-              <Link href="/">HOME</Link>
+              <Link href="/" onClick={(e) => handleLinkClick(e, "/")}>HOME</Link>
               {pathname === "/" && <div>•</div>}
             </div>
             <div className="flex justify-between py-3">
-              <Link href={"/about"}>ABOUT US</Link>
+              <Link href={"/about"} onClick={(e) => handleLinkClick(e, "/about")}>ABOUT US</Link>
               {pathname === "/about" && <div>•</div>}
             </div>
             <div className="flex justify-between py-3">
-              <Link href="/projects">PROJECTS</Link>
+              <Link href="/projects" onClick={(e) => handleLinkClick(e, "/projects")}>PROJECTS</Link>
               {pathname?.startsWith("/projects") && <div>•</div>}
             </div>
             <div className="flex justify-between pt-3">
-              <Link href="/services">SERVICES</Link>
+              <Link href="/services" onClick={(e) => handleLinkClick(e, "/services")}>SERVICES</Link>
               {pathname?.startsWith("/services") && <div>•</div>}
             </div>
           </a.div>
@@ -128,7 +137,7 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
 
           {/* News Room */}
           <a.div className="bg-black text-white p-5 sm:p-8 rounded-xl" style={contents}>
-            <Link href="/news">
+            <Link href="/news" onClick={(e) => handleLinkClick(e, "/news")}>
               <div className="flex justify-between text-2xl sm:text-2xl">
                 <div>NEWS ROOM</div>
                 <svg
