@@ -126,8 +126,10 @@ const FloatingCards: React.FC = () => {
       start: "center center",
       end: `+=${totalScrollHeight}`,
       pin: true,
+      pinSpacing: true,
       scrub: 1,
       invalidateOnRefresh: false,
+      anticipatePin: 1,
     });
     pinTriggerRef.current = pinTrigger;
 
@@ -341,13 +343,12 @@ const FloatingCards: React.FC = () => {
         h-[45vw]
         max-h-[900px]
         overflow-visible
-        -mt-[5vw]
         flex items-center justify-center
-        z-30
+        z-50
         px-[10vw]
       "
       id="service-cards"
-      style={{ zIndex: 30, overflow: 'visible' }}
+      style={{ zIndex: 50 }}
     >
       {expertsIn.map((expert, i) => (
         <div
@@ -357,15 +358,14 @@ const FloatingCards: React.FC = () => {
           }}
           className="
             card absolute
-            top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
             w-[22%]
             max-w-[380px]
             h-[clamp(400px,30vw,550px)]
             [perspective:1000px]
             transform-gpu
-            z-30
+            z-50
           "
-          style={{ zIndex: 30 }}
+          style={{ zIndex: 50 }}
         >
           <div className="flip-card-inner relative w-full h-full [transform-style:preserve-3d] border-1 border-black">
             <div className="flip-card-front absolute w-full h-full [backface-visibility:hidden] rounded-xl overflow-hidden">

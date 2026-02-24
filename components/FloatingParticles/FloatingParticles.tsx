@@ -275,13 +275,13 @@ const ParticleWaterfall: React.FC = () => {
     return (
 
         <div
-            className="relative w-full h-[92vh] md:h-[calc(100vh+200px)] lg:h-[100vh] overflow-hidden bg-gradient-to-b from-[#040506] via-[#02121a] to-black"
+            className="relative w-full h-[120vh] md:h-[120vh] lg:h-[120vh] overflow-hidden bg-gradient-to-b from-[#040506] via-[#02121a] to-black"
         >
             {/* Canvas background */}
             <div ref={canvasRef} className="absolute inset-0 z-0" />
 
             {/* Content overlay */}
-            <div className="absolute inset-0 flex flex-col items-center justify-start pt-[18vh] sm:justify-center sm:pt-0 text-center z-0 px-4 py-3 md:py-8 lg:pb-17 lg:pt-0">
+            <div className="absolute inset-0 flex flex-col items-center justify-start pt-[18vh] sm:justify-center sm:pt-0 text-center z-0 px-4 pt-12 pb-20 md:pt-16 md:pb-24 lg:pt-20 lg:pb-32">
 
                 <div className="relative inline-block px-8 sm:px-20 lg:px-20 py-4 sm:py-8 lg:py-12">
 
@@ -298,7 +298,7 @@ const ParticleWaterfall: React.FC = () => {
                     <a
                         href="#contact"
                         className="relative inline-block text-white font-Aeonik leading-none
-                text-[clamp(2rem,8vw,10rem)] sm:text-[clamp(3rem,12vw,10rem)] after:absolute after:bottom-0 after:left-0 after:h-1
+                text-[clamp(1rem,4vw,5rem)] sm:text-[clamp(1.5rem,6vw,5rem)] after:absolute after:bottom-0 after:left-0 after:h-1
                 after:w-0 after:bg-white after:transition-all after:duration-500 hover:after:w-full"
                     >
                         <div>Let&#39;s work</div>
@@ -314,7 +314,7 @@ const ParticleWaterfall: React.FC = () => {
                 </div>
 
                 {/* Continue to scroll button */}
-                <div className="mt-4 sm:mt-4 lg:mt-8">
+                <div className="mt-4 sm:mt-4 lg:mt-8 mb-8 sm:mb-12 lg:mb-16">
                     <a
                         href="#footer"
                         className="inline-flex items-center gap-2 sm:gap-3 bg-white text-black rounded-full px-4 py-2 sm:px-6 sm:py-3 font-Aeonik text-xs sm:text-sm tracking-widest uppercase hover:bg-transparent hover:text-white border border-white transition-colors duration-300"

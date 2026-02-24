@@ -12,9 +12,9 @@ const SkiggleDrop = dynamic(
 export default function HomeExpertsSection() {
   return (
     <section
-      className="h-auto lg:h-[200vh] relative z-30 py-[1vw] pt-[0.5vw] lg:pt-[1vw]"
+      className="h-auto lg:h-[200vh] relative z-30 py-[1vw] pt-[0.5vw] lg:pt-[1vw] overflow-visible"
       id="experts-section"
-      style={{ zIndex: 30, overflow: "visible" }}
+      style={{ zIndex: 30, overflow: "visible", overflowX: "visible", overflowY: "visible" }}
     >
       <SkiggleDrop />
       <div className="w-full px-[4vw]">
