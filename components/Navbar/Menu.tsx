@@ -84,12 +84,13 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
     <>
       {hidden && (
         <div
-          className="absolute top-[4rem] right-0 w-[calc(100vw-3rem)] sm:w-[20rem] max-w-[20rem]"
+          className="absolute top-[4rem] right-0 w-[calc(100vw-3rem)] sm:w-[20rem] max-w-[20rem] origin-top-right"
+          style={{ transform: 'scale(0.7)' }}
           ref={ref}
         >
           {/* Contents */}
           <a.div
-            className="rounded-xl bg-white flex flex-col font-Aeonik text-2xl sm:text-3xl p-5 sm:p-8"
+            className="rounded-xl bg-white flex flex-col font-Aeonik text-xl sm:text-2xl p-5 sm:p-8"
             style={contents}
           >
             <div className="flex justify-between pb-3">
@@ -115,7 +116,7 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
             className="rounded-xl bg-white flex flex-col p-5 sm:p-8 my-2"
             style={news}
           >
-            <div className="font-Aeonik text-2xl sm:text-4xl">
+            <div className="font-Aeonik text-xl sm:text-3xl">
               Subscribe to our newsletter
             </div>
             <NewsletterForm
@@ -128,7 +129,7 @@ const Menu: React.FC<MenuProps> = ({ open, onOutsideClick }) => {
           {/* News Room */}
           <a.div className="bg-black text-white p-5 sm:p-8 rounded-xl" style={contents}>
             <Link href="/news">
-              <div className="flex justify-between text-2xl sm:text-3xl">
+              <div className="flex justify-between text-xl sm:text-2xl">
                 <div>NEWS ROOM</div>
                 <svg
                   width="30px"
