@@ -1,5 +1,6 @@
 "use client";
 import { PageLayout } from "@/components/layouts";
+import ScrollToNextInvisible from "@/components/ScrollToNextInvisible";
 import { Service, ServicePageContent } from "@/lib/data/services";
 import ServiceHero from "./ServiceHero";
 import ServiceExperience from "./ServiceExperience";
@@ -23,9 +24,22 @@ interface ServicePageTemplateProps {
 export default function ServicePageTemplate({ service, content }: ServicePageTemplateProps) {
   // Check if this is the last service (custom-ai-models)
   const isLastService = service.slug === 'custom-ai-models';
-  
+  const nextPageHref = isLastService
+    ? "/about"
+    : content.nextService
+      ? `/services/${content.nextService.category}/${content.nextService.slug}`
+      : null;
+
   return (
-    <PageLayout navbarPadding="pb-[4vw]" showBackButton backHref="/services" hideFooterAboutUs={true}>
+    <PageLayout
+      navbarPadding="pb-[4vw]"
+      showBackButton
+      backHref="/services"
+      hideFooterAboutUs={true}
+      childrenAfterFooter={
+        nextPageHref ? <ScrollToNextInvisible nextPageHref={nextPageHref} /> : null
+      }
+    >
       <ServiceHero
         title={service.name}
         subtitle={content.heroSubtitle}
