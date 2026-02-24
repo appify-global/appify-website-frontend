@@ -156,15 +156,77 @@ function NewsPageContent() {
   const [showStickySearch, setShowStickySearch] = useState(false);
 
   useEffect(() => {
-    const el = heroSearchRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setShowStickySearch(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
+    let observer: IntersectionObserver | null = null;
+    
+    // Small delay to ensure ref is attached
+    const timeoutId = setTimeout(() => {
+      const el = heroSearchRef.current;
+      if (!el) return;
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setShowStickySearch(!entry.isIntersecting);
+        },
+        { 
+          threshold: 0,
+          rootMargin: '0px'
+        }
+      );
+      observer.observe(el);
+    }, 100);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      if (observer) {
+        observer.disconnect();
+      }
+    };
   }, []);
+
+  // Push navbar down when search bar is visible (desktop only)
+  useEffect(() => {
+    // Target desktop navbar - the fixed div that contains the logo
+    const desktopNavbar = Array.from(document.querySelectorAll('div.fixed.top-0')).find(
+      (el) => {
+        const htmlEl = el as HTMLElement;
+        // Check if it contains the logo link or has the specific navbar structure
+        return htmlEl.querySelector('a[href="/"]') !== null && 
+               htmlEl.querySelector('.font-AeonikMedium') !== null;
+      }
+    ) as HTMLElement;
+    
+    // Also target mobile navbar
+    const mobileNavbar = Array.from(document.querySelectorAll('div.fixed.top-0')).find(
+      (el) => {
+        const htmlEl = el as HTMLElement;
+        return htmlEl.classList.contains('lg:hidden') || 
+               (htmlEl.querySelector('img[alt="Appify"]') !== null && 
+                htmlEl.classList.contains('w-full'));
+      }
+    ) as HTMLElement;
+    
+    const navbars = [desktopNavbar, mobileNavbar].filter(Boolean);
+    
+    navbars.forEach((navbar) => {
+      if (!navbar) return;
+      
+      if (showStickySearch) {
+        // Search bar height is approximately 60px, but move navbar up slightly (reduce offset)
+        navbar.style.top = '55px';
+        navbar.style.transition = 'top 0.3s ease';
+      } else {
+        navbar.style.top = '0px';
+      }
+    });
+    
+    return () => {
+      navbars.forEach((navbar) => {
+        if (navbar) {
+          navbar.style.top = '';
+          navbar.style.transition = '';
+        }
+      });
+    };
+  }, [showStickySearch]);
 
   // Search handler
   const handleSearch = () => runSearch(searchQuery);
@@ -202,7 +264,7 @@ function NewsPageContent() {
 
           {/* Sticky Search Bar */}
           <div
-            className={`hidden md:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+            className={`hidden md:block fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${
               showStickySearch
                 ? "translate-y-0 opacity-100"
                 : "-translate-y-full opacity-0 pointer-events-none"

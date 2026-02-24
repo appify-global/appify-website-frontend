@@ -217,16 +217,6 @@ const FloatingCards: React.FC = () => {
       });
 
       triggers.push(trigger);
-
-      gsap.to(card, {
-        y: 10,
-        duration: 2,
-        ease: "power1.inOut",
-        repeat: -1,
-        yoyo: true,
-        delay: index * 0.4,
-        force3D: true,
-      });
     });
 
     return () => {
