@@ -148,6 +148,10 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
       },
     });
 
+    // Always start at top when LenisProvider mounts (page navigation)
+    window.scrollTo(0, 0);
+    lenisInstance.scrollTo(0, { immediate: true });
+
     requestAnimationFrame(raf);
     ScrollTrigger.defaults({ scroller: document.body });
     ScrollTrigger.refresh();

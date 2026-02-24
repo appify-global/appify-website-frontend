@@ -61,6 +61,7 @@ const FeaturedVideo = ({
 
   const [showPlayReel, setShowPlayReel] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [hasClickedPlay, setHasClickedPlay] = useState(false);
   
   // Programmatically play video on mount and when video is ready
   useEffect(() => {
@@ -125,81 +126,68 @@ const FeaturedVideo = ({
           <div id={playerId} />
           
           <div 
-            className="w-full relative overflow-hidden min-h-[200px] bg-black"
+            className="w-full relative overflow-hidden"
             style={{ 
               borderRadius: '12px', 
-              aspectRatio: '16 / 9',
+              aspectRatio: '2.1 / 1',
             }}
           >
             <video
               ref={videoRef}
-              className="absolute inset-0 w-full h-full object-contain object-center"
+              className="absolute inset-0 w-full h-full object-cover object-center"
               src="/Videos/Mennan Voice Cut.mp4"
               autoPlay
               muted
               loop
               playsInline
               preload="auto"
-              style={{ borderRadius: "12px" }}
+              style={{
+                borderRadius: "12px",
+                objectFit: "cover",
+                objectPosition: "center center",
+                transform: "scale(1.08)",
+                transformOrigin: "center center",
+              }}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 const video = videoRef.current;
-                if (video) {
-                  // Toggle mute/unmute when user clicks
+                if (!video) return;
+                if (hasClickedPlay) {
+                  setHasClickedPlay(false);
+                  video.muted = true;
+                } else {
                   video.muted = !video.muted;
-                  const playPromise = video.play();
-                  if (playPromise !== undefined) {
-                    playPromise
-                      .then(() => {
-                        console.log('Video playing successfully', {
-                          paused: video.paused,
-                          muted: video.muted
-                        });
-                      })
-                      .catch((error) => {
-                        console.error('Video play failed:', error);
-                      });
-                  }
+                  video.play().catch(() => {});
                 }
               }}
             />
             
-            <div 
-              className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.15em] font-light z-50 bg-black/10"
-              style={{ borderRadius: "12px" }}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const video = videoRef.current;
-                if (video) {
-                  // Toggle mute/unmute when user clicks
-                  video.muted = !video.muted;
-                  const playPromise = video.play();
-                  if (playPromise !== undefined) {
-                    playPromise
-                      .then(() => {
-                        console.log('Video playing successfully', {
-                          paused: video.paused,
-                          muted: video.muted
-                        });
-                      })
-                      .catch((error) => {
-                        console.error('Video play failed:', error);
-                      });
+            {!hasClickedPlay && (
+              <div
+                className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.15em] font-light z-50 bg-black/10"
+                style={{ borderRadius: "12px" }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setHasClickedPlay(true);
+                  const video = videoRef.current;
+                  if (video) {
+                    video.muted = false;
+                    video.play().catch(() => {});
                   }
-                }
-              }}
-            >
-              <div className="flex items-center justify-center gap-4">
-                <span className="text-xl font-Aeonik uppercase">PLAY</span>
-                <HomeReelVideoWatchButton 
-                  onMouseEnter={() => {}} 
-                  onMouseLeave={() => {}} 
-                />
-                <span className="text-xl font-Aeonik uppercase">REEL</span>
+                }}
+              >
+                <div className="flex items-center justify-center gap-4">
+                  <span className="text-xl font-Aeonik uppercase">PLAY</span>
+                  <HomeReelVideoWatchButton
+                    onMouseEnter={() => {}}
+                    onMouseLeave={() => {}}
+                  />
+                  <span className="text-xl font-Aeonik uppercase">REEL</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -259,9 +247,9 @@ const FeaturedVideo = ({
               )}
             </AnimatePresence>
 
-            {/* Video container - 16:9 aspect with letterboxing (black bars) */}
+            {/* Video container - 16:9 aspect, video fills frame */}
             <div 
-              className="w-full relative overflow-hidden min-h-[200px] bg-black"
+              className="w-full relative overflow-hidden min-h-[200px]"
               style={{ 
                 borderRadius: '12px',
                 aspectRatio: '16 / 9',
@@ -269,7 +257,7 @@ const FeaturedVideo = ({
             >
               <video
                 ref={videoRef}
-                className="absolute inset-0 w-full h-full object-contain object-center"
+                className="absolute inset-0 w-full h-full object-cover object-center"
                 src="/Videos/Mennan Voice Cut.mp4"
                 autoPlay
                 muted
@@ -277,39 +265,30 @@ const FeaturedVideo = ({
                 playsInline
                 preload="auto"
                 style={{
-                  objectFit: "contain",
+                  objectFit: "cover",
                   objectPosition: "center center",
                 }}
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
                   const video = videoRef.current;
-                  if (video) {
-                    // Toggle mute/unmute when user clicks
+                  if (!video) return;
+                  if (hasClickedPlay) {
+                    setHasClickedPlay(false);
+                    video.muted = true;
+                  } else {
                     video.muted = !video.muted;
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                      playPromise
-                        .then(() => {
-                          console.log('Video playing successfully', {
-                            paused: video.paused,
-                            muted: video.muted
-                          });
-                        })
-                        .catch((error) => {
-                          console.error('Video play failed:', error);
-                        });
-                    }
+                    video.play().catch(() => {});
                   }
                 }}
               />
               
-              {/* PLAY REEL overlay - fades in when video is expanded */}
+              {/* PLAY REEL overlay - fades in when video is expanded, hides after click */}
               <AnimatePresence>
-                {showPlayReel && (
+                {showPlayReel && !hasClickedPlay && (
                   <motion.div
                     className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.2em] font-light z-50"
-                    style={{ 
+                    style={{
                       fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)',
                       background: 'rgba(0,0,0,0.15)',
                     }}
@@ -320,31 +299,19 @@ const FeaturedVideo = ({
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
+                      setHasClickedPlay(true);
                       const video = videoRef.current;
                       if (video) {
-                        // Toggle mute/unmute when user clicks
-                        video.muted = !video.muted;
-                        const playPromise = video.play();
-                        if (playPromise !== undefined) {
-                          playPromise
-                            .then(() => {
-                              console.log('Video playing successfully', {
-                                paused: video.paused,
-                                muted: video.muted
-                              });
-                            })
-                            .catch((error) => {
-                              console.error('Video play failed:', error);
-                            });
-                        }
+                        video.muted = false;
+                        video.play().catch(() => {});
                       }
                     }}
                   >
                     <div className="flex items-center justify-center gap-6">
                       <RollerText text="PLAY" className="font-Aeonik uppercase" stagger={0.05} />
-                      <HomeReelVideoWatchButton 
-                        onMouseEnter={() => setIsHovering(true)} 
-                        onMouseLeave={() => setIsHovering(false)} 
+                      <HomeReelVideoWatchButton
+                        onMouseEnter={() => setIsHovering(true)}
+                        onMouseLeave={() => setIsHovering(false)}
                       />
                       <RollerText text="REEL" className="font-Aeonik uppercase" stagger={0.05} />
                     </div>

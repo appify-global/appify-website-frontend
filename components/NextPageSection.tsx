@@ -58,6 +58,7 @@ export default function NextPageSection({
       if (inViewSince === null || Date.now() - inViewSince < MIN_VIEW_TIME_MS) return;
       e.preventDefault();
       hasNavigatedRef.current = true;
+      window.scrollTo(0, 0);
       router.push(nextPageHref);
     };
     window.addEventListener("wheel", handleWheel, { passive: false });

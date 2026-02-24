@@ -48,6 +48,7 @@ const FeaturedVideoWebGL = ({
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
 
   const [showPlayReel, setShowPlayReel] = useState(false);
+  const [hasClickedPlay, setHasClickedPlay] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isInReelState, setIsInReelState] = useState(false);
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
@@ -336,38 +337,42 @@ const FeaturedVideoWebGL = ({
                 e.preventDefault();
                 e.stopPropagation();
                 const video = videoRef.current;
-                if (video) {
-                  video.muted = !video.muted;
-                  const playPromise = video.play();
-                  if (playPromise !== undefined) {
-                    playPromise.then(() => {}).catch((error) => console.error('Video play failed:', error));
-                  }
-                }
-              }}
-            />
-
-            <div
-              className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.15em] font-light z-50 bg-black/10"
-              style={{ borderRadius: "12px" }}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const video = videoRef.current;
-                if (video) {
+                if (!video) return;
+                if (hasClickedPlay) {
+                  setHasClickedPlay(false);
+                  video.muted = true;
+                } else {
                   video.muted = !video.muted;
                   video.play().catch((err) => console.error('Video play failed:', err));
                 }
               }}
-            >
-              <div className="flex items-center justify-center gap-4">
-                <span className="text-xl font-Aeonik uppercase">PLAY</span>
-                <HomeReelVideoWatchButton
-                  onMouseEnter={() => {}}
-                  onMouseLeave={() => {}}
-                />
-                <span className="text-xl font-Aeonik uppercase">REEL</span>
+            />
+
+            {!hasClickedPlay && (
+              <div
+                className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.15em] font-light z-50 bg-black/10"
+                style={{ borderRadius: "12px" }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setHasClickedPlay(true);
+                  const video = videoRef.current;
+                  if (video) {
+                    video.muted = !video.muted;
+                    video.play().catch((err) => console.error('Video play failed:', err));
+                  }
+                }}
+              >
+                <div className="flex items-center justify-center gap-4">
+                  <span className="text-xl font-Aeonik uppercase">PLAY</span>
+                  <HomeReelVideoWatchButton
+                    onMouseEnter={() => {}}
+                    onMouseLeave={() => {}}
+                  />
+                  <span className="text-xl font-Aeonik uppercase">REEL</span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -489,16 +494,20 @@ const FeaturedVideoWebGL = ({
                   e.preventDefault();
                   e.stopPropagation();
                   const video = videoRef.current;
-                  if (video) {
+                  if (!video) return;
+                  if (hasClickedPlay) {
+                    setHasClickedPlay(false);
+                    video.muted = true;
+                  } else {
                     video.muted = !video.muted;
                     video.play().catch((err) => console.error("Video play failed:", err));
                   }
                 }}
               />
 
-              {/* PLAY REEL overlay - visible at fullscreen; click = unmute + play */}
+              {/* PLAY REEL overlay - visible at fullscreen; click = unmute + play, then hide overlay */}
               <AnimatePresence>
-                {showPlayReel && (
+                {showPlayReel && !hasClickedPlay && (
                   <motion.div
                     className="absolute inset-0 flex flex-col items-center justify-center cursor-pointer text-white tracking-[0.2em] font-light z-50"
                     style={{
@@ -512,6 +521,7 @@ const FeaturedVideoWebGL = ({
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
+                      setHasClickedPlay(true);
                       const video = videoRef.current;
                       if (video) {
                         video.muted = !video.muted;

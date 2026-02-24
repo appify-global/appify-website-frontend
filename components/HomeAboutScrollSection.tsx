@@ -49,6 +49,7 @@ export default function HomeAboutScrollSection() {
       if (inViewSince === null || Date.now() - inViewSince < MIN_VIEW_TIME_MS) return;
       e.preventDefault();
       hasNavigatedRef.current = true;
+      window.scrollTo(0, 0);
       router.push("/about");
     };
     window.addEventListener("wheel", handleWheel, { passive: false });
