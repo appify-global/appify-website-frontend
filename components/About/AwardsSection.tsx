@@ -113,10 +113,10 @@ const TrophyIcon = ({ className = "" }: { className?: string }) => (
 // Circle number badge
 const CircleBadge = ({ number, className = "" }: { number: string; className?: string }) => (
   <div className={`flex items-center gap-2 ${className}`}>
-    <div className="w-[44px] h-[44px] rounded-full border border-white/30 flex items-center justify-center">
-      <TrophyIcon className="w-6 h-6 text-white/60" />
+    <div className="w-[44px] h-[44px] rounded-full border border-black/30 flex items-center justify-center">
+      <TrophyIcon className="w-6 h-6 text-black/60" />
     </div>
-    <span className="font-mono text-[22px] text-white">{number}</span>
+    <span className="font-mono text-[22px] text-black">{number}</span>
   </div>
 );
 
@@ -162,7 +162,7 @@ const AwardsSection = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="relative w-full bg-black overflow-hidden">
+    <div ref={sectionRef} className="relative w-full bg-[var(--color-background,#F0F1FA)] overflow-hidden">
       {/* Awards section - Hidden for now */}
       {/* Large background text - AWARD WINNING */}
       {/* <div className="relative min-h-[40vh] sm:min-h-[50vh] lg:min-h-[740px] overflow-hidden py-[6vh] sm:py-[8vh] lg:py-[112px]">
@@ -256,7 +256,7 @@ const AwardsSection = () => {
       <div className="relative z-10 px-[5vw] sm:px-[6vw] md:px-[5vw] lg:px-[5vw] py-12 sm:py-14 md:py-16 lg:py-[120px]">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 sm:gap-10 md:gap-12">
           <div className="flex items-center gap-4">
-            <h3 className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,8vw,2.75rem)] md:text-[clamp(2.25rem,6vw,3rem)] lg:text-[56px] xl:text-[72px] leading-[1.08] text-white">
+            <h3 className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,8vw,2.75rem)] md:text-[clamp(2.25rem,6vw,3rem)] lg:text-[56px] xl:text-[72px] leading-[1.08] text-black">
               TALKS
             </h3>
             <CircleBadge number="5" className="lg:hidden" />
@@ -267,13 +267,13 @@ const AwardsSection = () => {
               const content = (
                 <div
                   className={`flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1 sm:gap-4 ${
-                    talk.link ? "cursor-pointer hover:opacity-80 transition-opacity" : ""
+                    talk.link ? "cursor-pointer group" : ""
                   }`}
                 >
-                  <span className="font-Aeonik text-[clamp(0.8125rem,2vw,0.9375rem)] lg:text-[18px] text-white min-w-0 lg:w-[305px]">
+                  <span className="font-Aeonik text-[clamp(0.8125rem,2vw,0.9375rem)] lg:text-[18px] text-black min-w-0 lg:w-[305px] transition-colors group-hover:text-[#ff009e]">
                     {talk.event}
                   </span>
-                  <span className="font-Aeonik text-[clamp(0.75rem,1.8vw,0.9375rem)] lg:text-[18px] text-white/60 shrink-0">
+                  <span className="font-Aeonik text-[clamp(0.75rem,1.8vw,0.9375rem)] lg:text-[18px] text-black/60 shrink-0 transition-colors group-hover:text-[#ff009e]">
                     {talk.location}
                   </span>
                 </div>

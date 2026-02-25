@@ -84,21 +84,21 @@ const clientLogos = [
 const LogoItem = ({ name, logo }: { name: string; logo?: string }) => {
   if (logo) {
     return (
-      <div className="w-full h-full flex items-center justify-center bg-white/5 rounded-lg p-2 sm:p-3 lg:p-4">
+      <div className="w-full h-full flex items-center justify-center p-2 sm:p-3 lg:p-4">
         <Image
           src={logo}
           alt={name}
           width={136}
           height={115}
-          className="w-full h-full object-contain filter brightness-0 invert"
+          className="w-full h-full object-contain brightness-0 opacity-80"
         />
       </div>
     );
   }
   
   return (
-    <div className="w-full h-full flex items-center justify-center bg-white/5 rounded-lg">
-      <span className="font-Aeonik text-[11px] sm:text-[12px] text-white/40 text-center px-2">
+    <div className="w-full h-full flex items-center justify-center">
+      <span className="font-Aeonik text-[11px] sm:text-[12px] text-black/40 text-center px-2">
         {name}
       </span>
     </div>
@@ -183,7 +183,7 @@ const ClientsSection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full bg-black overflow-hidden pt-[6vh] sm:pt-[8vh] md:pt-[10vh] lg:pt-[160px] pb-[4vh] sm:pb-[5vh] lg:pb-[40px]"
+      className="relative w-full bg-[var(--color-background,#F0F1FA)] overflow-hidden pt-[6vh] sm:pt-[8vh] md:pt-[10vh] lg:pt-[160px] pb-[4vh] sm:pb-[5vh] lg:pb-[40px]"
     >
       {/* Main content */}
       <div className="relative z-10 px-[5vw] sm:px-[6vw] md:px-[5vw] lg:px-[5vw]">
@@ -192,14 +192,14 @@ const ClientsSection = () => {
           {/* Title */}
           <h2
             ref={titleRef}
-            className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,8.5vw,2.75rem)] md:text-[clamp(2.25rem,6.5vw,3rem)] lg:text-[56px] xl:text-[72px] leading-[1.08] sm:leading-[1.1] text-white max-w-full lg:max-w-[905px]"
+            className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,8.5vw,2.75rem)] md:text-[clamp(2.25rem,6.5vw,3rem)] lg:text-[56px] xl:text-[72px] leading-[1.08] sm:leading-[1.1] text-black max-w-full lg:max-w-[905px]"
           >
             CLIENTS WE WORK WITH
           </h2>
 
           {/* Subtitle - positioned right on desktop */}
           <div className="lg:max-w-[219px] lg:text-right">
-            <p className="font-Aeonik text-[clamp(0.6875rem,2vw,0.875rem)] leading-[1.35] text-white/80 uppercase">
+            <p className="font-Aeonik text-[clamp(0.6875rem,2vw,0.875rem)] leading-[1.35] text-black/80 uppercase">
               WE CAN&apos;T WAIT TO SHOW YOU WHAT WE CAN DO FOR YOU AND YOUR BRAND.
             </p>
           </div>

@@ -115,7 +115,7 @@ export function PageLayout({
   return (
     <Suspense fallback={loadingFallback || defaultLoadingFallback}>
       <LenisProvider footerRef={footerRef}>
-        <div className={`${backgroundColor || "bg-[var(--color-background,#F0F1FA)]"} h-auto w-full min-w-0 flex flex-col overflow-x-visible min-h-screen relative z-10 lg:z-[20]`}>
+        <div className={`${backgroundColor || "bg-[var(--color-background,#F0F1FA)]"} h-auto w-full min-w-0 flex flex-col overflow-x-visible overflow-y-visible min-h-screen relative z-10 lg:z-[20]`}>
           <ScrollIndicator />
 
           {showNavbar && (
@@ -128,7 +128,7 @@ export function PageLayout({
             </nav>
           )}
 
-          <main className={`flex-1 min-w-0 ${className}`}>
+          <main className={`flex-1 min-w-0 overflow-visible ${className}`}>
             {children}
           </main>
         </div>

@@ -5,7 +5,7 @@ import DotButton from "@/components/ui/DotButton";
 
 // Plus icon separator row
 const PlusIconRow = () => (
-  <div className="flex items-center justify-between w-full py-4">
+  <div className="flex items-center justify-between w-full py-2 sm:py-3 md:py-4">
     {[0, 1, 2].map((i) => (
       <svg
         key={i}
@@ -48,7 +48,7 @@ const CompanyLogos = () => {
   );
   
   return (
-    <div className="relative w-full h-[250px] sm:h-[300px] lg:h-[400px] overflow-hidden">
+    <div className="relative w-full min-h-[200px] sm:min-h-[250px] md:min-h-[300px] lg:min-h-[350px] xl:min-h-[400px] overflow-hidden flex items-center">
       {/* Background gradient fade */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#F0F1FA] via-transparent to-[#F0F1FA] z-10 pointer-events-none" />
       
@@ -94,24 +94,24 @@ const ServicesFooterCTA = () => {
   return (
     <section 
       ref={sectionRef}
-      className="footer-cta relative w-full py-8 sm:py-10 lg:py-24"
+      className="footer-cta relative w-full min-h-[55vh] sm:h-[100vh] md:h-[calc(100vh+200px)] lg:h-[100vh] py-6 sm:py-8 md:py-10 lg:py-24 flex flex-col justify-center"
     >
       {/* Plus icon separator */}
       <PlusIconRow />
 
       {/* Company logos background */}
-      <div className="relative mt-6 sm:mt-8">
+      <div className="relative mt-4 sm:mt-5 md:mt-6 lg:mt-8">
         <CompanyLogos />
         
         {/* Centered CTA content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
           {/* Subtitle */}
-          <p className="font-Aeonik text-xs sm:text-sm uppercase tracking-wider text-[#666] mb-4">
+          <p className="font-Aeonik text-[10px] sm:text-xs md:text-sm uppercase tracking-wider text-[#666] mb-2 sm:mb-3 md:mb-4">
             IS YOUR BIG IDEA READY TO GO WILD?
           </p>
           
           {/* Main title */}
-          <h2 className="font-Aeonik text-[clamp(1.75rem,6vw,6rem)] leading-[1] text-center">
+          <h2 className="font-Aeonik text-[clamp(1.5rem,5vw,4rem)] sm:text-[clamp(1.75rem,5.5vw,5rem)] md:text-[clamp(1.75rem,6vw,6rem)] leading-[1] text-center">
             <span className="block">Let&apos;s work</span>
             <span className="block">together!</span>
           </h2>
@@ -122,7 +122,7 @@ const ServicesFooterCTA = () => {
       <PlusIconRow />
 
       {/* CTA button */}
-      <div className="flex justify-center mt-6 sm:mt-8">
+      <div className="flex justify-center mt-4 sm:mt-5 md:mt-6 lg:mt-8">
         <DotButton
           text="CONTINUE TO SCROLL"
           variant="white"

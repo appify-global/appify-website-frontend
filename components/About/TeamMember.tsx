@@ -30,7 +30,7 @@ const PlusIcon = ({ className = "" }: { className?: string }) => (
 const DotGrid = ({ className = "" }: { className?: string }) => (
   <div className={`grid grid-cols-2 gap-1 ${className}`}>
     {[0, 1, 2, 3].map((i) => (
-      <div key={i} className="w-1 h-1 bg-white/60 rounded-full" />
+      <div key={i} className="w-1 h-1 bg-black/60 rounded-full" />
     ))}
   </div>
 );
@@ -43,7 +43,7 @@ const RulerPattern = ({ className = "", inverted = false }: { className?: string
         key={i}
         className={`w-[2px] ${
           i === 0 || i === 5 || i === 10 ? "h-4" : "h-2"
-        } ${inverted ? "bg-white/40 rotate-180" : "bg-white/40"}`}
+        } ${inverted ? "bg-black/40 rotate-180" : "bg-black/40"}`}
       />
     ))}
   </div>
@@ -55,7 +55,7 @@ const ThreeRowDots = ({ className = "" }: { className?: string }) => (
     {[0, 1, 2].map((row) => (
       <div key={row} className="flex gap-[7px]">
         {Array.from({ length: 11 }).map((_, i) => (
-          <div key={i} className="w-[2px] h-[2px] bg-white/40" />
+          <div key={i} className="w-[2px] h-[2px] bg-black/40" />
         ))}
       </div>
     ))}
@@ -132,20 +132,20 @@ const TeamMember = () => {
       ref={sectionRef}
       className="relative w-full min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh] lg:h-[120vh] overflow-hidden"
     >
-      {/* Black overlay to match other sections opacity */}
-      <div className="absolute inset-0 bg-black z-0" />
+      {/* Light background overlay */}
+      <div className="absolute inset-0 bg-[var(--color-background,#F0F1FA)] z-0" />
       
       {/* Plus icon row */}
       <div className="absolute top-1/2 -translate-y-1/2 left-[5vw] right-[5vw] hidden lg:flex items-center justify-between z-10">
         {[0, 1, 2, 3, 4].map((i) => (
-          <PlusIcon key={i} className="w-5 h-5 text-white/60" />
+          <PlusIcon key={i} className="w-5 h-5 text-black/60" />
         ))}
       </div>
 
       {/* Main content */}
       <div className="relative z-10 h-full px-[4vw] sm:px-[5vw] md:px-[6vw] lg:px-[5vw] py-[5vh] sm:py-[6vh] md:py-[8vh] lg:py-[53px]">
         {/* Section number indicator */}
-        <div className="flex items-center gap-7 text-white/60 mb-4 lg:mb-0">
+        <div className="flex items-center gap-7 text-black/60 mb-4 lg:mb-0">
           <span className="font-mono text-[10px] lg:text-xs">[[</span>
           <span className="font-mono text-[10px] lg:text-xs">003</span>
           <span className="font-mono text-[10px] lg:text-xs">]]</span>
@@ -167,7 +167,7 @@ const TeamMember = () => {
           <div className="flex justify-end z-20 mb-4">
             <h2
               ref={titleRef}
-              className="font-Aeonik text-[60px] lg:text-[70px] xl:text-[85px] leading-[1] tracking-[0.15em] text-white whitespace-nowrap inline-block"
+              className="font-Aeonik text-[60px] lg:text-[70px] xl:text-[85px] leading-[1] tracking-[0.15em] text-black whitespace-nowrap inline-block"
             >
               OUR FOUNDER
             </h2>
@@ -178,29 +178,30 @@ const TeamMember = () => {
             {/* Founder info - name */}
             <div className="flex-shrink-0">
               <div className="flex items-center gap-2 mb-2">
-                <span className="font-Aeonik text-[16px] text-white">
+                <span className="font-Aeonik text-[16px] text-black">
                   :: Mennan Yelkenci
                 </span>
               </div>
-              <p className="font-Aeonik text-[10px] text-white/60 uppercase tracking-wider mb-3">
+              <p className="font-Aeonik text-[10px] text-black/60 uppercase tracking-wider mb-3">
                 Founder and CEO
               </p>
               {/* Progress bar */}
-              <div className="w-[220px] h-[2px] bg-white/20 rounded-full overflow-hidden">
-                <div className="w-[80%] h-full bg-white/80 rounded-full" />
+              <div className="w-[220px] h-[2px] bg-black/20 rounded-full overflow-hidden">
+                <div className="w-[80%] h-full bg-[#ff009e] rounded-full" />
               </div>
             </div>
 
             {/* Founder image */}
             <div
               ref={imageRef}
-              className="w-[300px] h-[400px] relative flex-shrink-0"
+              className="w-[400px] h-[520px] relative flex-shrink-0"
             >
               <Image
-                src="/team/founder-img.svg"
+                src="/team/team-leader-inverted.svg"
                 alt="Mennan Yelkenci"
                 fill
-                className="object-cover"
+                className="object-contain"
+                style={{ top: '2rem', maxWidth: '150%', left: '-50%' }}
               />
             </div>
 
@@ -209,16 +210,16 @@ const TeamMember = () => {
               {/* SVG */}
               <div className="flex-shrink-0 flex items-end">
                 <svg width="65" height="89" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[65px] h-[89px]">
-                  <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
+                  <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="black"/>
                 </svg>
               </div>
 
               {/* Paragraphs */}
               <div className="flex-1 max-w-[458px]">
-                <p className="font-Aeonik text-[16px] leading-[1.4] text-white/80 mb-4">
+                <p className="font-Aeonik text-[16px] leading-[1.4] text-black/80 mb-4">
                   Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
                 </p>
-                <p className="font-Aeonik text-[16px] leading-[1.4] text-white/80">
+                <p className="font-Aeonik text-[16px] leading-[1.4] text-black/80">
                   As a result of our diverse experience, we are able to think creatively
                   and find new solutions to problems, providing clients with memorable,
                   purpose-driven experiences that cut through the noise and connect
@@ -236,7 +237,7 @@ const TeamMember = () => {
           <div className="text-right mb-6 sm:mb-8">
             <h2
               ref={titleRef}
-              className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,10vw,3rem)] md:text-[clamp(2.5rem,8vw,3.25rem)] leading-[0.98] tracking-[0.06em] sm:tracking-[0.1em] text-white inline-block"
+              className="font-Aeonik text-[clamp(1.75rem,9vw,2.5rem)] sm:text-[clamp(2rem,10vw,3rem)] md:text-[clamp(2.5rem,8vw,3.25rem)] leading-[0.98] tracking-[0.06em] sm:tracking-[0.1em] text-black inline-block"
             >
               OUR FOUNDER
             </h2>
@@ -245,13 +246,13 @@ const TeamMember = () => {
           {/* Founder image */}
           <div
             ref={imageRef}
-            className="w-full max-w-[220px] sm:max-w-[260px] md:max-w-[300px] h-[280px] sm:h-[340px] md:h-[400px] mx-auto mt-4 sm:mt-8 md:mt-10 mb-6 sm:mb-8 md:mb-10 relative"
+            className="w-full max-w-[90vw] sm:max-w-[320px] md:max-w-[360px] h-[360px] sm:h-[420px] md:h-[480px] mx-auto mt-4 sm:mt-8 md:mt-10 mb-6 sm:mb-8 md:mb-10 relative"
           >
             <Image
-              src="/team/founder-img.svg"
+              src="/team/team-leader-inverted.svg"
               alt="Mennan Yelkenci"
               fill
-              className="object-cover"
+              className="object-contain"
             />
           </div>
 
@@ -259,30 +260,30 @@ const TeamMember = () => {
           <div className="flex items-start gap-4 sm:gap-5 md:gap-6 mt-2 mb-8 sm:mb-10">
             {/* SVG */}
             <svg width="80" height="110" viewBox="0 0 130 178" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0 w-12 h-[5.5rem] sm:w-16 sm:h-[6.5rem] md:w-20 md:h-28">
-              <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="white"/>
+              <path d="M130 0V177.272H87.9795V89.293H42.0205V177.272H0V0H130Z" fill="black"/>
             </svg>
             {/* Founder card - Name section */}
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <span className="font-Aeonik text-[clamp(0.875rem,2.5vw,1rem)] text-white">
+                <span className="font-Aeonik text-[clamp(0.875rem,2.5vw,1rem)] text-black">
                   :: Mennan Yelkenci
                 </span>
               </div>
-              <p className="font-Aeonik text-[10px] sm:text-[11px] md:text-xs text-white/60 uppercase tracking-wider mb-3 sm:mb-4">
+              <p className="font-Aeonik text-[10px] sm:text-[11px] md:text-xs text-black/60 uppercase tracking-wider mb-3 sm:mb-4">
                 Founder and CEO
               </p>
-              <div className="w-[160px] sm:w-[220px] md:w-[263px] h-[3px] bg-white/20 rounded-full overflow-hidden">
-                <div className="w-[80%] h-full bg-white/80 rounded-full" />
+              <div className="w-[160px] sm:w-[220px] md:w-[263px] h-[3px] bg-black/20 rounded-full overflow-hidden">
+                <div className="w-[80%] h-full bg-[#ff009e] rounded-full" />
               </div>
             </div>
           </div>
 
           {/* Paragraphs */}
           <div className="flex-1 min-w-0">
-            <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-white/80 mb-4">
+            <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-black/80 mb-4">
               Mennan takes care of day to day business operations, ensures projects run smoothly and finds the best talent to help execute projects.
             </p>
-            <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-white/80">
+            <p className="font-Aeonik text-[13px] sm:text-sm leading-[1.45] text-black/80">
               As a result of our diverse experience, we are able to think creatively
               and find new solutions to problems, providing clients with memorable,
               purpose-driven experiences that cut through the noise and connect

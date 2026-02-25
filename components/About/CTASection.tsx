@@ -125,7 +125,7 @@ const CTASection = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-[55vh] sm:min-h-[65vh] md:min-h-[70vh] lg:min-h-[100vh] bg-gradient-to-b from-[#040506] via-[#02121a] to-black overflow-hidden py-[32px] sm:py-[48px] md:py-[60px] lg:py-[180px]"
+      className="relative w-full min-h-[55vh] sm:min-h-[65vh] md:min-h-[70vh] lg:min-h-[100vh] bg-[var(--color-background,#F0F1FA)] overflow-hidden py-[32px] sm:py-[48px] md:py-[60px] lg:py-[180px]"
     >
       {/* Face images background */}
       <div
@@ -135,7 +135,7 @@ const CTASection = () => {
         {facePositions.map((pos, idx) => (
           <div
             key={idx}
-            className="absolute rounded-full overflow-hidden"
+            className="absolute rounded-full overflow-hidden scale-[0.4] sm:scale-[0.6] md:scale-[0.8] lg:scale-100"
             style={{
               top: pos.top,
               left: pos.left,
@@ -160,15 +160,15 @@ const CTASection = () => {
         <div className="relative inline-block px-6 sm:px-10 md:px-16 lg:px-20 py-5 sm:py-6 md:py-8 lg:py-12">
           {/* Plus icons positioned absolutely */}
           <span className="absolute -top-3 -left-3 sm:-top-5 sm:-left-5 md:-top-8 md:-left-8 select-none">
-            <PlusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
+            <PlusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-black" />
           </span>
           <span className="absolute -top-3 -right-3 sm:-top-5 sm:-right-5 md:-top-8 md:-right-8 select-none">
-            <PlusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-white" />
+            <PlusIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-black" />
           </span>
           
           {/* Top text */}
           <p
-            className="absolute -top-2.5 sm:-top-5 md:-top-8 left-1/2 -translate-x-1/2 text-white font-Aeonik uppercase
+            className="absolute -top-2.5 sm:-top-5 md:-top-8 left-1/2 -translate-x-1/2 text-black font-Aeonik uppercase
                 text-[clamp(0.5625rem,2.2vw,0.875rem)] tracking-wide whitespace-nowrap"
           >
             IS YOUR BIG IDEA READY TO GO WILD?
@@ -177,7 +177,7 @@ const CTASection = () => {
           {/* Main CTA title - consistent scale mobile/tablet */}
           <h2
             ref={titleRef}
-            className="relative inline-block text-white font-Aeonik leading-[0.95] sm:leading-none
+            className="relative inline-block text-black font-Aeonik leading-[0.95] sm:leading-none
                 text-[clamp(2rem,8vw,4rem)] sm:text-[clamp(2.75rem,9vw,5rem)] md:text-[clamp(3.25rem,10vw,6rem)] lg:text-[clamp(4rem,12vw,10rem)]"
           >
             <div>Let&apos;s work</div>
@@ -188,13 +188,13 @@ const CTASection = () => {
         {/* Plus icons row */}
         <div className="hidden sm:flex items-center justify-between w-full max-w-[900px] mt-8 sm:mt-10 lg:mt-12 px-4">
           <span className="select-none">
-            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
           </span>
           <span className="select-none">
-            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
           </span>
           <span className="select-none">
-            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5 text-black" />
           </span>
         </div>
 
@@ -202,7 +202,7 @@ const CTASection = () => {
         <div className="mt-6 sm:mt-8 lg:mt-8">
           <a
             href="#footer-scroll"
-            className="inline-flex items-center gap-2 sm:gap-3 bg-white text-black rounded-full px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3 font-Aeonik text-[clamp(0.625rem,2vw,0.875rem)] tracking-widest uppercase hover:bg-transparent hover:text-white border border-white transition-colors duration-300"
+            className="inline-flex items-center gap-2 sm:gap-3 bg-black text-white rounded-full px-4 py-2.5 sm:px-5 sm:py-3 md:px-6 md:py-3 font-Aeonik text-[clamp(0.625rem,2vw,0.875rem)] tracking-widest uppercase hover:bg-transparent hover:text-black border border-black transition-colors duration-300"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7 1V13M7 13L1 7M7 13L13 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

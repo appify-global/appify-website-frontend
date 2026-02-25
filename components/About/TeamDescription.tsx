@@ -95,14 +95,14 @@ const TeamDescription = () => {
       ref={sectionRef}
       className="relative w-full min-h-[55vh] sm:min-h-[65vh] md:min-h-[70vh] lg:h-screen overflow-hidden z-10"
     >
-      {/* Black overlay to match hero section opacity */}
-      <div className="absolute inset-0 bg-black z-0" />
+      {/* Light background overlay */}
+      <div className="absolute inset-0 bg-[var(--color-background,#F0F1FA)] z-0" />
       
       {/* Main content */}
       <div className="relative z-10 h-full px-[5vw] sm:px-[6vw] md:px-[5vw] lg:px-[5vw] py-[8vh] sm:py-[10vh] md:py-[12vh] lg:py-[194px]">
         {/* Left text - above plus icons */}
         <div ref={leftTextRef} className="max-w-full lg:max-w-[947px] mb-6 sm:mb-10 md:mb-14 lg:mb-0 lg:absolute lg:top-[25%]">
-          <h2 className="font-Aeonik text-[clamp(1.5rem,6.5vw,2.25rem)] sm:text-[clamp(1.75rem,6vw,2.5rem)] md:text-[clamp(2rem,5.5vw,2.75rem)] lg:text-[42px] leading-[1.12] sm:leading-[1.15] text-white">
+          <h2 className="font-Aeonik text-[clamp(1.5rem,6.5vw,2.25rem)] sm:text-[clamp(1.75rem,6vw,2.5rem)] md:text-[clamp(2rem,5.5vw,2.75rem)] lg:text-[42px] leading-[1.12] sm:leading-[1.15] text-black">
             <span className="italic">A world wide team</span>
             <span className="block">of experienced and skilled</span>
             <span className="block">professionals</span>
@@ -114,7 +114,7 @@ const TeamDescription = () => {
           {[0, 1, 2, 3, 4].map((i) => (
             <PlusIcon
               key={i}
-              className="w-4 h-4 md:w-5 md:h-5 text-white/60"
+              className="w-4 h-4 md:w-5 md:h-5 text-black/60"
             />
           ))}
         </div>
@@ -124,7 +124,7 @@ const TeamDescription = () => {
           ref={rightTextRef}
           className="mt-[14vh] sm:mt-[18vh] md:mt-[20vh] lg:mt-0 lg:absolute lg:top-[65%] lg:right-[5vw] text-left lg:text-right max-w-full lg:max-w-[947px]"
         >
-          <p className="font-Aeonik text-[clamp(1.5rem,6.5vw,2.25rem)] sm:text-[clamp(1.75rem,6vw,2.5rem)] md:text-[clamp(2rem,5.5vw,2.75rem)] lg:text-[42px] leading-[1.12] sm:leading-[1.15] text-white">
+          <p className="font-Aeonik text-[clamp(1.5rem,6.5vw,2.25rem)] sm:text-[clamp(1.75rem,6vw,2.5rem)] md:text-[clamp(2rem,5.5vw,2.75rem)] lg:text-[42px] leading-[1.12] sm:leading-[1.15] text-black">
             <span>who bring a </span>
             <span className="italic">wide range</span>
             <span className="block">of talents and perspectives</span>
