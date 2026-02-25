@@ -196,13 +196,14 @@ const TeamMember = () => {
               ref={imageRef}
               className="w-[400px] h-[520px] relative flex-shrink-0"
             >
-              <Image
-                src="/team/team-leader-inverted.svg"
-                alt="Mennan Yelkenci"
-                fill
-                className="object-contain"
-                style={{ top: '2rem', maxWidth: '150%', left: '-50%' }}
-              />
+              <div className="absolute inset-0" style={{ top: '2rem', width: '150%', maxWidth: '150%', left: '-30%' }}>
+                <Image
+                  src="/team/team-leader-inverted.svg"
+                  alt="Mennan Yelkenci"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </div>
 
             {/* SVG and Paragraphs - Horizontal Flex */}
