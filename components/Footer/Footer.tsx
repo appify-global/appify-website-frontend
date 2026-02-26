@@ -32,7 +32,11 @@ const cities = [
 ];
 
 function ScrollToTopButton() {
-    const handleScrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+    const handleScrollTop = () => {
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        window.scrollTo({ top: 0 });
+    };
     return (
         <button
             onClick={handleScrollTop}

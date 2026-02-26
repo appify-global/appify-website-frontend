@@ -26,7 +26,6 @@ html {
 
 body {
   -webkit-overflow-scrolling: touch;
-  scroll-behavior: smooth;
   overflow-x: hidden;
 }
 

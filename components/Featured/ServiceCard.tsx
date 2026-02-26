@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { compute_card_state } from "@/rust/pkg/skiggle_wasm";
-import { useLenis, useLenisReady } from "@/hooks/useLenis";
+import { useLenis } from "@/hooks/useLenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -66,54 +65,10 @@ const FloatingCards: React.FC = () => {
   const isMobile = useIsMobile(TAB_BRAKEPOINT);
   const [scrollLocked, setScrollLocked] = useState(false);
   const lenis = useLenis();
-  const lenisReady = useLenisReady();
-  const pathname = usePathname();
-  const triggersRef = useRef<ScrollTrigger[]>([]);
-  const pinTriggerRef = useRef<ScrollTrigger | null>(null);
-
-  // Reset all card positions to initial state
-  const resetCards = () => {
-    cardRefs.current.forEach((card, index) => {
-      if (!card) return;
-      const front = card.querySelector(".flip-card-front") as HTMLElement | null;
-      const back = card.querySelector(".flip-card-back") as HTMLElement | null;
-      if (!front || !back) return;
-
-      // Reset to initial positions
-      gsap.set(card, {
-        left: "50%",
-        top: "50%",
-        rotate: rotations[index] || 0,
-        xPercent: -50,
-        yPercent: -50,
-        force3D: true,
-        transformOrigin: "center center",
-        clearProps: "all"
-      });
-      gsap.set(front, {
-        rotateY: 0,
-        force3D: true
-      });
-      gsap.set(back, {
-        rotateY: -180,
-        force3D: true
-      });
-    });
-  };
 
   useEffect(() => {
     if (isMobile) return;
-    if (!sectionRef.current || !lenis || !lenisReady) return;
-
-    // Kill any existing triggers
-    if (pinTriggerRef.current) {
-      pinTriggerRef.current.kill();
-    }
-    triggersRef.current.forEach((t) => t.kill());
-    triggersRef.current = [];
-
-    // Reset cards to initial state before setting up new triggers
-    resetCards();
+    if (!sectionRef.current || !lenis) return;
 
     ScrollTrigger.defaults({
       scroller: document.body,
@@ -126,12 +81,9 @@ const FloatingCards: React.FC = () => {
       start: "center center",
       end: `+=${totalScrollHeight}`,
       pin: true,
-      pinSpacing: true,
       scrub: 1,
       invalidateOnRefresh: false,
-      anticipatePin: 1,
     });
-    pinTriggerRef.current = pinTrigger;
 
     const triggers: ScrollTrigger[] = [];
 
@@ -158,7 +110,6 @@ const FloatingCards: React.FC = () => {
         yPercent: -50,
         force3D: true,
         transformOrigin: "center center",
-        clearProps: "all" // Clear any conflicting CSS transforms
       });
       
       // Set initial flip state - cards start showing front (0 degrees)
@@ -173,7 +124,6 @@ const FloatingCards: React.FC = () => {
 
       const trigger = ScrollTrigger.create({
         trigger: sectionRef.current!,
-        scroller: document.body,
         start: "center center",
         end: `+=${totalScrollHeight}`,
         scrub: 1, // Smoother scrubbing
@@ -266,32 +216,27 @@ const FloatingCards: React.FC = () => {
       });
 
       triggers.push(trigger);
-    });
-    triggersRef.current = triggers;
 
-    // Refresh ScrollTrigger after a brief delay to ensure DOM is ready
-    // This ensures all triggers are properly initialized and can detect scroll
-    const refreshTimeout = setTimeout(() => {
-      ScrollTrigger.refresh();
-      // Force an update on all triggers to ensure they're active
-      triggers.forEach((t) => {
-        if (t.isActive) {
-          t.update();
-        }
+      gsap.to(card, {
+        y: 10,
+        duration: 2,
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true,
+        delay: index * 0.4,
+        force3D: true,
       });
-    }, 300);
+    });
+
+    // Refresh after all triggers are created so positions are calculated correctly
+    ScrollTrigger.refresh();
 
     return () => {
-      clearTimeout(refreshTimeout);
-      if (pinTriggerRef.current) {
-        pinTriggerRef.current.kill();
-        pinTriggerRef.current = null;
-      }
-      triggersRef.current.forEach((t) => t.kill());
-      triggersRef.current = [];
+      pinTrigger.kill();
+      triggers.forEach((t) => t.kill());
       ScrollTrigger.clearMatchMedia();
     };
-  }, [lenis, lenisReady, isMobile, scrollLocked, pathname]);
+  }, [lenis, isMobile]);
 
   if (isMobile) {
     return (
@@ -343,12 +288,13 @@ const FloatingCards: React.FC = () => {
         h-[45vw]
         max-h-[900px]
         overflow-visible
+        -mt-[5vw]
         flex items-center justify-center
-        z-50
+        z-30
         px-[10vw]
       "
       id="service-cards"
-      style={{ zIndex: 50 }}
+      style={{ zIndex: 30, overflow: 'visible' }}
     >
       {expertsIn.map((expert, i) => (
         <div
@@ -358,14 +304,15 @@ const FloatingCards: React.FC = () => {
           }}
           className="
             card absolute
+            top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
             w-[22%]
             max-w-[380px]
             h-[clamp(400px,30vw,550px)]
             [perspective:1000px]
             transform-gpu
-            z-50
+            z-30
           "
-          style={{ zIndex: 50 }}
+          style={{ zIndex: 30 }}
         >
           <div className="flip-card-inner relative w-full h-full [transform-style:preserve-3d] border-1 border-black">
             <div className="flip-card-front absolute w-full h-full [backface-visibility:hidden] rounded-xl overflow-hidden">

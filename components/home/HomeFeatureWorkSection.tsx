@@ -12,7 +12,7 @@ export default function HomeFeatureWorkSection() {
   return (
     <section
       ref={gridRef}
-      className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-16 lg:mt-[100vh] min-w-0 overflow-x-hidden"
+      className="h-auto relative z-40 mt-16 sm:mt-24 md:mt-16 lg:mt-[100vh] min-w-0 overflow-x-hidden bg-[var(--color-background,#F0F1FA)]"
       id="feature-work"
     >
       <div className="w-full min-w-0 px-[4vw]">

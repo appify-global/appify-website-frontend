@@ -4,12 +4,12 @@ import {
   createContext,
   useContext,
   useLayoutEffect,
+  useEffect,
   useRef,
   ReactNode,
   RefObject,
   useSyncExternalStore,
   useCallback,
-  useEffect,
 } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
@@ -54,7 +54,7 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
     isReady: false,
     listeners: new Set(),
   });
-  
+
   // Cache the snapshot to avoid creating new objects on each call
   const snapshotRef = useRef<LenisContextType>(SERVER_SNAPSHOT);
 
@@ -86,8 +86,8 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
 
   useLayoutEffect(() => {
     const lenisInstance = new Lenis({
-      lerp: 0.1,
-      syncTouch: true,
+      lerp: 0.12,
+      syncTouch: false,
     });
 
     storeRef.current.lenis = lenisInstance;
@@ -172,9 +172,8 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
     };
   }, [footerRef]);
 
-  // Refresh ScrollTrigger and scroll to top on route change
+  // Reset scroll to top on route change
   useEffect(() => {
-    // Small delay to ensure DOM is ready
     const timeoutId = setTimeout(() => {
       window.scrollTo(0, 0);
       if (storeRef.current.lenis) {
@@ -210,4 +209,3 @@ export function useLenisReady() {
 }
 
 export { LenisContext };
-

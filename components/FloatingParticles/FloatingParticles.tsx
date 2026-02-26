@@ -214,37 +214,56 @@ const ParticleWaterfall: React.FC = () => {
 
             s.draw = () => {
                 s.background("#000000");
-                deltaTime = 1 / s.frameRate();
+
+                // Clamp deltaTime to prevent physics explosion on first frames or tab-switch
+                const rawFps = s.frameRate();
+                deltaTime = rawFps > 0 ? Math.min(1 / rawFps, 1 / 20) : 1 / 60;
 
                 mouseVel.set(s.mouseX - mousePrev.x, s.mouseY - mousePrev.y);
                 mousePrev.set(s.mouseX, s.mouseY);
 
-                // spatial hashing grid for interactions
+                // spatial hashing grid for interactions using numeric keys
                 const gridSize = spacing;
-                const grid: Record<string, number[]> = {};
+                const invGrid = 1 / gridSize;
+                const gridCols = Math.ceil(s.width * invGrid) + 2;
+                const grid: number[][] = [];
 
                 for (let i = 0; i < particles.length; i++) {
                     const p = particles[i];
                     p.update();
 
-                    const gx = (p.pos.x / gridSize) | 0;
-                    const gy = (p.pos.y / gridSize) | 0;
-                    const k = gx + "," + gy;
+                    const gx = (p.pos.x * invGrid) | 0;
+                    const gy = (p.pos.y * invGrid) | 0;
+                    const k = gy * gridCols + gx;
 
                     (grid[k] ??= []).push(i);
                 }
 
-                for (const key in grid) {
-                    const [gx, gy] = key.split(",").map(Number);
+                for (let k = 0; k < grid.length; k++) {
+                    const cell = grid[k];
+                    if (!cell) continue;
 
-                    for (let dx = -1; dx <= 1; dx++) {
-                        for (let dy = -1; dy <= 1; dy++) {
-                            const neighKey = `${gx + dx},${gy + dy}`;
-                            if (!grid[neighKey]) continue;
+                    const gy = (k / gridCols) | 0;
+                    const gx = k - gy * gridCols;
 
-                            for (const ai of grid[key]) {
-                                for (const bi of grid[neighKey]) {
-                                    if (ai !== bi) particles[ai].interact(particles[bi]);
+                    for (let dx = 0; dx <= 1; dx++) {
+                        for (let dy = dx === 0 ? 0 : -1; dy <= 1; dy++) {
+                            const nk = (gy + dy) * gridCols + (gx + dx);
+                            const neighbor = grid[nk];
+                            if (!neighbor) continue;
+
+                            if (nk === k) {
+                                // Same cell — only check pairs once
+                                for (let a = 0; a < cell.length; a++) {
+                                    for (let b = a + 1; b < cell.length; b++) {
+                                        particles[cell[a]].interact(particles[cell[b]]);
+                                    }
+                                }
+                            } else {
+                                for (const ai of cell) {
+                                    for (const bi of neighbor) {
+                                        particles[ai].interact(particles[bi]);
+                                    }
                                 }
                             }
                         }
@@ -267,7 +286,21 @@ const ParticleWaterfall: React.FC = () => {
         const instance = new p5(sketch, canvasRef.current);
         sketchRef.current = instance;
 
+        // Pause canvas when off-screen to save CPU
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    instance.loop();
+                } else {
+                    instance.noLoop();
+                }
+            },
+            { threshold: 0.05 }
+        );
+        if (canvasRef.current) observer.observe(canvasRef.current);
+
         return () => {
+            observer.disconnect();
             instance.remove();
         };
     }, []);

@@ -10,7 +10,7 @@ export default function HomeAiSection() {
 
   return (
     <section
-      className="h-auto lg:h-[130vh] relative mt-[3rem] sm:mt-[5rem] md:mt-[3rem] lg:mt-[15rem] pb-[4rem] sm:pb-[4rem] lg:pb-0 z-40 w-full"
+      className="h-auto lg:h-[130vh] relative mt-[3rem] sm:mt-[5rem] md:mt-[3rem] lg:mt-[15rem] pb-[4rem] sm:pb-[4rem] lg:pb-0 z-40 w-full bg-[var(--color-background,#F0F1FA)]"
       ref={aiRef}
     >
       <SkiggleAi />
