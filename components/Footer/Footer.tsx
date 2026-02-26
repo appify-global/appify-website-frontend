@@ -228,7 +228,7 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                    <p className="text-sm sm:text-base">©{new Date().getFullYear()} Appify Design Studio</p>
+                    <p className="text-sm sm:text-base">©{new Date().getFullYear()} Appify App Development Pty Ltd</p>
 
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-2 text-sm sm:text-base">

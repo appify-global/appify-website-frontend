@@ -25,12 +25,11 @@ export interface NewsArticle {
 
 export const newsCategories = [
   "AI",
-  "Web",
-  "Startups",
-  "Web3",
-  "Work",
+  "Automation",
   "Design",
-  "Culture",
+  "Startups",
+  "Web",
+  "Web3",
 ] as const;
 
 export type NewsCategory = (typeof newsCategories)[number];

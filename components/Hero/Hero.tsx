@@ -6,9 +6,9 @@ import DotButton from "../ui/DotButton";
 
 const tags = [
   "Custom Software & ERP Development",
-  "AI & Machine Learning Integration",
+  "AI for Operational Efficiency",
   "Digital Transformation Consulting",
-  "UI/UX Design & Strategy",
+  "Enterprise App Development",
 ];
 
 const Hero: React.FC = () => {
@@ -47,7 +47,7 @@ const Hero: React.FC = () => {
         {/* Left Section */}
         <div className="lg:w-[60%] p-2 sm:p-4 lg:p-6 flex flex-col justify-center space-y-3 sm:space-y-4 lg:space-y-5">
           <h1 className="leading-[1.1] text-[10vw] sm:text-[9vw] md:text-[8vw] lg:text-[4.2vw] tracking-normal">
-            We Transform <br /> Ideas Into Successful <br /> Tech Products
+            Enterprise Software <br /> That Drives <br /> Operational Efficiency
           </h1>
 
           {/* Tags - pills on all sizes */}
@@ -59,8 +59,8 @@ const Hero: React.FC = () => {
 
           {/* Description - visible on tablet+ */}
           <p className="leading-relaxed max-w-[420px] text-[3.5vw] sm:text-[3vw] md:text-[2vw] lg:text-[1vw]">
-            Enterprise software, AI-powered apps, and custom solutions built
-            by a global team that turns ambitious visions into reality.
+            We build enterprise software and AI-powered solutions that increase
+            operational efficiency—turning ambitious visions into reality.
           </p>
 
           {/* Mobile only: stacked CTAs, small gap */}

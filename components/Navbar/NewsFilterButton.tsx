@@ -2,8 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useNewsFilter, SortOption } from "@/contexts/NewsFilterContext";
+import { newsCategories } from "@/data/news";
 
-const topics = ["All", "AI", "Web", "Startups", "Web3", "Work", "Design", "Culture"];
+const topics = ["All", ...newsCategories];
 const sortOptions: SortOption[] = ["Latest", "Most Popular", "Most Read", "Featured"];
 
 export default function NewsFilterButton() {
