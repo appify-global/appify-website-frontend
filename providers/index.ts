@@ -1,2 +1,2 @@
-export { LenisProvider, useLenis, useLenisReady, LenisContext } from "./LenisProvider";
+export { LenisProvider, useLenis, useLenisReady } from "./LenisProvider";
 
