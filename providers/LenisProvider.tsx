@@ -172,3 +172,10 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
 export function useLenis() {
   return useSyncExternalStore(_subscribe, _getSnapshot, _getServerSnapshot);
 }
+
+/**
+ * Hook to check if Lenis is ready (instance exists).
+ */
+export function useLenisReady() {
+  return useLenis() !== null;
+}

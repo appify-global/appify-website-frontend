@@ -289,6 +289,48 @@ export function prefetchNewsArticles(): void {
 }
 
 /**
+ * Get article by slug (client/server). Falls back to static data on failure.
+ */
+export async function getArticleBySlug(slug: string): Promise<NewsArticle | null> {
+  if (USE_STATIC_DATA) {
+    const allArticles = [...featuredArticles, ...latestArticles];
+    return allArticles.find((article) => article.slug === slug) || null;
+  }
+  try {
+    return await fetchArticleBySlugServer(slug);
+  } catch {
+    const allArticles = [...featuredArticles, ...latestArticles];
+    return allArticles.find((article) => article.slug === slug) || null;
+  }
+}
+
+/**
+ * Get featured articles. Falls back to static data on failure.
+ */
+export async function getFeaturedArticles(): Promise<NewsArticle[]> {
+  if (USE_STATIC_DATA) return featuredArticles;
+  try {
+    const all = await fetchArticlesFromAPI();
+    const featured = all.filter((a) => a.isFeatured);
+    return featured.length > 0 ? featured : all.slice(0, 3);
+  } catch {
+    return featuredArticles;
+  }
+}
+
+/**
+ * Get latest articles. Falls back to static data on failure.
+ */
+export async function getLatestArticles(): Promise<NewsArticle[]> {
+  if (USE_STATIC_DATA) return latestArticles;
+  try {
+    return await fetchArticlesFromAPI();
+  } catch {
+    return latestArticles;
+  }
+}
+
+/**
  * Search articles by query string. Never throws — falls back to static data on failure.
  */
 export async function searchArticles(query: string): Promise<NewsArticle[]> {

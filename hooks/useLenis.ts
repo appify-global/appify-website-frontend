@@ -1,3 +1,3 @@
 "use client";
 
-export { useLenis } from "@/providers/LenisProvider";
+export { useLenis, useLenisReady } from "@/providers/LenisProvider";
