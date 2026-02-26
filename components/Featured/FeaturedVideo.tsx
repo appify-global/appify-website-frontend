@@ -2,6 +2,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
+import { FOUNDER_VIDEO_SRC } from "@/lib/video";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { RollerText } from "../RollerText";
@@ -135,7 +136,7 @@ const FeaturedVideo = ({
             <video
               ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover object-center"
-              src="/Videos/Mennan Voice Cut.mp4"
+              src={FOUNDER_VIDEO_SRC}
               autoPlay
               muted
               loop
@@ -258,7 +259,7 @@ const FeaturedVideo = ({
               <video
                 ref={videoRef}
                 className="absolute inset-0 w-full h-full object-cover object-center"
-                src="/Videos/Mennan Voice Cut.mp4"
+                src={FOUNDER_VIDEO_SRC}
                 autoPlay
                 muted
                 loop

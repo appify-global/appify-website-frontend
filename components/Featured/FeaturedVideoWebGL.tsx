@@ -5,6 +5,7 @@ import { TAB_BRAKEPOINT, useIsMobile } from "@/hooks/UseIsMobile";
 import { RollerText } from "../RollerText";
 import MarqueePlusRow from "../MarqueePlusRow";
 import HomeReelVideoWatchButton from "../ui/HomeReelVideoWatchButton";
+import { FOUNDER_VIDEO_SRC } from "@/lib/video";
 
 /**
  * FeaturedVideoWebGL - Scroll-driven expand/collapse animation
@@ -14,8 +15,6 @@ import HomeReelVideoWatchButton from "../ui/HomeReelVideoWatchButton";
  * Phase 3 (0.5-0.65): Holds fullscreen — PLAY REEL visible
  * Phase 4 (0.65-1.0): Video scales back down to original left position
  */
-
-const DEFAULT_VIDEO_SRC = "/Videos/Mennan Voice Cut.mp4";
 
 interface FeaturedVideoWebGLProps {
   /** @deprecated - kept for API compatibility */
@@ -54,7 +53,7 @@ const FeaturedVideoWebGL = ({
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
 
-  const videoSrc = DEFAULT_VIDEO_SRC;
+  const videoSrc = FOUNDER_VIDEO_SRC;
 
   // Motion value for animation progress
   const animationProgressValue = useMotionValue(0);
@@ -289,6 +288,45 @@ const FeaturedVideoWebGL = ({
       video.removeEventListener('canplay', tryPlay);
       video.removeEventListener('loadeddata', tryPlay);
     };
+  }, []);
+
+  // Fade audio based on how much of the video is still visible in the viewport.
+  // When the user scrolls past the video, volume drops smoothly to 0.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let ticking = false;
+
+    const updateVolume = () => {
+      ticking = false;
+      if (!video || video.muted) return;
+
+      // Use the video wrapper (sticky element) on desktop, or the video itself on mobile
+      const el = videoWrapperRef.current ?? video;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // Fraction of the element that is inside the viewport (0 → fully off-screen, 1 → fully on)
+      const visibleTop = Math.max(rect.top, 0);
+      const visibleBottom = Math.min(rect.bottom, vh);
+      const visibleHeight = Math.max(visibleBottom - visibleTop, 0);
+      const ratio = rect.height > 0 ? visibleHeight / rect.height : 0;
+
+      // Map ratio to volume: full volume when >=50% visible, fade to 0 as it disappears
+      const volume = Math.min(ratio / 0.5, 1);
+      video.volume = Math.max(0, Math.min(1, volume));
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateVolume);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Mobile layout

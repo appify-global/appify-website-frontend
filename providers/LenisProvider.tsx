@@ -1,105 +1,101 @@
 "use client";
 
 import {
-  createContext,
-  useContext,
   useLayoutEffect,
-  useEffect,
   useRef,
   ReactNode,
   RefObject,
   useSyncExternalStore,
-  useCallback,
 } from "react";
-import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface LenisContextType {
-  lenis: Lenis | null;
-  isReady: boolean;
+// ── Module-level store ──
+let _lenis: Lenis | null = null;
+const _listeners = new Set<() => void>();
+
+function _notify() {
+  _listeners.forEach((l) => l());
 }
 
-const LenisContext = createContext<LenisContextType>({
-  lenis: null,
-  isReady: false,
-});
+function _subscribe(cb: () => void) {
+  _listeners.add(cb);
+  return () => _listeners.delete(cb);
+}
+
+function _getSnapshot() {
+  return _lenis;
+}
+
+function _getServerSnapshot() {
+  return null;
+}
+
+// ── Module-level scroller proxy ──
+// Set up ONCE at import time. Reads from `_lenis` dynamically so it
+// works regardless of when lenis is created/destroyed. ScrollTrigger
+// triggers can be created at ANY time — the proxy is always in place.
+if (typeof window !== "undefined") {
+  ScrollTrigger.scrollerProxy(document.body, {
+    scrollTop(value) {
+      if (arguments.length) {
+        const v = value ?? 0;
+        if (_lenis) _lenis.scrollTo(v, { immediate: true });
+        else document.documentElement.scrollTop = v;
+        return v;
+      }
+      return _lenis ? _lenis.scroll : document.documentElement.scrollTop;
+    },
+    getBoundingClientRect() {
+      return {
+        top: 0,
+        left: 0,
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
+    },
+  });
+
+  ScrollTrigger.defaults({ scroller: document.body });
+}
 
 interface LenisProviderProps {
   children: ReactNode;
   footerRef?: RefObject<HTMLElement | null>;
 }
 
-// Store for managing lenis instance lifecycle
-interface LenisStore {
-  lenis: Lenis | null;
-  isReady: boolean;
-  listeners: Set<() => void>;
-}
-
-// Cached server snapshot - must be a stable reference to avoid infinite loops
-const SERVER_SNAPSHOT: LenisContextType = {
-  lenis: null,
-  isReady: false,
-};
-
 export function LenisProvider({ children, footerRef }: LenisProviderProps) {
-  const pathname = usePathname();
-  // Use ref to store state that shouldn't trigger re-renders on its own
-  const storeRef = useRef<LenisStore>({
-    lenis: null,
-    isReady: false,
-    listeners: new Set(),
-  });
-
-  // Cache the snapshot to avoid creating new objects on each call
-  const snapshotRef = useRef<LenisContextType>(SERVER_SNAPSHOT);
-
-  const subscribe = useCallback((callback: () => void) => {
-    storeRef.current.listeners.add(callback);
-    return () => storeRef.current.listeners.delete(callback);
-  }, []);
-
-  const getSnapshot = useCallback(() => {
-    // Only create a new snapshot if values changed
-    const current = storeRef.current;
-    if (
-      snapshotRef.current.lenis !== current.lenis ||
-      snapshotRef.current.isReady !== current.isReady
-    ) {
-      snapshotRef.current = {
-        lenis: current.lenis,
-        isReady: current.isReady,
-      };
-    }
-    return snapshotRef.current;
-  }, []);
-
-  // Return stable cached reference for server
-  const getServerSnapshot = useCallback(() => SERVER_SNAPSHOT, []);
-
-  // Use useSyncExternalStore to manage the external lenis instance
-  const state = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useLayoutEffect(() => {
+    // Prevent browser from restoring old scroll positions on navigation
+    if (history.scrollRestoration !== "manual") {
+      history.scrollRestoration = "manual";
+    }
+    // GSAP can keep internal scroll memory between route mounts.
+    // Clear it so refreshes/pins cannot restore a stale position.
+    if (typeof ScrollTrigger.clearScrollMemory === "function") {
+      ScrollTrigger.clearScrollMemory("manual");
+    }
+
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+
     const lenisInstance = new Lenis({
       lerp: 0.12,
       syncTouch: false,
     });
 
-    storeRef.current.lenis = lenisInstance;
-
     const indicator = document.getElementById("scroll-indicator");
     const bar = document.getElementById("scroll-indicator-bar");
-    let hideTimeout: NodeJS.Timeout | null = null;
 
     const showIndicator = () => {
       if (indicator) indicator.style.opacity = "1";
-      if (hideTimeout) clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
+      if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+      hideTimeoutRef.current = setTimeout(() => {
         if (indicator) indicator.style.opacity = "0";
       }, 800);
     };
@@ -129,83 +125,50 @@ export function LenisProvider({ children, footerRef }: LenisProviderProps) {
       ScrollTrigger.update();
     });
 
+    let rafId: number;
     function raf(time: number) {
       lenisInstance.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    ScrollTrigger.scrollerProxy(document.body, {
-      scrollTop(value) {
-        return arguments.length
-          ? // @ts-expect-error - Lenis scrollTo has different signature than expected
-            lenisInstance.scrollTo(value, { immediate: true })
-          : lenisInstance.scroll;
-      },
-      getBoundingClientRect() {
-        return {
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        };
-      },
-    });
-
-    // Always start at top when LenisProvider mounts (page navigation)
-    window.scrollTo(0, 0);
     lenisInstance.scrollTo(0, { immediate: true });
 
-    requestAnimationFrame(raf);
-    ScrollTrigger.defaults({ scroller: document.body });
-    ScrollTrigger.refresh();
+    rafId = requestAnimationFrame((time) => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      lenisInstance.scrollTo(0, { immediate: true });
+      lenisInstance.raf(time);
+      rafId = requestAnimationFrame(raf);
+    });
 
-    // Update store and notify listeners
-    storeRef.current.isReady = true;
-    storeRef.current.listeners.forEach((listener) => listener());
+    _lenis = lenisInstance;
+    _notify();
 
     return () => {
-      if (hideTimeout) clearTimeout(hideTimeout);
+      cancelAnimationFrame(rafId);
+      if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+
+      lenisInstance.scrollTo(0, { immediate: true });
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+
       lenisInstance.destroy();
       ScrollTrigger.getAll().forEach((t) => t.kill());
-      storeRef.current.lenis = null;
-      storeRef.current.isReady = false;
+
+      _lenis = null;
+      _notify();
     };
   }, [footerRef]);
 
-  // Reset scroll to top on route change
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      window.scrollTo(0, 0);
-      if (storeRef.current.lenis) {
-        storeRef.current.lenis.scrollTo(0, { immediate: true });
-      }
-      ScrollTrigger.refresh();
-    }, 50);
-
-    return () => clearTimeout(timeoutId);
-  }, [pathname]);
-
-  return (
-    <LenisContext.Provider value={state}>
-      {children}
-    </LenisContext.Provider>
-  );
+  return children;
 }
 
+/**
+ * Hook to access the Lenis instance.
+ * Uses useSyncExternalStore directly (NOT context) so that when the
+ * store updates during a useLayoutEffect commit, consumers get a
+ * SYNCHRONOUS re-render before paint — no batching gap.
+ */
 export function useLenis() {
-  const context = useContext(LenisContext);
-  if (context === undefined) {
-    throw new Error("useLenis must be used within a LenisProvider");
-  }
-  return context.lenis;
+  return useSyncExternalStore(_subscribe, _getSnapshot, _getServerSnapshot);
 }
-
-export function useLenisReady() {
-  const context = useContext(LenisContext);
-  if (context === undefined) {
-    throw new Error("useLenisReady must be used within a LenisProvider");
-  }
-  return context.isReady;
-}
-
-export { LenisContext };

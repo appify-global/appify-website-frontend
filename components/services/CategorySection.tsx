@@ -3,6 +3,7 @@
 import { useEffect, useRef, ReactElement } from "react";
 import Image from "next/image";
 import { Category, ServiceCategory } from "@/lib/data/services";
+import { getCategoryVideoSrc } from "@/lib/video";
 import ServiceLink from "./ServiceLink";
 
 interface CategorySectionProps {
@@ -115,10 +116,10 @@ const CategorySection = ({ category, index }: CategorySectionProps) => {
   }, []);
 
   const categoryVideos: Partial<Record<ServiceCategory, string>> = {
-    strategy: "/Videos/Strategy.mp4",
-    creative: "/Videos/Creative.mp4",
-    development: "/Videos/Development.mp4",
-    intelligence: "/Videos/Intelligence.mp4",
+    strategy: getCategoryVideoSrc("Strategy.mp4"),
+    creative: getCategoryVideoSrc("Creative.mp4"),
+    development: getCategoryVideoSrc("Development.mp4"),
+    intelligence: getCategoryVideoSrc("Intelligence.mp4"),
   };
 
   // Fallback images for categories without video
