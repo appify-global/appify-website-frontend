@@ -47,7 +47,7 @@ const Hero: React.FC = () => {
         {/* Left Section */}
         <div className="lg:w-[60%] p-2 sm:p-4 lg:p-6 flex flex-col justify-center space-y-3 sm:space-y-4 lg:space-y-5">
           <h1 className="leading-[1.1] text-[10vw] sm:text-[9vw] md:text-[8vw] lg:text-[4.2vw] tracking-normal">
-            Enterprise Software <br /> That Drives <br /> Operational Efficiency
+            Building Software <br /> That Drives <br /> Operational Efficiency
           </h1>
 
           {/* Tags - pills on all sizes */}

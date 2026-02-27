@@ -1,9 +1,33 @@
-"use client";
+import type { Metadata } from "next";
 
 import { PageLayout } from "@/components/layouts";
 import NextPageSection from "@/components/NextPageSection";
 import { ServicesHero, CategorySection, ServicesFooterCTA } from "@/components/services";
 import { categoryDisplayOrder, getCategoryById } from "@/lib/data/services";
+
+export const metadata: Metadata = {
+  title: "Services | Appify",
+  description:
+    "Explore Appify services across strategy, creative, development, and intelligence, including AI, automation, and custom software delivery.",
+  alternates: {
+    canonical: "/services",
+  },
+  openGraph: {
+    title: "Services | Appify",
+    description:
+      "Explore Appify services across strategy, creative, development, and intelligence, including AI, automation, and custom software delivery.",
+    url: "https://appify.global/services",
+    images: ["/appify.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services | Appify",
+    description:
+      "Explore Appify services across strategy, creative, development, and intelligence, including AI, automation, and custom software delivery.",
+    images: ["/appify.png"],
+  },
+};
 
 export default function ServicesPage() {
   // Get categories in display order

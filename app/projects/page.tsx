@@ -1,10 +1,34 @@
-"use client";
+import type { Metadata } from "next";
 
 import ProjectCard from "@/components/Featured/ProjectCard";
 import { PageLayout } from "@/components/layouts";
 import { ServicesFooterCTA } from "@/components/services";
 import { projectsData } from "@/data/projects";
 import NextPageSection from "@/components/NextPageSection";
+
+export const metadata: Metadata = {
+  title: "Projects | Appify",
+  description:
+    "Browse Appify case studies and projects spanning AI development, product design, app development, and digital transformation.",
+  alternates: {
+    canonical: "/projects",
+  },
+  openGraph: {
+    title: "Projects | Appify",
+    description:
+      "Browse Appify case studies and projects spanning AI development, product design, app development, and digital transformation.",
+    url: "https://appify.global/projects",
+    images: ["/appify.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Projects | Appify",
+    description:
+      "Browse Appify case studies and projects spanning AI development, product design, app development, and digital transformation.",
+    images: ["/appify.png"],
+  },
+};
 
 export default function ProjectsPage() {
   return (

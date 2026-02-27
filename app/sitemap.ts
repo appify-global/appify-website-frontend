@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { fetchAllArticlesServer } from "@/lib/api";
 import { newsArticles } from "@/data/news";
+import { projectsData } from "@/data/projects";
+import { getAllServices } from "@/lib/data/services";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let articles;
@@ -36,5 +38,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  return [...staticPages, ...articlePages];
+  const projectPages: MetadataRoute.Sitemap = projectsData.map((project) => ({
+    url: `https://appify.global/projects/${project.slug}`,
+    lastModified: new Date(),
+  }));
+
+  const servicePages: MetadataRoute.Sitemap = getAllServices().map((service) => ({
+    url: `https://appify.global/services/${service.category}/${service.slug}`,
+    lastModified: new Date(),
+  }));
+
+  return [...staticPages, ...articlePages, ...projectPages, ...servicePages];
 }

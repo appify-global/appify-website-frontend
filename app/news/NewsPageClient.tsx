@@ -195,6 +195,7 @@ function NewsPageContent({ initialFeatured, initialLatest }: NewsPageClientProps
     <PageLayout showFooter={false} navbarPadding="pb-[4vw]">
       <main className="flex-1">
         <section className="px-4 md:px-[4vw] lg:px-[4vw] pt-[25vw] md:pt-[15vw] lg:pt-[8vw]">
+          <h1 className="sr-only">Appify News Room</h1>
           <aside className="hidden lg:block fixed left-[4vw] top-[14vw] w-[140px] z-30 max-h-[calc(100vh-14vw-2rem)] overflow-y-auto scrollbar-hide">
             <NewsCategoryList
               activeCategories={activeCategories}

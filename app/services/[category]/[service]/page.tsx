@@ -91,15 +91,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!service) {
     return {
       title: 'Service Not Found | Appify',
+      description: 'The requested service could not be found.',
+      alternates: {
+        canonical: `/services/${category}/${serviceSlug}`,
+      },
     };
   }
+
+  const canonicalPath = `/services/${category}/${serviceSlug}`;
 
   return {
     title: `${service.name} | Appify`,
     description: service.description,
+    alternates: {
+      canonical: canonicalPath,
+    },
     openGraph: {
       title: `${service.name} | Appify`,
       description: service.description,
+      url: `https://appify.global${canonicalPath}`,
+      images: ["/appify.png"],
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${service.name} | Appify`,
+      description: service.description,
+      images: ["/appify.png"],
     },
   };
 }

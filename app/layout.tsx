@@ -14,25 +14,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://appify.global"),
   title: "Appify | Custom Software Development, AI & Digital Transformation",
   description: "Appify is a custom software development agency specializing in AI & ML engineering, mobile app development, enterprise ERP systems, and digital transformation across Australia, UAE, and Qatar.",
+  alternates: {
+    canonical: "/",
+  },
   keywords: ["software development", "AI", "machine learning", "mobile app development", "ERP", "digital transformation", "Australia", "UAE", "Qatar"],
   authors: [{ name: "Appify" }],
   openGraph: {
+    url: "https://appify.global",
     title: "Appify | Custom Software Development, AI & Digital Transformation",
     description: "Appify partners with enterprises and startups to build custom software, AI solutions, and digital products.",
     type: "website",
     locale: "en_AU",
     siteName: "Appify",
+    images: [
+      {
+        url: "/appify.png",
+        width: 1200,
+        height: 630,
+        alt: "Appify",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Appify | Custom Software Development",
     description: "Custom software development, AI & ML engineering, and digital transformation.",
+    images: ["/appify.png"],
   },
   robots: {
-    index: true,
-    follow: true,
+    index: false,
+    follow: false,
   },
 };
 
@@ -43,12 +57,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="dns-prefetch" href="//s3-public-presigner-production-6b6f.up.railway.app" />
-        <link rel="preconnect" href="https://s3-public-presigner-production-6b6f.up.railway.app" />
-        <link rel="dns-prefetch" href="//railbucket-0bqb1b7ady2ufu.t3.storageapi.dev" />
-        <link rel="preconnect" href="https://railbucket-0bqb1b7ady2ufu.t3.storageapi.dev" crossOrigin="" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning

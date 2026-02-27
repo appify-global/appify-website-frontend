@@ -1,4 +1,4 @@
-"use client";
+import type { Metadata } from "next";
 
 import { PageLayout } from "@/components/layouts";
 import NextPageSection from "@/components/NextPageSection";
@@ -11,6 +11,30 @@ import ClientsSection from "@/components/About/ClientsSection";
 import AwardsSection from "@/components/About/AwardsSection";
 import ExpertiseSection from "@/components/About/ExpertiseSection";
 import CTASection from "@/components/About/CTASection";
+
+export const metadata: Metadata = {
+  title: "About Appify | Team, Experience, and Expertise",
+  description:
+    "Meet Appify's team and explore our expertise in software development, AI, and digital transformation across Australia, UAE, and Qatar.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About Appify | Team, Experience, and Expertise",
+    description:
+      "Meet Appify's team and explore our expertise in software development, AI, and digital transformation across Australia, UAE, and Qatar.",
+    url: "https://appify.global/about",
+    images: ["/appify.png"],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Appify | Team, Experience, and Expertise",
+    description:
+      "Meet Appify's team and explore our expertise in software development, AI, and digital transformation across Australia, UAE, and Qatar.",
+    images: ["/appify.png"],
+  },
+};
 
 export default function AboutPage() {
   return (
