@@ -129,25 +129,40 @@ function NewsPageContent({ initialFeatured, initialLatest }: NewsPageClientProps
   }, []);
 
   useEffect(() => {
-    const desktopNavbar = Array.from(document.querySelectorAll("div.fixed.top-0")).find(
-      (el) =>
-        (el as HTMLElement).querySelector('a[href="/"]') !== null &&
-        (el as HTMLElement).querySelector(".font-AeonikMedium") !== null
-    ) as HTMLElement;
-    const mobileNavbar = Array.from(document.querySelectorAll("div.fixed.top-0")).find(
-      (el) =>
-        (el as HTMLElement).classList.contains("lg:hidden") ||
-        ((el as HTMLElement).querySelector('img[alt="Appify"]') !== null &&
-          (el as HTMLElement).classList.contains("w-full"))
-    ) as HTMLElement;
-    const navbars = [desktopNavbar, mobileNavbar].filter(Boolean);
-    navbars.forEach((navbar) => {
-      if (!navbar) return;
-      navbar.style.top = showStickySearch ? "55px" : "0px";
-      navbar.style.transition = "top 0.3s ease";
-    });
-    return () => {
+    // Defer until after hydration to avoid mismatch with server-rendered HTML
+    const id = setTimeout(() => {
+      const desktopNavbar = Array.from(document.querySelectorAll("div.fixed.top-0")).find(
+        (el) =>
+          (el as HTMLElement).querySelector('a[href="/"]') !== null &&
+          (el as HTMLElement).querySelector(".font-AeonikMedium") !== null
+      ) as HTMLElement;
+      const mobileNavbar = Array.from(document.querySelectorAll("div.fixed.top-0")).find(
+        (el) =>
+          (el as HTMLElement).classList.contains("lg:hidden") ||
+          ((el as HTMLElement).querySelector('img[alt="Appify"]') !== null &&
+            (el as HTMLElement).classList.contains("w-full"))
+      ) as HTMLElement;
+      const navbars = [desktopNavbar, mobileNavbar].filter(Boolean);
       navbars.forEach((navbar) => {
+        if (!navbar) return;
+        navbar.style.top = showStickySearch ? "55px" : "0px";
+        navbar.style.transition = "top 0.3s ease";
+      });
+    }, 100);
+    return () => {
+      clearTimeout(id);
+      const desktopNavbar = Array.from(document.querySelectorAll("div.fixed.top-0")).find(
+        (el) =>
+          (el as HTMLElement).querySelector('a[href="/"]') !== null &&
+          (el as HTMLElement).querySelector(".font-AeonikMedium") !== null
+      ) as HTMLElement;
+      const mobileNavbar = Array.from(document.querySelectorAll("div.fixed.top-0")).find(
+        (el) =>
+          (el as HTMLElement).classList.contains("lg:hidden") ||
+          ((el as HTMLElement).querySelector('img[alt="Appify"]') !== null &&
+            (el as HTMLElement).classList.contains("w-full"))
+      ) as HTMLElement;
+      [desktopNavbar, mobileNavbar].filter(Boolean).forEach((navbar) => {
         if (navbar) {
           navbar.style.top = "";
           navbar.style.transition = "";
@@ -162,13 +177,18 @@ function NewsPageContent({ initialFeatured, initialLatest }: NewsPageClientProps
     setSearchResults(null);
   };
 
-  const filteredFeaturedArticles =
-    activeCategories.length > 0
-      ? featured.filter((a) => articleMatchesCategory(a, activeCategories))
-      : featured;
-  const filteredLatestArticles =
+  // When category is active: top 3 in Most Popular, remainder in Latest News
+  const categoryArticles =
     activeCategories.length > 0
       ? latest.filter((a) => articleMatchesCategory(a, activeCategories))
+      : [];
+  const carouselArticles =
+    activeCategories.length > 0
+      ? categoryArticles.slice(0, 3)
+      : featured;
+  const latestNewsArticles =
+    activeCategories.length > 0
+      ? categoryArticles.slice(3)
       : latest;
 
   return (
@@ -234,7 +254,7 @@ function NewsPageContent({ initialFeatured, initialLatest }: NewsPageClientProps
                 />
               </div>
 
-              <FeaturedNewsCarousel articles={filteredFeaturedArticles} />
+              <FeaturedNewsCarousel articles={carouselArticles} />
 
               <div className="flex items-center justify-center gap-4 md:gap-0 md:justify-between py-6 md:py-10 lg:py-12">
                 <PlusIcon />
@@ -277,7 +297,7 @@ function NewsPageContent({ initialFeatured, initialLatest }: NewsPageClientProps
                 )}
 
                 <div className="md:divide-y md:divide-[rgba(0,0,0,0.1)] lg:divide-y-0">
-                  {(searchResults !== null ? searchResults : filteredLatestArticles).map((article) => (
+                  {(searchResults !== null ? searchResults : latestNewsArticles).map((article) => (
                     <NewsCard key={article.id} article={article} />
                   ))}
                 </div>

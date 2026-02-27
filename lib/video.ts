@@ -10,7 +10,7 @@ const FOUNDER_VIDEO_CDN_FALLBACK = "https://cdn.ebadfd.tech/Appify_Introduction_
 /** Founder/reel video on home page (SubVideoText section) */
 export const FOUNDER_VIDEO_SRC =
   process.env.NEXT_PUBLIC_FOUNDER_VIDEO_URL ||
-  (process.env.RAILWAY_ENVIRONMENT ? FOUNDER_VIDEO_CDN_FALLBACK : "/Videos/Mennan Voice Cut.mp4");
+  FOUNDER_VIDEO_CDN_FALLBACK;
 
 /** Category videos for services page */
 export function getCategoryVideoSrc(filename: string): string {

@@ -346,7 +346,6 @@ const FeaturedVideoWebGL = ({
               src={videoSrc}
               autoPlay
               muted
-              loop
               playsInline
               preload="auto"
               style={{
@@ -515,7 +514,6 @@ const FeaturedVideoWebGL = ({
                 src={videoSrc}
                 autoPlay
                 muted
-                loop
                 playsInline
                 preload="auto"
                 style={{

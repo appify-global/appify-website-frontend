@@ -26,6 +26,11 @@ const HomeAiSection = dynamic(
   { ssr: false, loading: () => <div className="min-h-[60vh]" aria-hidden /> }
 );
 
+const HomeReelBottomSection = dynamic(
+  () => import("@/components/home/HomeReelBottomSection"),
+  { ssr: false }
+);
+
 export default function Home() {
   const ref = useRef<HTMLElement>(null);
 
@@ -60,6 +65,7 @@ export default function Home() {
       <HomeExpertsSection />
       <HomeFeatureWorkSection />
       <HomeAiSection />
+      <HomeReelBottomSection />
     </PageLayout>
   );
 }
