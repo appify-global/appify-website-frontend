@@ -52,8 +52,42 @@ const FeaturedVideoWebGL = ({
   const [isInReelState, setIsInReelState] = useState(false);
   const [thumbnailPos, setThumbnailPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [reelPos, setReelPos] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
 
   const videoSrc = FOUNDER_VIDEO_SRC;
+
+  // Start buffering much earlier so first-play feels instant.
+  // Desktop and mobile are tuned independently to avoid cross-impact.
+  React.useEffect(() => {
+    if (!videoSrc) return;
+    const el = containerRef.current;
+    if (!el) return;
+    const leadInPixels = isMobile ? "900px" : "1800px";
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setShouldLoadVideo(true);
+      },
+      { rootMargin: leadInPixels, threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [isMobile, videoSrc]);
+
+  // Fallback warmup: prime buffering shortly after first paint even before intersection.
+  React.useEffect(() => {
+    if (!videoSrc) return;
+    const warmupDelayMs = isMobile ? 1200 : 250;
+    const warmupTimer = window.setTimeout(() => setShouldLoadVideo(true), warmupDelayMs);
+    return () => window.clearTimeout(warmupTimer);
+  }, [isMobile, videoSrc]);
+
+  React.useEffect(() => {
+    if (!shouldLoadVideo) return;
+    const video = videoRef.current;
+    if (!video) return;
+    video.preload = "auto";
+    if (video.readyState < 2) video.load();
+  }, [shouldLoadVideo]);
 
   // Motion value for animation progress
   const animationProgressValue = useMotionValue(0);
@@ -332,7 +366,7 @@ const FeaturedVideoWebGL = ({
   // Mobile layout
   if (isMobile) {
     return (
-      <div className="w-full">
+      <div ref={containerRef} className="w-full">
         <div className="flex flex-col items-center space-y-3 w-full">
           <div id={playerId} />
 
@@ -343,11 +377,11 @@ const FeaturedVideoWebGL = ({
             <video
               ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover object-center"
-              src={videoSrc}
+              src={videoSrc || undefined}
               autoPlay
               muted
               playsInline
-              preload="auto"
+              preload={shouldLoadVideo ? "auto" : "metadata"}
               style={{
                 borderRadius: "12px",
                 objectFit: "cover",
@@ -511,11 +545,11 @@ const FeaturedVideoWebGL = ({
               <video
                 ref={videoRef}
                 className="absolute inset-0 w-full h-full object-cover object-center"
-                src={videoSrc}
+                src={videoSrc || undefined}
                 autoPlay
                 muted
                 playsInline
-                preload="auto"
+                preload={shouldLoadVideo ? "auto" : "metadata"}
                 style={{
                   objectFit: "cover",
                   objectPosition: "center center",

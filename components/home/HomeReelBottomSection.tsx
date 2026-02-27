@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FOUNDER_VIDEO_SRC } from "@/lib/video";
 import HomeReelVideoWatchButton from "@/components/ui/HomeReelVideoWatchButton";
 
@@ -10,8 +10,33 @@ import HomeReelVideoWatchButton from "@/components/ui/HomeReelVideoWatchButton";
  */
 export default function HomeReelBottomSection() {
   const [hasClickedPlay, setHasClickedPlay] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const videoSrc = FOUNDER_VIDEO_SRC;
+
+  useEffect(() => {
+    if (!videoSrc) return;
+    const el = sectionRef.current;
+    if (!el) return;
+    const leadInPixels = "1400px";
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setShouldLoadVideo(true);
+      },
+      { rootMargin: leadInPixels, threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [videoSrc]);
+
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
+    const video = videoRef.current;
+    if (!video) return;
+    video.preload = "auto";
+    if (video.readyState < 2) video.load();
+  }, [shouldLoadVideo]);
 
   const handlePlayClick = () => {
     setHasClickedPlay(true);
@@ -24,6 +49,7 @@ export default function HomeReelBottomSection() {
 
   return (
     <section
+      ref={sectionRef}
       className="w-full px-[4vw] py-16 sm:py-20 lg:py-24 bg-[var(--color-background,#F0F1FA)]"
       aria-label="Watch our reel"
     >
@@ -35,10 +61,10 @@ export default function HomeReelBottomSection() {
           <video
             ref={videoRef}
             className="absolute inset-0 w-full h-full object-cover object-center"
-            src={videoSrc}
+            src={videoSrc || undefined}
             muted
             playsInline
-            preload="auto"
+            preload={shouldLoadVideo ? "auto" : "metadata"}
             style={{
               objectFit: "cover",
               objectPosition: "center center",

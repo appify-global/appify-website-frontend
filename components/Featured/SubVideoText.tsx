@@ -108,7 +108,8 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
         Layout container - Video on LEFT (40.3%), Text on RIGHT (36%)
         FIX #1: Text width reduced from 44% to 36%
       */}
-      <div className="relative hidden lg:flex" style={{ minHeight: '180vh' }}>
+      {!isMobile && (
+      <div className="relative" style={{ minHeight: '180vh' }}>
         
         {/* VIDEO SECTION - Handles its own sticky positioning and animation */}
         <div 
@@ -165,9 +166,11 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
           </div>
         </div>
       </div>
+      )}
 
       {/* Mobile & Tablet layout - stacked single column */}
-      <div className="lg:hidden flex flex-col">
+      {isMobile && (
+      <div className="flex flex-col">
         <div className="w-full">
           <FeaturedVideoWebGL
             refForward={ref}
@@ -189,6 +192,7 @@ const SubVideoText = ({ ref }: SubVideoTextProps) => {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 };

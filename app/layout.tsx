@@ -43,6 +43,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="dns-prefetch" href="//s3-public-presigner-production-6b6f.up.railway.app" />
+        <link rel="preconnect" href="https://s3-public-presigner-production-6b6f.up.railway.app" />
+        <link rel="dns-prefetch" href="//railbucket-0bqb1b7ady2ufu.t3.storageapi.dev" />
+        <link rel="preconnect" href="https://railbucket-0bqb1b7ady2ufu.t3.storageapi.dev" crossOrigin="" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
