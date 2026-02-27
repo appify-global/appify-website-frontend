@@ -5,7 +5,7 @@
  */
 
 /** CDN used previously when LFS files weren't available in deploy (cdn.ebadfd.tech) */
-const FOUNDER_VIDEO_CDN_FALLBACK = "https://cdn.ebadfd.tech/Appify_Introduction_CEO_cropped.mp4";
+const FOUNDER_VIDEO_CDN_FALLBACK = "https://railbucket-0bqb1b7ady2ufu.t3.storageapi.dev/videos/Appify_Introduction_CEO_cropped.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=tid_FWDdzKnJyAqrcaYfTWLeYZQBcTvTEBcbBU_uFLpoAMxDomNXSS%2F20260227%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20260227T081035Z&X-Amz-Expires=604800&X-Amz-Signature=765ee56dc4530c60672c6e5b9f68f18013c38a6e5143c22e84388b926768bdb8&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject";
 
 /** Founder/reel video on home page (SubVideoText section) */
 export const FOUNDER_VIDEO_SRC =
