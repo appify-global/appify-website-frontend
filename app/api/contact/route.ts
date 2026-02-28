@@ -72,13 +72,9 @@ export async function POST(request: NextRequest) {
           ? String((error as { message?: unknown }).message)
           : String(error);
         console.error("Resend error:", resendMessage, error);
-        const isDev = process.env.NODE_ENV === "development";
+        // Return Resend's error so you can fix config (e.g. domain not verified, invalid key)
         return NextResponse.json(
-          {
-            error: isDev
-              ? `Resend: ${resendMessage}`
-              : "Failed to send message. Please try again or email us directly.",
-          },
+          { error: `Resend: ${resendMessage}` },
           { status: 502 }
         );
       }

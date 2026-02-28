@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.RESEND_NEWSLETTER_API_KEY;
+    const apiKey = process.env.RESEND_NEWSLETTER_API_KEY || process.env.RESEND_API_KEY;
     const audienceId = process.env.RESEND_AUDIENCE_ID;
 
     if (!apiKey || !audienceId) {
