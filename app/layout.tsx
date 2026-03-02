@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { JsonLd } from "@/components/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,10 +45,6 @@ export const metadata: Metadata = {
     description: "Custom software development, AI & ML engineering, and digital transformation.",
     images: ["/appify.png"],
   },
-  robots: {
-    index: false,
-    follow: false,
-  },
 };
 
 export default function RootLayout({
@@ -55,12 +52,33 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const baseUrl = "https://appify.global";
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${baseUrl}/#organization`,
+    name: "Appify",
+    url: baseUrl,
+    logo: `${baseUrl}/appify.png`,
+    description:
+      "Appify is a custom software development agency specializing in AI & ML engineering, mobile app development, enterprise ERP systems, and digital transformation across Australia, UAE, and Qatar.",
+  };
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Appify",
+    url: baseUrl,
+    description: "Custom software development, AI & ML engineering, and digital transformation.",
+    publisher: { "@id": `${baseUrl}/#organization` },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
+        <JsonLd data={[organizationSchema, websiteSchema]} />
         <ScrollToTop />
         {children}
       </body>

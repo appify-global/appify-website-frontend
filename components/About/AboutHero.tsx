@@ -47,11 +47,11 @@ const AboutHero = () => {
     >
       {/* Masked "ABOUT" and "US" text effect */}
       <div className="absolute inset-0 z-[1]">
-        {/* Large ABOUT text with gradient mask */}
+        {/* Large ABOUT text with gradient mask (div for decoration; only visible title is h1 below) */}
         <div className="absolute left-[-8%] md:left-[-10%] lg:left-[-15%] top-[10%] sm:top-[12%] lg:top-[103px]">
-          <h1 className="font-Aeonik text-[24vw] sm:text-[26vw] md:text-[22vw] lg:text-[138px] xl:text-[180px] leading-[0.85] tracking-[0.03em] text-transparent bg-clip-text bg-gradient-to-br from-black/10 to-black/5">
+          <div className="font-Aeonik text-[24vw] sm:text-[26vw] md:text-[22vw] lg:text-[138px] xl:text-[180px] leading-[0.85] tracking-[0.03em] text-transparent bg-clip-text bg-gradient-to-br from-black/10 to-black/5">
             ABOUT
-          </h1>
+          </div>
         </div>
         {/* US text positioned right */}
         <div className="absolute right-[4%] md:right-[8%] lg:right-[52%] top-[26%] sm:top-[28%] md:top-[30%] lg:top-[484px]">
@@ -70,25 +70,24 @@ const AboutHero = () => {
           ))}
         </div>
 
-        {/* Title container */}
+        {/* Title container - single h1 for SEO, same typography via inner spans */}
         <div ref={titleRef} className="flex-1 flex items-end lg:items-start lg:mt-[60px]">
           <div className="w-full">
-            {/* Mobile & tablet title - consistent sizes and spacing */}
-            <div className="lg:hidden space-y-0">
-              <h1 className="font-Aeonik text-[clamp(2.5rem,18vw,4rem)] sm:text-[clamp(3rem,20vw,4.5rem)] md:text-[clamp(3.25rem,14vw,4.5rem)] leading-[0.95] text-black tracking-[0.04em]">
-                ABOUT
-              </h1>
-              <h1 className="font-Aeonik text-[clamp(2.5rem,18vw,4rem)] sm:text-[clamp(3rem,20vw,4.5rem)] md:text-[clamp(3.25rem,14vw,4.5rem)] leading-[0.95] text-black tracking-[0.04em] -mt-1 sm:-mt-0.5">
-                US
-              </h1>
-            </div>
-
-            {/* Desktop title */}
-            <div className="hidden lg:block">
-              <h1 className="font-Aeonik text-[clamp(100px,12vw,220px)] leading-[1] text-black tracking-[0.04em]">
+            <h1 className="block w-full m-0 p-0 font-[inherit]">
+              {/* Mobile & tablet title - consistent sizes and spacing */}
+              <div className="lg:hidden space-y-0">
+                <span className="block font-Aeonik text-[clamp(2.5rem,18vw,4rem)] sm:text-[clamp(3rem,20vw,4.5rem)] md:text-[clamp(3.25rem,14vw,4.5rem)] leading-[0.95] text-black tracking-[0.04em]">
+                  ABOUT
+                </span>
+                <span className="block font-Aeonik text-[clamp(2.5rem,18vw,4rem)] sm:text-[clamp(3rem,20vw,4.5rem)] md:text-[clamp(3.25rem,14vw,4.5rem)] leading-[0.95] text-black tracking-[0.04em] -mt-1 sm:-mt-0.5">
+                  US
+                </span>
+              </div>
+              {/* Desktop title */}
+              <span className="hidden lg:block font-Aeonik text-[clamp(100px,12vw,220px)] leading-[1] text-black tracking-[0.04em]">
                 About Us
-              </h1>
-            </div>
+              </span>
+            </h1>
 
             {/* Year indicator - desktop only - hidden for now */}
             {/* <div className="hidden lg:flex items-start gap-4 absolute right-[5vw] top-[440px]">

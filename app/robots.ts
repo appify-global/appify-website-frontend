@@ -5,8 +5,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        disallow: "/",
+        allow: "/",
+        disallow: ["/api/"],
       },
     ],
+    sitemap: "https://appify.global/sitemap.xml",
   };
 }

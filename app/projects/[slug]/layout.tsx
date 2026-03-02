@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getProjectBySlug } from "@/data/projects";
 
 type LayoutProps = Readonly<{
@@ -11,11 +12,7 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
   const project = getProjectBySlug(slug);
 
   if (!project) {
-    return {
-      title: "Project Not Found | Appify",
-      description: "The requested project could not be found.",
-      alternates: { canonical: `/projects/${slug}` },
-    };
+    notFound();
   }
 
   const title = `${project.title} | Appify Projects`;
