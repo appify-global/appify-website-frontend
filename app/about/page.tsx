@@ -13,14 +13,14 @@ import ExpertiseSection from "@/components/About/ExpertiseSection";
 import CTASection from "@/components/About/CTASection";
 
 export const metadata: Metadata = {
-  title: "About Appify | Team, Experience, and Expertise",
+  title: "About",
   description:
     "Meet Appify's team and explore our expertise in software development, AI, and digital transformation across Australia, UAE, and Qatar.",
   alternates: {
     canonical: "/about",
   },
   openGraph: {
-    title: "About Appify | Team, Experience, and Expertise",
+    title: "About | Appify",
     description:
       "Meet Appify's team and explore our expertise in software development, AI, and digital transformation across Australia, UAE, and Qatar.",
     url: "https://appify.global/about",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About Appify | Team, Experience, and Expertise",
+    title: "About | Appify",
     description:
       "Meet Appify's team and explore our expertise in software development, AI, and digital transformation across Australia, UAE, and Qatar.",
     images: ["/appify.png"],

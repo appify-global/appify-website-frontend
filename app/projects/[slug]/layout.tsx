@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProjectBySlug } from "@/data/projects";
+import { truncateMetaDescription } from "@/lib/seo";
 
 type LayoutProps = Readonly<{
   children: React.ReactNode;
@@ -15,8 +16,8 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
     notFound();
   }
 
-  const title = `${project.title} | Appify Projects`;
-  const description = project.description;
+  const title = project.title;
+  const description = truncateMetaDescription(project.description);
   const image = project.imageUrl || "/appify.png";
   const canonicalPath = `/projects/${project.slug}`;
 

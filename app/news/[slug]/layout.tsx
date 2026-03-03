@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { fetchArticleBySlugServer } from "@/lib/api";
 import { newsArticles, type NewsArticle } from "@/data/news";
 import { JsonLd } from "@/components/JsonLd";
+import { truncateMetaDescription } from "@/lib/seo";
 
 type LayoutProps = Readonly<{
   children: React.ReactNode;
@@ -46,8 +47,8 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
   }
 
   const baseUrl = "https://appify.global";
-  const title = data.metaTitle || `${data.title} | Appify News`;
-  const description = data.metaDescription || data.excerpt;
+  const title = data.metaTitle || data.title;
+  const description = truncateMetaDescription(data.metaDescription || data.excerpt);
   const imagePath = data.imageUrl || "/appify.png";
   const imageUrl = imagePath.startsWith("http") ? imagePath : `${baseUrl}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
   const canonicalPath = `/news/${data.slug || slug}`;

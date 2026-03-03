@@ -6,7 +6,7 @@ import NewsPageClient from "./NewsPageClient";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "News Room | Appify",
+  title: "News Room",
   description:
     "Latest insights on AI, automation, product design, engineering, and digital transformation from Appify.",
   alternates: {

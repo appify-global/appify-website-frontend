@@ -6,7 +6,7 @@ import { ServicesHero, CategorySection, ServicesFooterCTA } from "@/components/s
 import { categoryDisplayOrder, getCategoryById } from "@/lib/data/services";
 
 export const metadata: Metadata = {
-  title: "Services | Appify",
+  title: "Services",
   description:
     "Explore Appify services across strategy, creative, development, and intelligence, including AI, automation, and custom software delivery.",
   alternates: {

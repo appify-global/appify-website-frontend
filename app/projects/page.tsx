@@ -7,7 +7,7 @@ import { projectsData } from "@/data/projects";
 import NextPageSection from "@/components/NextPageSection";
 
 export const metadata: Metadata = {
-  title: "Projects | Appify",
+  title: "Projects",
   description:
     "Browse Appify case studies and projects spanning AI development, product design, app development, and digital transformation.",
   alternates: {

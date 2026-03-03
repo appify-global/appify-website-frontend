@@ -16,8 +16,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://appify.global"),
-  title: "Appify | Custom Software Development, AI & Digital Transformation",
-  description: "Appify is a custom software development agency specializing in AI & ML engineering, mobile app development, enterprise ERP systems, and digital transformation across Australia, UAE, and Qatar.",
+  title: {
+    default: "Appify | Custom Software Development, AI & Digital Transformation",
+    template: "%s | Appify",
+  },
+  description: "Appify builds custom software, AI & ML solutions, mobile apps, and ERP systems. Digital transformation across Australia, UAE, and Qatar.",
   alternates: {
     canonical: "/",
   },
@@ -26,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: "https://appify.global",
     title: "Appify | Custom Software Development, AI & Digital Transformation",
-    description: "Appify partners with enterprises and startups to build custom software, AI solutions, and digital products.",
+    description: "Custom software, AI solutions, and digital products for enterprises and startups. Australia, UAE, Qatar.",
     type: "website",
     locale: "en_AU",
     siteName: "Appify",

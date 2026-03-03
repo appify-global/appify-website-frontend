@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { ServicePageTemplate } from '@/components/services';
+import { truncateMetaDescription } from '@/lib/seo';
 
 interface Props {
   params: Promise<{
@@ -90,7 +91,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!service) {
     return {
-      title: 'Service Not Found | Appify',
+      title: 'Service Not Found',
       description: 'The requested service could not be found.',
       alternates: {
         canonical: `/services/${category}/${serviceSlug}`,
@@ -98,17 +99,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const description = truncateMetaDescription(service.description);
   const canonicalPath = `/services/${category}/${serviceSlug}`;
 
   return {
-    title: `${service.name} | Appify`,
-    description: service.description,
+    title: service.name,
+    description,
     alternates: {
       canonical: canonicalPath,
     },
     openGraph: {
       title: `${service.name} | Appify`,
-      description: service.description,
+      description,
       url: `https://appify.global${canonicalPath}`,
       images: ["/appify.png"],
       type: "website",
@@ -116,7 +118,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: `${service.name} | Appify`,
-      description: service.description,
+      description,
       images: ["/appify.png"],
     },
   };
