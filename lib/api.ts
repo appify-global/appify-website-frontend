@@ -24,8 +24,8 @@ const DEFAULT_TIMEOUT_MS = 4_000;
 /** Extended timeout for listing endpoints that may return many articles (ms). */
 const LISTING_TIMEOUT_MS = 8_000;
 
-/** Timeout for server-side ISR fetches — falls back to static data on timeout. */
-const SERVER_TIMEOUT_MS = 5_000;
+/** Timeout for server-side fetches — falls back to static data on timeout. */
+const SERVER_TIMEOUT_MS = 15_000;
 
 /** ISR revalidation interval for server-side fetchers (seconds). */
 const ISR_REVALIDATE_S = 60;
