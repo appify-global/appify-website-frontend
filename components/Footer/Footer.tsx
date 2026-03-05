@@ -78,6 +78,9 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
     const scrollProgressRef = useRef(0);
     const hasNavigatedRef = useRef(false);
     const [progress, setProgress] = useState(0);
+    const [partnerEmail, setPartnerEmail] = useState("");
+    const [partnerStatus, setPartnerStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const [partnerError, setPartnerError] = useState("");
 
     useEffect(() => {
         setTimes(computeTimes());
@@ -148,6 +151,41 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
         return () => window.removeEventListener("wheel", handleWheel);
     }, [hideAboutUsSection, isAboutPage, router]);
 
+    const handlePartnerSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const email = partnerEmail.trim();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            setPartnerError("Please enter a valid email address.");
+            setPartnerStatus("error");
+            return;
+        }
+        setPartnerError("");
+        setPartnerStatus("loading");
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    firstName: "Partner",
+                    lastName: "signup",
+                    email,
+                    nda: "no" as const,
+                }),
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) {
+                setPartnerStatus("error");
+                setPartnerError(data.error || "Something went wrong. Please try again.");
+                return;
+            }
+            setPartnerStatus("success");
+            setPartnerEmail("");
+        } catch {
+            setPartnerStatus("error");
+            setPartnerError("Something went wrong. Please try again.");
+        }
+    };
+
     return (
         <footer className="w-full font-Aeonik">
             {/* MAIN AREA */}
@@ -174,19 +212,18 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
                         {/* LINKS + EMAILS */}
                         <div className="order-2 md:order-1">
                             <ul className="space-y-2 text-base sm:text-lg lg:text-xl mb-6 lg:mb-12">
-                                <li className="cursor-pointer">Youtube</li>
-                                <li className="cursor-pointer">Instagram</li>
-                                <li className="cursor-pointer">Linkedin</li>
+                                <li><a href="https://www.instagram.com/appifydev/" target="_blank" rel="noopener noreferrer" className="hover:underline">Instagram</a></li>
+                                <li><a href="https://au.linkedin.com/company/appify-global" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a></li>
                             </ul>
 
                             <div className="mb-4 lg:mb-12">
                                 <p className="text-base sm:text-lg lg:text-xl font-medium mb-1">General enquiries</p>
-                                <p className="text-base sm:text-lg lg:text-xl break-all md:break-normal">hello@appify.global</p>
+                                <a href="mailto:hello@appify.global" className="text-base sm:text-lg lg:text-xl break-all md:break-normal hover:underline">hello@appify.global</a>
                             </div>
 
                             <div className="mb-4 lg:mb-12">
                                 <p className="text-base sm:text-lg lg:text-xl font-medium mb-1">Support enquiries</p>
-                                <p className="text-base sm:text-lg lg:text-xl break-all md:break-normal">support@appify.global</p>
+                                <a href="mailto:support@appify.global" className="text-base sm:text-lg lg:text-xl break-all md:break-normal hover:underline">support@appify.global</a>
                             </div>
                         </div>
 
@@ -197,19 +234,31 @@ const Footer = ({ hideAboutUsSection = false }: FooterProps) => {
                                     Partner with <br /> our team
                                 </h2>
 
-                                <form className="w-full" onSubmit={(e) => e.preventDefault()}>
-                                    <div className="flex items-center w-full bg-[#f6f6fb] rounded-lg overflow-hidden border border-transparent">
-                                        <input
-                                            type="email"
-                                            placeholder="Your email"
-                                            required
-                                            className="flex-1 min-w-0 px-4 py-3 text-base bg-transparent focus:outline-none"
-                                        />
-                                        <button type="submit" className="px-4 py-3 flex-shrink-0">
-                                            <FaArrowRight size={16} />
-                                        </button>
-                                    </div>
-                                </form>
+                                {partnerStatus === "success" ? (
+                                    <p className="text-base text-green-700">Thanks! We&apos;ll be in touch soon.</p>
+                                ) : (
+                                    <form className="w-full" onSubmit={handlePartnerSubmit}>
+                                        <div className="flex flex-col gap-2">
+                                            <div className="flex items-center w-full bg-[#f6f6fb] rounded-lg overflow-hidden border border-transparent">
+                                                <input
+                                                    type="email"
+                                                    placeholder="Your email"
+                                                    required
+                                                    value={partnerEmail}
+                                                    onChange={(e) => setPartnerEmail(e.target.value)}
+                                                    disabled={partnerStatus === "loading"}
+                                                    className="flex-1 min-w-0 px-4 py-3 text-base bg-transparent focus:outline-none"
+                                                />
+                                                <button type="submit" disabled={partnerStatus === "loading"} className="px-4 py-3 flex-shrink-0 disabled:opacity-50">
+                                                    <FaArrowRight size={16} />
+                                                </button>
+                                            </div>
+                                            {partnerStatus === "error" && partnerError && (
+                                                <p className="text-sm text-red-600">{partnerError}</p>
+                                            )}
+                                        </div>
+                                    </form>
+                                )}
                             </div>
                         </div>
                     </div>

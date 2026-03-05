@@ -45,43 +45,49 @@ export async function POST(request: NextRequest) {
       : [];
     const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 
-    if (apiKey && toEmails.length > 0) {
-      const resend = new Resend(apiKey);
-
-      const text = [
-        `First name: ${firstName}`,
-        `Last name: ${lastName}`,
-        `Email: ${email}`,
-        `Company: ${company ?? "(not provided)"}`,
-        `NDA: ${nda}`,
-        message ? `Message: ${message}` : "",
-      ]
-        .filter(Boolean)
-        .join("\n");
-
-      const { error } = await resend.emails.send({
-        from: fromEmail,
-        to: toEmails,
-        subject: `Inquiry from ${firstName} ${lastName}`,
-        text,
-        html: `<pre>${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`,
-      });
-
-      if (error) {
-        const resendMessage = typeof error === "object" && error !== null && "message" in error
-          ? String((error as { message?: unknown }).message)
-          : String(error);
-        console.error("Resend error:", resendMessage, error);
-        // Return Resend's error so you can fix config (e.g. domain not verified, invalid key)
-        return NextResponse.json(
-          { error: `Resend: ${resendMessage}` },
-          { status: 502 }
-        );
-      }
-    } else {
-      console.log("[Contact form submission]", { firstName, lastName, email, company, nda, message });
+    if (!apiKey || toEmails.length === 0) {
+      console.error("[Contact] Missing config: RESEND_API_KEY or CONTACT_TO_EMAIL not set");
+      return NextResponse.json(
+        { error: "Email is not configured. Please try again later or contact us directly." },
+        { status: 503 }
+      );
     }
 
+    const resend = new Resend(apiKey);
+
+    const text = [
+      `First name: ${firstName}`,
+      `Last name: ${lastName}`,
+      `Email: ${email}`,
+      `Company: ${company ?? "(not provided)"}`,
+      `NDA: ${nda}`,
+      message ? `Message: ${message}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    console.log("[Contact] Sending to:", toEmails.join(", "), "from:", fromEmail);
+
+    const { data, error } = await resend.emails.send({
+      from: fromEmail,
+      to: toEmails,
+      subject: `Inquiry from ${firstName} ${lastName}`,
+      text,
+      html: `<pre>${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>`,
+    });
+
+    if (error) {
+      const resendMessage = typeof error === "object" && error !== null && "message" in error
+        ? String((error as { message?: unknown }).message)
+        : String(error);
+      console.error("[Contact] Resend error:", resendMessage, error);
+      return NextResponse.json(
+        { error: `Resend: ${resendMessage}` },
+        { status: 502 }
+      );
+    }
+
+    console.log("[Contact] Sent successfully, id:", (data as { id?: string } | null)?.id ?? "unknown");
     return NextResponse.json({ success: true });
   } catch (e) {
     console.error("Contact API error:", e);
