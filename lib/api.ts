@@ -225,7 +225,7 @@ export async function fetchAllArticlesServer(): Promise<NewsArticle[]> {
       `${API_BASE_URL}/api/news?status=published&limit=200`,
       {
         headers: { "Content-Type": "application/json" },
-        next: { revalidate: ISR_REVALIDATE_S },
+        cache: "no-store",
         signal: controller.signal,
       }
     );

@@ -35,6 +35,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "appify-backend-production-5a98.up.railway.app",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "t3.storageapi.dev",
         pathname: "/**",
       },

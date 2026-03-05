@@ -3,7 +3,7 @@ import { fetchAllArticlesServer } from "@/lib/api";
 import { featuredArticles, latestArticles } from "@/data/news";
 import NewsPageClient from "./NewsPageClient";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "News Room",
@@ -41,8 +41,8 @@ export default async function NewsPage() {
       const featured = all.filter((a) => a.isFeatured);
       initialFeatured = featured.length > 0 ? featured : all.slice(0, 3);
       initialLatest = all;
-    } catch {
-      // Fallback to static on API failure
+    } catch (err) {
+      console.error("News page API fetch failed:", err);
     }
   }
 
