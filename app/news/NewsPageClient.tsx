@@ -8,7 +8,7 @@ import NewsCategoryList from "@/components/News/NewsCategoryList";
 import FeaturedNewsCarousel from "@/components/News/FeaturedNewsCarousel";
 import NewsCard from "@/components/News/NewsCard";
 import { featuredArticles, latestArticles, NewsArticle } from "@/data/news";
-import { searchArticles } from "@/lib/api";
+import { searchArticles, fetchNewsPage } from "@/lib/api";
 import { PageLayout } from "@/components/layouts";
 import { NewsFilterProvider, useNewsFilter } from "@/contexts/NewsFilterContext";
 import { FaArrowRight } from "react-icons/fa";
@@ -37,9 +37,11 @@ function PlusIcon() {
 interface NewsPageClientProps {
   initialFeatured: NewsArticle[];
   initialLatest: NewsArticle[];
+  initialHasMore: boolean;
+  initialNextPage: number;
 }
 
-function NewsPageContent({ initialFeatured, initialLatest }: NewsPageClientProps) {
+function NewsPageContent({ initialFeatured, initialLatest, initialHasMore, initialNextPage }: NewsPageClientProps) {
   const filter = useNewsFilter();
   const activeCategories = filter?.activeCategories ?? [];
   const toggleCategory = filter?.toggleCategory ?? (() => {});
@@ -48,6 +50,29 @@ function NewsPageContent({ initialFeatured, initialLatest }: NewsPageClientProps
   const [featured, setFeatured] = useState<NewsArticle[]>(initialFeatured);
   const [latest, setLatest] = useState<NewsArticle[]>(initialLatest);
   const [loading, setLoading] = useState(false);
+
+  const [hasMore, setHasMore] = useState(initialHasMore);
+  const [nextPage, setNextPage] = useState(initialNextPage);
+  const [loadingMore, setLoadingMore] = useState(false);
+
+  const loadMore = useCallback(async () => {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    try {
+      const result = await fetchNewsPage(nextPage);
+      setLatest((prev) => {
+        const seen = new Set(prev.map((a) => a.id));
+        const newArticles = result.articles.filter((a) => !seen.has(a.id));
+        return [...prev, ...newArticles];
+      });
+      setHasMore(result.hasMore);
+      setNextPage(result.nextPage);
+    } catch (err) {
+      console.error("Failed to load more articles:", err);
+    } finally {
+      setLoadingMore(false);
+    }
+  }, [loadingMore, hasMore, nextPage]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<NewsArticle[] | null>(null);
@@ -302,6 +327,18 @@ function NewsPageContent({ initialFeatured, initialLatest }: NewsPageClientProps
                     <NewsCard key={article.id} article={article} />
                   ))}
                 </div>
+
+                {searchResults === null && hasMore && (
+                  <div className="flex justify-center py-10 md:py-14">
+                    <button
+                      onClick={loadMore}
+                      disabled={loadingMore}
+                      className="font-Aeonik text-[13px] md:text-[15px] tracking-[0.15em] uppercase border border-black/20 rounded-full px-8 py-3 hover:bg-black hover:text-white transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {loadingMore ? "Loading..." : "Load More"}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

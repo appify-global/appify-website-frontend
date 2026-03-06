@@ -7,7 +7,8 @@ import { getAllServices } from "@/lib/data/services";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let articles;
   try {
-    articles = await fetchAllArticlesServer();
+    const result = await fetchAllArticlesServer();
+    articles = result.articles;
   } catch {
     articles = newsArticles;
   }

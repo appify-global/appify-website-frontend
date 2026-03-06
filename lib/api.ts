@@ -22,10 +22,10 @@ const CLIENT_CACHE_TTL_MS = 60_000;
 const DEFAULT_TIMEOUT_MS = 4_000;
 
 /** Extended timeout for listing endpoints that may return many articles (ms). */
-const LISTING_TIMEOUT_MS = 8_000;
+const LISTING_TIMEOUT_MS = 10_000;
 
 /** Timeout for server-side fetches — falls back to static data on timeout. */
-const SERVER_TIMEOUT_MS = 15_000;
+const SERVER_TIMEOUT_MS = 45_000;
 
 /** ISR revalidation interval for server-side fetchers (seconds). */
 const ISR_REVALIDATE_S = 60;
@@ -192,8 +192,7 @@ let _allArticlesCache: { data: NewsArticle[]; ts: number } | null = null;
 let _inflight: Promise<NewsArticle[]> | null = null;
 
 /**
- * Fetch articles for listing (cached + deduped in-flight).
- * Requests multiple pages so older articles are included.
+ * Fetch page 1 of articles for listing (cached + deduped in-flight).
  * Strips content[] bodies — listing only needs metadata.
  */
 async function fetchArticlesFromAPI(): Promise<NewsArticle[]> {
@@ -205,39 +204,9 @@ async function fetchArticlesFromAPI(): Promise<NewsArticle[]> {
 
   _inflight = (async () => {
     try {
-      const allItems: ApiNewsArticle[] = [];
-      let page = 1;
-
-      while (page <= MAX_ARTICLE_PAGES) {
-        const offset = (page - 1) * ARTICLES_PAGE_SIZE;
-        const response = await fetchWithTimeout(
-          `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}&offset=${offset}`,
-          {
-            cache: "no-store",
-            headers: { "Content-Type": "application/json", "Accept-Encoding": "gzip" },
-          },
-          LISTING_TIMEOUT_MS
-        );
-
-        if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-        const payload = await response.json();
-        const items = extractArticleArray(payload);
-        allItems.push(...items);
-
-        const { totalPages, hasMore } = getPagination(payload);
-        const noMorePages =
-          (typeof totalPages === "number" && page >= totalPages) ||
-          (typeof hasMore === "boolean" && !hasMore) ||
-          items.length < ARTICLES_PAGE_SIZE;
-
-        if (noMorePages || items.length === 0) break;
-        page += 1;
-      }
-
-      const result = deduplicateArticles(allItems).map((a) => toNewsArticle(a, true));
-      _allArticlesCache = { data: result, ts: Date.now() };
-      return result;
+      const { articles } = await fetchNewsPage(1);
+      _allArticlesCache = { data: articles, ts: Date.now() };
+      return articles;
     } catch (error) {
       console.error("Failed to fetch articles from API:", error);
       throw error;
@@ -256,24 +225,31 @@ async function fetchArticlesFromAPI(): Promise<NewsArticle[]> {
 /** Default page size when fetching articles (backend may cap this). */
 const ARTICLES_PAGE_SIZE = 100;
 
-/** Max pages to fetch to avoid infinite loops (e.g. 10 pages = up to 1000 articles). */
-const MAX_ARTICLE_PAGES = 10;
+export interface NewsPageResult {
+  articles: NewsArticle[];
+  hasMore: boolean;
+  nextPage: number;
+}
+
+/** Number of pages to fetch on initial server-side load. */
+const INITIAL_SERVER_PAGES = 8;
 
 /**
- * Fetch all published articles via ISR (server components only).
- * Requests multiple pages if the backend returns pagination (page, totalPages, hasMore)
- * so older articles are included.
+ * Fetch the first batch of published articles (server components only).
+ * Loads multiple pages upfront so the initial view has plenty of articles,
+ * then the client "Load More" button fetches subsequent pages.
  * @throws {Error} On non-2xx response. Callers should catch and provide fallback data.
  */
-export async function fetchAllArticlesServer(): Promise<NewsArticle[]> {
+export async function fetchAllArticlesServer(): Promise<NewsPageResult> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), SERVER_TIMEOUT_MS);
 
   try {
     const allItems: ApiNewsArticle[] = [];
     let page = 1;
+    let lastHasMore = false;
 
-    while (page <= MAX_ARTICLE_PAGES) {
+    while (page <= INITIAL_SERVER_PAGES) {
       const offset = (page - 1) * ARTICLES_PAGE_SIZE;
       const url = `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}&offset=${offset}`;
       const res = await fetch(url, {
@@ -288,20 +264,51 @@ export async function fetchAllArticlesServer(): Promise<NewsArticle[]> {
       const items = extractArticleArray(payload);
       allItems.push(...items);
 
-      const { totalPages, hasMore } = getPagination(payload);
+      const pagination = getPagination(payload);
       const noMorePages =
-        (typeof totalPages === "number" && page >= totalPages) ||
-        (typeof hasMore === "boolean" && !hasMore) ||
+        (typeof pagination.totalPages === "number" && page >= pagination.totalPages) ||
+        (typeof pagination.hasMore === "boolean" && !pagination.hasMore) ||
         items.length < ARTICLES_PAGE_SIZE;
 
+      lastHasMore = !noMorePages && items.length > 0;
       if (noMorePages || items.length === 0) break;
       page += 1;
     }
 
-    return deduplicateArticles(allItems).map((a) => toNewsArticle(a, true));
+    const articles = deduplicateArticles(allItems).map((a) => toNewsArticle(a, true));
+    return { articles, hasMore: lastHasMore, nextPage: page + 1 };
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * Fetch a specific page of articles (client-side).
+ * Used by the "Load More" button.
+ */
+export async function fetchNewsPage(page: number): Promise<NewsPageResult> {
+  const offset = (page - 1) * ARTICLES_PAGE_SIZE;
+  const response = await fetchWithTimeout(
+    `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}&offset=${offset}`,
+    {
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+    },
+    LISTING_TIMEOUT_MS
+  );
+
+  if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+  const payload = await response.json();
+  const items = extractArticleArray(payload);
+  const articles = deduplicateArticles(items).map((a) => toNewsArticle(a, true));
+  const pagination = getPagination(payload);
+
+  const hasMore =
+    (typeof pagination.hasMore === "boolean" ? pagination.hasMore : false) ||
+    (typeof pagination.totalPages === "number" ? page < pagination.totalPages : false);
+
+  return { articles, hasMore, nextPage: page + 1 };
 }
 
 /**

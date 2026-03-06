@@ -23,7 +23,8 @@ export async function GET() {
   try {
     let articles;
     try {
-      articles = await fetchAllArticlesServer();
+      const result = await fetchAllArticlesServer();
+      articles = result.articles;
     } catch {
       articles = newsArticles;
     }

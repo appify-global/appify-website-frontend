@@ -34,13 +34,17 @@ export default async function NewsPage() {
 
   let initialFeatured = featuredArticles;
   let initialLatest = latestArticles;
+  let initialHasMore = false;
+  let initialNextPage = 2;
 
   if (!useStatic) {
     try {
-      const all = await fetchAllArticlesServer();
-      const featured = all.filter((a) => a.isFeatured);
-      initialFeatured = featured.length > 0 ? featured : all.slice(0, 3);
-      initialLatest = all;
+      const result = await fetchAllArticlesServer();
+      const featured = result.articles.filter((a) => a.isFeatured);
+      initialFeatured = featured.length > 0 ? featured : result.articles.slice(0, 3);
+      initialLatest = result.articles;
+      initialHasMore = result.hasMore;
+      initialNextPage = result.nextPage;
     } catch (err) {
       console.error("News page API fetch failed:", err);
     }
@@ -50,6 +54,8 @@ export default async function NewsPage() {
     <NewsPageClient
       initialFeatured={initialFeatured}
       initialLatest={initialLatest}
+      initialHasMore={initialHasMore}
+      initialNextPage={initialNextPage}
     />
   );
 }
