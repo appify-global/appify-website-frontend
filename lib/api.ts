@@ -109,6 +109,17 @@ const extractArticleArray = (payload: unknown): ApiNewsArticle[] => {
   return [];
 };
 
+/** Extract pagination info from the backend response (if present). */
+function getPagination(payload: unknown): { page?: number; totalPages?: number; hasMore?: boolean } {
+  if (!payload || typeof payload !== "object") return {};
+  const obj = payload as Record<string, unknown>;
+  return {
+    page: typeof obj.page === "number" ? obj.page : undefined,
+    totalPages: typeof obj.totalPages === "number" ? obj.totalPages : undefined,
+    hasMore: typeof obj.hasMore === "boolean" ? obj.hasMore : undefined,
+  };
+}
+
 /**
  * Extract a single article from the API response envelope.
  * The backend may return the article directly, wrapped in `{ article }`,
@@ -170,6 +181,7 @@ let _inflight: Promise<NewsArticle[]> | null = null;
 
 /**
  * Fetch articles for listing (cached + deduped in-flight).
+ * Requests multiple pages so older articles are included.
  * Strips content[] bodies — listing only needs metadata.
  */
 async function fetchArticlesFromAPI(): Promise<NewsArticle[]> {
@@ -181,20 +193,36 @@ async function fetchArticlesFromAPI(): Promise<NewsArticle[]> {
 
   _inflight = (async () => {
     try {
-      const response = await fetchWithTimeout(
-        `${API_BASE_URL}/api/news?status=published&limit=200`,
-        {
-          cache: "no-store",
-          headers: { "Content-Type": "application/json", "Accept-Encoding": "gzip" },
-        },
-        LISTING_TIMEOUT_MS
-      );
+      const allItems: ApiNewsArticle[] = [];
+      let page = 1;
 
-      if (!response.ok) throw new Error(`API error: ${response.status}`);
+      while (page <= MAX_ARTICLE_PAGES) {
+        const response = await fetchWithTimeout(
+          `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}`,
+          {
+            cache: "no-store",
+            headers: { "Content-Type": "application/json", "Accept-Encoding": "gzip" },
+          },
+          LISTING_TIMEOUT_MS
+        );
 
-      const payload = await response.json();
-      const items = extractArticleArray(payload);
-      const result = deduplicateArticles(items).map((a) => toNewsArticle(a, true));
+        if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+        const payload = await response.json();
+        const items = extractArticleArray(payload);
+        allItems.push(...items);
+
+        const { totalPages, hasMore } = getPagination(payload);
+        const noMorePages =
+          (typeof totalPages === "number" && page >= totalPages) ||
+          (typeof hasMore === "boolean" && !hasMore) ||
+          items.length < ARTICLES_PAGE_SIZE;
+
+        if (noMorePages || items.length === 0) break;
+        page += 1;
+      }
+
+      const result = deduplicateArticles(allItems).map((a) => toNewsArticle(a, true));
       _allArticlesCache = { data: result, ts: Date.now() };
       return result;
     } catch (error) {
@@ -212,8 +240,16 @@ async function fetchArticlesFromAPI(): Promise<NewsArticle[]> {
 // Public API — Server (ISR)
 // ===========================================================================
 
+/** Default page size when fetching articles (backend may cap this). */
+const ARTICLES_PAGE_SIZE = 100;
+
+/** Max pages to fetch to avoid infinite loops (e.g. 10 pages = up to 1000 articles). */
+const MAX_ARTICLE_PAGES = 10;
+
 /**
  * Fetch all published articles via ISR (server components only).
+ * Requests multiple pages if the backend returns pagination (page, totalPages, hasMore)
+ * so older articles are included.
  * @throws {Error} On non-2xx response. Callers should catch and provide fallback data.
  */
 export async function fetchAllArticlesServer(): Promise<NewsArticle[]> {
@@ -221,20 +257,34 @@ export async function fetchAllArticlesServer(): Promise<NewsArticle[]> {
   const timer = setTimeout(() => controller.abort(), SERVER_TIMEOUT_MS);
 
   try {
-    const res = await fetch(
-      `${API_BASE_URL}/api/news?status=published&limit=200`,
-      {
+    const allItems: ApiNewsArticle[] = [];
+    let page = 1;
+
+    while (page <= MAX_ARTICLE_PAGES) {
+      const url = `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}`;
+      const res = await fetch(url, {
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
         signal: controller.signal,
-      }
-    );
+      });
 
-    if (!res.ok) throw new Error(`API ${res.status}`);
+      if (!res.ok) throw new Error(`API ${res.status}`);
 
-    const payload = await res.json();
-    const items = extractArticleArray(payload);
-    return deduplicateArticles(items).map((a) => toNewsArticle(a, true));
+      const payload = await res.json();
+      const items = extractArticleArray(payload);
+      allItems.push(...items);
+
+      const { totalPages, hasMore } = getPagination(payload);
+      const noMorePages =
+        (typeof totalPages === "number" && page >= totalPages) ||
+        (typeof hasMore === "boolean" && !hasMore) ||
+        items.length < ARTICLES_PAGE_SIZE;
+
+      if (noMorePages || items.length === 0) break;
+      page += 1;
+    }
+
+    return deduplicateArticles(allItems).map((a) => toNewsArticle(a, true));
   } finally {
     clearTimeout(timer);
   }
