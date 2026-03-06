@@ -52,8 +52,32 @@ If true → Use static data directly
 
 ## API Endpoints Used
 
-- `GET /api/news?status=published` - Fetch all published articles
+- `GET /api/news?status=published&limit=100&page=1&offset=0` - Fetch published articles (paginated)
 - `GET /api/news/:slug` - Fetch single article by slug
+
+## Backend requirements (older articles to show)
+
+For **all** articles (including older ones) to appear on the news page, the backend **must**:
+
+1. **Support pagination**  
+   The frontend requests multiple pages with:
+   - `limit` – page size (e.g. 100)
+   - `page` – page number (1, 2, 3, …) **and/or**
+   - `offset` – skip N items (0, 100, 200, …)
+
+   The backend should return the correct slice for that page (e.g. for `page=2&limit=100` return items 101–200).
+
+2. **Return all published articles**  
+   Do **not** filter the listing to “last 7 days” or “recent only”. The listing endpoint should return every article with `status=published`, ordered by date (newest first is fine). Any “recent only” or date filter will make older posts disappear.
+
+3. **Optional: pagination metadata**  
+   So the frontend knows when to stop, the response can include:
+   - `totalPages` or `total_pages` (number), and/or
+   - `hasMore` or `has_more` (boolean)
+
+   If the backend doesn’t send these, the frontend still requests more pages until it gets fewer than `limit` items.
+
+**If older articles are still missing:** check the backend implementation of `GET /api/news` for a date filter or a default limit that’s too small, and ensure `page` or `offset` is actually used when returning results.
 
 ## Data Mapping
 

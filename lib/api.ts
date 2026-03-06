@@ -109,14 +109,26 @@ const extractArticleArray = (payload: unknown): ApiNewsArticle[] => {
   return [];
 };
 
-/** Extract pagination info from the backend response (if present). */
+/** Extract pagination info from the backend response (camelCase or snake_case). */
 function getPagination(payload: unknown): { page?: number; totalPages?: number; hasMore?: boolean } {
   if (!payload || typeof payload !== "object") return {};
   const obj = payload as Record<string, unknown>;
+  const totalPages =
+    typeof obj.totalPages === "number"
+      ? obj.totalPages
+      : typeof (obj as Record<string, unknown>).total_pages === "number"
+        ? (obj as Record<string, unknown>).total_pages
+        : undefined;
+  const hasMore =
+    typeof obj.hasMore === "boolean"
+      ? obj.hasMore
+      : typeof (obj as Record<string, unknown>).has_more === "boolean"
+        ? (obj as Record<string, unknown>).has_more
+        : undefined;
   return {
     page: typeof obj.page === "number" ? obj.page : undefined,
-    totalPages: typeof obj.totalPages === "number" ? obj.totalPages : undefined,
-    hasMore: typeof obj.hasMore === "boolean" ? obj.hasMore : undefined,
+    totalPages,
+    hasMore,
   };
 }
 
@@ -197,8 +209,9 @@ async function fetchArticlesFromAPI(): Promise<NewsArticle[]> {
       let page = 1;
 
       while (page <= MAX_ARTICLE_PAGES) {
+        const offset = (page - 1) * ARTICLES_PAGE_SIZE;
         const response = await fetchWithTimeout(
-          `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}`,
+          `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}&offset=${offset}`,
           {
             cache: "no-store",
             headers: { "Content-Type": "application/json", "Accept-Encoding": "gzip" },
@@ -261,7 +274,8 @@ export async function fetchAllArticlesServer(): Promise<NewsArticle[]> {
     let page = 1;
 
     while (page <= MAX_ARTICLE_PAGES) {
-      const url = `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}`;
+      const offset = (page - 1) * ARTICLES_PAGE_SIZE;
+      const url = `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}&offset=${offset}`;
       const res = await fetch(url, {
         headers: { "Content-Type": "application/json" },
         cache: "no-store",
