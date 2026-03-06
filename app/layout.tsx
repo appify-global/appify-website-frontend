@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { JsonLd } from "@/components/JsonLd";
+
+const GA_MEASUREMENT_ID = "G-47WPQ722HP";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -78,9 +80,12 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
+      >
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-47WPQ722HP"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"
         />
         <Script id="gtag-init" strategy="afterInteractive">
@@ -88,14 +93,9 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-47WPQ722HP');
+            gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
         <JsonLd data={[organizationSchema, websiteSchema]} />
         <ScrollToTop />
         {children}
