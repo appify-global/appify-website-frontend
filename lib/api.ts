@@ -113,17 +113,17 @@ const extractArticleArray = (payload: unknown): ApiNewsArticle[] => {
 function getPagination(payload: unknown): { page?: number; totalPages?: number; hasMore?: boolean } {
   if (!payload || typeof payload !== "object") return {};
   const obj = payload as Record<string, unknown>;
-  const totalPages =
+  const totalPages: number | undefined =
     typeof obj.totalPages === "number"
       ? obj.totalPages
-      : typeof (obj as Record<string, unknown>).total_pages === "number"
-        ? (obj as Record<string, unknown>).total_pages
+      : typeof obj.total_pages === "number"
+        ? (obj.total_pages as number)
         : undefined;
-  const hasMore =
+  const hasMore: boolean | undefined =
     typeof obj.hasMore === "boolean"
       ? obj.hasMore
-      : typeof (obj as Record<string, unknown>).has_more === "boolean"
-        ? (obj as Record<string, unknown>).has_more
+      : typeof obj.has_more === "boolean"
+        ? (obj.has_more as boolean)
         : undefined;
   return {
     page: typeof obj.page === "number" ? obj.page : undefined,
