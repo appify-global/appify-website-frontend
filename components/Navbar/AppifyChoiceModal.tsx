@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-const CALENDLY_URL = "https://calendly.com/mennan-appify/30min";
+const CALENDLY_URL = "https://calendly.com/appify-intro/30min";
 
 interface AppifyChoiceModalProps {
   open: boolean;

@@ -68,7 +68,7 @@ const Hero: React.FC = () => {
             <DotButton
               text="FREE DISCOVERY CALL"
               variant="white"
-              href="https://calendly.com/mennan-appify/30min"
+              href="https://calendly.com/appify-intro/30min"
               target="_blank"
               rel="noopener noreferrer"
             />
@@ -87,7 +87,7 @@ const Hero: React.FC = () => {
                 text="FREE DISCOVERY CALL"
                 variant="white"
                 className="free-discovery-call-btn"
-                href="https://calendly.com/mennan-appify/30min"
+                href="https://calendly.com/appify-intro/30min"
                 target="_blank"
                 rel="noopener noreferrer"
               />

@@ -197,7 +197,7 @@ const ServicesHero = () => {
               text="FREE DISCOVERY CALL"
               variant="white"
               className="free-discovery-call-btn"
-              href="https://calendly.com/mennan-appify/30min"
+              href="https://calendly.com/appify-intro/30min"
               target="_blank"
               rel="noopener noreferrer"
             />
