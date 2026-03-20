@@ -4,6 +4,8 @@ import { newsArticles } from "@/data/news";
 import { projectsData } from "@/data/projects";
 import { getAllServices } from "@/lib/data/services";
 
+export const revalidate = 3600; // regenerate sitemap every hour
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let articles;
   try {
