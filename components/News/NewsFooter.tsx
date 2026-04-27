@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { FaArrowUp, FaArrowRight, FaHeart } from "react-icons/fa";
 
 const cities = [
@@ -83,6 +84,21 @@ export default function NewsFooter() {
                 <li className="cursor-pointer">Youtube</li>
                 <li className="cursor-pointer">Instagram</li>
                 <li className="cursor-pointer">Linkedin</li>
+                <li>
+                  <Link href="/news/archive" className="hover:underline">
+                    News archive
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="/news/feed.xml"
+                    className="hover:underline"
+                    rel="alternate"
+                    type="application/rss+xml"
+                  >
+                    RSS feed
+                  </a>
+                </li>
               </ul>
 
               <div className="mb-4 lg:mb-12">

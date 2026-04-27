@@ -49,6 +49,8 @@ interface ApiNewsArticle {
   content?: NewsArticle["content"];
   metaTitle?: string;
   metaDescription?: string;
+  updatedAt?: string;
+  updated_at?: string;
 }
 
 interface ApiNewsEnvelope {
@@ -96,6 +98,7 @@ const toNewsArticle = (
   content: stripContent ? [] : (article.content || []),
   metaTitle: article.metaTitle || "",
   metaDescription: article.metaDescription || "",
+  updatedAt: article.updatedAt || article.updated_at || "",
 });
 
 /** Extract an array of articles from the backend's response envelope. */
@@ -309,6 +312,49 @@ export async function fetchNewsPage(page: number): Promise<NewsPageResult> {
     (typeof pagination.totalPages === "number" ? page < pagination.totalPages : false);
 
   return { articles, hasMore, nextPage: page + 1 };
+}
+
+/**
+ * Fetch a single page of articles server-side, with ISR caching enabled.
+ * Used by paginated list routes that need to be statically generated.
+ */
+export async function fetchNewsPageServer(page: number): Promise<NewsPageResult> {
+  const offset = (page - 1) * ARTICLES_PAGE_SIZE;
+  const url = `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}&offset=${offset}`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), SERVER_TIMEOUT_MS);
+  try {
+    const res = await fetch(url, {
+      headers: { "Content-Type": "application/json" },
+      next: { revalidate: ISR_REVALIDATE_S },
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    const payload = await res.json();
+    const items = extractArticleArray(payload);
+    const articles = deduplicateArticles(items).map((a) => toNewsArticle(a, true));
+    const pagination = getPagination(payload);
+    const hasMore =
+      (typeof pagination.hasMore === "boolean" ? pagination.hasMore : false) ||
+      (typeof pagination.totalPages === "number" ? page < pagination.totalPages : false) ||
+      items.length >= ARTICLES_PAGE_SIZE;
+    return { articles, hasMore, nextPage: page + 1 };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Fetch every published article slug for `generateStaticParams`.
+ * Returns an empty list on failure so the build still succeeds (pages render via fallback).
+ */
+export async function fetchAllSlugsServer(): Promise<string[]> {
+  try {
+    const result = await fetchAllArticlesServer();
+    return result.articles.map((a) => a.slug).filter((s): s is string => Boolean(s));
+  } catch {
+    return [];
+  }
 }
 
 /**

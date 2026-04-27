@@ -7,7 +7,7 @@ import NewsHero from "@/components/News/NewsHero";
 import NewsCategoryList from "@/components/News/NewsCategoryList";
 import FeaturedNewsCarousel from "@/components/News/FeaturedNewsCarousel";
 import NewsCard from "@/components/News/NewsCard";
-import { featuredArticles, latestArticles, NewsArticle } from "@/data/news";
+import { NewsArticle } from "@/data/news";
 import { searchArticles, fetchNewsPage } from "@/lib/api";
 import { PageLayout } from "@/components/layouts";
 import { NewsFilterProvider, useNewsFilter } from "@/contexts/NewsFilterContext";

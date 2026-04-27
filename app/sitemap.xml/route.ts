@@ -35,21 +35,26 @@ export async function GET() {
       { url: `${BASE}/services`, lastModified: new Date() },
       { url: `${BASE}/projects`, lastModified: new Date() },
       { url: `${BASE}/news`, lastModified: new Date() },
+      { url: `${BASE}/news/archive`, lastModified: new Date() },
     ];
 
-    const articlePages = articles.map((a) => {
-      let lastModified = new Date();
-      if (a.date) {
-        const parsed = a.date.includes("/")
-          ? (() => {
-              const [d, m, y] = a.date!.split("/");
-              return new Date(parseInt(y!, 10), parseInt(m!, 10) - 1, parseInt(d!, 10));
-            })()
-          : new Date(a.date);
-        if (!Number.isNaN(parsed.getTime())) lastModified = parsed;
+    const parseDate = (input?: string): Date | null => {
+      if (!input) return null;
+      if (input.includes("/")) {
+        const [d, m, y] = input.split("/");
+        if (d && m && y) {
+          const parsed = new Date(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
+          if (!Number.isNaN(parsed.getTime())) return parsed;
+        }
       }
-      return { url: `${BASE}/news/${a.slug}`, lastModified };
-    });
+      const parsed = new Date(input);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    };
+
+    const articlePages = articles.map((a) => ({
+      url: `${BASE}/news/${a.slug}`,
+      lastModified: parseDate(a.updatedAt) ?? parseDate(a.date) ?? new Date(),
+    }));
 
     const projectPages = projectsData.map((project) => ({
       url: `${BASE}/projects/${project.slug}`,

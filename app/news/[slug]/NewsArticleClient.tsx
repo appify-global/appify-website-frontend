@@ -8,6 +8,7 @@ import { newsArticles, newsCategories, ArticleContentBlock, NewsArticle } from "
 import { getArticleBySlug } from "@/lib/api";
 import { PageLayout } from "@/components/layouts";
 import NewsFooter from "@/components/News/NewsFooter";
+import RelatedArticles from "@/components/News/RelatedArticles";
 import { NewsFilterProvider } from "@/contexts/NewsFilterContext";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
@@ -73,7 +74,13 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
   );
 }
 
-function NewsArticleContent({ initialArticle }: { initialArticle: NewsArticle | null }) {
+function NewsArticleContent({
+  initialArticle,
+  relatedArticles,
+}: {
+  initialArticle: NewsArticle | null;
+  relatedArticles: NewsArticle[];
+}) {
   const params = useParams();
   const router = useRouter();
   const slug = params.slug as string;
@@ -271,6 +278,8 @@ function NewsArticleContent({ initialArticle }: { initialArticle: NewsArticle | 
                 </div>
               )}
 
+              <RelatedArticles articles={relatedArticles} />
+
               {/* Bottom spacing */}
               <div className="h-20 lg:h-32" />
             </div>
@@ -286,10 +295,19 @@ function NewsArticleContent({ initialArticle }: { initialArticle: NewsArticle | 
   );
 }
 
-export default function NewsArticleClient({ initialArticle }: { initialArticle: NewsArticle | null }) {
+export default function NewsArticleClient({
+  initialArticle,
+  relatedArticles = [],
+}: {
+  initialArticle: NewsArticle | null;
+  relatedArticles?: NewsArticle[];
+}) {
   return (
     <NewsFilterProvider>
-      <NewsArticleContent initialArticle={initialArticle} />
+      <NewsArticleContent
+        initialArticle={initialArticle}
+        relatedArticles={relatedArticles}
+      />
     </NewsFilterProvider>
   );
 }

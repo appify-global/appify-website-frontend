@@ -4,7 +4,12 @@ import { notFound } from "next/navigation";
 import { fetchArticleBySlugServer } from "@/lib/api";
 import { newsArticles, type NewsArticle } from "@/data/news";
 import { JsonLd } from "@/components/JsonLd";
-import { truncateMetaDescription } from "@/lib/seo";
+import {
+  buildArticleDescription,
+  buildArticleKeywords,
+  buildArticleTitle,
+  firstParagraph,
+} from "@/lib/seo";
 
 type LayoutProps = Readonly<{
   children: React.ReactNode;
@@ -38,6 +43,16 @@ function toISODate(dateStr: string): string {
   return Number.isNaN(parsed.getTime()) ? new Date().toISOString() : parsed.toISOString();
 }
 
+function wordCount(article: NewsArticle): number {
+  if (!article.content) return 0;
+  return article.content.reduce((sum, b) => {
+    if (b.type === "paragraph" || b.type === "heading" || b.type === "subheading") {
+      return sum + (b.text?.split(/\s+/).filter(Boolean).length ?? 0);
+    }
+    return sum;
+  }, 0);
+}
+
 export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {
   const { slug } = await params;
   const data = await getCachedArticle(slug);
@@ -47,15 +62,20 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
   }
 
   const baseUrl = "https://appify.global";
-  const title = data.metaTitle || data.title;
-  const description = truncateMetaDescription(data.metaDescription || data.excerpt);
+  const title = buildArticleTitle(data);
+  const description = buildArticleDescription(data);
+  const keywords = buildArticleKeywords(data);
   const imagePath = data.imageUrl || "/appify.png";
   const imageUrl = imagePath.startsWith("http") ? imagePath : `${baseUrl}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
   const canonicalPath = `/news/${data.slug || slug}`;
+  const publishedTime = toISODate(data.date);
+  const modifiedTime = toISODate(data.updatedAt || data.date);
 
   return {
     title,
     description,
+    keywords,
+    authors: data.author ? [{ name: data.author }] : undefined,
     alternates: {
       canonical: canonicalPath,
     },
@@ -65,6 +85,11 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
       url: `${baseUrl}${canonicalPath}`,
       images: [imageUrl],
       type: "article",
+      publishedTime,
+      modifiedTime,
+      authors: data.author ? [data.author] : undefined,
+      section: data.category,
+      tags: keywords,
     },
     twitter: {
       card: "summary_large_image",
@@ -84,14 +109,24 @@ export default async function NewsArticleLayout({ children, params }: LayoutProp
   const articleUrl = `${baseUrl}/news/${data.slug || slug}`;
   const imagePath = data.imageUrl || "/appify.png";
   const imageUrl = imagePath.startsWith("http") ? imagePath : `${baseUrl}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;
+  const description = buildArticleDescription(data);
+  const keywords = buildArticleKeywords(data);
+  const words = wordCount(data);
+  const opening = firstParagraph(data);
 
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "NewsArticle",
     headline: data.title,
-    image: imageUrl,
+    description,
+    image: [imageUrl],
     datePublished: toISODate(data.date),
-    dateModified: toISODate(data.date),
+    dateModified: toISODate(data.updatedAt || data.date),
+    articleSection: data.category,
+    keywords: keywords.join(", "),
+    inLanguage: "en",
+    ...(words > 0 ? { wordCount: words } : {}),
+    ...(opening ? { articleBody: opening } : {}),
     author: {
       "@type": "Person",
       name: data.author || "Appify",
@@ -104,9 +139,19 @@ export default async function NewsArticleLayout({ children, params }: LayoutProp
     mainEntityOfPage: { "@type": "WebPage", "@id": articleUrl },
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      { "@type": "ListItem", position: 2, name: "News", item: `${baseUrl}/news` },
+      { "@type": "ListItem", position: 3, name: data.title, item: articleUrl },
+    ],
+  };
+
   return (
     <>
-      <JsonLd data={articleSchema} />
+      <JsonLd data={[articleSchema, breadcrumbSchema]} />
       {children}
     </>
   );

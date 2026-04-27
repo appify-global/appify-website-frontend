@@ -1,41 +1,52 @@
-import type { Metadata } from "next";
-import { getArticleBySlug } from "@/lib/api";
+import {
+  getArticleBySlug,
+  fetchAllSlugsServer,
+  fetchAllArticlesServer,
+} from "@/lib/api";
+import { newsArticles, type NewsArticle } from "@/data/news";
 import NewsArticleClient from "./NewsArticleClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
+export const dynamicParams = true;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+const RELATED_LIMIT = 3;
 
-  if (!article) {
-    return { title: "Article | Appify" };
+export async function generateStaticParams() {
+  if (process.env.NEXT_PUBLIC_USE_STATIC_DATA === "true") return [];
+  const slugs = await fetchAllSlugsServer();
+  return slugs.map((slug) => ({ slug }));
+}
+
+function pickRelated(
+  current: NewsArticle,
+  pool: NewsArticle[],
+  limit: number,
+): NewsArticle[] {
+  const currentCat = (current.category || current.topics || "").toUpperCase();
+  const sameCat = pool.filter(
+    (a) =>
+      a.slug !== current.slug &&
+      (a.category || a.topics || "").toUpperCase() === currentCat,
+  );
+  const others = pool.filter(
+    (a) =>
+      a.slug !== current.slug &&
+      (a.category || a.topics || "").toUpperCase() !== currentCat,
+  );
+  return [...sameCat, ...others].slice(0, limit);
+}
+
+async function loadRelated(current: NewsArticle): Promise<NewsArticle[]> {
+  if (process.env.NEXT_PUBLIC_USE_STATIC_DATA === "true") {
+    return pickRelated(current, newsArticles, RELATED_LIMIT);
   }
-
-  return {
-    title: article.title,
-    description: article.excerpt,
-    alternates: {
-      canonical: `/news/${slug}`,
-    },
-    openGraph: {
-      title: `${article.title} | Appify`,
-      description: article.excerpt || "",
-      url: `https://appify.global/news/${slug}`,
-      images: [article.imageUrl || "/appify.png"],
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: article.title,
-      description: article.excerpt || "",
-      images: [article.imageUrl || "/appify.png"],
-    },
-  };
+  try {
+    const result = await fetchAllArticlesServer();
+    const pool = result.articles.length > 0 ? result.articles : newsArticles;
+    return pickRelated(current, pool, RELATED_LIMIT);
+  } catch {
+    return pickRelated(current, newsArticles, RELATED_LIMIT);
+  }
 }
 
 export default async function NewsArticlePage({
@@ -45,5 +56,12 @@ export default async function NewsArticlePage({
 }) {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
-  return <NewsArticleClient initialArticle={article} />;
+  const related = article ? await loadRelated(article) : [];
+
+  return (
+    <NewsArticleClient
+      initialArticle={article}
+      relatedArticles={related}
+    />
+  );
 }
