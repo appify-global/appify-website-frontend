@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { newsArticles, newsCategories, ArticleContentBlock, NewsArticle } from "@/data/news";
 import { getArticleBySlug } from "@/lib/api";
+import { sanitizeArticleHtml } from "@/lib/sanitize";
+import { slugifyAuthor } from "@/data/authors";
 import { PageLayout } from "@/components/layouts";
 import NewsFooter from "@/components/News/NewsFooter";
 import RelatedArticles from "@/components/News/RelatedArticles";
@@ -22,7 +24,13 @@ function ActiveIndicator() {
   );
 }
 
-function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
+function ArticleContent({
+  blocks,
+  fallbackAlt,
+}: {
+  blocks: ArticleContentBlock[];
+  fallbackAlt: string;
+}) {
   return (
     <div className="mt-10 md:mt-12 lg:mt-16 space-y-8">
       {blocks.map((block, i) => {
@@ -47,6 +55,10 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
           );
         }
         if (block.type === "image") {
+          // Always render a meaningful alt: editor-supplied text, otherwise the
+          // article title. Empty alts are reserved for purely decorative images,
+          // which we currently don't model.
+          const alt = block.alt && block.alt.trim().length > 0 ? block.alt : fallbackAlt;
           return (
             <div
               key={i}
@@ -54,7 +66,7 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
             >
               <Image
                 src={block.src!}
-                alt={block.alt || ""}
+                alt={alt}
                 fill
                 loading="lazy"
                 className="object-cover"
@@ -66,7 +78,7 @@ function ArticleContent({ blocks }: { blocks: ArticleContentBlock[] }) {
           <p
             key={i}
             className="font-Aeonik text-[16px] md:text-[18px] lg:text-[20px] leading-relaxed text-black max-w-[850px] mb-6 md:mb-8"
-            dangerouslySetInnerHTML={{ __html: block.text || "" }}
+            dangerouslySetInnerHTML={{ __html: sanitizeArticleHtml(block.text) }}
           />
         );
       })}
@@ -247,9 +259,13 @@ function NewsArticleContent({
                     {article.date}
                   </span>
                   {article.author && (
-                    <span className="font-Aeonik text-[14px] md:text-[16px]">
+                    <Link
+                      href={`/team/${slugifyAuthor(article.author)}`}
+                      rel="author"
+                      className="font-Aeonik text-[14px] md:text-[16px] hover:text-black hover:underline transition-colors"
+                    >
                       — {article.author}
-                    </span>
+                    </Link>
                   )}
                 </div>
               </div>
@@ -268,7 +284,7 @@ function NewsArticleContent({
               {/* Article Body */}
               {article.content ? (
                 <div className="max-w-[850px]">
-                  <ArticleContent blocks={article.content} />
+                  <ArticleContent blocks={article.content} fallbackAlt={article.title} />
                 </div>
               ) : (
                 <div className="max-w-[850px] mt-8 md:mt-10 lg:mt-12">

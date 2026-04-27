@@ -10,6 +10,7 @@ import {
   buildArticleTitle,
   firstParagraph,
 } from "@/lib/seo";
+import { slugifyAuthor } from "@/data/authors";
 
 type LayoutProps = Readonly<{
   children: React.ReactNode;
@@ -129,7 +130,9 @@ export default async function NewsArticleLayout({ children, params }: LayoutProp
     ...(opening ? { articleBody: opening } : {}),
     author: {
       "@type": "Person",
+      "@id": `${baseUrl}/team/${slugifyAuthor(data.author || "Appify")}#person`,
       name: data.author || "Appify",
+      url: `${baseUrl}/team/${slugifyAuthor(data.author || "Appify")}`,
     },
     publisher: {
       "@type": "Organization",

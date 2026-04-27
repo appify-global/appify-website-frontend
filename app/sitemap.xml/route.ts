@@ -3,6 +3,8 @@ import { fetchAllArticlesServer } from "@/lib/api";
 import { newsArticles } from "@/data/news";
 import { projectsData } from "@/data/projects";
 import { getAllServices } from "@/lib/data/services";
+import { locations } from "@/data/locations";
+import { authorBios, slugifyAuthor } from "@/data/authors";
 
 const BASE = "https://appify.global";
 
@@ -36,7 +38,23 @@ export async function GET() {
       { url: `${BASE}/projects`, lastModified: new Date() },
       { url: `${BASE}/news`, lastModified: new Date() },
       { url: `${BASE}/news/archive`, lastModified: new Date() },
+      { url: `${BASE}/team`, lastModified: new Date() },
+      { url: `${BASE}/locations`, lastModified: new Date() },
     ];
+
+    const locationPages = locations.map((l) => ({
+      url: `${BASE}/locations/${l.slug}`,
+      lastModified: new Date(),
+    }));
+
+    const authorSlugs = new Set<string>(authorBios.map((a) => a.slug));
+    for (const article of articles) {
+      if (article.author) authorSlugs.add(slugifyAuthor(article.author));
+    }
+    const authorPages = Array.from(authorSlugs).map((slug) => ({
+      url: `${BASE}/team/${slug}`,
+      lastModified: new Date(),
+    }));
 
     const parseDate = (input?: string): Date | null => {
       if (!input) return null;
@@ -66,7 +84,14 @@ export async function GET() {
       lastModified: new Date(),
     }));
 
-    const all = [...staticPages, ...articlePages, ...projectPages, ...servicePages];
+    const all = [
+      ...staticPages,
+      ...articlePages,
+      ...projectPages,
+      ...servicePages,
+      ...locationPages,
+      ...authorPages,
+    ];
     const urlEntries = all
       .map(
         (e) =>

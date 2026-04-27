@@ -90,6 +90,16 @@ export default function NewsFooter() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/team" className="hover:underline">
+                    Our team
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/locations" className="hover:underline">
+                    Locations
+                  </Link>
+                </li>
+                <li>
                   <a
                     href="/news/feed.xml"
                     className="hover:underline"

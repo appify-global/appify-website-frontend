@@ -3,6 +3,8 @@ import { fetchAllArticlesServer } from "@/lib/api";
 import { newsArticles } from "@/data/news";
 import { projectsData } from "@/data/projects";
 import { getAllServices } from "@/lib/data/services";
+import { locations } from "@/data/locations";
+import { authorBios, slugifyAuthor } from "@/data/authors";
 
 export const revalidate = 3600; // regenerate sitemap every hour
 
@@ -22,7 +24,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: "https://appify.global/projects", lastModified: new Date() },
     { url: "https://appify.global/news", lastModified: new Date() },
     { url: "https://appify.global/news/archive", lastModified: new Date() },
+    { url: "https://appify.global/team", lastModified: new Date() },
+    { url: "https://appify.global/locations", lastModified: new Date() },
   ];
+
+  const locationPages: MetadataRoute.Sitemap = locations.map((l) => ({
+    url: `https://appify.global/locations/${l.slug}`,
+    lastModified: new Date(),
+  }));
+
+  const authorSlugs = new Set<string>(authorBios.map((a) => a.slug));
+  for (const article of articles) {
+    if (article.author) authorSlugs.add(slugifyAuthor(article.author));
+  }
+  const authorPages: MetadataRoute.Sitemap = Array.from(authorSlugs).map((slug) => ({
+    url: `https://appify.global/team/${slug}`,
+    lastModified: new Date(),
+  }));
 
   const parseDate = (input?: string): Date | null => {
     if (!input) return null;
@@ -55,5 +73,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
   }));
 
-  return [...staticPages, ...articlePages, ...projectPages, ...servicePages];
+  return [
+    ...staticPages,
+    ...articlePages,
+    ...projectPages,
+    ...servicePages,
+    ...locationPages,
+    ...authorPages,
+  ];
 }
