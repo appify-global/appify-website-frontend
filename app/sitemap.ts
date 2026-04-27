@@ -5,6 +5,7 @@ import { projectsData } from "@/data/projects";
 import { getAllServices } from "@/lib/data/services";
 import { locations } from "@/data/locations";
 import { authorBios, slugifyAuthor } from "@/data/authors";
+import { topics } from "@/data/topics";
 
 export const revalidate = 3600; // regenerate sitemap every hour
 
@@ -26,7 +27,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: "https://appify.global/news/archive", lastModified: new Date() },
     { url: "https://appify.global/team", lastModified: new Date() },
     { url: "https://appify.global/locations", lastModified: new Date() },
+    { url: "https://appify.global/topics", lastModified: new Date() },
   ];
+
+  const topicPages: MetadataRoute.Sitemap = topics.map((t) => ({
+    url: `https://appify.global/topics/${t.slug}`,
+    lastModified: new Date(),
+  }));
 
   const locationPages: MetadataRoute.Sitemap = locations.map((l) => ({
     url: `https://appify.global/locations/${l.slug}`,
@@ -80,5 +87,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...servicePages,
     ...locationPages,
     ...authorPages,
+    ...topicPages,
   ];
 }

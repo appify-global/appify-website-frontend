@@ -5,6 +5,7 @@ import { projectsData } from "@/data/projects";
 import { getAllServices } from "@/lib/data/services";
 import { locations } from "@/data/locations";
 import { authorBios, slugifyAuthor } from "@/data/authors";
+import { topics } from "@/data/topics";
 
 const BASE = "https://appify.global";
 
@@ -40,7 +41,13 @@ export async function GET() {
       { url: `${BASE}/news/archive`, lastModified: new Date() },
       { url: `${BASE}/team`, lastModified: new Date() },
       { url: `${BASE}/locations`, lastModified: new Date() },
+      { url: `${BASE}/topics`, lastModified: new Date() },
     ];
+
+    const topicPages = topics.map((t) => ({
+      url: `${BASE}/topics/${t.slug}`,
+      lastModified: new Date(),
+    }));
 
     const locationPages = locations.map((l) => ({
       url: `${BASE}/locations/${l.slug}`,
@@ -91,6 +98,7 @@ export async function GET() {
       ...servicePages,
       ...locationPages,
       ...authorPages,
+      ...topicPages,
     ];
     const urlEntries = all
       .map(

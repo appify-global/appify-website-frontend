@@ -29,6 +29,19 @@ export const metadata: Metadata = {
   },
   keywords: ["software development", "AI", "machine learning", "mobile app development", "ERP", "digital transformation", "Australia", "UAE", "Qatar"],
   authors: [{ name: "Appify" }],
+  // Search engine site verification — set the corresponding env vars in Railway
+  // once you've verified the domain in Search Console / Bing / Yandex.
+  verification: {
+    ...(process.env.GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+      : {}),
+    ...(process.env.YANDEX_VERIFICATION
+      ? { yandex: process.env.YANDEX_VERIFICATION }
+      : {}),
+    ...(process.env.BING_SITE_VERIFICATION
+      ? { other: { "msvalidate.01": process.env.BING_SITE_VERIFICATION } }
+      : {}),
+  },
   openGraph: {
     url: "https://appify.global",
     title: "Appify | Custom Software Development, AI & Digital Transformation",
