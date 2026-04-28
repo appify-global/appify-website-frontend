@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "About | Appify",
     description:
       "Meet Appify's team and explore our expertise in software development, AI, and digital transformation across Australia, UAE, and Qatar.",
-    url: "https://appify.global/about",
+    url: "https://www.appify.global/about",
     images: ["/appify.png"],
     type: "website",
   },

@@ -41,7 +41,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${title} | Appify`,
       description,
-      url: `https://appify.global/locations/${location.slug}`,
+      url: `https://www.appify.global/locations/${location.slug}`,
       images: ["/appify.png"],
       type: "website",
     },
@@ -63,7 +63,7 @@ export default async function CityPage({
   const location = getLocationBySlug(city);
   if (!location) notFound();
 
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const cityUrl = `${baseUrl}/locations/${location.slug}`;
 
   const localBusinessSchema = {

@@ -88,7 +88,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${author.name} | Appify`,
       description,
-      url: `https://appify.global/team/${slug}`,
+      url: `https://www.appify.global/team/${slug}`,
       images: [author.imageUrl || "/appify.png"],
       type: "profile",
     },
@@ -110,7 +110,7 @@ export default async function AuthorPage({
   const author = await loadAuthor(slug);
   if (!author) notFound();
 
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const authorUrl = `${baseUrl}/team/${slug}`;
   const personSchema = {
     "@context": "https://schema.org",

@@ -111,7 +111,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${service.name} | Appify`,
       description,
-      url: `https://appify.global${canonicalPath}`,
+      url: `https://www.appify.global${canonicalPath}`,
       images: ["/appify.png"],
       type: "website",
     },

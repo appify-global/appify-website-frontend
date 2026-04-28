@@ -45,7 +45,7 @@ export async function generateMetadata({
     openGraph: {
       title: topic.metaTitle,
       description: topic.metaDescription,
-      url: `https://appify.global/topics/${topic.slug}`,
+      url: `https://www.appify.global/topics/${topic.slug}`,
       images: ["/appify.png"],
       type: "website",
     },
@@ -70,7 +70,7 @@ export default async function TopicPage({
   const articles = await loadArticles();
   const matching = articles.filter((a) => matchArticleToTopic(topic, a));
 
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const topicUrl = `${baseUrl}/topics/${topic.slug}`;
   const breadcrumbSchema = {
     "@context": "https://schema.org",

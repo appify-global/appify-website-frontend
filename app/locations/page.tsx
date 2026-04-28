@@ -16,14 +16,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${TITLE} | Appify`,
     description: DESCRIPTION,
-    url: "https://appify.global/locations",
+    url: "https://www.appify.global/locations",
     images: ["/appify.png"],
     type: "website",
   },
 };
 
 export default function LocationsIndexPage() {
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

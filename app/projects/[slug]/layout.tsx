@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
     openGraph: {
       title,
       description,
-      url: `https://appify.global${canonicalPath}`,
+      url: `https://www.appify.global${canonicalPath}`,
       images: [image],
       type: "article",
     },

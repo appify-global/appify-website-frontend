@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${TITLE} | Appify`,
     description: DESCRIPTION,
-    url: "https://appify.global/team",
+    url: "https://www.appify.global/team",
     images: ["/appify.png"],
     type: "website",
   },
@@ -85,7 +85,7 @@ export default async function TeamIndexPage() {
   const articles = await loadArticles();
   const roster = buildRoster(articles);
 
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "Projects | Appify",
     description:
       "Browse Appify case studies and projects spanning AI development, product design, app development, and digital transformation.",
-    url: "https://appify.global/projects",
+    url: "https://www.appify.global/projects",
     images: ["/appify.png"],
     type: "website",
   },

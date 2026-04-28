@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "Services | Appify",
     description:
       "Explore Appify services across strategy, creative, development, and intelligence, including AI, automation, and custom software delivery.",
-    url: "https://appify.global/services",
+    url: "https://www.appify.global/services",
     images: ["/appify.png"],
     type: "website",
   },

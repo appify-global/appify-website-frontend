@@ -27,7 +27,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${project.title} | Appify`,
       description: project.description,
-      url: `https://appify.global/projects/${slug}`,
+      url: `https://www.appify.global/projects/${slug}`,
       images: [project.imageUrl || "/appify.png"],
       type: "website",
     },

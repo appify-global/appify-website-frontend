@@ -16,14 +16,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    url: "https://appify.global/topics",
+    url: "https://www.appify.global/topics",
     images: ["/appify.png"],
     type: "website",
   },
 };
 
 export default function TopicsIndexPage() {
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
