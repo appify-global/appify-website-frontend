@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${PAGE_TITLE} | Appify`,
     description: PAGE_DESCRIPTION,
-    url: "https://appify.global/news",
+    url: "https://www.appify.global/news",
     images: ["/appify.png"],
     type: "website",
   },
@@ -79,7 +79,7 @@ export default async function NewsPage() {
     }
   }
 
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

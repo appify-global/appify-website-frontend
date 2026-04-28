@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: LayoutProps): Promise<Metadat
     notFound();
   }
 
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const title = buildArticleTitle(data);
   const description = buildArticleDescription(data);
   const keywords = buildArticleKeywords(data);
@@ -106,7 +106,7 @@ export default async function NewsArticleLayout({ children, params }: LayoutProp
   const data = await getCachedArticle(slug);
   if (!data) notFound();
 
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const articleUrl = `${baseUrl}/news/${data.slug || slug}`;
   const imagePath = data.imageUrl || "/appify.png";
   const imageUrl = imagePath.startsWith("http") ? imagePath : `${baseUrl}${imagePath.startsWith("/") ? "" : "/"}${imagePath}`;

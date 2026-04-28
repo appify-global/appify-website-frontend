@@ -257,7 +257,7 @@ export async function fetchAllArticlesServer(): Promise<NewsPageResult> {
       const url = `${API_BASE_URL}/api/news?status=published&limit=${ARTICLES_PAGE_SIZE}&page=${page}&offset=${offset}`;
       const res = await fetch(url, {
         headers: { "Content-Type": "application/json" },
-        cache: "no-store",
+        next: { revalidate: ISR_REVALIDATE_S },
         signal: controller.signal,
       });
 
