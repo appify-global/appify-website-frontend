@@ -19,24 +19,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: "https://appify.global", lastModified: new Date() },
-    { url: "https://appify.global/about", lastModified: new Date() },
-    { url: "https://appify.global/services", lastModified: new Date() },
-    { url: "https://appify.global/projects", lastModified: new Date() },
-    { url: "https://appify.global/news", lastModified: new Date() },
-    { url: "https://appify.global/news/archive", lastModified: new Date() },
-    { url: "https://appify.global/team", lastModified: new Date() },
-    { url: "https://appify.global/locations", lastModified: new Date() },
-    { url: "https://appify.global/topics", lastModified: new Date() },
+    { url: "https://www.appify.global", lastModified: new Date() },
+    { url: "https://www.appify.global/about", lastModified: new Date() },
+    { url: "https://www.appify.global/services", lastModified: new Date() },
+    { url: "https://www.appify.global/projects", lastModified: new Date() },
+    { url: "https://www.appify.global/news", lastModified: new Date() },
+    { url: "https://www.appify.global/news/archive", lastModified: new Date() },
+    { url: "https://www.appify.global/team", lastModified: new Date() },
+    { url: "https://www.appify.global/locations", lastModified: new Date() },
+    { url: "https://www.appify.global/topics", lastModified: new Date() },
   ];
 
   const topicPages: MetadataRoute.Sitemap = topics.map((t) => ({
-    url: `https://appify.global/topics/${t.slug}`,
+    url: `https://www.appify.global/topics/${t.slug}`,
     lastModified: new Date(),
   }));
 
   const locationPages: MetadataRoute.Sitemap = locations.map((l) => ({
-    url: `https://appify.global/locations/${l.slug}`,
+    url: `https://www.appify.global/locations/${l.slug}`,
     lastModified: new Date(),
   }));
 
@@ -45,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (article.author) authorSlugs.add(slugifyAuthor(article.author));
   }
   const authorPages: MetadataRoute.Sitemap = Array.from(authorSlugs).map((slug) => ({
-    url: `https://appify.global/team/${slug}`,
+    url: `https://www.appify.global/team/${slug}`,
     lastModified: new Date(),
   }));
 
@@ -65,18 +65,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articlePages: MetadataRoute.Sitemap = articles.map((a) => {
     const lastModified = parseDate(a.updatedAt) ?? parseDate(a.date) ?? new Date();
     return {
-      url: `https://appify.global/news/${a.slug}`,
+      url: `https://www.appify.global/news/${a.slug}`,
       lastModified,
     };
   });
 
   const projectPages: MetadataRoute.Sitemap = projectsData.map((project) => ({
-    url: `https://appify.global/projects/${project.slug}`,
+    url: `https://www.appify.global/projects/${project.slug}`,
     lastModified: new Date(),
   }));
 
   const servicePages: MetadataRoute.Sitemap = getAllServices().map((service) => ({
-    url: `https://appify.global/services/${service.category}/${service.slug}`,
+    url: `https://www.appify.global/services/${service.category}/${service.slug}`,
     lastModified: new Date(),
   }));
 

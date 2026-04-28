@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://appify.global/sitemap.xml",
+    sitemap: "https://www.appify.global/sitemap.xml",
   };
 }

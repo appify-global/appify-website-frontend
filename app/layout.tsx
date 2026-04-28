@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://appify.global"),
+  metadataBase: new URL("https://www.appify.global"),
   title: {
     default: "Appify | Custom Software Development, AI & Digital Transformation",
     template: "%s | Appify",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       : {}),
   },
   openGraph: {
-    url: "https://appify.global",
+    url: "https://www.appify.global",
     title: "Appify | Custom Software Development, AI & Digital Transformation",
     description: "Custom software, AI solutions, and digital products for enterprises and startups. Australia, UAE, Qatar.",
     type: "website",
@@ -71,7 +71,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const baseUrl = "https://appify.global";
+  const baseUrl = "https://www.appify.global";
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",

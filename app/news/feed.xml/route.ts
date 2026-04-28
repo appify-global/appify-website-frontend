@@ -4,7 +4,7 @@ import { buildArticleDescription } from "@/lib/seo";
 
 export const revalidate = 3600;
 
-const SITE_URL = "https://appify.global";
+const SITE_URL = "https://www.appify.global";
 const FEED_TITLE = "Appify News";
 const FEED_DESCRIPTION =
   "AI engineering, custom software development, automation, and digital transformation insights from Appify.";

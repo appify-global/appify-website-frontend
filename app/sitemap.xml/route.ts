@@ -7,7 +7,7 @@ import { locations } from "@/data/locations";
 import { authorBios, slugifyAuthor } from "@/data/authors";
 import { topics } from "@/data/topics";
 
-const BASE = "https://appify.global";
+const BASE = "https://www.appify.global";
 
 function escapeXml(s: string): string {
   return s
