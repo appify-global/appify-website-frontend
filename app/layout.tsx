@@ -19,6 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.appify.global"),
+  icons: {
+    icon: "/appify_global_logo.jpeg",
+    shortcut: "/appify_global_logo.jpeg",
+    apple: "/appify_global_logo.jpeg",
+  },
   title: {
     default: "Appify | Custom Software Development, AI & Digital Transformation",
     template: "%s | Appify",
